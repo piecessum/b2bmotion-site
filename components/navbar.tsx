@@ -152,15 +152,15 @@ export function Navbar() {
             />
 
             <a
-              href="#"
-              className={navLinkClass(false)}
+              href="/news"
+              className={navLinkClass(pathname.startsWith("/news"))}
             >
               Новости
             </a>
 
             <a
-              href="#"
-              className={navLinkClass(false)}
+              href="/blog"
+              className={navLinkClass(pathname.startsWith("/blog"))}
             >
               Блог
             </a>
@@ -197,8 +197,8 @@ export function Navbar() {
               <div className="flex flex-wrap gap-1 mb-2">
                 {[
                   { label: "Функционал", href: "/platform" },
-                  { label: "Новости", href: "#" },
-                  { label: "Блог", href: "#" },
+                  { label: "Новости", href: "/news" },
+                  { label: "Блог", href: "/blog" },
                   { label: "Контакты", href: "/contacts" },
                 ].map((link) => (
                   <a
