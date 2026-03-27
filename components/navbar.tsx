@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Menu, X } from "lucide-react"
+import { Logo } from "@/components/logo"
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -28,10 +29,9 @@ export function Navbar() {
           {/* Logo */}
           <a
             href="/"
-            className="flex items-center px-4 h-11 font-heading font-semibold text-[#F5F5F5] text-sm tracking-tight whitespace-nowrap"
+            className="flex items-center px-4 h-11 shrink-0"
           >
-            <span className="gradient-text font-bold">B2B</span>
-            <span className="ml-1.5">Движение</span>
+            <Logo gradient className="h-4 w-auto" />
           </a>
 
           {/* Desktop links */}

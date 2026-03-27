@@ -1,3 +1,5 @@
+import { Logo } from "@/components/logo"
+
 export function Footer() {
   return (
     <footer className="relative py-16 px-6 border-t border-white/[0.04]">
@@ -5,9 +7,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
           {/* Logo */}
           <div>
-            <a href="#" className="inline-flex items-center gap-1.5 font-heading font-semibold text-xl tracking-tight">
-              <span className="gradient-text font-bold">B2B</span>
-              <span className="text-[#F5F5F5]">Движение</span>
+            <a href="#" className="inline-block">
+              <Logo gradient className="h-5 w-auto" />
             </a>
             <p className="mt-4 text-sm text-[#52525B] leading-relaxed">
               Автоматизация оптовых продаж с интеграцией 1С
