@@ -166,73 +166,62 @@ export function Navbar() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="md:hidden mt-2 p-4 rounded-2xl bg-[#0F0F14]/95 border border-white/[0.06] backdrop-blur-2xl">
-            <div className="flex flex-col gap-1">
-              <a
-                href="/platform"
-                className="px-4 py-3 text-sm text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04] rounded-xl transition-all duration-200"
-                onClick={() => setMobileOpen(false)}
-              >
-                Функционал
-              </a>
-
-              {/* Отрасли mobile */}
-              <div className="px-4 py-3 text-sm text-[#52525B] uppercase tracking-wider text-[10px] font-medium">
-                Отрасли
+          <div className="md:hidden mt-2 p-3 rounded-2xl bg-[#0F0F14]/95 border border-white/[0.06] backdrop-blur-2xl max-h-[75vh] overflow-y-auto">
+            <div className="flex flex-col">
+              {/* Main links row */}
+              <div className="flex flex-wrap gap-1 mb-2">
+                {[
+                  { label: "Функционал", href: "/platform" },
+                  { label: "Новости", href: "#" },
+                  { label: "Блог", href: "#" },
+                  { label: "Контакты", href: "/contacts" },
+                ].map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="px-3 py-2 text-sm text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04] rounded-lg transition-all duration-200"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                ))}
               </div>
-              {industries.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="px-6 py-2.5 text-sm text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04] rounded-xl transition-all duration-200"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
 
-              {/* Услуги mobile */}
-              <div className="px-4 py-3 text-sm text-[#52525B] uppercase tracking-wider text-[10px] font-medium mt-1">
-                Услуги
+              <div className="h-px bg-white/[0.06] my-1" />
+
+              {/* Отрасли + Услуги side by side */}
+              <div className="grid grid-cols-2 gap-2 my-2">
+                <div>
+                  <div className="px-2 py-1.5 text-[10px] text-[#52525B] uppercase tracking-wider font-medium">Отрасли</div>
+                  {industries.map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className="block px-2 py-2 text-xs text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04] rounded-lg transition-all duration-200 leading-tight"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+                <div>
+                  <div className="px-2 py-1.5 text-[10px] text-[#52525B] uppercase tracking-wider font-medium">Услуги</div>
+                  {services.map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className="block px-2 py-2 text-xs text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04] rounded-lg transition-all duration-200 leading-tight"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
               </div>
-              {services.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="px-6 py-2.5 text-sm text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04] rounded-xl transition-all duration-200"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
-
-              <a
-                href="#"
-                className="px-4 py-3 text-sm text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04] rounded-xl transition-all duration-200 mt-1"
-                onClick={() => setMobileOpen(false)}
-              >
-                Новости
-              </a>
-
-              <a
-                href="#"
-                className="px-4 py-3 text-sm text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04] rounded-xl transition-all duration-200"
-                onClick={() => setMobileOpen(false)}
-              >
-                Блог
-              </a>
 
               <a
                 href="/contacts"
-                className="px-4 py-3 text-sm text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04] rounded-xl transition-all duration-200"
-                onClick={() => setMobileOpen(false)}
-              >
-                Контакты
-              </a>
-
-              <a
-                href="/contacts"
-                className="mt-2 px-4 py-3 text-sm font-medium text-center rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white"
+                className="mt-1 px-4 py-3 text-sm font-medium text-center rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white"
                 onClick={() => setMobileOpen(false)}
               >
                 Оставить заявку
