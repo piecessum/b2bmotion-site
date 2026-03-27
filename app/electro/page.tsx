@@ -1,0 +1,165 @@
+"use client"
+
+import { useEffect, useRef } from "react"
+import { Navbar } from "@/components/navbar"
+import { CTASection } from "@/components/cta-section"
+import { Footer } from "@/components/footer"
+import { Search, DollarSign, Zap, BarChart3, Link, FileText, ArrowRight, Check, Database, RefreshCw, GitCompare, Shield } from "lucide-react"
+
+const stats = [
+  { value: "1.7М+", label: "товаров из базы РАЭК" },
+  { value: "760+", label: "брендов производителей" },
+  { value: "3 мес", label: "на внедрение" },
+  { value: "iOS + Android", label: "приложение в комплекте" },
+]
+
+const capabilities = [
+  { icon: Zap, title: "Товары в стандарте ETIM", desc: "Стандартизированные карточки из базы РАЭК — названия, артикулы, свойства, изображения, сертификаты EAC", large: true },
+  { icon: DollarSign, title: "Ценообразование", desc: "Тарифы, сегменты, региональные цены, скидки от объёма с напоминанием сколько добавить", large: false },
+  { icon: Search, title: "Умный поиск", desc: "По артикулу, названию, свойствам. Автоподбор аналогов и связанных товаров", large: false },
+  { icon: BarChart3, title: "Аналитика", desc: "Отчёты по менеджерам, среднему чеку, потерянным клиентам, эффективности работы", large: true },
+  { icon: Link, title: "Синхронизация со складом", desc: "Остатки по складам в реальном времени, сроки поставки по заказным позициям", large: false },
+  { icon: FileText, title: "Спецификации", desc: "Предзаказы, повторные заказы, обмен спецификациями между пользователями", large: false },
+]
+
+const raekBenefits = [
+  { icon: Database, title: "Стандартизированная информация", desc: "Эталонные характеристики товаров в едином стандарте ETIM" },
+  { icon: RefreshCw, title: "Регулярное обновление", desc: "Информация актуализируется раз в сутки с учётом ребрендинга" },
+  { icon: GitCompare, title: "Аналоги и связанные товары", desc: "Поиск аналогов с учётом физических габаритов и характеристик" },
+  { icon: Shield, title: "Чертежи и сертификаты", desc: "Фотографии, чертежи, паспорта изделий, сертификаты EAC, гарантийные талоны" },
+]
+
+const clients = [
+  { name: "РОСЭК", desc: "Федеральный дистрибьютор, входит в ТОП-5 электротехнических компаний Урала", url: "https://rosek24.ru/" },
+  { name: "РОС-Электро", desc: "Крупная региональная сеть электрооборудования и светотехнической продукции", url: "https://b2b.ros-elektro.ru/" },
+  { name: "50 Герц", desc: "Федеральный дистрибьютор электротехнического оборудования", url: "https://electro58.ru/" },
+  { name: "Форум Электро", desc: "Поставщик электротехнической и кабельно-проводниковой продукции с 30-летним стажем", url: "https://b2b.forumelectro.ru/" },
+  { name: "Сан Лайт Электро", desc: "Один из лидеров среди поставщиков низковольтной аппаратуры и светотехники", url: "https://lk-24.ru/" },
+  { name: "Кристалл-Электро", desc: "Франчайзинговая сеть электротоваров по 5 регионам России", url: "https://opt.k-kirov.ru/" },
+]
+
+function useReveal(ref: React.RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("visible") }),
+      { threshold: 0.1 }
+    )
+    ref.current?.querySelectorAll(".reveal").forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [ref])
+}
+
+export default function ElectroPage() {
+  const mainRef = useRef<HTMLElement>(null)
+  useReveal(mainRef)
+
+  return (
+    <main ref={mainRef} className="relative min-h-screen bg-[#09090B] noise-overlay">
+      <Navbar />
+
+      {/* Hero */}
+      <section className="relative pt-36 pb-20 px-6 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[700px] h-[700px] opacity-[0.06] pointer-events-none"><div className="absolute inset-0 bg-gradient-to-br from-amber-500 to-orange-500 rounded-full blur-[120px]" /></div>
+        <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <span className="reveal inline-block px-4 py-1.5 mb-6 text-xs font-medium uppercase tracking-[0.15em] text-amber-400 bg-amber-400/10 rounded-full">Электротехника</span>
+            <h1 className="reveal font-heading font-bold text-[clamp(32px,5vw,52px)] leading-[1.1] tracking-[-0.03em] mb-6">
+              <span className="text-[#F5F5F5]">B2B-платформа для</span><br />
+              <span className="gradient-text">электротехнических компаний</span>
+            </h1>
+            <p className="reveal text-lg text-[#A1A1AA] mb-8 max-w-lg">Интеграция с базой РАЭК, стандарт ETIM, продажа кабеля в бухтах и автоматический подбор аналогов</p>
+            <a href="#cta" className="reveal inline-flex px-8 py-4 bg-white text-[#09090B] font-semibold rounded-full hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">Обсудить проект</a>
+          </div>
+          <div className="reveal">
+            <div className="bg-[#111113] rounded-2xl border border-[#27272A] p-5">
+              <div className="flex items-center gap-2 mb-4"><div className="w-3 h-3 rounded-full bg-amber-500/30" /><span className="text-xs text-[#71717A]">Карточка товара ETIM</span></div>
+              <div className="p-4 bg-[#09090B] rounded-xl mb-3">
+                <p className="text-sm font-medium text-[#F5F5F5] mb-1">Кабель ВВГнг(А)-LS 3х2.5</p>
+                <p className="text-xs text-[#71717A] mb-3">Артикул: ВВГнг-А-LS-3x2.5 | ГОСТ 31996-2012</p>
+                <div className="space-y-2">
+                  {[["Сечение жилы", "2.5 мм²"], ["Количество жил", "3"], ["Напряжение", "660 В"], ["Класс гибкости", "1"]].map(([k, v], i) => (
+                    <div key={i} className="flex justify-between text-xs"><span className="text-[#71717A]">{k}</span><span className="text-[#A1A1AA]">{v}</span></div>
+                  ))}
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <span className="px-2 py-1 bg-emerald-500/10 text-emerald-500 text-xs rounded-md">Сертификат EAC</span>
+                <span className="px-2 py-1 bg-[#3B82F6]/10 text-[#3B82F6] text-xs rounded-md">ETIM 9.0</span>
+                <span className="px-2 py-1 bg-[#8B5CF6]/10 text-[#8B5CF6] text-xs rounded-md">3 аналога</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="py-16 px-6 border-y border-[#18181B]">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          {stats.map((s, i) => (
+            <div key={i} className="reveal">
+              <p className="font-heading font-bold text-3xl md:text-4xl gradient-text mb-2">{s.value}</p>
+              <p className="text-sm text-[#71717A]">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Capabilities bento */}
+      <section className="py-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-[#F5F5F5] text-center mb-16">Возможности платформы</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {capabilities.map((c, i) => (
+              <div key={i} className={`reveal p-8 bg-[#18181B] rounded-2xl border border-[#27272A] hover:border-[#3B82F6]/40 transition-all duration-500 glow-card ${c.large ? "md:col-span-2" : ""}`}>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center"><c.icon className="w-5 h-5 text-[#3B82F6]" /></div>
+                  <h3 className="font-heading font-semibold text-xl text-[#F5F5F5]">{c.title}</h3>
+                </div>
+                <p className="text-[#A1A1AA] leading-relaxed">{c.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* RAEK */}
+      <section className="py-24 px-6 bg-[#0A0A0C]">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-[#F5F5F5] mb-4">Готовая информация из базы РАЭК</h2>
+            <p className="reveal text-[#A1A1AA] max-w-2xl mx-auto">Мы — технический партнёр базы РАЭК. Более 760 брендов и 1.7 млн товаров с автоматическим обновлением</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {raekBenefits.map((b, i) => (
+              <div key={i} className="reveal flex gap-4 p-6 bg-[#18181B] rounded-2xl border border-[#27272A]">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0"><b.icon className="w-5 h-5 text-emerald-500" /></div>
+                <div><h3 className="font-heading font-semibold text-[#F5F5F5] mb-1">{b.title}</h3><p className="text-sm text-[#A1A1AA]">{b.desc}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Clients */}
+      <section className="py-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-[#F5F5F5] text-center mb-16">Электротехническую B2B-систему уже приобрели</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {clients.map((c, i) => (
+              <div key={i} className="reveal p-6 bg-[#18181B] rounded-2xl border border-[#27272A] hover:border-[#3B82F6]/40 transition-all duration-500 glow-card">
+                <h3 className="font-heading font-semibold text-xl text-[#F5F5F5] mb-2">{c.name}</h3>
+                <p className="text-sm text-[#A1A1AA] mb-4 leading-relaxed">{c.desc}</p>
+                <a href={c.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-medium gradient-text hover:opacity-80 transition-opacity">
+                  Перейти в систему <ArrowRight className="w-4 h-4" style={{ color: '#3B82F6' }} />
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CTASection />
+      <Footer />
+    </main>
+  )
+}

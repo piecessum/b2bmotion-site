@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.\\(tsx?|jsx?|css|json|mjs\\)$\")",
+      "WebFetch(domain:github.com)",
+      "Bash(npx next:*)",
+      "Bash(pnpm install:*)",
+      "Bash(npm install:*)",
+      "Bash(git init:*)",
+      "Bash(git remote:*)"
+    ]
+  }
+}
