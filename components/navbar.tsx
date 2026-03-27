@@ -133,6 +133,13 @@ export function Navbar() {
             </a>
 
             <a
+              href="#"
+              className="animated-underline flex items-center px-3 h-11 text-sm text-[#71717A] hover:text-[#E4E4E7] transition-colors duration-300"
+            >
+              Блог
+            </a>
+
+            <a
               href="/contacts"
               className="animated-underline flex items-center px-3 h-11 text-sm text-[#71717A] hover:text-[#E4E4E7] transition-colors duration-300"
             >
@@ -205,6 +212,14 @@ export function Navbar() {
                 onClick={() => setMobileOpen(false)}
               >
                 Новости
+              </a>
+
+              <a
+                href="#"
+                className="px-4 py-3 text-sm text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04] rounded-xl transition-all duration-200"
+                onClick={() => setMobileOpen(false)}
+              >
+                Блог
               </a>
 
               <a
