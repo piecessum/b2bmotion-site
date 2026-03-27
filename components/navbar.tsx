@@ -18,7 +18,7 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-[720px]">
+      <nav className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-[860px]">
         <div
           className={`flex items-center gap-1 px-1.5 rounded-2xl transition-all duration-500 ${
             scrolled
@@ -31,7 +31,7 @@ export function Navbar() {
             href="/"
             className="flex items-center px-4 h-11 shrink-0"
           >
-            <Logo gradient className="h-4 w-auto" />
+            <Logo gradient className="h-3 w-auto" />
           </a>
 
           {/* Desktop links */}
@@ -55,7 +55,7 @@ export function Navbar() {
           {/* CTA Button */}
           <a
             href="/contacts"
-            className="hidden md:flex items-center ml-2 px-5 h-9 my-1.5 text-sm font-medium rounded-xl transition-all duration-300 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white hover:shadow-[0_0_24px_rgba(59,130,246,0.4)] hover:brightness-110"
+            className="hidden md:flex items-center ml-2 px-5 h-9 my-1.5 text-sm font-medium rounded-xl transition-all duration-300 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white hover:shadow-[0_0_24px_rgba(59,130,246,0.4)] hover:brightness-110 whitespace-nowrap"
           >
             Запросить демо
           </a>
