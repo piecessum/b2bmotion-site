@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
+import { usePathname } from "next/navigation"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { Logo } from "@/components/logo"
 
@@ -18,16 +19,35 @@ const services = [
   { label: "Мобильное приложение", href: "#" },
 ]
 
+const industryPaths = industries.map((i) => i.href).filter((h) => h !== "#")
+const servicePaths = services.map((i) => i.href).filter((h) => h !== "#")
+
+function navLinkClass(isActive: boolean) {
+  if (isActive) {
+    return "flex items-center px-3 h-11 text-sm text-[#E4E4E7] bg-white/[0.06] rounded-lg transition-all duration-300"
+  }
+  return "animated-underline flex items-center px-3 h-11 text-sm text-[#71717A] hover:text-[#E4E4E7] transition-colors duration-300"
+}
+
+function dropdownTriggerClass(isActive: boolean) {
+  if (isActive) {
+    return "flex items-center gap-1 px-3 h-11 text-sm text-[#E4E4E7] bg-white/[0.06] rounded-lg transition-all duration-300"
+  }
+  return "animated-underline flex items-center gap-1 px-3 h-11 text-sm text-[#71717A] hover:text-[#E4E4E7] transition-colors duration-300"
+}
+
 function Dropdown({
   label,
   items,
   open,
   onToggle,
+  isActive,
 }: {
   label: string
   items: { label: string; href: string }[]
   open: boolean
   onToggle: () => void
+  isActive: boolean
 }) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -45,7 +65,7 @@ function Dropdown({
     <div ref={ref} className="relative">
       <button
         onClick={onToggle}
-        className="animated-underline flex items-center gap-1 px-3 h-11 text-sm text-[#71717A] hover:text-[#E4E4E7] transition-colors duration-300"
+        className={dropdownTriggerClass(isActive)}
       >
         {label}
         <ChevronDown
@@ -71,9 +91,13 @@ function Dropdown({
 }
 
 export function Navbar() {
+  const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+
+  const isIndustryActive = industryPaths.some((p) => pathname.startsWith(p))
+  const isServiceActive = servicePaths.some((p) => pathname.startsWith(p))
 
   useEffect(() => {
     const handleScroll = () => {
@@ -98,11 +122,11 @@ export function Navbar() {
             <Logo gradient className="h-3 w-auto" />
           </a>
 
-          {/* Desktop links — close to logo */}
+          {/* Desktop links */}
           <div className="hidden md:flex items-center ml-2">
             <a
               href="/platform"
-              className="animated-underline flex items-center px-3 h-11 text-sm text-[#71717A] hover:text-[#E4E4E7] transition-colors duration-300"
+              className={navLinkClass(pathname === "/platform")}
             >
               Функционал
             </a>
@@ -114,6 +138,7 @@ export function Navbar() {
               onToggle={() =>
                 setOpenDropdown(openDropdown === "industries" ? null : "industries")
               }
+              isActive={isIndustryActive}
             />
 
             <Dropdown
@@ -123,31 +148,32 @@ export function Navbar() {
               onToggle={() =>
                 setOpenDropdown(openDropdown === "services" ? null : "services")
               }
+              isActive={isServiceActive}
             />
 
             <a
               href="#"
-              className="animated-underline flex items-center px-3 h-11 text-sm text-[#71717A] hover:text-[#E4E4E7] transition-colors duration-300"
+              className={navLinkClass(false)}
             >
               Новости
             </a>
 
             <a
               href="#"
-              className="animated-underline flex items-center px-3 h-11 text-sm text-[#71717A] hover:text-[#E4E4E7] transition-colors duration-300"
+              className={navLinkClass(false)}
             >
               Блог
             </a>
 
             <a
               href="/contacts"
-              className="animated-underline flex items-center px-3 h-11 text-sm text-[#71717A] hover:text-[#E4E4E7] transition-colors duration-300"
+              className={navLinkClass(pathname === "/contacts")}
             >
               Контакты
             </a>
           </div>
 
-          {/* CTA Button — pushed to the right */}
+          {/* CTA Button */}
           <a
             href="/contacts"
             className="hidden md:flex items-center ml-auto px-5 h-9 my-1.5 text-sm font-medium rounded-xl transition-all duration-300 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white hover:shadow-[0_0_24px_rgba(59,130,246,0.4)] hover:brightness-110 whitespace-nowrap"
@@ -168,7 +194,6 @@ export function Navbar() {
         {mobileOpen && (
           <div className="md:hidden mt-2 p-3 rounded-2xl bg-[#0F0F14]/95 border border-white/[0.06] backdrop-blur-2xl max-h-[75vh] overflow-y-auto">
             <div className="flex flex-col">
-              {/* Main links row */}
               <div className="flex flex-wrap gap-1 mb-2">
                 {[
                   { label: "Функционал", href: "/platform" },
@@ -179,7 +204,11 @@ export function Navbar() {
                   <a
                     key={link.label}
                     href={link.href}
-                    className="px-3 py-2 text-sm text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04] rounded-lg transition-all duration-200"
+                    className={`px-3 py-2 text-sm rounded-lg transition-all duration-200 ${
+                      pathname === link.href
+                        ? "text-[#E4E4E7] bg-white/[0.06]"
+                        : "text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04]"
+                    }`}
                     onClick={() => setMobileOpen(false)}
                   >
                     {link.label}
@@ -189,7 +218,6 @@ export function Navbar() {
 
               <div className="h-px bg-white/[0.06] my-1" />
 
-              {/* Отрасли + Услуги side by side */}
               <div className="grid grid-cols-2 gap-2 my-2">
                 <div>
                   <div className="px-2 py-1.5 text-[10px] text-[#52525B] uppercase tracking-wider font-medium">Отрасли</div>
@@ -197,7 +225,11 @@ export function Navbar() {
                     <a
                       key={item.label}
                       href={item.href}
-                      className="block px-2 py-2 text-xs text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04] rounded-lg transition-all duration-200 leading-tight"
+                      className={`block px-2 py-2 text-xs rounded-lg transition-all duration-200 leading-tight ${
+                        pathname === item.href
+                          ? "text-[#E4E4E7] bg-white/[0.06]"
+                          : "text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04]"
+                      }`}
                       onClick={() => setMobileOpen(false)}
                     >
                       {item.label}
@@ -210,7 +242,11 @@ export function Navbar() {
                     <a
                       key={item.label}
                       href={item.href}
-                      className="block px-2 py-2 text-xs text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04] rounded-lg transition-all duration-200 leading-tight"
+                      className={`block px-2 py-2 text-xs rounded-lg transition-all duration-200 leading-tight ${
+                        pathname === item.href
+                          ? "text-[#E4E4E7] bg-white/[0.06]"
+                          : "text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04]"
+                      }`}
                       onClick={() => setMobileOpen(false)}
                     >
                       {item.label}
