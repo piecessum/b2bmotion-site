@@ -74,7 +74,7 @@ function ChartMockup() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => { if (entries[0].isIntersecting) setAnimated(true) },
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     )
     if (chartRef.current) observer.observe(chartRef.current)
     return () => observer.disconnect()
@@ -82,20 +82,19 @@ function ChartMockup() {
 
   return (
     <div ref={chartRef} className="mt-6 p-4 bg-surface-inner rounded-xl border border-glass-border">
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-4">
         <span className="text-[10px] text-dim uppercase tracking-wider">Продажи за неделю</span>
         <span className="text-xs text-emerald-400/80 font-medium">+12.5%</span>
       </div>
-      <div className="flex items-end justify-between gap-3 h-28">
+      <div className="flex items-end justify-between gap-3" style={{ height: 120 }}>
         {bars.map((height, i) => (
-          <div key={i} className="flex-1 flex flex-col items-center gap-2">
+          <div key={i} className="flex-1 flex flex-col items-center gap-2 h-full justify-end">
             <div
-              className="w-full rounded-lg transition-all duration-700 ease-out"
+              className="w-full rounded-md transition-all duration-700 ease-out"
               style={{
-                height: animated ? `${height}%` : "0%",
+                height: animated ? `${height}%` : "4px",
                 transitionDelay: `${i * 100}ms`,
-                background: `linear-gradient(to top, #3B82F6, #8B5CF6)`,
-                opacity: 0.7 + (height / 95) * 0.3,
+                background: "linear-gradient(to top, #3B82F6, #8B5CF6)",
               }}
             />
             <span className="text-[10px] text-dimmer">
@@ -272,8 +271,8 @@ export function FeaturesBento() {
                 </div>
               </div>
               {/* Phone image — top clipped, sticking out from bottom */}
-              <div className="hidden sm:block relative w-[130px] flex-shrink-0 -mr-8 -mb-8">
-                <div className="relative top-6 w-[150px]">
+              <div className="hidden sm:block relative w-[140px] flex-shrink-0 -mb-8">
+                <div className="relative top-6 w-[140px]">
                   <Image
                     src="/phone.png"
                     alt="Мобильное приложение"
