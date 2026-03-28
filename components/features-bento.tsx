@@ -70,7 +70,6 @@ function ChartMockup() {
   const [animated, setAnimated] = useState(false)
   const chartRef = useRef<HTMLDivElement>(null)
   const bars = [40, 65, 45, 85, 55, 95, 70]
-  const points = [38, 62, 48, 80, 52, 90, 72]
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -81,26 +80,22 @@ function ChartMockup() {
     return () => observer.disconnect()
   }, [])
 
-  const svgLine = points.map((p, i) => {
-    const x = 12 + i * (100 / 6) * (276 / 100)
-    const y = 96 - (p / 100) * 88
-    return `${i === 0 ? "M" : "L"}${x},${y}`
-  }).join(" ")
-
   return (
     <div ref={chartRef} className="mt-6 p-4 bg-surface-inner rounded-xl border border-glass-border">
       <div className="flex items-center justify-between mb-3">
         <span className="text-[10px] text-dim uppercase tracking-wider">Продажи за неделю</span>
         <span className="text-xs text-emerald-400/80 font-medium">+12.5%</span>
       </div>
-      <div className="relative flex items-end justify-between gap-2 h-28">
+      <div className="flex items-end justify-between gap-3 h-28">
         {bars.map((height, i) => (
-          <div key={i} className="flex-1 flex flex-col items-center gap-2 relative z-10">
+          <div key={i} className="flex-1 flex flex-col items-center gap-2">
             <div
-              className="w-full rounded-lg bg-gradient-to-t from-[#3B82F6]/50 to-[#8B5CF6]/50 transition-all duration-700 ease-out"
+              className="w-full rounded-lg transition-all duration-700 ease-out"
               style={{
                 height: animated ? `${height}%` : "0%",
-                transitionDelay: `${i * 80}ms`,
+                transitionDelay: `${i * 100}ms`,
+                background: `linear-gradient(to top, #3B82F6, #8B5CF6)`,
+                opacity: 0.7 + (height / 95) * 0.3,
               }}
             />
             <span className="text-[10px] text-dimmer">
@@ -108,46 +103,6 @@ function ChartMockup() {
             </span>
           </div>
         ))}
-        {/* SVG trend line */}
-        <svg className="absolute inset-0 w-full h-[calc(100%-20px)] pointer-events-none z-20" viewBox="0 0 300 100" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#3B82F6" />
-              <stop offset="100%" stopColor="#8B5CF6" />
-            </linearGradient>
-          </defs>
-          <path
-            d={svgLine}
-            fill="none"
-            stroke="url(#lineGrad)"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="transition-all duration-1000 ease-out"
-            style={{
-              strokeDasharray: 600,
-              strokeDashoffset: animated ? 0 : 600,
-            }}
-          />
-          {points.map((p, i) => {
-            const x = 12 + i * (100 / 6) * (276 / 100)
-            const y = 96 - (p / 100) * 88
-            return (
-              <circle
-                key={i}
-                cx={x}
-                cy={y}
-                r="4"
-                fill="#8B5CF6"
-                className="transition-all duration-500 ease-out"
-                style={{
-                  opacity: animated ? 1 : 0,
-                  transitionDelay: `${600 + i * 80}ms`,
-                }}
-              />
-            )
-          })}
-        </svg>
       </div>
     </div>
   )
@@ -316,9 +271,9 @@ export function FeaturesBento() {
                   </div>
                 </div>
               </div>
-              {/* Phone image sticking out */}
-              <div className="hidden sm:block relative w-[140px] -mr-8 -mb-8 -mt-2 flex-shrink-0 self-stretch">
-                <div className="absolute bottom-[-32px] right-[-16px] w-[160px]">
+              {/* Phone image — top clipped, sticking out from bottom */}
+              <div className="hidden sm:block relative w-[130px] flex-shrink-0 -mr-8 -mb-8">
+                <div className="relative top-6 w-[150px]">
                   <Image
                     src="/phone.png"
                     alt="Мобильное приложение"
