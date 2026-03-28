@@ -38,7 +38,7 @@ export function LogoCloud() {
                 alt={company.name}
                 width={200}
                 height={200}
-                className="w-[80%] h-[80%] object-contain opacity-60 hover:opacity-100 transition-opacity dark:invert"
+                className="w-[95%] h-[95%] object-contain opacity-60 hover:opacity-100 transition-opacity dark:invert"
               />
             </div>
           ))}
