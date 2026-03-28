@@ -49,10 +49,10 @@ export default function BlogPage() {
                     <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-dim bg-overlay-3 px-2 py-0.5 rounded-full">Закреплено</span>
                   </div>
                   <h2 className="font-heading font-semibold text-xl text-heading mb-1 group-hover:text-white transition-colors">
-                    Обзор платформы B2B Движение
+                    В2В Движение — оптимальное решение для оптового бизнеса
                   </h2>
                   <p className="text-subtle leading-relaxed text-sm">
-                    Как выглядит B2B-портал изнутри: каталог, заказы, аналитика и мобильное приложение
+                    Практические подходы к организации B2B-взаимодействия и масштабированию оптовых продаж
                   </p>
                 </div>
               </div>

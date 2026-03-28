@@ -4,8 +4,8 @@ import { ArrowRight, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 export const metadata = {
-  title: "Обзор платформы — B2B Движение",
-  description: "Видео-обзор B2B-платформы для оптовых продаж. Узнайте, как работает портал изнутри.",
+  title: "В2В Движение — оптимальное решение для оптового бизнеса",
+  description: "Как выстроить эффективную систему оптового бизнеса и увеличить его управляемость. Практические подходы к организации B2B-взаимодействия.",
 }
 
 export default function VideoPage() {
@@ -34,12 +34,9 @@ export default function VideoPage() {
           </div>
 
           {/* Header */}
-          <h1 className="font-heading font-bold text-[clamp(28px,4vw,42px)] tracking-[-0.02em] text-heading leading-tight mb-4">
-            Обзор платформы <span className="gradient-text">B2B Движение</span>
+          <h1 className="font-heading font-bold text-[clamp(28px,4vw,42px)] tracking-[-0.02em] text-heading leading-tight mb-10">
+            В2В Движение — <span className="gradient-text">оптимальное решение для оптового бизнеса</span>
           </h1>
-          <p className="text-lg text-subtle mb-10 max-w-2xl">
-            Посмотрите, как устроен B2B-портал изнутри: каталог, заказы, аналитика, интеграция с 1С и мобильное приложение.
-          </p>
 
           {/* Video */}
           <div className="relative w-full aspect-video rounded-2xl overflow-hidden glass-card mb-10">
@@ -53,24 +50,47 @@ export default function VideoPage() {
           </div>
 
           {/* Description */}
-          <div className="space-y-4 mb-16">
-            <h2 className="font-heading font-semibold text-xl text-heading">
-              Что в видео
-            </h2>
-            <ul className="space-y-2 text-body">
-              <li className="flex items-start gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] mt-2 shrink-0" />
-                Интерфейс каталога с умным поиском по 1.7М+ товаров
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] mt-2 shrink-0" />
-                Процесс оформления заказа и интеграция с 1С в реальном времени
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#06B6D4] mt-2 shrink-0" />
-                Аналитика продаж, ценообразование и мобильное приложение
-              </li>
-            </ul>
+          <div className="space-y-5 mb-16">
+            <p className="text-body leading-relaxed">
+              Как выстроить эффективную систему оптового бизнеса и увеличить его управляемость?
+            </p>
+            <p className="text-body leading-relaxed">
+              В этом видео раскрываются практические подходы к организации B2B-взаимодействия, которые помогают компаниям оптимизировать ключевые процессы — от закупок до реализации.
+            </p>
+
+            <div>
+              <h2 className="font-heading font-semibold text-lg text-heading mb-3">
+                Вы узнаете:
+              </h2>
+              <ul className="space-y-2 text-body">
+                <li className="flex items-start gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] mt-2 shrink-0" />
+                  как повысить прозрачность товарных и финансовых потоков
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] mt-2 shrink-0" />
+                  каким образом сократить издержки и ускорить сделки
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#06B6D4] mt-2 shrink-0" />
+                  как выстроить устойчивые отношения с партнёрами
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] mt-2 shrink-0" />
+                  какие решения позволяют масштабировать оптовый бизнес без потери контроля
+                </li>
+              </ul>
+            </div>
+
+            <p className="text-body leading-relaxed">
+              Видео будет особенно полезно руководителям и специалистам, заинтересованным в повышении эффективности, росте оборота и систематизации бизнес-процессов.
+            </p>
+            <p className="text-body leading-relaxed">
+              Решения, о которых идёт речь, уже применяются на практике и дают измеримый результат.
+            </p>
+            <p className="text-subheading leading-relaxed font-medium">
+              Посмотрите, как можно трансформировать текущую модель работы и вывести бизнес на новый уровень.
+            </p>
           </div>
         </div>
       </section>
