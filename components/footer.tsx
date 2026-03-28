@@ -23,6 +23,7 @@ export function Footer() {
                 { label: "Возможности", href: "#platform" },
                 { label: "Цены", href: "#pricing" },
                 { label: "Интеграции", href: "#solutions" },
+                { label: "База знаний", href: "/knowledge" },
               ].map((link) => (
                 <li key={link.label}>
                   <a href={link.href} className="text-sm text-dimmer hover:text-body transition-colors duration-300">
