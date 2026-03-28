@@ -216,18 +216,18 @@ export function FeaturesBento() {
           </div>
 
           {/* Row 3 - Two small, compact */}
-          <div className="reveal group relative p-6 rounded-2xl glass-card overflow-hidden">
+          <div className="reveal group relative p-5 rounded-2xl glass-card overflow-hidden">
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#06B6D4]/[0.04] to-transparent pointer-events-none" />
             <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-3">
+              <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#06B6D4]/15 to-[#3B82F6]/10 flex items-center justify-center border border-[#06B6D4]/10">
                   <Link className="w-5 h-5 text-cyan-400" />
                 </div>
                 <h3 className="font-heading font-semibold text-xl text-heading">{features[4].title}</h3>
               </div>
-              <p className="text-subtle leading-relaxed">{features[4].description}</p>
+              <p className="text-subtle leading-relaxed text-sm">{features[4].description}</p>
               {/* 1C sync visual */}
-              <div className="mt-4 flex items-center justify-between">
+              <div className="mt-3 flex items-center justify-between">
                 <div className="px-3 py-2 bg-overlay-3 rounded-lg border border-glass-border text-xs text-subtle">1С</div>
                 <div className="flex-1 mx-3 h-[1px] bg-gradient-to-r from-[#06B6D4]/40 via-[#3B82F6]/40 to-[#8B5CF6]/40 relative">
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse" />
@@ -237,19 +237,19 @@ export function FeaturesBento() {
             </div>
           </div>
 
-          <div className="reveal md:col-span-2 group relative p-6 rounded-2xl glass-card overflow-hidden">
+          <div className="reveal md:col-span-2 group relative p-5 rounded-2xl glass-card overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#8B5CF6]/[0.04] to-transparent pointer-events-none" />
             <div className="relative z-10 flex items-start justify-between gap-4">
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-3 mb-3">
+                <div className="flex items-center gap-3 mb-2">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8B5CF6]/15 to-[#EC4899]/10 flex items-center justify-center border border-[#8B5CF6]/10">
                     <Smartphone className="w-5 h-5 text-[#C084FC]" />
                   </div>
                   <h3 className="font-heading font-semibold text-xl text-heading">{features[5].title}</h3>
                 </div>
-                <p className="text-subtle leading-relaxed">{features[5].description}</p>
+                <p className="text-subtle leading-relaxed text-sm">{features[5].description}</p>
                 {/* Mobile platforms */}
-                <div className="mt-4 flex items-center gap-3">
+                <div className="mt-3 flex items-center gap-3">
                   <div className="flex items-center gap-2 px-4 py-2.5 bg-overlay-3 rounded-xl border border-glass-border">
                     <div className="w-5 h-5 rounded bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 flex items-center justify-center">
                       <span className="text-[10px] text-body">A</span>
@@ -271,8 +271,8 @@ export function FeaturesBento() {
                 </div>
               </div>
               {/* Phone image — half visible, sticking out from bottom */}
-              <div className="hidden sm:block relative w-[170px] flex-shrink-0 -mb-6 overflow-visible">
-                <div className="relative top-[50%] w-[170px]">
+              <div className="hidden sm:block relative w-[150px] flex-shrink-0 -mb-5 self-center">
+                <div className="relative top-[40%] w-[150px]">
                   <Image
                     src="/phone.png"
                     alt="Мобильное приложение"
