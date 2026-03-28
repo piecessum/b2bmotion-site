@@ -21,35 +21,25 @@ const companies = [
 
 export function LogoCloud() {
   return (
-    <section className="relative py-20 overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 mb-10">
-        <p className="text-center text-xs font-medium uppercase tracking-[0.25em] text-dim">
+    <section className="py-20 px-6">
+      <div className="max-w-6xl mx-auto">
+        <p className="text-center text-xs font-medium uppercase tracking-[0.25em] text-dim mb-10">
           Доверяют лидеры оптовых продаж
         </p>
-      </div>
 
-      <div className="relative">
-        {/* Gradient fade edges — smaller on mobile */}
-        <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-40 bg-gradient-to-r from-page to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-40 bg-gradient-to-l from-page to-transparent z-10" />
-
-        <div className="flex animate-marquee">
-          {[0, 1].map((set) => (
-            <div key={set} className="flex items-center shrink-0" style={{ gap: "1.25rem", paddingRight: "1.25rem" }}>
-              {companies.map((company, i) => (
-                <div
-                  key={`${set}-${i}`}
-                  className="flex-shrink-0 flex items-center justify-center h-24 px-8 sm:h-28 sm:px-10 rounded-2xl bg-overlay-2 border border-glass-border hover:border-[#3B82F6]/20 hover:bg-overlay-4 transition-all duration-300 cursor-default"
-                >
-                  <Image
-                    src={company.logo}
-                    alt={company.name}
-                    width={200}
-                    height={200}
-                    className="h-[72px] sm:h-[90px] w-auto object-contain opacity-70 hover:opacity-100 transition-opacity dark:invert"
-                  />
-                </div>
-              ))}
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-3 sm:gap-4">
+          {companies.map((company, i) => (
+            <div
+              key={i}
+              className="aspect-square flex items-center justify-center p-4 rounded-2xl bg-overlay-2 border border-glass-border hover:border-[#3B82F6]/20 hover:bg-overlay-4 transition-all duration-300 cursor-default"
+            >
+              <Image
+                src={company.logo}
+                alt={company.name}
+                width={200}
+                height={200}
+                className="w-[80%] h-[80%] object-contain opacity-60 hover:opacity-100 transition-opacity dark:invert"
+              />
             </div>
           ))}
         </div>
