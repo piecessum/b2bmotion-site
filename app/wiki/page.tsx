@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { BookOpen } from "lucide-react"
+import { BookOpen, ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 export const metadata = {
   title: "База знаний — B2B Движение",
@@ -10,6 +11,7 @@ export const metadata = {
 const sections = [
   {
     title: "Функционал системы",
+    href: "/wiki/function",
     items: [
       "Регистрация и авторизация",
       "Интеллектуальный поиск",
@@ -27,6 +29,7 @@ const sections = [
   },
   {
     title: "Кастомизация под клиента",
+    href: "#",
     items: [
       "Каталог и товары",
       "Регионы и склады",
@@ -49,6 +52,7 @@ const sections = [
   },
   {
     title: "Технические настройки",
+    href: "#",
     items: [
       "Общие тех.сведения",
       "Интеграция с шлюзовыми таблицами (ШТ)",
@@ -89,9 +93,12 @@ export default function KnowledgePage() {
                 key={i}
                 className="p-8 rounded-2xl glass-card overflow-hidden"
               >
-                <h2 className="font-heading font-semibold text-xl text-heading mb-6">
-                  {section.title}
-                </h2>
+                <Link href={section.href} className="group flex items-center justify-between mb-6">
+                  <h2 className="font-heading font-semibold text-xl text-heading group-hover:text-[#60A5FA] transition-colors">
+                    {section.title}
+                  </h2>
+                  {section.href !== "#" && <ArrowRight className="w-4 h-4 text-dim group-hover:text-[#60A5FA] transition-colors" />}
+                </Link>
                 <ul className="space-y-3">
                   {section.items.map((item, j) => (
                     <li key={j} className="flex items-start gap-3">
