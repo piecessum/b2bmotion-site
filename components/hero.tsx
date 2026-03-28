@@ -158,9 +158,9 @@ export function Hero() {
             style={{
               transitionDuration: "1.4s",
               transitionDelay: "300ms",
-              bottom: "8%",
-              left: "-18%",
-              width: "42%",
+              bottom: "5%",
+              left: "-24%",
+              width: "55%",
               opacity: devicesVisible ? 1 : 0,
               transform: devicesVisible
                 ? "translateZ(0) translateX(0) scale(1)"
@@ -192,9 +192,9 @@ export function Hero() {
             style={{
               transitionDuration: "1.4s",
               transitionDelay: "500ms",
-              bottom: "4%",
-              right: "-4%",
-              width: "18%",
+              bottom: "2%",
+              right: "-8%",
+              width: "24%",
               opacity: devicesVisible ? 1 : 0,
               transform: devicesVisible
                 ? "translateZ(0) translateX(0) scale(1)"
