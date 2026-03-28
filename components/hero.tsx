@@ -130,12 +130,12 @@ export function Hero() {
         {/* Stats row */}
         <div className="reveal reveal-delay-4 flex flex-wrap items-center justify-center gap-10 md:gap-16 mb-16">
           {[
-            { value: "50+", label: "клиентов" },
+            { value: "56+", label: "реализованных проектов" },
             { value: "2.4М+", label: "товаров в каталогах" },
             { value: "10", label: "лет опыта" },
           ].map((stat, i) => (
             <div key={i} className="text-center">
-              <div className="font-heading font-bold text-2xl md:text-3xl text-heading">
+              <div className="font-heading font-bold text-3xl md:text-5xl text-heading">
                 {stat.value}
               </div>
               <div className="text-xs text-dim mt-1 tracking-wide uppercase">
