@@ -3,20 +3,20 @@
 import Image from "next/image"
 
 const companies = [
-  { name: "РОСЭК", logo: "/росэк.svg" },
-  { name: "ХОГАРТ", logo: "/хогарт.svg" },
-  { name: "РЭЙД-21", logo: "/рэйд21.svg" },
-  { name: "ПРОТЭК", logo: "/протэк.svg" },
-  { name: "СТРОЙМИКС", logo: "/строймикс.svg" },
-  { name: "ВЕСТА", logo: "/веста.svg" },
-  { name: "ИРБИС", logo: "/ирбис.svg" },
-  { name: "РОС-ЭЛЕКТРО", logo: "/росэлектро.svg" },
-  { name: "ДРЕВИЗ", logo: "/древиз.svg" },
-  { name: "АВЕНТА", logo: "/авента.svg" },
-  { name: "КРИСТАЛ", logo: "/кристал.svg" },
-  { name: "САНЛАЙТ", logo: "/санлайт.svg" },
-  { name: "ФОРУМЭЛЕКТРО", logo: "/форумэлектро.svg" },
-  { name: "ЭЛЕКТРИЧЕСКИЕ ТЕХНОЛОГИИ", logo: "/электрические технологии.svg" },
+  { name: "РОСЭК", logo: "/rosek.svg" },
+  { name: "ХОГАРТ", logo: "/hogart.svg" },
+  { name: "РЭЙД-21", logo: "/raid21.svg" },
+  { name: "ПРОТЭК", logo: "/protek.svg" },
+  { name: "СТРОЙМИКС", logo: "/stroymix.svg" },
+  { name: "ВЕСТА", logo: "/vesta.svg" },
+  { name: "ИРБИС", logo: "/irbis.svg" },
+  { name: "РОС-ЭЛЕКТРО", logo: "/roselektro.svg" },
+  { name: "ДРЕВИЗ", logo: "/dreviz.svg" },
+  { name: "АВЕНТА", logo: "/aventa.svg" },
+  { name: "КРИСТАЛ", logo: "/kristal.svg" },
+  { name: "САНЛАЙТ", logo: "/sanlayt.svg" },
+  { name: "ФОРУМЭЛЕКТРО", logo: "/forumelektro.svg" },
+  { name: "ЭЛЕКТРИЧЕСКИЕ ТЕХНОЛОГИИ", logo: "/elektricheskie-tekhnologii.svg" },
 ]
 
 export function LogoCloud() {

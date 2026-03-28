@@ -28,14 +28,14 @@ const casesByIndustry: Record<string, CaseStudy[]> = {
       description: "Поставщик инженерного оборудования, отопления, вентиляции и сантехники. Более 200 брендов в каталоге.",
       gradient: "from-cyan-500/20 via-blue-500/10 to-teal-500/20",
       iconGradient: "from-cyan-400/20 to-blue-400/20",
-      logo: "/хогарт.svg",
+      logo: "/hogart.svg",
     },
     {
       company: "Веста",
       description: "Ведущий поставщик сантехники и оборудования для ванных комнат. Сеть филиалов по всей России.",
       gradient: "from-blue-500/20 via-cyan-500/10 to-sky-500/20",
       iconGradient: "from-blue-400/20 to-sky-400/20",
-      logo: "/веста.svg",
+      logo: "/vesta.svg",
     },
     {
       company: "АкваМаркет",
@@ -50,14 +50,14 @@ const casesByIndustry: Record<string, CaseStudy[]> = {
       description: "Федеральный дистрибьютор, входит в ТОП-5 электротехнических компаний Урала.",
       gradient: "from-amber-500/20 via-orange-500/10 to-yellow-500/20",
       iconGradient: "from-amber-400/20 to-orange-400/20",
-      logo: "/росэк.svg",
+      logo: "/rosek.svg",
     },
     {
       company: "РОС-Электро",
       description: "Крупная региональная сеть электрооборудования. Партнёрская сеть из 150+ точек.",
       gradient: "from-orange-500/20 via-red-500/10 to-amber-500/20",
       iconGradient: "from-orange-400/20 to-red-400/20",
-      logo: "/росэлектро.svg",
+      logo: "/roselektro.svg",
     },
     {
       company: "50 Герц",
@@ -72,7 +72,7 @@ const casesByIndustry: Record<string, CaseStudy[]> = {
       description: "Крупнейший дистрибьютор в Башкортостане. 5000+ наименований продуктов питания и бытовой химии.",
       gradient: "from-green-500/20 via-emerald-500/10 to-lime-500/20",
       iconGradient: "from-green-400/20 to-emerald-400/20",
-      logo: "/рэйд21.svg",
+      logo: "/raid21.svg",
     },
     {
       company: "ФудЛайн",
@@ -93,7 +93,7 @@ const casesByIndustry: Record<string, CaseStudy[]> = {
       description: "Поставщик систем безопасности и видеонаблюдения с отгрузкой по всей России.",
       gradient: "from-slate-500/20 via-zinc-500/10 to-gray-500/20",
       iconGradient: "from-slate-400/20 to-zinc-400/20",
-      logo: "/протэк.svg",
+      logo: "/protek.svg",
     },
     {
       company: "СекьюрПро",
@@ -114,7 +114,7 @@ const casesByIndustry: Record<string, CaseStudy[]> = {
       description: "Продавец строительных и отделочных материалов в Центральном Черноземье.",
       gradient: "from-rose-500/20 via-pink-500/10 to-red-500/20",
       iconGradient: "from-rose-400/20 to-pink-400/20",
-      logo: "/строймикс.svg",
+      logo: "/stroymix.svg",
     },
     {
       company: "СтройОпт",
@@ -135,14 +135,14 @@ const casesByIndustry: Record<string, CaseStudy[]> = {
       description: "Лидер мебельной отрасли по поставкам комплектующих. Более 20 лет на рынке.",
       gradient: "from-violet-500/20 via-purple-500/10 to-indigo-500/20",
       iconGradient: "from-violet-400/20 to-purple-400/20",
-      logo: "/кристал.svg",
+      logo: "/kristal.svg",
     },
     {
       company: "Древиз",
       description: "Мебельные материалы и фурнитура. Полный ассортимент для производителей.",
       gradient: "from-purple-500/20 via-fuchsia-500/10 to-violet-500/20",
       iconGradient: "from-purple-400/20 to-fuchsia-400/20",
-      logo: "/древиз.svg",
+      logo: "/dreviz.svg",
     },
     {
       company: "ФурнитураПро",
