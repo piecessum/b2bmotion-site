@@ -130,8 +130,8 @@ export default function PlatformPage() {
           <h1 className="reveal font-heading font-bold text-[clamp(36px,7vw,60px)] leading-[1.1] tracking-[-0.03em] mb-6"><span className="text-heading">Всё для автоматизации</span><br /><span className="gradient-text">оптовых продаж</span></h1>
           <p className="reveal text-lg text-body max-w-xl mx-auto mb-10">Управление каталогом, заказами, ценами и клиентами — в одном решении с интеграцией в вашу 1С</p>
           <div className="reveal flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="#cta" className="px-8 py-4 bg-white text-[#09090B] font-semibold rounded-full hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">Запросить демо</a>
-            <a href="/#pricing" className="px-8 py-4 border border-white/20 text-white font-medium rounded-full hover:bg-white/5 transition-all duration-300">Смотреть цены</a>
+            <a href="#cta" className="px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">Запросить демо</a>
+            <a href="/#pricing" className="px-8 py-4 border border-border-default text-body font-medium rounded-full hover:bg-overlay-4 hover:text-heading transition-all duration-300">Смотреть цены</a>
           </div>
         </div>
       </section>
@@ -141,8 +141,8 @@ export default function PlatformPage() {
           <div className="reveal flex flex-wrap justify-center gap-3 mb-16">
             {tabs.map((tab) => (
               <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${activeTab === tab.id ? "text-heading" : "text-subtle border border-border-default hover:text-body hover:border-[#3B82F6]/30"}`}
-                style={activeTab === tab.id ? { background: "linear-gradient(#18181B, #18181B) padding-box, linear-gradient(135deg, #3B82F6, #8B5CF6) border-box", border: "1px solid transparent" } : undefined}
+                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${activeTab === tab.id ? "text-white dark:text-heading" : "text-subtle border border-border-default hover:text-body hover:border-[#3B82F6]/30"}`}
+                style={activeTab === tab.id ? { background: "linear-gradient(var(--heading), var(--heading)) padding-box, linear-gradient(135deg, #3B82F6, #8B5CF6) border-box", border: "1px solid transparent" } : undefined}
               >{tab.label}</button>
             ))}
           </div>

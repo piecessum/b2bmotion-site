@@ -11,35 +11,35 @@
 
   /* Page backgrounds */
   --page: #FFFFFF;
-  --page-alt: #FAFAFA;
-  --section: #F4F4F5;
+  --page-alt: #F8F8FA;
+  --section: #F1F1F4;
 
   /* Surface (cards, panels) */
   --surface: #FFFFFF;
-  --surface-inner: #F4F4F5;
-  --surface-hover: #F0F0F2;
+  --surface-inner: #F1F1F4;
+  --surface-hover: #EEEEF1;
 
   /* Text */
   --heading: #09090B;
   --subheading: #18181B;
-  --body-text: #52525B;
-  --subtle-text: #71717A;
-  --dim-text: #A1A1AA;
-  --dimmer-text: #D4D4D8;
-  --dimmest-text: #E4E4E7;
+  --body-text: #3F3F46;
+  --subtle-text: #52525B;
+  --dim-text: #71717A;
+  --dimmer-text: #A1A1AA;
+  --dimmest-text: #D4D4D8;
 
   /* Borders */
-  --border-default: #E4E4E7;
-  --border-subtle: #F4F4F5;
+  --border-default: #D4D4D8;
+  --border-subtle: #E4E4E7;
 
   /* Glass / overlays */
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(0, 0, 0, 0.08);
-  --overlay-2: rgba(0, 0, 0, 0.02);
-  --overlay-3: rgba(0, 0, 0, 0.03);
-  --overlay-4: rgba(0, 0, 0, 0.04);
-  --overlay-6: rgba(0, 0, 0, 0.06);
-  --overlay-8: rgba(0, 0, 0, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --overlay-2: rgba(0, 0, 0, 0.03);
+  --overlay-3: rgba(0, 0, 0, 0.04);
+  --overlay-4: rgba(0, 0, 0, 0.06);
+  --overlay-6: rgba(0, 0, 0, 0.08);
+  --overlay-8: rgba(0, 0, 0, 0.1);
 
   /* Nav */
   --nav-bg: rgba(255, 255, 255, 0.5);

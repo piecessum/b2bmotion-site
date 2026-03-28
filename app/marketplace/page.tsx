@@ -54,13 +54,13 @@ export default function MarketplacePage() {
           <span className="reveal inline-block px-4 py-1.5 mb-6 text-xs font-medium uppercase tracking-[0.15em] text-[#8B5CF6] bg-[#8B5CF6]/10 rounded-full">Услуги</span>
           <h1 className="reveal font-heading font-bold text-[clamp(36px,7vw,60px)] leading-[1.1] tracking-[-0.03em] mb-6"><span className="text-heading">Создание </span><span className="gradient-text">B2B-маркетплейсов</span><br /><span className="text-heading">на базе готового решения</span></h1>
           <p className="reveal text-lg text-body max-w-xl mx-auto mb-10">MVP за 1 месяц. Готовый маркетплейс за 3 месяца. Минимальные вложения и риски</p>
-          <a href="#cta" className="reveal inline-flex px-8 py-4 bg-white text-[#09090B] font-semibold rounded-full hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">Обсудить проект</a>
+          <a href="#cta" className="reveal inline-flex px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">Обсудить проект</a>
         </div>
       </section>
       <section className="py-24 px-6 border-y border-surface-hover">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 relative">
           <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-[2px] bg-gradient-to-r from-[#3B82F6] to-[#8B5CF6] opacity-30" />
-          {steps.map((s, i) => (<div key={i} className="reveal relative text-center"><div className="w-24 h-24 mx-auto mb-6 rounded-2xl flex items-center justify-center" style={{ background: "linear-gradient(#18181B, #18181B) padding-box, linear-gradient(135deg, #3B82F6, #8B5CF6) border-box", border: "2px solid transparent" }}><span className="font-heading font-bold text-2xl gradient-text">{s.num}</span></div><h3 className="font-heading font-semibold text-xl text-heading mb-2">{s.title}</h3><p className="text-sm text-body leading-relaxed max-w-xs mx-auto">{s.desc}</p></div>))}
+          {steps.map((s, i) => (<div key={i} className="reveal relative text-center"><div className="w-24 h-24 mx-auto mb-6 rounded-2xl flex items-center justify-center" style={{ background: "linear-gradient(var(--heading), var(--heading)) padding-box, linear-gradient(135deg, #3B82F6, #8B5CF6) border-box", border: "2px solid transparent" }}><span className="font-heading font-bold text-2xl gradient-text">{s.num}</span></div><h3 className="font-heading font-semibold text-xl text-heading mb-2">{s.title}</h3><p className="text-sm text-body leading-relaxed max-w-xs mx-auto">{s.desc}</p></div>))}
         </div>
       </section>
       <section className="py-24 px-6">

@@ -68,7 +68,7 @@ export default function ElectroPage() {
               <span className="gradient-text">электротехнических компаний</span>
             </h1>
             <p className="reveal text-lg text-body mb-8 max-w-lg">Интеграция с базой РАЭК, стандарт ETIM, продажа кабеля в бухтах и автоматический подбор аналогов</p>
-            <a href="#cta" className="reveal inline-flex px-8 py-4 bg-white text-[#09090B] font-semibold rounded-full hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">Обсудить проект</a>
+            <a href="#cta" className="reveal inline-flex px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">Обсудить проект</a>
           </div>
           <div className="reveal">
             <div className="bg-surface rounded-2xl border border-border-default p-5">

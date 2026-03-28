@@ -72,7 +72,7 @@ export default function ContactsPage() {
                     <input type="checkbox" className="mt-1 w-4 h-4 rounded border-border-default bg-page-alt accent-[#3B82F6]" />
                     <span className="text-xs text-subtle">Даю согласие на обработку персональных данных в соответствии с <a href="#" className="text-[#3B82F6] hover:underline">политикой конфиденциальности</a></span>
                   </div>
-                  <button type="submit" className="w-full py-4 bg-white text-[#09090B] font-semibold rounded-full hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">
+                  <button type="submit" className="w-full py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">
                     Отправить заявку
                   </button>
                 </form>
