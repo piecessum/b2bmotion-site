@@ -52,9 +52,9 @@ function SearchMockup() {
         <Search className="w-5 h-5 text-[#3B82F6]" />
         <span className="text-dim text-sm">Кабель ВВГнг 3х2.5...</span>
       </div>
-      <div className="space-y-2">
+      <div className="rounded-xl border border-overlay-4 overflow-hidden divide-y divide-overlay-4">
         {["Кабель ВВГнг-LS 3х2.5", "Кабель ВВГнг(А)-LS 3х2.5 ГОСТ", "Аналог: ПВС 3х2.5"].map((item, i) => (
-          <div key={i} className="flex items-center justify-between px-4 py-2.5 bg-overlay-2 rounded-xl border border-overlay-4 hover:border-overlay-8 transition-colors">
+          <div key={i} className="flex items-center justify-between px-4 py-2.5">
             <span className="text-sm text-body">{item}</span>
             <span className={`text-xs font-medium ${i === 2 ? "text-[#8B5CF6]" : "text-emerald-400/80"}`}>
               {i === 2 ? "Аналог" : "В наличии"}
@@ -161,17 +161,17 @@ export function FeaturesBento() {
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8B5CF6]/15 to-[#3B82F6]/10 flex items-center justify-center border border-[#8B5CF6]/10">
-                  <DollarSign className="w-5 h-5 text-[#A78BFA]" />
+                  <span className="text-base font-semibold text-[#A78BFA]">₽</span>
                 </div>
                 <h3 className="font-heading font-semibold text-xl text-heading">{features[1].title}</h3>
               </div>
               <p className="text-subtle leading-relaxed">{features[1].description}</p>
               {/* Mini price tiers preview */}
-              <div className="mt-6 space-y-2">
+              <div className="mt-6 space-y-2.5">
                 {["Розница", "Опт", "VIP"].map((tier, i) => (
-                  <div key={i} className="flex items-center justify-between px-3 py-2 bg-overlay-2 rounded-xl border border-overlay-4">
-                    <span className="text-xs text-subtle">{tier}</span>
-                    <div className="h-1.5 rounded-full bg-gradient-to-r from-[#3B82F6]/40 to-[#8B5CF6]/40" style={{ width: `${60 + i * 20}px` }} />
+                  <div key={i} className="flex items-center justify-between px-4 py-3 bg-overlay-2 rounded-xl border border-overlay-4">
+                    <span className="text-sm text-subtle">{tier}</span>
+                    <div className="h-2 rounded-full bg-gradient-to-r from-[#3B82F6]/40 to-[#8B5CF6]/40" style={{ width: `${70 + i * 25}px` }} />
                   </div>
                 ))}
               </div>
