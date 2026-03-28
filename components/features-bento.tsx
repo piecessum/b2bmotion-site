@@ -94,7 +94,7 @@ function ChartMockup() {
               style={{
                 height: animated ? `${height}%` : "4px",
                 transitionDelay: `${i * 100}ms`,
-                background: "linear-gradient(to top, #3B82F6, #8B5CF6)",
+                background: "linear-gradient(to top, rgba(59,130,246,0.45), rgba(139,92,246,0.45))",
               }}
             />
             <span className="text-[10px] text-dimmer">
@@ -215,8 +215,8 @@ export function FeaturesBento() {
             </div>
           </div>
 
-          {/* Row 3 - Two small */}
-          <div className="reveal group relative p-8 rounded-2xl glass-card overflow-hidden">
+          {/* Row 3 - Two small, compact */}
+          <div className="reveal group relative p-6 rounded-2xl glass-card overflow-hidden">
             <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#06B6D4]/[0.04] to-transparent pointer-events-none" />
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-3">
@@ -227,7 +227,7 @@ export function FeaturesBento() {
               </div>
               <p className="text-subtle leading-relaxed">{features[4].description}</p>
               {/* 1C sync visual */}
-              <div className="mt-6 flex items-center justify-between">
+              <div className="mt-4 flex items-center justify-between">
                 <div className="px-3 py-2 bg-overlay-3 rounded-lg border border-glass-border text-xs text-subtle">1С</div>
                 <div className="flex-1 mx-3 h-[1px] bg-gradient-to-r from-[#06B6D4]/40 via-[#3B82F6]/40 to-[#8B5CF6]/40 relative">
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse" />
@@ -237,7 +237,7 @@ export function FeaturesBento() {
             </div>
           </div>
 
-          <div className="reveal md:col-span-2 group relative p-8 rounded-2xl glass-card overflow-hidden">
+          <div className="reveal md:col-span-2 group relative p-6 rounded-2xl glass-card overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#8B5CF6]/[0.04] to-transparent pointer-events-none" />
             <div className="relative z-10 flex items-start justify-between gap-4">
               <div className="flex-1 min-w-0">
@@ -249,7 +249,7 @@ export function FeaturesBento() {
                 </div>
                 <p className="text-subtle leading-relaxed">{features[5].description}</p>
                 {/* Mobile platforms */}
-                <div className="mt-6 flex items-center gap-3">
+                <div className="mt-4 flex items-center gap-3">
                   <div className="flex items-center gap-2 px-4 py-2.5 bg-overlay-3 rounded-xl border border-glass-border">
                     <div className="w-5 h-5 rounded bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 flex items-center justify-center">
                       <span className="text-[10px] text-body">A</span>
@@ -270,9 +270,9 @@ export function FeaturesBento() {
                   </div>
                 </div>
               </div>
-              {/* Phone image — top clipped, sticking out from bottom */}
-              <div className="hidden sm:block relative w-[140px] flex-shrink-0 -mb-8">
-                <div className="relative top-6 w-[140px]">
+              {/* Phone image — half visible, sticking out from bottom */}
+              <div className="hidden sm:block relative w-[170px] flex-shrink-0 -mb-6 overflow-visible">
+                <div className="relative top-[50%] w-[170px]">
                   <Image
                     src="/phone.png"
                     alt="Мобильное приложение"
