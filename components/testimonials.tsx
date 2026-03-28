@@ -9,25 +9,25 @@ const testimonials = [
     quote: "Запуск прошёл быстро и без бюрократии. Поддержка реагирует оперативно. Надёжный технологический партнёр.",
     company: "РЭЙД-21",
     industry: "FMCG",
-    logo: "/raid21.svg",
+    logo: "/raid-fav.svg",
   },
   {
     quote: "По удобству интерфейса мы не уступаем маркетплейсам, а в ряде сценариев превосходим их.",
     company: "ХОГАРТ",
     industry: "Сантехника",
-    logo: "/hogart.svg",
+    logo: "/hogart-fav.svg",
   },
   {
     quote: "Платформа стала обязательным инструментом продаж. Поддержка доводит задачи до результата.",
     company: "ПРОТЭК",
     industry: "Безопасность",
-    logo: "/protek.svg",
+    logo: "/protek-fav.svg",
   },
   {
     quote: "Гибко управляем ассортиментом: акции, контент, обновление наличия — всё оперативно.",
     company: "Древиз",
     industry: "Мебель",
-    logo: "/dreviz.svg",
+    logo: "/dreviz-fav.svg",
   },
 ]
 
@@ -76,13 +76,13 @@ export function Testimonials() {
                   &quot;{testimonial.quote}&quot;
                 </p>
                 <footer className="flex items-center gap-3">
-                  <div className="w-[130px] aspect-square rounded-2xl bg-gradient-to-br from-[#3B82F6]/10 to-[#8B5CF6]/10 border border-glass-border flex items-center justify-center p-2">
+                  <div className="w-11 h-11 aspect-square rounded-xl bg-gradient-to-br from-[#3B82F6]/10 to-[#8B5CF6]/10 border border-glass-border flex items-center justify-center p-[2px]">
                     <Image
                       src={testimonial.logo}
                       alt={testimonial.company}
-                      width={200}
-                      height={200}
-                      className="w-full h-full object-contain dark:invert opacity-70"
+                      width={100}
+                      height={100}
+                      className="w-[95%] h-[95%] object-contain dark:invert opacity-70"
                     />
                   </div>
                   <div>
