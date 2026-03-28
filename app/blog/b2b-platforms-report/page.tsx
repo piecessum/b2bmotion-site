@@ -174,9 +174,9 @@ export default function B2BPlatformsReport() {
               <ChartBox title="Рост российского рынка B2B онлайн-торговли" sub="Объём в трлн рублей (факт + прогноз)">
                 <ResponsiveContainer width="100%" height={240}>
                   <BarChart data={marketGrowth}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                    <XAxis dataKey="year" tick={{ fill: "#8C8C96", fontSize: 12 }} />
-                    <YAxis tick={{ fill: "#8C8C96", fontSize: 12 }} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--glass-border)" />
+                    <XAxis dataKey="year" tick={{ fill: "var(--dim-text)", fontSize: 12 }} />
+                    <YAxis tick={{ fill: "var(--dim-text)", fontSize: 12 }} />
                     <Tooltip contentStyle={tooltipStyle} />
                     <Bar dataKey="value" name="B2B e-com РФ (трлн ₽)" radius={[4, 4, 0, 0]}>
                       {marketGrowth.map((_, i) => (
@@ -190,9 +190,9 @@ export default function B2BPlatformsReport() {
               <ChartBox title="Глобальный рынок платформ eCommerce" sub="Выручка в млрд $ (CAGR 20.49%)">
                 <ResponsiveContainer width="100%" height={240}>
                   <LineChart data={globalMarket}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                    <XAxis dataKey="year" tick={{ fill: "#8C8C96", fontSize: 12 }} />
-                    <YAxis tick={{ fill: "#8C8C96", fontSize: 12 }} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--glass-border)" />
+                    <XAxis dataKey="year" tick={{ fill: "var(--dim-text)", fontSize: 12 }} />
+                    <YAxis tick={{ fill: "var(--dim-text)", fontSize: 12 }} />
                     <Tooltip contentStyle={tooltipStyle} />
                     <Line type="monotone" dataKey="value" name="Global ecom ($B)" stroke={GL_COLOR} strokeWidth={2} fill={GL_COLOR} fillOpacity={0.1} dot={{ fill: GL_COLOR, r: 4 }} />
                   </LineChart>
@@ -217,13 +217,13 @@ export default function B2BPlatformsReport() {
             <ChartBox title="Общая оценка vs Цена/качество" sub="Позиционирование каждой платформы" className="mb-5">
               <ResponsiveContainer width="100%" height={320}>
                 <ScatterChart margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                  <XAxis type="number" dataKey="x" name="Общая оценка" domain={[6, 10]} tick={{ fill: "#8C8C96", fontSize: 11 }} label={{ value: "Общая оценка", position: "bottom", fill: "#6E6E7A", fontSize: 11 }} />
-                  <YAxis type="number" dataKey="y" name="Цена/качество" domain={[5, 10]} tick={{ fill: "#8C8C96", fontSize: 11 }} label={{ value: "Цена/качество", angle: -90, position: "insideLeft", fill: "#6E6E7A", fontSize: 11 }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--glass-border)" />
+                  <XAxis type="number" dataKey="x" name="Общая оценка" domain={[6, 10]} tick={{ fill: "var(--dim-text)", fontSize: 11 }} label={{ value: "Общая оценка", position: "bottom", fill: "var(--dimmer-text)", fontSize: 11 }} />
+                  <YAxis type="number" dataKey="y" name="Цена/качество" domain={[5, 10]} tick={{ fill: "var(--dim-text)", fontSize: 11 }} label={{ value: "Цена/качество", angle: -90, position: "insideLeft", fill: "var(--dimmer-text)", fontSize: 11 }} />
                   <Tooltip contentStyle={tooltipStyle} formatter={(val: number, name: string) => [val, name === "x" ? "Общая" : "Ц/К"]} labelFormatter={() => ""} />
                   <Scatter name="Российские" data={platforms.filter((p) => p.tag === "ru").map((p) => ({ x: p.overall, y: p.vq, name: p.name }))} fill={RU_COLOR} />
                   <Scatter name="Глобальные" data={platforms.filter((p) => p.tag === "global").map((p) => ({ x: p.overall, y: p.vq, name: p.name }))} fill={GL_COLOR} />
-                  <Legend wrapperStyle={{ fontSize: 12, color: "#8C8C96" }} />
+                  <Legend wrapperStyle={{ fontSize: 12, color: "var(--dim-text)" }} />
                 </ScatterChart>
               </ResponsiveContainer>
             </ChartBox>
@@ -231,9 +231,9 @@ export default function B2BPlatformsReport() {
             <ChartBox title="Рейтинг платформ — общая оценка" sub="Шкала 1–10">
               <ResponsiveContainer width="100%" height={380}>
                 <BarChart data={sortedByOverall} layout="vertical" margin={{ left: 20 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                  <XAxis type="number" domain={[6, 10]} tick={{ fill: "#8C8C96", fontSize: 11 }} />
-                  <YAxis type="category" dataKey="name" tick={{ fill: "#B4B4BC", fontSize: 11 }} width={110} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--glass-border)" />
+                  <XAxis type="number" domain={[6, 10]} tick={{ fill: "var(--dim-text)", fontSize: 11 }} />
+                  <YAxis type="category" dataKey="name" tick={{ fill: "var(--body-text)", fontSize: 11 }} width={110} />
                   <Tooltip contentStyle={tooltipStyle} />
                   <Bar dataKey="overall" name="Общая оценка" radius={[0, 4, 4, 0]}>
                     {sortedByOverall.map((p, i) => (
@@ -255,14 +255,14 @@ export default function B2BPlatformsReport() {
               <ChartBox title="Профили российских платформ" sub="Радарная диаграмма">
                 <ResponsiveContainer width="100%" height={300}>
                   <RadarChart data={radarRU}>
-                    <PolarGrid stroke="rgba(255,255,255,0.08)" />
-                    <PolarAngleAxis dataKey="metric" tick={{ fill: "#8C8C96", fontSize: 11 }} />
-                    <PolarRadiusAxis domain={[0, 10]} tick={{ fill: "#6E6E7A", fontSize: 10 }} />
+                    <PolarGrid stroke="var(--glass-border)" />
+                    <PolarAngleAxis dataKey="metric" tick={{ fill: "var(--dim-text)", fontSize: 11 }} />
+                    <PolarRadiusAxis domain={[0, 10]} tick={{ fill: "var(--dimmer-text)", fontSize: 10 }} />
                     <Radar name="B2B Движение" dataKey="B2B Движение" stroke={RU_COLOR} fill={RU_COLOR} fillOpacity={0.1} />
                     <Radar name="Agora" dataKey="Agora" stroke={GREEN} fill={GREEN} fillOpacity={0.1} />
                     <Radar name="Compo" dataKey="Compo" stroke={YELLOW} fill={YELLOW} fillOpacity={0.1} />
                     <Radar name="Sellty" dataKey="Sellty" stroke={GL_COLOR} fill={GL_COLOR} fillOpacity={0.08} />
-                    <Legend wrapperStyle={{ fontSize: 11, color: "#8C8C96" }} />
+                    <Legend wrapperStyle={{ fontSize: 11, color: "var(--dim-text)" }} />
                   </RadarChart>
                 </ResponsiveContainer>
               </ChartBox>
@@ -270,14 +270,14 @@ export default function B2BPlatformsReport() {
               <ChartBox title="Профили глобальных платформ" sub="Топ-4 глобальные платформы">
                 <ResponsiveContainer width="100%" height={300}>
                   <RadarChart data={radarGlobal}>
-                    <PolarGrid stroke="rgba(255,255,255,0.08)" />
-                    <PolarAngleAxis dataKey="metric" tick={{ fill: "#8C8C96", fontSize: 11 }} />
-                    <PolarRadiusAxis domain={[0, 10]} tick={{ fill: "#6E6E7A", fontSize: 10 }} />
+                    <PolarGrid stroke="var(--glass-border)" />
+                    <PolarAngleAxis dataKey="metric" tick={{ fill: "var(--dim-text)", fontSize: 11 }} />
+                    <PolarRadiusAxis domain={[0, 10]} tick={{ fill: "var(--dimmer-text)", fontSize: 10 }} />
                     <Radar name="Shopify Plus" dataKey="Shopify Plus" stroke={RU_COLOR} fill={RU_COLOR} fillOpacity={0.1} />
                     <Radar name="BigCommerce" dataKey="BigCommerce" stroke={GREEN} fill={GREEN} fillOpacity={0.1} />
                     <Radar name="Salesforce" dataKey="Salesforce" stroke={YELLOW} fill={YELLOW} fillOpacity={0.1} />
                     <Radar name="WooCommerce" dataKey="WooCommerce" stroke={GL_COLOR} fill={GL_COLOR} fillOpacity={0.08} />
-                    <Legend wrapperStyle={{ fontSize: 11, color: "#8C8C96" }} />
+                    <Legend wrapperStyle={{ fontSize: 11, color: "var(--dim-text)" }} />
                   </RadarChart>
                 </ResponsiveContainer>
               </ChartBox>
@@ -346,11 +346,11 @@ export default function B2BPlatformsReport() {
               <ChartBox title="Дизайн vs Полнота контента" sub="Два ключевых параметра в сравнении">
                 <ResponsiveContainer width="100%" height={300}>
                   <BarChart data={landingCompare} layout="vertical" margin={{ left: 20 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                    <XAxis type="number" domain={[0, 10]} tick={{ fill: "#8C8C96", fontSize: 11 }} />
-                    <YAxis type="category" dataKey="name" tick={{ fill: "#B4B4BC", fontSize: 10 }} width={100} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--glass-border)" />
+                    <XAxis type="number" domain={[0, 10]} tick={{ fill: "var(--dim-text)", fontSize: 11 }} />
+                    <YAxis type="category" dataKey="name" tick={{ fill: "var(--body-text)", fontSize: 10 }} width={100} />
                     <Tooltip contentStyle={tooltipStyle} />
-                    <Legend wrapperStyle={{ fontSize: 11, color: "#8C8C96" }} />
+                    <Legend wrapperStyle={{ fontSize: 11, color: "var(--dim-text)" }} />
                     <Bar dataKey="design" name="Дизайн" fill={`${RU_COLOR}b3`} radius={[0, 3, 3, 0]} />
                     <Bar dataKey="content" name="Контент" fill={`${GREEN}99`} radius={[0, 3, 3, 0]} />
                   </BarChart>
@@ -399,11 +399,11 @@ export default function B2BPlatformsReport() {
               <ChartBox title="Целевая аудитория платформ" sub="Покрытие сегментов по размеру бизнеса">
                 <ResponsiveContainer width="100%" height={280}>
                   <BarChart data={segmentData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
-                    <XAxis dataKey="segment" tick={{ fill: "#8C8C96", fontSize: 11 }} />
-                    <YAxis tick={{ fill: "#8C8C96", fontSize: 11 }} domain={[0, 9]} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--glass-border)" />
+                    <XAxis dataKey="segment" tick={{ fill: "var(--dim-text)", fontSize: 11 }} />
+                    <YAxis tick={{ fill: "var(--dim-text)", fontSize: 11 }} domain={[0, 9]} />
                     <Tooltip contentStyle={tooltipStyle} />
-                    <Legend wrapperStyle={{ fontSize: 11, color: "#8C8C96" }} />
+                    <Legend wrapperStyle={{ fontSize: 11, color: "var(--dim-text)" }} />
                     <Bar dataKey="ru" name="Российские (из 5)" fill={`${RU_COLOR}b3`} radius={[4, 4, 0, 0]} />
                     <Bar dataKey="global" name="Глобальные (из 8)" fill={`${GL_COLOR}99`} radius={[4, 4, 0, 0]} />
                   </BarChart>
@@ -415,11 +415,11 @@ export default function B2BPlatformsReport() {
                   <PieChart>
                     <Pie data={deployData} cx="50%" cy="50%" innerRadius={60} outerRadius={100} dataKey="value" nameKey="name" label={({ name, value }) => `${name}: ${value}`} labelLine={false}>
                       {deployData.map((d, i) => (
-                        <Cell key={i} fill={d.color} fillOpacity={0.8} stroke="rgba(255,255,255,0.05)" strokeWidth={2} />
+                        <Cell key={i} fill={d.color} fillOpacity={0.8} stroke="var(--glass-border)" strokeWidth={2} />
                       ))}
                     </Pie>
                     <Tooltip contentStyle={tooltipStyle} />
-                    <Legend wrapperStyle={{ fontSize: 11, color: "#8C8C96" }} />
+                    <Legend wrapperStyle={{ fontSize: 11, color: "var(--dim-text)" }} />
                   </PieChart>
                 </ResponsiveContainer>
               </ChartBox>
@@ -564,11 +564,11 @@ export default function B2BPlatformsReport() {
 /* ── SHARED COMPONENTS ── */
 
 const tooltipStyle = {
-  background: "rgba(15,17,25,0.95)",
-  border: "1px solid rgba(255,255,255,0.1)",
+  background: "var(--color-overlay-3)",
+  border: "1px solid var(--color-glass-border)",
   borderRadius: "8px",
   fontSize: "12px",
-  color: "#B4B4BC",
+  color: "var(--color-body)",
 }
 
 function SectionHeader({ num, title }: { num: string; title: string }) {
