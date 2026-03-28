@@ -39,14 +39,14 @@ export function LogoCloud() {
               {companies.map((company, i) => (
                 <div
                   key={`${set}-${i}`}
-                  className="flex-shrink-0 flex items-center justify-center h-16 px-6 rounded-xl bg-overlay-2 border border-glass-border hover:border-[#3B82F6]/20 hover:bg-overlay-4 transition-all duration-300 cursor-default"
+                  className="flex-shrink-0 flex items-center justify-center h-28 px-10 rounded-2xl bg-overlay-2 border border-glass-border hover:border-[#3B82F6]/20 hover:bg-overlay-4 transition-all duration-300 cursor-default"
                 >
                   <Image
                     src={company.logo}
                     alt={company.name}
                     width={200}
                     height={200}
-                    className="h-10 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity dark:invert"
+                    className="h-20 w-auto object-contain opacity-70 hover:opacity-100 transition-opacity dark:invert"
                   />
                 </div>
               ))}
