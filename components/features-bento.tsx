@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { Search, DollarSign, ShoppingCart, Link, BarChart3, Smartphone } from "lucide-react"
+import { Search, DollarSign, ShoppingCart, Link, BarChart3, Smartphone, Globe } from "lucide-react"
 
 const features = [
   {
@@ -249,35 +249,29 @@ export function FeaturesBento() {
                 </div>
                 <p className="text-subtle leading-relaxed text-sm">{features[5].description}</p>
                 {/* Mobile platforms */}
-                <div className="mt-3 flex items-center gap-3">
-                  <div className="flex items-center gap-2 px-4 py-2.5 bg-overlay-3 rounded-xl border border-glass-border">
-                    <div className="w-5 h-5 rounded bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 flex items-center justify-center">
-                      <span className="text-[10px] text-body">A</span>
-                    </div>
-                    <span className="text-xs text-subtle">Android</span>
+                <div className="mt-3 flex items-center gap-2.5">
+                  <div className="flex items-center gap-2 px-3.5 py-2 bg-gradient-to-r from-[#3B82F6]/10 to-[#8B5CF6]/10 rounded-lg border border-[#3B82F6]/15">
+                    <Smartphone className="w-3.5 h-3.5 text-[#3B82F6]" />
+                    <span className="text-xs font-medium text-body">Android</span>
                   </div>
-                  <div className="flex items-center gap-2 px-4 py-2.5 bg-overlay-3 rounded-xl border border-glass-border">
-                    <div className="w-5 h-5 rounded bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 flex items-center justify-center">
-                      <span className="text-[10px] text-body">i</span>
-                    </div>
-                    <span className="text-xs text-subtle">iOS</span>
+                  <div className="flex items-center gap-2 px-3.5 py-2 bg-gradient-to-r from-[#8B5CF6]/10 to-[#EC4899]/10 rounded-lg border border-[#8B5CF6]/15">
+                    <Smartphone className="w-3.5 h-3.5 text-[#8B5CF6]" />
+                    <span className="text-xs font-medium text-body">iOS</span>
                   </div>
-                  <div className="flex items-center gap-2 px-4 py-2.5 bg-overlay-3 rounded-xl border border-glass-border">
-                    <div className="w-5 h-5 rounded bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 flex items-center justify-center">
-                      <span className="text-[10px] text-body">W</span>
-                    </div>
-                    <span className="text-xs text-subtle">Web</span>
+                  <div className="flex items-center gap-2 px-3.5 py-2 bg-gradient-to-r from-[#06B6D4]/10 to-[#3B82F6]/10 rounded-lg border border-[#06B6D4]/15">
+                    <Globe className="w-3.5 h-3.5 text-[#06B6D4]" />
+                    <span className="text-xs font-medium text-body">Web</span>
                   </div>
                 </div>
               </div>
               {/* Phone image — only top half visible, bottom clipped */}
-              <div className="hidden sm:block w-[140px] flex-shrink-0 h-[160px] overflow-hidden rounded-xl -mb-5 -mr-1">
+              <div className="hidden sm:block w-[140px] flex-shrink-0 h-[160px] overflow-hidden -mb-5 -mr-1">
                 <Image
                   src="/phone.png"
                   alt="Мобильное приложение"
                   width={320}
                   height={640}
-                  className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_12px_40px_rgba(0,0,0,0.4)]"
+                  className="w-full h-auto"
                 />
               </div>
             </div>
