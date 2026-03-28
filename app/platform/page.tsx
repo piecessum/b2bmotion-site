@@ -141,8 +141,8 @@ export default function PlatformPage() {
           <div className="reveal flex flex-wrap justify-center gap-3 mb-16">
             {tabs.map((tab) => (
               <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${activeTab === tab.id ? "text-white dark:text-heading" : "text-subtle border border-border-default hover:text-body hover:border-[#3B82F6]/30"}`}
-                style={activeTab === tab.id ? { background: "linear-gradient(var(--heading), var(--heading)) padding-box, linear-gradient(135deg, #3B82F6, #8B5CF6) border-box", border: "1px solid transparent" } : undefined}
+                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${activeTab === tab.id ? "text-heading dark:text-heading" : "text-subtle border border-border-default hover:text-body hover:border-[#3B82F6]/30"}`}
+                style={activeTab === tab.id ? { background: "linear-gradient(var(--surface), var(--surface)) padding-box, linear-gradient(135deg, #3B82F6, #8B5CF6) border-box", border: "1px solid transparent" } : undefined}
               >{tab.label}</button>
             ))}
           </div>
@@ -150,7 +150,7 @@ export default function PlatformPage() {
             <div className="lg:sticky lg:top-32">{mockups[activeTab]}</div>
             <div className="space-y-4">
               {features[activeTab].map((f, i) => (
-                <div key={`${activeTab}-${i}`} className="reveal visible flex gap-4 p-5 bg-surface-hover rounded-2xl border border-border-default hover:border-[#3B82F6]/40 transition-all duration-500 glow-card">
+                <div key={`${activeTab}-${i}`} className="reveal visible flex gap-4 p-5 bg-surface rounded-2xl border border-border-default hover:border-[#3B82F6]/40 transition-all duration-500 glow-card">
                   <div className="w-10 h-10 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center flex-shrink-0"><f.icon className="w-5 h-5 text-[#3B82F6]" /></div>
                   <div><h3 className="font-heading font-semibold text-heading mb-1">{f.title}</h3><p className="text-sm text-body leading-relaxed">{f.desc}</p></div>
                 </div>
