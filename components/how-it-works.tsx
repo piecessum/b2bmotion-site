@@ -57,13 +57,20 @@ function SettingsVisual() {
   return (
     <div className="p-6 bg-surface-inner rounded-xl border border-glass-border space-y-2.5">
       {[
-        { label: "Цвет бренда", value: "#3B82F6" },
-        { label: "Минимальный заказ", value: "15 000 ₽" },
-        { label: "Срок доставки", value: "2-3 дня" },
+        { label: "Цвет бренда", value: "#3B82F6", isColor: true },
+        { label: "Минимальный заказ", value: "15 000 ₽", isColor: false },
+        { label: "Срок доставки", value: "2-3 дня", isColor: false },
       ].map((setting, i) => (
-        <div key={i} className="flex items-center justify-between px-3 py-2.5 bg-overlay-2 rounded-xl border border-overlay-4">
-          <span className="text-xs text-dim">{setting.label}</span>
-          <span className="text-xs text-body font-medium">{setting.value}</span>
+        <div key={i} className="px-3 py-2.5 bg-overlay-2 rounded-xl border border-overlay-4">
+          <span className="text-[10px] text-dim block mb-1">{setting.label}</span>
+          {setting.isColor ? (
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-full" style={{ background: setting.value }} />
+              <span className="text-xs text-body font-medium">{setting.value}</span>
+            </div>
+          ) : (
+            <span className="text-xs text-body font-medium">{setting.value}</span>
+          )}
         </div>
       ))}
     </div>
@@ -73,13 +80,16 @@ function SettingsVisual() {
 function NotificationVisual() {
   return (
     <div className="p-6 bg-surface-inner rounded-xl border border-glass-border">
-      <div className="flex items-start gap-3 p-4 bg-overlay-2 rounded-xl border border-emerald-500/10">
-        <div className="w-9 h-9 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0 border border-emerald-500/20">
-          <span className="text-emerald-400 text-lg">&#10003;</span>
+      <div className="p-4 bg-overlay-2 rounded-xl border border-emerald-500/10">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-9 h-9 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0 border border-emerald-500/20">
+            <span className="text-emerald-400 text-lg">&#10003;</span>
+          </div>
+          <p className="text-sm font-medium text-heading">Новый заказ #2849</p>
         </div>
-        <div>
-          <p className="text-sm font-medium text-heading mb-1">Новый заказ #2849</p>
-          <p className="text-xs text-dim">ООО «ВЕСТА» — &#8381; 147,200</p>
+        <div className="space-y-1.5 pl-12">
+          <p className="text-xs text-dim">ООО «ВЕСТА»</p>
+          <p className="text-xs text-body font-medium">&#8381; 147,200</p>
         </div>
       </div>
     </div>

@@ -121,7 +121,7 @@ export function Hero() {
         <div className="reveal reveal-delay-3 mb-14">
           <a
             href="#cta"
-            className="shimmer-btn inline-flex items-center gap-2.5 px-10 py-5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white text-lg font-semibold rounded-2xl hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_50px_rgba(59,130,246,0.45)] transition-all duration-300 hover:brightness-110"
+            className="shimmer-btn inline-flex items-center gap-2.5 px-8 py-3.5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white text-base font-semibold rounded-2xl whitespace-nowrap hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_50px_rgba(59,130,246,0.45)] transition-all duration-300 hover:brightness-110"
           >
             Автоматизировать продажи
           </a>
@@ -147,7 +147,7 @@ export function Hero() {
       </div>
 
       {/* Devices showcase — desktop: all 3, mobile: phone only */}
-      <div ref={devicesRef} className="reveal reveal-delay-5 relative z-10 w-full max-w-5xl mx-auto px-6 mt-auto">
+      <div ref={devicesRef} className="md:reveal md:reveal-delay-5 relative z-10 w-full max-w-5xl mx-auto px-6 mt-auto">
         {/* Desktop layout */}
         <div className="relative mx-auto hidden md:block" style={{ maxWidth: 900, perspective: "1200px" }}>
           {/* Glow behind laptop */}
@@ -212,15 +212,15 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Mobile layout — phone only */}
-        <div className="md:hidden flex justify-center">
+        {/* Mobile layout — phone peeking from bottom, no animation */}
+        <div className="md:hidden flex justify-center overflow-hidden h-[200px]">
           <div className="w-[280px]">
             <Image
               src="/phone.png"
               alt="B2B платформа на смартфоне"
               width={320}
               height={640}
-              className="w-full h-auto drop-shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+              className="w-full h-auto"
               priority
             />
           </div>

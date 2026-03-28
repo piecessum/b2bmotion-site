@@ -54,9 +54,9 @@ function SearchMockup() {
       </div>
       <div className="rounded-xl border border-overlay-4 overflow-hidden divide-y divide-overlay-4">
         {["Кабель ВВГнг-LS 3х2.5", "Кабель ВВГнг(А)-LS 3х2.5 ГОСТ", "Аналог: ПВС 3х2.5"].map((item, i) => (
-          <div key={i} className="flex items-center justify-between px-4 py-2.5">
-            <span className="text-sm text-body">{item}</span>
-            <span className={`text-xs font-medium ${i === 2 ? "text-[#8B5CF6]" : "text-emerald-400/80"}`}>
+          <div key={i} className="flex items-center justify-between gap-3 px-4 py-2.5">
+            <span className="text-sm text-body truncate">{item}</span>
+            <span className={`text-xs font-medium whitespace-nowrap shrink-0 ${i === 2 ? "text-[#8B5CF6]" : "text-emerald-400/80"}`}>
               {i === 2 ? "Аналог" : "В наличии"}
             </span>
           </div>

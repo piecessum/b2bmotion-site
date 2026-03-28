@@ -181,17 +181,17 @@ export function IndustryCases() {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,48px)] tracking-[-0.02em] text-heading">
-            Кейсы в отраслях{" "}
-            <span className="relative inline-block w-[200px] md:w-[280px] text-left align-bottom">
-              <span
-                className={`gradient-text-animated inline-block transition-all duration-300 ${
-                  isAnimating ? "opacity-0 translate-y-3 blur-sm" : "opacity-100 translate-y-0 blur-0"
-                }`}
-              >
-                {currentIndustry}
-              </span>
-            </span>
+            Кейсы в отраслях
           </h2>
+          <div className="mt-2">
+            <span
+              className={`gradient-text-animated font-heading font-bold text-[clamp(28px,4.5vw,44px)] tracking-[-0.02em] inline-block transition-all duration-300 ${
+                isAnimating ? "opacity-0 translate-y-3 blur-sm" : "opacity-100 translate-y-0 blur-0"
+              }`}
+            >
+              {currentIndustry}
+            </span>
+          </div>
         </div>
 
         {/* Cards */}
