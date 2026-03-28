@@ -105,6 +105,27 @@ export default function KnowledgePage() {
               </div>
             ))}
           </div>
+
+          {/* Contact block */}
+          <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-amber-500/[0.08] to-yellow-500/[0.04] border border-amber-500/10">
+            <p className="font-heading font-semibold text-heading mb-4">
+              На любые вопросы ответит руководитель отдела продаж Агеев Дмитрий
+            </p>
+            <ul className="space-y-2">
+              <li className="flex items-center gap-2 text-sm text-body">
+                <span className="text-subtle">почта:</span>
+                <a href="mailto:ageev@b2bmotion.ru" className="text-[#60A5FA] hover:text-[#93C5FD] transition-colors">
+                  ageev@b2bmotion.ru
+                </a>
+              </li>
+              <li className="flex items-center gap-2 text-sm text-body">
+                <span className="text-subtle">телефон:</span>
+                <a href="tel:+74993503436" className="text-[#60A5FA] hover:text-[#93C5FD] transition-colors">
+                  +7 (499) 35-0-34-36
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
 
