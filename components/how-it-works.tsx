@@ -79,20 +79,18 @@ function SettingsVisual() {
 
 function NotificationVisual() {
   return (
-    <div className="p-6 bg-surface-inner rounded-xl border border-glass-border">
-      <div className="p-4 bg-overlay-2 rounded-xl border border-emerald-500/10">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-9 h-9 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0 border border-emerald-500/20">
-            <span className="text-emerald-400 text-lg">&#10003;</span>
-          </div>
-          <p className="text-sm font-medium text-heading whitespace-nowrap">Новый заказ #2849</p>
-        </div>
-        <div className="space-y-1 pl-12">
-          <p className="text-[10px] text-dim">Клиент</p>
-          <p className="text-xs text-body font-medium mb-2">ООО «ВЕСТА»</p>
-          <p className="text-[10px] text-dim">Сумма</p>
-          <p className="text-xs text-body font-medium">&#8381; 147,200</p>
-        </div>
+    <div className="p-5 bg-surface-inner rounded-xl border border-glass-border space-y-3">
+      <div className="w-9 h-9 rounded-full bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+        <span className="text-emerald-400 text-lg">&#10003;</span>
+      </div>
+      <p className="text-sm font-medium text-heading">Новый заказ #2849</p>
+      <div>
+        <p className="text-[10px] text-dim">Клиент</p>
+        <p className="text-xs text-body font-medium">ООО «ВЕСТА»</p>
+      </div>
+      <div>
+        <p className="text-[10px] text-dim">Сумма</p>
+        <p className="text-xs text-body font-medium">147 200 &#8381;</p>
       </div>
     </div>
   )
