@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react"
 import { usePathname } from "next/navigation"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { Logo } from "@/components/logo"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 const industries = [
   { label: "Для электрического рынка", href: "/electro" },
@@ -24,16 +25,16 @@ const servicePaths = services.map((i) => i.href).filter((h) => h !== "#")
 
 function navLinkClass(isActive: boolean) {
   if (isActive) {
-    return "flex items-center px-3 h-11 text-sm text-[#E4E4E7] bg-white/[0.06] rounded-lg transition-all duration-300"
+    return "flex items-center px-3 h-11 text-sm text-subheading bg-overlay-6 rounded-lg transition-all duration-300"
   }
-  return "animated-underline flex items-center px-3 h-11 text-sm text-[#71717A] hover:text-[#E4E4E7] transition-colors duration-300"
+  return "animated-underline flex items-center px-3 h-11 text-sm text-subtle hover:text-subheading transition-colors duration-300"
 }
 
 function dropdownTriggerClass(isActive: boolean) {
   if (isActive) {
-    return "flex items-center gap-1 px-3 h-11 text-sm text-[#E4E4E7] bg-white/[0.06] rounded-lg transition-all duration-300"
+    return "flex items-center gap-1 px-3 h-11 text-sm text-subheading bg-overlay-6 rounded-lg transition-all duration-300"
   }
-  return "animated-underline flex items-center gap-1 px-3 h-11 text-sm text-[#71717A] hover:text-[#E4E4E7] transition-colors duration-300"
+  return "animated-underline flex items-center gap-1 px-3 h-11 text-sm text-subtle hover:text-subheading transition-colors duration-300"
 }
 
 function Dropdown({
@@ -74,12 +75,12 @@ function Dropdown({
       </button>
 
       {open && (
-        <div className="absolute top-full left-0 mt-2 min-w-[280px] p-2 rounded-xl bg-[#0F0F14]/95 border border-white/[0.06] backdrop-blur-2xl shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
+        <div className="absolute top-full left-0 mt-2 min-w-[280px] p-2 rounded-xl bg-dropdown-bg border border-glass-border backdrop-blur-2xl shadow-[0_16px_48px_rgba(0,0,0,0.2)] dark:shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
           {items.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="block px-4 py-3 text-sm text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04] rounded-lg transition-all duration-200"
+              className="block px-4 py-3 text-sm text-body hover:text-heading hover:bg-overlay-4 rounded-lg transition-all duration-200"
             >
               {item.label}
             </a>
@@ -113,8 +114,8 @@ export function Navbar() {
         <div
           className={`flex items-center px-2 rounded-2xl transition-all duration-500 ${
             scrolled
-              ? "bg-[#0F0F14]/80 border border-white/[0.06] backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
-              : "bg-white/[0.03] border border-white/[0.06] backdrop-blur-xl"
+              ? "bg-nav-bg-scrolled border border-glass-border backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+              : "bg-nav-bg border border-glass-border backdrop-blur-xl"
           }`}
         >
           {/* Logo */}
@@ -173,26 +174,32 @@ export function Navbar() {
             </a>
           </div>
 
-          {/* CTA Button */}
-          <a
-            href="/contacts"
-            className="hidden md:flex items-center ml-auto px-5 h-9 my-1.5 text-sm font-medium rounded-xl transition-all duration-300 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white hover:shadow-[0_0_24px_rgba(59,130,246,0.4)] hover:brightness-110 whitespace-nowrap"
-          >
-            Оставить заявку
-          </a>
+          {/* Theme toggle + CTA */}
+          <div className="hidden md:flex items-center ml-auto gap-2">
+            <ThemeToggle />
+            <a
+              href="/contacts"
+              className="flex items-center px-5 h-9 my-1.5 text-sm font-medium rounded-xl transition-all duration-300 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white hover:shadow-[0_0_24px_rgba(59,130,246,0.4)] hover:brightness-110 whitespace-nowrap"
+            >
+              Оставить заявку
+            </a>
+          </div>
 
           {/* Mobile menu button */}
-          <button
-            className="md:hidden flex items-center justify-center w-10 h-10 ml-auto text-[#A1A1AA]"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          <div className="md:hidden flex items-center ml-auto gap-1">
+            <ThemeToggle />
+            <button
+              className="flex items-center justify-center w-10 h-10 text-body"
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="md:hidden mt-2 p-3 rounded-2xl bg-[#0F0F14]/95 border border-white/[0.06] backdrop-blur-2xl max-h-[75vh] overflow-y-auto">
+          <div className="md:hidden mt-2 p-3 rounded-2xl bg-dropdown-bg border border-glass-border backdrop-blur-2xl max-h-[75vh] overflow-y-auto">
             <div className="flex flex-col">
               <div className="flex flex-wrap gap-1 mb-2">
                 {[
@@ -206,8 +213,8 @@ export function Navbar() {
                     href={link.href}
                     className={`px-3 py-2 text-sm rounded-lg transition-all duration-200 ${
                       pathname === link.href
-                        ? "text-[#E4E4E7] bg-white/[0.06]"
-                        : "text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04]"
+                        ? "text-subheading bg-overlay-6"
+                        : "text-body hover:text-heading hover:bg-overlay-4"
                     }`}
                     onClick={() => setMobileOpen(false)}
                   >
@@ -216,19 +223,19 @@ export function Navbar() {
                 ))}
               </div>
 
-              <div className="h-px bg-white/[0.06] my-1" />
+              <div className="h-px bg-overlay-6 my-1" />
 
               <div className="grid grid-cols-2 gap-2 my-2">
                 <div>
-                  <div className="px-2 py-1.5 text-[10px] text-[#52525B] uppercase tracking-wider font-medium">Отрасли</div>
+                  <div className="px-2 py-1.5 text-[10px] text-dim uppercase tracking-wider font-medium">Отрасли</div>
                   {industries.map((item) => (
                     <a
                       key={item.label}
                       href={item.href}
                       className={`block px-2 py-2 text-xs rounded-lg transition-all duration-200 leading-tight ${
                         pathname === item.href
-                          ? "text-[#E4E4E7] bg-white/[0.06]"
-                          : "text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04]"
+                          ? "text-subheading bg-overlay-6"
+                          : "text-body hover:text-heading hover:bg-overlay-4"
                       }`}
                       onClick={() => setMobileOpen(false)}
                     >
@@ -237,15 +244,15 @@ export function Navbar() {
                   ))}
                 </div>
                 <div>
-                  <div className="px-2 py-1.5 text-[10px] text-[#52525B] uppercase tracking-wider font-medium">Услуги</div>
+                  <div className="px-2 py-1.5 text-[10px] text-dim uppercase tracking-wider font-medium">Услуги</div>
                   {services.map((item) => (
                     <a
                       key={item.label}
                       href={item.href}
                       className={`block px-2 py-2 text-xs rounded-lg transition-all duration-200 leading-tight ${
                         pathname === item.href
-                          ? "text-[#E4E4E7] bg-white/[0.06]"
-                          : "text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-white/[0.04]"
+                          ? "text-subheading bg-overlay-6"
+                          : "text-body hover:text-heading hover:bg-overlay-4"
                       }`}
                       onClick={() => setMobileOpen(false)}
                     >

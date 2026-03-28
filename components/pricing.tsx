@@ -66,12 +66,12 @@ export function Pricing() {
 
   return (
     <section ref={sectionRef} id="pricing" className="relative py-28 px-6">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A0A10]/50 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-section/50 to-transparent pointer-events-none" />
 
       <div className="relative max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,48px)] tracking-[-0.02em] text-[#F5F5F5]">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,48px)] tracking-[-0.02em] text-heading">
             Прозрачные <span className="gradient-text">условия</span>
           </h2>
         </div>
@@ -81,15 +81,11 @@ export function Pricing() {
           {plans.map((plan, i) => (
             <div
               key={i}
-              className={`reveal relative p-8 rounded-2xl transition-all duration-500 ${
-                plan.featured
-                  ? "glass-card"
-                  : "glass-card"
-              }`}
+              className={`reveal relative p-8 rounded-2xl transition-all duration-500 glass-card`}
               style={
                 plan.featured
                   ? {
-                      background: 'linear-gradient(135deg, rgba(15, 15, 20, 0.9) 0%, rgba(20, 20, 35, 0.7) 100%)',
+                      background: 'linear-gradient(135deg, var(--surface) 0%, var(--surface-hover) 100%)',
                       border: '1px solid transparent',
                       backgroundClip: 'padding-box',
                       boxShadow: '0 0 0 1px rgba(59, 130, 246, 0.2), 0 8px 40px rgba(59, 130, 246, 0.08), 0 0 80px rgba(139, 92, 246, 0.05)',
@@ -120,13 +116,13 @@ export function Pricing() {
 
               <div className="relative z-10">
                 <div className="mb-6">
-                  <h3 className="font-heading font-semibold text-xl text-[#F5F5F5] mb-2">{plan.name}</h3>
-                  <p className="text-sm text-[#52525B]">{plan.description}</p>
+                  <h3 className="font-heading font-semibold text-xl text-heading mb-2">{plan.name}</h3>
+                  <p className="text-sm text-dim">{plan.description}</p>
                 </div>
 
                 <div className="mb-8">
-                  <span className="font-heading font-bold text-4xl text-[#F5F5F5]">{plan.price}</span>
-                  {plan.period && <span className="text-[#52525B] ml-1">{plan.period}</span>}
+                  <span className="font-heading font-bold text-4xl text-heading">{plan.price}</span>
+                  {plan.period && <span className="text-dim ml-1">{plan.period}</span>}
                 </div>
 
                 <ul className="space-y-4 mb-8">
@@ -135,11 +131,11 @@ export function Pricing() {
                       <div className={`w-5 h-5 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 ${
                         plan.featured
                           ? "bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 border border-[#3B82F6]/20"
-                          : "bg-white/[0.04] border border-white/[0.06]"
+                          : "bg-overlay-4 border border-glass-border"
                       }`}>
-                        <Check className={`w-3 h-3 ${plan.featured ? "text-[#60A5FA]" : "text-[#71717A]"}`} />
+                        <Check className={`w-3 h-3 ${plan.featured ? "text-[#60A5FA]" : "text-subtle"}`} />
                       </div>
-                      <span className="text-sm text-[#A1A1AA]">{feature}</span>
+                      <span className="text-sm text-body">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -149,7 +145,7 @@ export function Pricing() {
                   className={`block w-full py-4 rounded-2xl text-center font-medium transition-all duration-300 ${
                     plan.featured
                       ? "shimmer-btn bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] hover:brightness-110"
-                      : "border border-white/[0.08] text-[#D4D4D8] hover:bg-white/[0.04] hover:border-white/[0.15]"
+                      : "border border-overlay-8 text-subheading hover:bg-overlay-4 hover:border-border-default"
                   }`}
                 >
                   Выбрать план

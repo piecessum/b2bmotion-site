@@ -31,13 +31,13 @@ export function CTASection() {
       <div className="absolute inset-0 dot-grid opacity-30" />
 
       <div className="relative z-10 max-w-3xl mx-auto text-center">
-        <h2 className="reveal font-heading font-bold text-[clamp(36px,6vw,56px)] tracking-[-0.02em] text-[#F5F5F5] mb-6">
+        <h2 className="reveal font-heading font-bold text-[clamp(36px,6vw,56px)] tracking-[-0.02em] text-heading mb-6">
           Готовы{" "}
           <span className="gradient-text-animated">ускорить</span>
           {" "}продажи?
         </h2>
 
-        <p className="reveal text-lg text-[#71717A] mb-10 max-w-xl mx-auto leading-relaxed">
+        <p className="reveal text-lg text-subtle mb-10 max-w-xl mx-auto leading-relaxed">
           Оставьте заявку — покажем платформу и обсудим ваш проект
         </p>
 
@@ -51,12 +51,12 @@ export function CTASection() {
           </a>
         </div>
 
-        <div className="reveal flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-[#52525B]">
-          <a href="tel:+74951234567" className="hover:text-[#A1A1AA] transition-colors duration-300">
+        <div className="reveal flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-dim">
+          <a href="tel:+74951234567" className="hover:text-body transition-colors duration-300">
             +7 (495) 123-45-67
           </a>
-          <span className="hidden sm:block w-1 h-1 rounded-full bg-[#1E1E2A]" />
-          <a href="mailto:hello@b2b-dvizhenie.ru" className="hover:text-[#A1A1AA] transition-colors duration-300">
+          <span className="hidden sm:block w-1 h-1 rounded-full bg-border-subtle" />
+          <a href="mailto:hello@b2b-dvizhenie.ru" className="hover:text-body transition-colors duration-300">
             hello@b2b-dvizhenie.ru
           </a>
         </div>

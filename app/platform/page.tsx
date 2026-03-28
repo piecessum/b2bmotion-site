@@ -61,15 +61,15 @@ function useReveal(ref: React.RefObject<HTMLElement | null>) {
 
 function ProductsMockup() {
   return (
-    <div className="bg-[#111113] rounded-2xl border border-[#27272A] p-5 space-y-3">
-      <div className="flex items-center gap-3 px-4 py-3 bg-[#09090B] rounded-lg border border-[#27272A]">
+    <div className="bg-surface rounded-2xl border border-border-default p-5 space-y-3">
+      <div className="flex items-center gap-3 px-4 py-3 bg-page-alt rounded-lg border border-border-default">
         <Search className="w-5 h-5 text-[#3B82F6]" />
-        <span className="text-[#71717A] text-sm">Поиск по каталогу...</span>
+        <span className="text-subtle text-sm">Поиск по каталогу...</span>
       </div>
       {["Кабель ВВГнг-LS 3х2.5", "Автомат ABB S203 C25", "Светильник LED Panel 40W"].map((item, i) => (
-        <div key={i} className="flex items-center justify-between px-4 py-3 bg-[#09090B] rounded-lg">
-          <div><p className="text-sm text-[#F5F5F5]">{item}</p><p className="text-xs text-[#71717A]">Артикул: {["ВВГ-3х25", "2CDS253001", "LP-40W"][i]}</p></div>
-          <div className="text-right"><p className="text-sm font-medium text-[#F5F5F5]">₽{["1,240", "3,890", "2,150"][i]}</p><span className="text-xs text-emerald-500">В наличии</span></div>
+        <div key={i} className="flex items-center justify-between px-4 py-3 bg-page-alt rounded-lg">
+          <div><p className="text-sm text-heading">{item}</p><p className="text-xs text-subtle">Артикул: {["ВВГ-3х25", "2CDS253001", "LP-40W"][i]}</p></div>
+          <div className="text-right"><p className="text-sm font-medium text-heading">₽{["1,240", "3,890", "2,150"][i]}</p><span className="text-xs text-emerald-500">В наличии</span></div>
         </div>
       ))}
     </div>
@@ -78,17 +78,17 @@ function ProductsMockup() {
 
 function CabinetMockup() {
   return (
-    <div className="bg-[#111113] rounded-2xl border border-[#27272A] p-5">
+    <div className="bg-surface rounded-2xl border border-border-default p-5">
       <div className="grid grid-cols-2 gap-3 mb-4">
         {[{ l: "Кредитный лимит", v: "₽2.5M" }, { l: "Задолженность", v: "₽340K" }, { l: "Просрочка", v: "0 дней" }, { l: "Бонусы", v: "12,450" }].map((s, i) => (
-          <div key={i} className="p-3 bg-[#09090B] rounded-lg"><p className="text-[10px] text-[#71717A]">{s.l}</p><p className="text-lg font-heading font-semibold text-[#F5F5F5]">{s.v}</p></div>
+          <div key={i} className="p-3 bg-page-alt rounded-lg"><p className="text-[10px] text-subtle">{s.l}</p><p className="text-lg font-heading font-semibold text-heading">{s.v}</p></div>
         ))}
       </div>
       <div className="space-y-2">
         {["Скидка −15% на светотехнику", "Спецификация #412 обновлена", "Счёт #2847 оплачен"].map((n, i) => (
-          <div key={i} className="flex items-center gap-3 px-3 py-2 bg-[#09090B] rounded-lg">
+          <div key={i} className="flex items-center gap-3 px-3 py-2 bg-page-alt rounded-lg">
             <div className={`w-2 h-2 rounded-full ${i === 0 ? "bg-[#3B82F6]" : i === 1 ? "bg-[#8B5CF6]" : "bg-emerald-500"}`} />
-            <span className="text-xs text-[#A1A1AA]">{n}</span>
+            <span className="text-xs text-body">{n}</span>
           </div>
         ))}
       </div>
@@ -99,14 +99,14 @@ function CabinetMockup() {
 function AnalyticsMockup() {
   const bars = [40, 65, 50, 85, 70, 95, 60]
   return (
-    <div className="bg-[#111113] rounded-2xl border border-[#27272A] p-5">
-      <div className="flex items-center justify-between mb-4"><p className="text-sm font-medium text-[#F5F5F5]">Продажи за неделю</p><span className="text-xs text-emerald-500">+12.4%</span></div>
+    <div className="bg-surface rounded-2xl border border-border-default p-5">
+      <div className="flex items-center justify-between mb-4"><p className="text-sm font-medium text-heading">Продажи за неделю</p><span className="text-xs text-emerald-500">+12.4%</span></div>
       <div className="flex items-end justify-between gap-2 h-28 mb-3">
-        {bars.map((h, i) => (<div key={i} className="flex-1 flex flex-col items-center gap-1"><div className="w-full rounded-t-md bg-gradient-to-t from-blue-500 to-violet-500" style={{ height: `${h}%` }} /><span className="text-[9px] text-[#71717A]">{["Пн","Вт","Ср","Чт","Пт","Сб","Вс"][i]}</span></div>))}
+        {bars.map((h, i) => (<div key={i} className="flex-1 flex flex-col items-center gap-1"><div className="w-full rounded-t-md bg-gradient-to-t from-blue-500 to-violet-500" style={{ height: `${h}%` }} /><span className="text-[9px] text-subtle">{["Пн","Вт","Ср","Чт","Пт","Сб","Вс"][i]}</span></div>))}
       </div>
       <div className="grid grid-cols-3 gap-2">
         {[{ l: "Средний чек", v: "₽58K" }, { l: "Конверсия", v: "24%" }, { l: "Заказов", v: "847" }].map((s, i) => (
-          <div key={i} className="p-2 bg-[#09090B] rounded-lg text-center"><p className="text-[9px] text-[#71717A]">{s.l}</p><p className="text-sm font-heading font-semibold text-[#F5F5F5]">{s.v}</p></div>
+          <div key={i} className="p-2 bg-page-alt rounded-lg text-center"><p className="text-[9px] text-subtle">{s.l}</p><p className="text-sm font-heading font-semibold text-heading">{s.v}</p></div>
         ))}
       </div>
     </div>
@@ -121,14 +121,14 @@ export default function PlatformPage() {
   const mockups: Record<string, React.ReactNode> = { products: <ProductsMockup />, cabinet: <CabinetMockup />, analytics: <AnalyticsMockup /> }
 
   return (
-    <main ref={mainRef} className="relative min-h-screen bg-[#09090B] noise-overlay">
+    <main ref={mainRef} className="relative min-h-screen bg-page-alt noise-overlay">
       <Navbar />
       <section className="relative pt-36 pb-20 px-6 overflow-hidden">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] opacity-[0.06] pointer-events-none"><div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-violet-500 rounded-full blur-[120px]" /></div>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <span className="reveal inline-block px-4 py-1.5 mb-6 text-xs font-medium uppercase tracking-[0.15em] text-[#3B82F6] bg-[#3B82F6]/10 rounded-full">Платформа</span>
-          <h1 className="reveal font-heading font-bold text-[clamp(36px,7vw,60px)] leading-[1.1] tracking-[-0.03em] mb-6"><span className="text-[#F5F5F5]">Всё для автоматизации</span><br /><span className="gradient-text">оптовых продаж</span></h1>
-          <p className="reveal text-lg text-[#A1A1AA] max-w-xl mx-auto mb-10">Управление каталогом, заказами, ценами и клиентами — в одном решении с интеграцией в вашу 1С</p>
+          <h1 className="reveal font-heading font-bold text-[clamp(36px,7vw,60px)] leading-[1.1] tracking-[-0.03em] mb-6"><span className="text-heading">Всё для автоматизации</span><br /><span className="gradient-text">оптовых продаж</span></h1>
+          <p className="reveal text-lg text-body max-w-xl mx-auto mb-10">Управление каталогом, заказами, ценами и клиентами — в одном решении с интеграцией в вашу 1С</p>
           <div className="reveal flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="#cta" className="px-8 py-4 bg-white text-[#09090B] font-semibold rounded-full hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">Запросить демо</a>
             <a href="/#pricing" className="px-8 py-4 border border-white/20 text-white font-medium rounded-full hover:bg-white/5 transition-all duration-300">Смотреть цены</a>
@@ -141,7 +141,7 @@ export default function PlatformPage() {
           <div className="reveal flex flex-wrap justify-center gap-3 mb-16">
             {tabs.map((tab) => (
               <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${activeTab === tab.id ? "text-[#F5F5F5]" : "text-[#71717A] border border-[#27272A] hover:text-[#A1A1AA] hover:border-[#3B82F6]/30"}`}
+                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${activeTab === tab.id ? "text-heading" : "text-subtle border border-border-default hover:text-body hover:border-[#3B82F6]/30"}`}
                 style={activeTab === tab.id ? { background: "linear-gradient(#18181B, #18181B) padding-box, linear-gradient(135deg, #3B82F6, #8B5CF6) border-box", border: "1px solid transparent" } : undefined}
               >{tab.label}</button>
             ))}
@@ -150,9 +150,9 @@ export default function PlatformPage() {
             <div className="lg:sticky lg:top-32">{mockups[activeTab]}</div>
             <div className="space-y-4">
               {features[activeTab].map((f, i) => (
-                <div key={`${activeTab}-${i}`} className="reveal visible flex gap-4 p-5 bg-[#18181B] rounded-2xl border border-[#27272A] hover:border-[#3B82F6]/40 transition-all duration-500 glow-card">
+                <div key={`${activeTab}-${i}`} className="reveal visible flex gap-4 p-5 bg-surface-hover rounded-2xl border border-border-default hover:border-[#3B82F6]/40 transition-all duration-500 glow-card">
                   <div className="w-10 h-10 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center flex-shrink-0"><f.icon className="w-5 h-5 text-[#3B82F6]" /></div>
-                  <div><h3 className="font-heading font-semibold text-[#F5F5F5] mb-1">{f.title}</h3><p className="text-sm text-[#A1A1AA] leading-relaxed">{f.desc}</p></div>
+                  <div><h3 className="font-heading font-semibold text-heading mb-1">{f.title}</h3><p className="text-sm text-body leading-relaxed">{f.desc}</p></div>
                 </div>
               ))}
             </div>
@@ -160,17 +160,17 @@ export default function PlatformPage() {
         </div>
       </section>
 
-      <section className="py-24 px-6 bg-[#0A0A0C]">
+      <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-[#F5F5F5] text-center mb-16">Дорожная карта развития</h2>
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">Дорожная карта развития</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {roadmap.map((item, i) => (
-              <div key={i} className="reveal p-6 bg-[#18181B] rounded-2xl border border-[#27272A] hover:border-[#3B82F6]/30 transition-all duration-500">
-                <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium mb-4 ${item.status === "done" ? "bg-emerald-500/10 text-emerald-500" : item.status === "wip" ? "bg-[#3B82F6]/10 text-[#3B82F6]" : "bg-[#27272A] text-[#71717A]"}`}>
+              <div key={i} className="reveal p-6 bg-surface-hover rounded-2xl border border-border-default hover:border-[#3B82F6]/30 transition-all duration-500">
+                <span className={`inline-flex px-3 py-1 rounded-full text-xs font-medium mb-4 ${item.status === "done" ? "bg-emerald-500/10 text-emerald-500" : item.status === "wip" ? "bg-[#3B82F6]/10 text-[#3B82F6]" : "bg-dimmest text-subtle"}`}>
                   {item.status === "done" ? "Готово" : item.status === "wip" ? "В работе" : "В планах"}
                 </span>
-                <h3 className="font-heading font-semibold text-lg text-[#F5F5F5] mb-2">{item.title}</h3>
-                <p className="text-sm text-[#A1A1AA]">{item.desc}</p>
+                <h3 className="font-heading font-semibold text-lg text-heading mb-2">{item.title}</h3>
+                <p className="text-sm text-body">{item.desc}</p>
               </div>
             ))}
           </div>

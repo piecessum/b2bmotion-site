@@ -46,15 +46,15 @@ const features = [
 
 function SearchMockup() {
   return (
-    <div className="mt-6 p-4 bg-[#08080C] rounded-xl border border-white/[0.06]">
-      <div className="flex items-center gap-3 px-4 py-3 bg-white/[0.03] rounded-xl border border-white/[0.06] mb-4">
+    <div className="mt-6 p-4 bg-surface-inner rounded-xl border border-glass-border">
+      <div className="flex items-center gap-3 px-4 py-3 bg-overlay-3 rounded-xl border border-glass-border mb-4">
         <Search className="w-5 h-5 text-[#3B82F6]" />
-        <span className="text-[#52525B] text-sm">Кабель ВВГнг 3х2.5...</span>
+        <span className="text-dim text-sm">Кабель ВВГнг 3х2.5...</span>
       </div>
       <div className="space-y-2">
         {["Кабель ВВГнг-LS 3х2.5", "Кабель ВВГнг(А)-LS 3х2.5 ГОСТ", "Аналог: ПВС 3х2.5"].map((item, i) => (
-          <div key={i} className="flex items-center justify-between px-4 py-2.5 bg-white/[0.02] rounded-xl border border-white/[0.04] hover:border-white/[0.08] transition-colors">
-            <span className="text-sm text-[#A1A1AA]">{item}</span>
+          <div key={i} className="flex items-center justify-between px-4 py-2.5 bg-overlay-2 rounded-xl border border-overlay-4 hover:border-overlay-8 transition-colors">
+            <span className="text-sm text-body">{item}</span>
             <span className={`text-xs font-medium ${i === 2 ? "text-[#8B5CF6]" : "text-emerald-400/80"}`}>
               {i === 2 ? "Аналог" : "В наличии"}
             </span>
@@ -68,9 +68,9 @@ function SearchMockup() {
 function ChartMockup() {
   const bars = [65, 85, 45, 95, 70, 80, 55]
   return (
-    <div className="mt-6 p-4 bg-[#08080C] rounded-xl border border-white/[0.06]">
+    <div className="mt-6 p-4 bg-surface-inner rounded-xl border border-glass-border">
       <div className="flex items-center justify-between mb-3">
-        <span className="text-[10px] text-[#52525B] uppercase tracking-wider">Продажи за неделю</span>
+        <span className="text-[10px] text-dim uppercase tracking-wider">Продажи за неделю</span>
         <span className="text-xs text-emerald-400/80 font-medium">+12.5%</span>
       </div>
       <div className="flex items-end justify-between gap-2 h-24">
@@ -80,7 +80,7 @@ function ChartMockup() {
               className="w-full rounded-lg bg-gradient-to-t from-[#3B82F6]/60 to-[#8B5CF6]/60 hover:from-[#3B82F6] hover:to-[#8B5CF6] transition-all duration-300"
               style={{ height: `${height}%` }}
             />
-            <span className="text-[10px] text-[#3F3F46]">
+            <span className="text-[10px] text-dimmer">
               {["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"][i]}
             </span>
           </div>
@@ -115,7 +115,7 @@ export function FeaturesBento() {
           <span className="reveal inline-flex items-center gap-2 px-4 py-2 mb-6 text-xs font-medium uppercase tracking-[0.2em] text-[#60A5FA] bg-[#3B82F6]/[0.06] border border-[#3B82F6]/[0.1] rounded-full">
             Платформа
           </span>
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,48px)] tracking-[-0.02em] text-[#F5F5F5]">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,48px)] tracking-[-0.02em] text-heading">
             Всё для масштабирования
             <br className="hidden sm:block" />
             <span className="gradient-text"> оптовых продаж</span>
@@ -132,9 +132,9 @@ export function FeaturesBento() {
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#3B82F6]/15 to-[#8B5CF6]/10 flex items-center justify-center border border-[#3B82F6]/10">
                   <Search className="w-5 h-5 text-[#60A5FA]" />
                 </div>
-                <h3 className="font-heading font-semibold text-xl text-[#F5F5F5]">{features[0].title}</h3>
+                <h3 className="font-heading font-semibold text-xl text-heading">{features[0].title}</h3>
               </div>
-              <p className="text-[#71717A] leading-relaxed">{features[0].description}</p>
+              <p className="text-subtle leading-relaxed">{features[0].description}</p>
               <SearchMockup />
             </div>
           </div>
@@ -146,14 +146,14 @@ export function FeaturesBento() {
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8B5CF6]/15 to-[#3B82F6]/10 flex items-center justify-center border border-[#8B5CF6]/10">
                   <DollarSign className="w-5 h-5 text-[#A78BFA]" />
                 </div>
-                <h3 className="font-heading font-semibold text-xl text-[#F5F5F5]">{features[1].title}</h3>
+                <h3 className="font-heading font-semibold text-xl text-heading">{features[1].title}</h3>
               </div>
-              <p className="text-[#71717A] leading-relaxed">{features[1].description}</p>
+              <p className="text-subtle leading-relaxed">{features[1].description}</p>
               {/* Mini price tiers preview */}
               <div className="mt-6 space-y-2">
                 {["Розница", "Опт", "VIP"].map((tier, i) => (
-                  <div key={i} className="flex items-center justify-between px-3 py-2 bg-white/[0.02] rounded-xl border border-white/[0.04]">
-                    <span className="text-xs text-[#71717A]">{tier}</span>
+                  <div key={i} className="flex items-center justify-between px-3 py-2 bg-overlay-2 rounded-xl border border-overlay-4">
+                    <span className="text-xs text-subtle">{tier}</span>
                     <div className="h-1.5 rounded-full bg-gradient-to-r from-[#3B82F6]/40 to-[#8B5CF6]/40" style={{ width: `${60 + i * 20}px` }} />
                   </div>
                 ))}
@@ -169,15 +169,15 @@ export function FeaturesBento() {
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/15 to-[#3B82F6]/10 flex items-center justify-center border border-emerald-500/10">
                   <ShoppingCart className="w-5 h-5 text-emerald-400" />
                 </div>
-                <h3 className="font-heading font-semibold text-xl text-[#F5F5F5]">{features[2].title}</h3>
+                <h3 className="font-heading font-semibold text-xl text-heading">{features[2].title}</h3>
               </div>
-              <p className="text-[#71717A] leading-relaxed">{features[2].description}</p>
+              <p className="text-subtle leading-relaxed">{features[2].description}</p>
               {/* Order status mini */}
               <div className="mt-6 flex items-center gap-2">
                 {["Создан", "Обработан", "Отгружен"].map((s, i) => (
                   <div key={i} className="flex-1 text-center">
-                    <div className={`h-1 rounded-full mb-2 ${i < 2 ? "bg-emerald-500/50" : "bg-white/[0.06]"}`} />
-                    <span className="text-[10px] text-[#52525B]">{s}</span>
+                    <div className={`h-1 rounded-full mb-2 ${i < 2 ? "bg-emerald-500/50" : "bg-overlay-6"}`} />
+                    <span className="text-[10px] text-dim">{s}</span>
                   </div>
                 ))}
               </div>
@@ -191,9 +191,9 @@ export function FeaturesBento() {
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#3B82F6]/15 to-[#06B6D4]/10 flex items-center justify-center border border-[#3B82F6]/10">
                   <BarChart3 className="w-5 h-5 text-[#60A5FA]" />
                 </div>
-                <h3 className="font-heading font-semibold text-xl text-[#F5F5F5]">{features[3].title}</h3>
+                <h3 className="font-heading font-semibold text-xl text-heading">{features[3].title}</h3>
               </div>
-              <p className="text-[#71717A] leading-relaxed">{features[3].description}</p>
+              <p className="text-subtle leading-relaxed">{features[3].description}</p>
               <ChartMockup />
             </div>
           </div>
@@ -206,16 +206,16 @@ export function FeaturesBento() {
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#06B6D4]/15 to-[#3B82F6]/10 flex items-center justify-center border border-[#06B6D4]/10">
                   <Link className="w-5 h-5 text-cyan-400" />
                 </div>
-                <h3 className="font-heading font-semibold text-xl text-[#F5F5F5]">{features[4].title}</h3>
+                <h3 className="font-heading font-semibold text-xl text-heading">{features[4].title}</h3>
               </div>
-              <p className="text-[#71717A] leading-relaxed">{features[4].description}</p>
+              <p className="text-subtle leading-relaxed">{features[4].description}</p>
               {/* 1C sync visual */}
               <div className="mt-6 flex items-center justify-between">
-                <div className="px-3 py-2 bg-white/[0.03] rounded-lg border border-white/[0.06] text-xs text-[#71717A]">1С</div>
+                <div className="px-3 py-2 bg-overlay-3 rounded-lg border border-glass-border text-xs text-subtle">1С</div>
                 <div className="flex-1 mx-3 h-[1px] bg-gradient-to-r from-[#06B6D4]/40 via-[#3B82F6]/40 to-[#8B5CF6]/40 relative">
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse" />
                 </div>
-                <div className="px-3 py-2 bg-gradient-to-r from-[#3B82F6]/10 to-[#8B5CF6]/10 rounded-lg border border-[#3B82F6]/10 text-xs text-[#A1A1AA]">B2B</div>
+                <div className="px-3 py-2 bg-gradient-to-r from-[#3B82F6]/10 to-[#8B5CF6]/10 rounded-lg border border-[#3B82F6]/10 text-xs text-body">B2B</div>
               </div>
             </div>
           </div>
@@ -227,28 +227,28 @@ export function FeaturesBento() {
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#8B5CF6]/15 to-[#EC4899]/10 flex items-center justify-center border border-[#8B5CF6]/10">
                   <Smartphone className="w-5 h-5 text-[#C084FC]" />
                 </div>
-                <h3 className="font-heading font-semibold text-xl text-[#F5F5F5]">{features[5].title}</h3>
+                <h3 className="font-heading font-semibold text-xl text-heading">{features[5].title}</h3>
               </div>
-              <p className="text-[#71717A] leading-relaxed">{features[5].description}</p>
+              <p className="text-subtle leading-relaxed">{features[5].description}</p>
               {/* Mobile platforms */}
               <div className="mt-6 flex items-center gap-3">
-                <div className="flex items-center gap-2 px-4 py-2.5 bg-white/[0.03] rounded-xl border border-white/[0.06]">
+                <div className="flex items-center gap-2 px-4 py-2.5 bg-overlay-3 rounded-xl border border-glass-border">
                   <div className="w-5 h-5 rounded bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 flex items-center justify-center">
-                    <span className="text-[10px] text-[#A1A1AA]">A</span>
+                    <span className="text-[10px] text-body">A</span>
                   </div>
-                  <span className="text-xs text-[#71717A]">Android</span>
+                  <span className="text-xs text-subtle">Android</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2.5 bg-white/[0.03] rounded-xl border border-white/[0.06]">
+                <div className="flex items-center gap-2 px-4 py-2.5 bg-overlay-3 rounded-xl border border-glass-border">
                   <div className="w-5 h-5 rounded bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 flex items-center justify-center">
-                    <span className="text-[10px] text-[#A1A1AA]">i</span>
+                    <span className="text-[10px] text-body">i</span>
                   </div>
-                  <span className="text-xs text-[#71717A]">iOS</span>
+                  <span className="text-xs text-subtle">iOS</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2.5 bg-white/[0.03] rounded-xl border border-white/[0.06]">
+                <div className="flex items-center gap-2 px-4 py-2.5 bg-overlay-3 rounded-xl border border-glass-border">
                   <div className="w-5 h-5 rounded bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 flex items-center justify-center">
-                    <span className="text-[10px] text-[#A1A1AA]">W</span>
+                    <span className="text-[10px] text-body">W</span>
                   </div>
-                  <span className="text-xs text-[#71717A]">Web</span>
+                  <span className="text-xs text-subtle">Web</span>
                 </div>
               </div>
             </div>

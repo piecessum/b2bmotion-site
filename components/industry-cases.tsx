@@ -180,7 +180,7 @@ export function IndustryCases() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,48px)] tracking-[-0.02em] text-[#F5F5F5]">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,48px)] tracking-[-0.02em] text-heading">
             Кейсы в отраслях{" "}
             <span className="relative inline-block w-[200px] md:w-[280px] text-left align-bottom">
               <span
@@ -207,8 +207,8 @@ export function IndustryCases() {
               {/* Image area */}
               <div className="relative aspect-[16/10] overflow-hidden">
                 <div className={`absolute inset-0 bg-gradient-to-br ${caseStudy.gradient}`} />
-                <div className="absolute inset-0 bg-[#06060A]/30" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F14] via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-page/30" />
+                <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
 
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${caseStudy.iconGradient} backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
@@ -221,13 +221,13 @@ export function IndustryCases() {
 
               {/* Content */}
               <div className="p-6">
-                <span className="text-[10px] text-[#52525B] uppercase tracking-[0.15em]">
+                <span className="text-[10px] text-dim uppercase tracking-[0.15em]">
                   {currentIndustry}
                 </span>
-                <h3 className="font-heading font-bold text-xl text-[#F5F5F5] mt-2 mb-3">
+                <h3 className="font-heading font-bold text-xl text-heading mt-2 mb-3">
                   {caseStudy.company}
                 </h3>
-                <p className="text-sm text-[#71717A] leading-relaxed mb-5">
+                <p className="text-sm text-subtle leading-relaxed mb-5">
                   {caseStudy.description}
                 </p>
                 <a
@@ -257,7 +257,7 @@ export function IndustryCases() {
               className={`h-2 rounded-full transition-all duration-500 ${
                 i === currentIndex
                   ? "w-10 bg-gradient-to-r from-[#3B82F6] to-[#8B5CF6] shadow-[0_0_12px_rgba(59,130,246,0.4)]"
-                  : "w-2 bg-[#27272A] hover:bg-[#3F3F46]"
+                  : "w-2 bg-dimmest hover:bg-dimmer"
               }`}
               aria-label={industry}
             />

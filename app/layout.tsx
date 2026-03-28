@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Outfit, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
 const outfit = Outfit({ 
@@ -44,9 +45,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ru" className="dark" suppressHydrationWarning>
-      <body className={`${outfit.variable} ${dmSans.variable} font-body antialiased bg-[#06060A]`}>
-        {children}
+    <html lang="ru" suppressHydrationWarning>
+      <body className={`${outfit.variable} ${dmSans.variable} font-body antialiased bg-page text-heading`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
         <Analytics />
       </body>
     </html>

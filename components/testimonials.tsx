@@ -48,7 +48,7 @@ export function Testimonials() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,48px)] tracking-[-0.02em] text-[#F5F5F5]">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,48px)] tracking-[-0.02em] text-heading">
             Что говорят <span className="gradient-text">наши клиенты</span>
           </h2>
         </div>
@@ -67,20 +67,20 @@ export function Testimonials() {
               <Quote className="absolute top-6 right-6 w-10 h-10 text-[#3B82F6]/[0.06] group-hover:text-[#3B82F6]/[0.1] transition-colors duration-500" />
 
               <blockquote className="relative z-10 pl-4">
-                <p className="text-lg text-[#D4D4D8] leading-relaxed mb-6 font-light">
+                <p className="text-lg text-subheading leading-relaxed mb-6 font-light">
                   &quot;{testimonial.quote}&quot;
                 </p>
                 <footer className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#3B82F6]/10 to-[#8B5CF6]/10 border border-white/[0.06] flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#3B82F6]/10 to-[#8B5CF6]/10 border border-glass-border flex items-center justify-center">
                     <span className="text-sm font-bold gradient-text">
                       {testimonial.company.charAt(0)}
                     </span>
                   </div>
                   <div>
-                    <span className="block font-heading font-semibold text-[#F5F5F5] text-sm">
+                    <span className="block font-heading font-semibold text-heading text-sm">
                       {testimonial.company}
                     </span>
-                    <span className="text-xs text-[#52525B]">{testimonial.industry}</span>
+                    <span className="text-xs text-dim">{testimonial.industry}</span>
                   </div>
                 </footer>
               </blockquote>

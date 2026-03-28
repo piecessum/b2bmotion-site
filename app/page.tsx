@@ -11,7 +11,7 @@ import { Footer } from "@/components/footer"
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-[#06060A] noise-overlay">
+    <main className="relative min-h-screen bg-page noise-overlay">
       <Navbar />
       <Hero />
       <LogoCloud />

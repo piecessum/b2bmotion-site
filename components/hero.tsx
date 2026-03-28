@@ -87,7 +87,7 @@ export function Hero() {
         {/* Main heading */}
         <h1 className="reveal reveal-delay-1 font-heading font-bold leading-[1.05] mb-4">
           <span
-            className="block text-[#F5F5F5] tracking-[0.06em]"
+            className="block text-heading tracking-[0.06em]"
             style={{ fontSize: "clamp(48px, 10vw, 88px)" }}
           >
             B2B <span className="gradient-text">ДВИЖЕНИЕ</span>
@@ -96,7 +96,7 @@ export function Hero() {
 
         {/* Subtitle */}
         <p
-          className="reveal reveal-delay-2 font-heading font-bold text-[#F5F5F5] mb-10"
+          className="reveal reveal-delay-2 font-heading font-bold text-heading mb-10"
           style={{ fontSize: "clamp(24px, 4.5vw, 44px)" }}
         >
           10 лет помогаем компаниям
@@ -120,10 +120,10 @@ export function Hero() {
             { value: "10", label: "лет опыта" },
           ].map((stat, i) => (
             <div key={i} className="text-center">
-              <div className="font-heading font-bold text-2xl md:text-3xl text-[#F5F5F5]">
+              <div className="font-heading font-bold text-2xl md:text-3xl text-heading">
                 {stat.value}
               </div>
-              <div className="text-xs text-[#52525B] mt-1 tracking-wide uppercase">
+              <div className="text-xs text-dim mt-1 tracking-wide uppercase">
                 {stat.label}
               </div>
             </div>
@@ -149,7 +149,7 @@ export function Hero() {
       </div>
 
       {/* Bottom gradient fade into next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#06060A] to-transparent pointer-events-none z-20" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-page to-transparent pointer-events-none z-20" />
     </section>
   )
 }

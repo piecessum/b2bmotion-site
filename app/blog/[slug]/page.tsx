@@ -27,7 +27,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   if (!post) notFound()
 
   return (
-    <main className="relative min-h-screen bg-[#06060A] noise-overlay">
+    <main className="relative min-h-screen bg-page noise-overlay">
       <Navbar />
 
       <article className="pt-36 pb-28 px-6">
@@ -35,7 +35,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           {/* Back */}
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-[#52525B] hover:text-[#A1A1AA] transition-colors mb-10"
+            className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors mb-10"
           >
             <ArrowLeft className="w-4 h-4" />
             Все статьи
@@ -43,7 +43,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
           {/* Header */}
           <header className="mb-12">
-            <div className="flex items-center gap-3 mb-4 text-xs text-[#52525B]">
+            <div className="flex items-center gap-3 mb-4 text-xs text-dim">
               <Calendar className="w-3.5 h-3.5" />
               <time>
                 {new Date(post.date).toLocaleDateString("ru-RU", {
@@ -54,17 +54,17 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               </time>
               {post.author && (
                 <>
-                  <span className="w-1 h-1 rounded-full bg-[#27272A]" />
+                  <span className="w-1 h-1 rounded-full bg-dimmest" />
                   <span>{post.author}</span>
                 </>
               )}
             </div>
 
-            <h1 className="font-heading font-bold text-[clamp(28px,4vw,42px)] tracking-[-0.02em] text-[#F5F5F5] leading-tight">
+            <h1 className="font-heading font-bold text-[clamp(28px,4vw,42px)] tracking-[-0.02em] text-heading leading-tight">
               {post.title}
             </h1>
 
-            <p className="mt-4 text-lg text-[#71717A]">{post.description}</p>
+            <p className="mt-4 text-lg text-subtle">{post.description}</p>
           </header>
 
           {/* Divider */}
@@ -79,7 +79,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 return (
                   <h2
                     key={i}
-                    className="font-heading font-semibold text-xl text-[#F5F5F5] mt-10 mb-4"
+                    className="font-heading font-semibold text-xl text-heading mt-10 mb-4"
                   >
                     {trimmed.replace("## ", "")}
                   </h2>
@@ -88,7 +88,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 return (
                   <h3
                     key={i}
-                    className="font-heading font-semibold text-lg text-[#E4E4E7] mt-8 mb-3"
+                    className="font-heading font-semibold text-lg text-subheading mt-8 mb-3"
                   >
                     {trimmed.replace("### ", "")}
                   </h3>
@@ -97,13 +97,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 return (
                   <li
                     key={i}
-                    className="text-[#A1A1AA] leading-relaxed ml-4 mb-1 list-disc marker:text-[#3B82F6]"
+                    className="text-body leading-relaxed ml-4 mb-1 list-disc marker:text-[#3B82F6]"
                   >
                     {renderInline(trimmed.replace("- ", ""))}
                   </li>
                 )
               return (
-                <p key={i} className="text-[#A1A1AA] leading-relaxed mb-4">
+                <p key={i} className="text-body leading-relaxed mb-4">
                   {renderInline(trimmed)}
                 </p>
               )
@@ -133,7 +133,7 @@ function renderInline(text: string) {
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={i} className="text-[#E4E4E7] font-medium">
+        <strong key={i} className="text-subheading font-medium">
           {part.slice(2, -2)}
         </strong>
       )
