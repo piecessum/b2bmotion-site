@@ -212,9 +212,9 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Mobile layout — phone peeking from bottom, no animation */}
-        <div className="md:hidden flex justify-center overflow-hidden h-[200px]">
-          <div className="w-[280px]">
+        {/* Mobile layout — phone fully visible */}
+        <div className="md:hidden flex justify-center">
+          <div className="w-[220px]">
             <Image
               src="/phone.png"
               alt="B2B платформа на смартфоне"
