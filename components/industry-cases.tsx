@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { ArrowRight } from "lucide-react"
+import Image from "next/image"
 
 const industries = [
   "Сантехника",
@@ -17,6 +18,7 @@ interface CaseStudy {
   description: string
   gradient: string
   iconGradient: string
+  logo?: string
 }
 
 const casesByIndustry: Record<string, CaseStudy[]> = {
@@ -26,12 +28,14 @@ const casesByIndustry: Record<string, CaseStudy[]> = {
       description: "Поставщик инженерного оборудования, отопления, вентиляции и сантехники. Более 200 брендов в каталоге.",
       gradient: "from-cyan-500/20 via-blue-500/10 to-teal-500/20",
       iconGradient: "from-cyan-400/20 to-blue-400/20",
+      logo: "/хогарт.svg",
     },
     {
       company: "Веста",
       description: "Ведущий поставщик сантехники и оборудования для ванных комнат. Сеть филиалов по всей России.",
       gradient: "from-blue-500/20 via-cyan-500/10 to-sky-500/20",
       iconGradient: "from-blue-400/20 to-sky-400/20",
+      logo: "/веста.svg",
     },
     {
       company: "АкваМаркет",
@@ -46,12 +50,14 @@ const casesByIndustry: Record<string, CaseStudy[]> = {
       description: "Федеральный дистрибьютор, входит в ТОП-5 электротехнических компаний Урала.",
       gradient: "from-amber-500/20 via-orange-500/10 to-yellow-500/20",
       iconGradient: "from-amber-400/20 to-orange-400/20",
+      logo: "/росэк.svg",
     },
     {
       company: "РОС-Электро",
       description: "Крупная региональная сеть электрооборудования. Партнёрская сеть из 150+ точек.",
       gradient: "from-orange-500/20 via-red-500/10 to-amber-500/20",
       iconGradient: "from-orange-400/20 to-red-400/20",
+      logo: "/росэлектро.svg",
     },
     {
       company: "50 Герц",
@@ -66,6 +72,7 @@ const casesByIndustry: Record<string, CaseStudy[]> = {
       description: "Крупнейший дистрибьютор в Башкортостане. 5000+ наименований продуктов питания и бытовой химии.",
       gradient: "from-green-500/20 via-emerald-500/10 to-lime-500/20",
       iconGradient: "from-green-400/20 to-emerald-400/20",
+      logo: "/рэйд21.svg",
     },
     {
       company: "ФудЛайн",
@@ -86,6 +93,7 @@ const casesByIndustry: Record<string, CaseStudy[]> = {
       description: "Поставщик систем безопасности и видеонаблюдения с отгрузкой по всей России.",
       gradient: "from-slate-500/20 via-zinc-500/10 to-gray-500/20",
       iconGradient: "from-slate-400/20 to-zinc-400/20",
+      logo: "/протэк.svg",
     },
     {
       company: "СекьюрПро",
@@ -106,6 +114,7 @@ const casesByIndustry: Record<string, CaseStudy[]> = {
       description: "Продавец строительных и отделочных материалов в Центральном Черноземье.",
       gradient: "from-rose-500/20 via-pink-500/10 to-red-500/20",
       iconGradient: "from-rose-400/20 to-pink-400/20",
+      logo: "/строймикс.svg",
     },
     {
       company: "СтройОпт",
@@ -126,12 +135,14 @@ const casesByIndustry: Record<string, CaseStudy[]> = {
       description: "Лидер мебельной отрасли по поставкам комплектующих. Более 20 лет на рынке.",
       gradient: "from-violet-500/20 via-purple-500/10 to-indigo-500/20",
       iconGradient: "from-violet-400/20 to-purple-400/20",
+      logo: "/кристал.svg",
     },
     {
       company: "Древиз",
       description: "Мебельные материалы и фурнитура. Полный ассортимент для производителей.",
       gradient: "from-purple-500/20 via-fuchsia-500/10 to-violet-500/20",
       iconGradient: "from-purple-400/20 to-fuchsia-400/20",
+      logo: "/древиз.svg",
     },
     {
       company: "ФурнитураПро",
@@ -212,9 +223,19 @@ export function IndustryCases() {
 
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${caseStudy.iconGradient} backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
-                    <span className="text-3xl font-heading font-bold text-white/70">
-                      {caseStudy.company.charAt(0)}
-                    </span>
+                    {caseStudy.logo ? (
+                      <Image
+                        src={caseStudy.logo}
+                        alt={caseStudy.company}
+                        width={100}
+                        height={100}
+                        className="h-10 w-auto object-contain opacity-70 dark:invert"
+                      />
+                    ) : (
+                      <span className="text-3xl font-heading font-bold text-white/70">
+                        {caseStudy.company.charAt(0)}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
