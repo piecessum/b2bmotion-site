@@ -5,6 +5,7 @@ import { FeaturesBento } from "@/components/features-bento"
 import { HowItWorks } from "@/components/how-it-works"
 import { IndustryCases } from "@/components/industry-cases"
 import { Testimonials } from "@/components/testimonials"
+import { VideoBanner } from "@/components/video-banner"
 import { Pricing } from "@/components/pricing"
 import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
@@ -19,6 +20,7 @@ export default function Home() {
       <HowItWorks />
       <IndustryCases />
       <Testimonials />
+      <VideoBanner />
       <Pricing />
       <CTASection />
       <Footer />
