@@ -146,9 +146,10 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Devices showcase */}
+      {/* Devices showcase — desktop: all 3, mobile: phone only */}
       <div ref={devicesRef} className="reveal reveal-delay-5 relative z-10 w-full max-w-5xl mx-auto px-6 mt-auto">
-        <div className="relative mx-auto" style={{ maxWidth: 900, perspective: "1200px" }}>
+        {/* Desktop layout */}
+        <div className="relative mx-auto hidden md:block" style={{ maxWidth: 900, perspective: "1200px" }}>
           {/* Glow behind laptop */}
           <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[80%] h-[200px] bg-gradient-to-r from-[#3B82F6]/10 via-[#8B5CF6]/8 to-[#06B6D4]/10 blur-[80px] pointer-events-none dark:opacity-100 opacity-50" />
 
@@ -207,6 +208,20 @@ export function Hero() {
               width={320}
               height={640}
               className="w-full h-auto drop-shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+            />
+          </div>
+        </div>
+
+        {/* Mobile layout — phone only */}
+        <div className="md:hidden flex justify-center">
+          <div className="w-[220px]">
+            <Image
+              src="/phone.png"
+              alt="B2B платформа на смартфоне"
+              width={320}
+              height={640}
+              className="w-full h-auto drop-shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+              priority
             />
           </div>
         </div>
