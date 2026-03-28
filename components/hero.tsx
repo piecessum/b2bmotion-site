@@ -106,7 +106,7 @@ export function Hero() {
         <div className="reveal reveal-delay-3 mb-14">
           <a
             href="#cta"
-            className="shimmer-btn inline-flex items-center gap-2.5 px-10 py-5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white text-lg font-semibold rounded-2xl hover:shadow-[0_0_50px_rgba(59,130,246,0.45)] transition-all duration-300 hover:brightness-110"
+            className="shimmer-btn inline-flex items-center gap-2.5 px-10 py-5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white text-lg font-semibold rounded-2xl hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_50px_rgba(59,130,246,0.45)] transition-all duration-300 hover:brightness-110"
           >
             Автоматизировать продажи
           </a>
@@ -135,14 +135,14 @@ export function Hero() {
       <div className="reveal reveal-delay-5 relative z-10 w-full max-w-5xl mx-auto px-6 mt-auto">
         <div className="relative mx-auto" style={{ maxWidth: 900 }}>
           {/* Glow behind laptop */}
-          <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[80%] h-[200px] bg-gradient-to-r from-[#3B82F6]/10 via-[#8B5CF6]/8 to-[#06B6D4]/10 blur-[80px] pointer-events-none" />
+          <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[80%] h-[200px] bg-gradient-to-r from-[#3B82F6]/10 via-[#8B5CF6]/8 to-[#06B6D4]/10 blur-[80px] pointer-events-none dark:opacity-100 opacity-50" />
 
           <Image
             src="/laptop-hero.png"
             alt="B2B Движение — платформа для оптовых продаж"
             width={1400}
             height={900}
-            className="relative w-full h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
+            className="relative w-full h-auto drop-shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
             priority
           />
         </div>

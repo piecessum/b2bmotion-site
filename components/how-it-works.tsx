@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useTheme } from "next-themes"
 import { Cable, Settings, Rocket } from "lucide-react"
 
 const steps = [
@@ -89,6 +90,8 @@ export function HowItWorks() {
   const sectionRef = useRef<HTMLElement>(null)
   const stepsContainerRef = useRef<HTMLDivElement>(null)
   const [beamProgress, setBeamProgress] = useState(0)
+  const { resolvedTheme } = useTheme()
+  const isDark = resolvedTheme === 'dark'
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -144,13 +147,17 @@ export function HowItWorks() {
             style={{
               height: `${beamProgress * 100}%`,
               background: 'linear-gradient(180deg, #3B82F6 0%, #8B5CF6 50%, #06B6D4 100%)',
-              boxShadow: '0 0 12px rgba(59, 130, 246, 0.5), 0 0 30px rgba(139, 92, 246, 0.3)'
+              boxShadow: isDark
+                ? '0 0 12px rgba(59, 130, 246, 0.5), 0 0 30px rgba(139, 92, 246, 0.3)'
+                : '0 0 6px rgba(59, 130, 246, 0.2), 0 0 16px rgba(139, 92, 246, 0.1)'
             }}
           >
             <div
               className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#60A5FA]"
               style={{
-                boxShadow: '0 0 16px 6px rgba(59, 130, 246, 0.7), 0 0 32px 12px rgba(139, 92, 246, 0.4)'
+                boxShadow: isDark
+                  ? '0 0 16px 6px rgba(59, 130, 246, 0.7), 0 0 32px 12px rgba(139, 92, 246, 0.4)'
+                  : '0 0 8px 3px rgba(59, 130, 246, 0.25), 0 0 16px 6px rgba(139, 92, 246, 0.1)'
               }}
             />
           </div>
@@ -169,7 +176,9 @@ export function HowItWorks() {
                   background: 'linear-gradient(var(--page), var(--page)) padding-box, linear-gradient(135deg, #3B82F6, #8B5CF6, #06B6D4) border-box',
                   border: '2px solid transparent',
                   boxShadow: beamProgress > (i + 0.5) / steps.length
-                    ? '0 0 24px rgba(59, 130, 246, 0.4), 0 0 48px rgba(139, 92, 246, 0.2)'
+                    ? isDark
+                      ? '0 0 24px rgba(59, 130, 246, 0.4), 0 0 48px rgba(139, 92, 246, 0.2)'
+                      : '0 0 12px rgba(59, 130, 246, 0.15), 0 0 24px rgba(139, 92, 246, 0.08)'
                     : 'none'
                 }}
               >

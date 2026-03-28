@@ -144,7 +144,7 @@ export function DeviceShowcase() {
   return (
     <section ref={sectionRef} className="relative py-24 px-6 overflow-hidden">
       {/* Glow behind devices */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gradient-to-r from-[#3B82F6]/8 via-[#8B5CF6]/6 to-[#06B6D4]/8 blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gradient-to-r from-[#3B82F6]/8 via-[#8B5CF6]/6 to-[#06B6D4]/8 blur-[120px] pointer-events-none opacity-40 dark:opacity-100" />
 
       <div className="max-w-6xl mx-auto">
         <div className="relative h-[500px] md:h-[600px] flex items-center justify-center mb-16">

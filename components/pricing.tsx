@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import { useTheme } from "next-themes"
 import { Check, Sparkles } from "lucide-react"
 
 const plans = [
@@ -49,6 +50,7 @@ const plans = [
 
 export function Pricing() {
   const sectionRef = useRef<HTMLElement>(null)
+  const { resolvedTheme } = useTheme()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -88,7 +90,9 @@ export function Pricing() {
                       background: 'linear-gradient(135deg, var(--surface) 0%, var(--surface-hover) 100%)',
                       border: '1px solid transparent',
                       backgroundClip: 'padding-box',
-                      boxShadow: '0 0 0 1px rgba(59, 130, 246, 0.2), 0 8px 40px rgba(59, 130, 246, 0.08), 0 0 80px rgba(139, 92, 246, 0.05)',
+                      boxShadow: resolvedTheme === 'dark'
+                        ? '0 0 0 1px rgba(59, 130, 246, 0.2), 0 8px 40px rgba(59, 130, 246, 0.08), 0 0 80px rgba(139, 92, 246, 0.05)'
+                        : '0 0 0 1px rgba(59, 130, 246, 0.12), 0 4px 24px rgba(59, 130, 246, 0.05), 0 0 40px rgba(139, 92, 246, 0.02)',
                     }
                   : undefined
               }

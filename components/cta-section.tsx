@@ -24,7 +24,7 @@ export function CTASection() {
     <section ref={sectionRef} id="cta" className="relative py-32 px-6 overflow-hidden">
       {/* Animated gradient background */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="aurora-orb w-[700px] h-[400px] bg-gradient-to-r from-[#3B82F6]/12 via-[#8B5CF6]/10 to-[#06B6D4]/12 blur-[140px]" style={{ animationDuration: '15s' }} />
+        <div className="aurora-orb w-[700px] h-[400px] bg-gradient-to-r from-[#3B82F6]/12 via-[#8B5CF6]/10 to-[#06B6D4]/12 blur-[140px] opacity-40 dark:opacity-100" style={{ animationDuration: '15s' }} />
       </div>
 
       {/* Dot grid */}
@@ -44,7 +44,7 @@ export function CTASection() {
         <div className="reveal mb-12">
           <a
             href="mailto:hello@b2b-dvizhenie.ru"
-            className="shimmer-btn inline-flex items-center gap-2.5 px-10 py-5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white text-lg font-semibold rounded-2xl hover:shadow-[0_0_50px_rgba(59,130,246,0.4)] transition-all duration-300 hover:brightness-110"
+            className="shimmer-btn inline-flex items-center gap-2.5 px-10 py-5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white text-lg font-semibold rounded-2xl hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_50px_rgba(59,130,246,0.4)] transition-all duration-300 hover:brightness-110"
           >
             Запросить демо
             <ArrowRight className="w-5 h-5" />
