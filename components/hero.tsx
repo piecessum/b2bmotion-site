@@ -214,7 +214,7 @@ export function Hero() {
 
         {/* Mobile layout — phone only */}
         <div className="md:hidden flex justify-center">
-          <div className="w-[220px]">
+          <div className="w-[280px]">
             <Image
               src="/phone.png"
               alt="B2B платформа на смартфоне"
