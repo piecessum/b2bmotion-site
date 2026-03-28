@@ -138,7 +138,7 @@ export function Hero() {
               <div className="font-heading font-bold text-3xl md:text-5xl text-heading">
                 {stat.value}
               </div>
-              <div className="text-xs text-dim mt-1 tracking-wide uppercase">
+              <div className="text-xs text-dim dark:text-subtle mt-1 tracking-wide uppercase">
                 {stat.label}
               </div>
             </div>
