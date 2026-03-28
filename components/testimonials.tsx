@@ -76,15 +76,13 @@ export function Testimonials() {
                   &quot;{testimonial.quote}&quot;
                 </p>
                 <footer className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#3B82F6]/10 to-[#8B5CF6]/10 border border-glass-border flex items-center justify-center p-1.5">
-                    <Image
-                      src={testimonial.logo}
-                      alt={testimonial.company}
-                      width={100}
-                      height={100}
-                      className="w-full h-full object-contain dark:invert opacity-70"
-                    />
-                  </div>
+                  <Image
+                    src={testimonial.logo}
+                    alt={testimonial.company}
+                    width={200}
+                    height={200}
+                    className="h-11 w-auto object-contain dark:invert opacity-70"
+                  />
                   <div>
                     <span className="block font-heading font-semibold text-heading text-sm">
                       {testimonial.company}
