@@ -2,7 +2,7 @@ import { getAllPosts } from "@/lib/content"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
-import { ArrowRight, Calendar } from "lucide-react"
+import { ArrowRight, Calendar, Play } from "lucide-react"
 
 export const metadata = {
   title: "Блог — B2B Движение",
@@ -33,6 +33,31 @@ export default function BlogPage() {
 
           {/* Posts */}
           <div className="flex flex-col gap-5">
+            {/* Pinned video */}
+            <Link
+              href="/video"
+              className="group relative p-8 rounded-2xl glass-card overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#3B82F6]/[0.06] via-[#8B5CF6]/[0.04] to-[#06B6D4]/[0.06]" />
+              <div className="relative z-10 flex items-center gap-6">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#7C3AED] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-[0_0_30px_rgba(59,130,246,0.25)]">
+                  <Play className="w-6 h-6 text-white fill-white ml-0.5" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-3 mb-1">
+                    <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-[#60A5FA] bg-[#3B82F6]/10 px-2 py-0.5 rounded-full">Видео</span>
+                    <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-dim bg-overlay-3 px-2 py-0.5 rounded-full">Закреплено</span>
+                  </div>
+                  <h2 className="font-heading font-semibold text-xl text-heading mb-1 group-hover:text-white transition-colors">
+                    Обзор платформы B2B Движение
+                  </h2>
+                  <p className="text-subtle leading-relaxed text-sm">
+                    Как выглядит B2B-портал изнутри: каталог, заказы, аналитика и мобильное приложение
+                  </p>
+                </div>
+              </div>
+            </Link>
+
             {posts.map((post) => (
               <Link
                 key={post.slug}

@@ -15,14 +15,23 @@ export default function VideoPage() {
 
       <section className="pt-36 pb-16 px-6">
         <div className="max-w-4xl mx-auto">
-          {/* Back */}
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors mb-10"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            На главную
-          </Link>
+          {/* Navigation */}
+          <div className="flex items-center gap-4 mb-10">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              На главную
+            </Link>
+            <span className="w-1 h-1 rounded-full bg-dimmest" />
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors"
+            >
+              Блог
+            </Link>
+          </div>
 
           {/* Header */}
           <h1 className="font-heading font-bold text-[clamp(28px,4vw,42px)] tracking-[-0.02em] text-heading leading-tight mb-4">
