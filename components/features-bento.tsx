@@ -270,17 +270,15 @@ export function FeaturesBento() {
                   </div>
                 </div>
               </div>
-              {/* Phone image — half visible, sticking out from bottom */}
-              <div className="hidden sm:block relative w-[150px] flex-shrink-0 -mb-5 self-center">
-                <div className="relative top-[40%] w-[150px]">
-                  <Image
-                    src="/phone.png"
-                    alt="Мобильное приложение"
-                    width={320}
-                    height={640}
-                    className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_12px_40px_rgba(0,0,0,0.4)]"
-                  />
-                </div>
+              {/* Phone image — only top half visible, bottom clipped */}
+              <div className="hidden sm:block w-[140px] flex-shrink-0 h-[160px] overflow-hidden rounded-xl -mb-5 -mr-1">
+                <Image
+                  src="/phone.png"
+                  alt="Мобильное приложение"
+                  width={320}
+                  height={640}
+                  className="w-full h-auto drop-shadow-[0_8px_24px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_12px_40px_rgba(0,0,0,0.4)]"
+                />
               </div>
             </div>
           </div>
