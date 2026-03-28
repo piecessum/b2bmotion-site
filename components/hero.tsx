@@ -5,7 +5,9 @@ import Image from "next/image"
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
+  const devicesRef = useRef<HTMLDivElement>(null)
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 })
+  const [devicesVisible, setDevicesVisible] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -22,6 +24,19 @@ export function Hero() {
     const reveals = sectionRef.current?.querySelectorAll(".reveal")
     reveals?.forEach((el) => observer.observe(el))
 
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setDevicesVisible(true)
+        })
+      },
+      { threshold: 0.05 }
+    )
+    if (devicesRef.current) observer.observe(devicesRef.current)
     return () => observer.disconnect()
   }, [])
 
@@ -131,20 +146,69 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Laptop image peeking from bottom */}
-      <div className="reveal reveal-delay-5 relative z-10 w-full max-w-5xl mx-auto px-6 mt-auto">
-        <div className="relative mx-auto" style={{ maxWidth: 900 }}>
+      {/* Devices showcase */}
+      <div ref={devicesRef} className="reveal reveal-delay-5 relative z-10 w-full max-w-5xl mx-auto px-6 mt-auto">
+        <div className="relative mx-auto" style={{ maxWidth: 900, perspective: "1200px" }}>
           {/* Glow behind laptop */}
           <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[80%] h-[200px] bg-gradient-to-r from-[#3B82F6]/10 via-[#8B5CF6]/8 to-[#06B6D4]/10 blur-[80px] pointer-events-none dark:opacity-100 opacity-50" />
 
+          {/* Tablet — left, BEHIND laptop */}
+          <div
+            className="absolute z-0 transition-all ease-out"
+            style={{
+              transitionDuration: "1.4s",
+              transitionDelay: "300ms",
+              bottom: "8%",
+              left: "-18%",
+              width: "42%",
+              opacity: devicesVisible ? 1 : 0,
+              transform: devicesVisible
+                ? "translateZ(0) translateX(0) scale(1)"
+                : "translateZ(-200px) translateX(-40px) scale(0.85)",
+            }}
+          >
+            <Image
+              src="/pad.png"
+              alt="B2B платформа на планшете"
+              width={680}
+              height={510}
+              className="w-full h-auto drop-shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+            />
+          </div>
+
+          {/* Laptop — center, static, ON TOP */}
           <Image
             src="/laptop-hero.png"
             alt="B2B Движение — платформа для оптовых продаж"
             width={1400}
             height={900}
-            className="relative w-full h-auto drop-shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
+            className="relative z-10 w-full h-auto drop-shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
             priority
           />
+
+          {/* Phone — right, IN FRONT of laptop */}
+          <div
+            className="absolute z-20 transition-all ease-out"
+            style={{
+              transitionDuration: "1.4s",
+              transitionDelay: "500ms",
+              bottom: "4%",
+              right: "-4%",
+              width: "18%",
+              opacity: devicesVisible ? 1 : 0,
+              transform: devicesVisible
+                ? "translateZ(0) translateX(0) scale(1)"
+                : "translateZ(-200px) translateX(40px) scale(0.85)",
+            }}
+          >
+            <Image
+              src="/phone.png"
+              alt="B2B платформа на смартфоне"
+              width={320}
+              height={640}
+              className="w-full h-auto drop-shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+            />
+          </div>
         </div>
       </div>
 
