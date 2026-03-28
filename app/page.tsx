@@ -6,6 +6,7 @@ import { HowItWorks } from "@/components/how-it-works"
 import { IndustryCases } from "@/components/industry-cases"
 import { Testimonials } from "@/components/testimonials"
 import { Pricing } from "@/components/pricing"
+import { DeviceShowcase } from "@/components/device-showcase"
 import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
 
@@ -17,6 +18,7 @@ export default function Home() {
       <LogoCloud />
       <FeaturesBento />
       <HowItWorks />
+      <DeviceShowcase />
       <IndustryCases />
       <Testimonials />
       <Pricing />
