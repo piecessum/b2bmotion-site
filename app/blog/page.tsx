@@ -2,7 +2,7 @@ import { getAllPosts } from "@/lib/content"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
-import { ArrowRight, Calendar, Play } from "lucide-react"
+import { ArrowRight, Calendar, Play, BarChart3 } from "lucide-react"
 
 export const metadata = {
   title: "Блог — B2B Движение",
@@ -53,6 +53,31 @@ export default function BlogPage() {
                   </h2>
                   <p className="text-subtle leading-relaxed text-sm">
                     Практические подходы к организации B2B-взаимодействия и масштабированию оптовых продаж
+                  </p>
+                </div>
+              </div>
+            </Link>
+
+            {/* Pinned report */}
+            <Link
+              href="/blog/b2b-platforms-report"
+              className="group relative p-8 rounded-2xl glass-card overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#06B6D4]/[0.06] via-[#3B82F6]/[0.04] to-[#8B5CF6]/[0.06]" />
+              <div className="relative z-10 flex items-center gap-6">
+                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#06B6D4] to-[#3B82F6] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-[0_0_30px_rgba(6,182,212,0.25)]">
+                  <BarChart3 className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-3 mb-1">
+                    <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-[#06B6D4] bg-[#06B6D4]/10 px-2 py-0.5 rounded-full">Отчёт</span>
+                    <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-dim bg-overlay-3 px-2 py-0.5 rounded-full">Закреплено</span>
+                  </div>
+                  <h2 className="font-heading font-semibold text-xl text-heading mb-1 group-hover:text-white transition-colors">
+                    B2B eCommerce Платформы: Россия vs Мировой рынок
+                  </h2>
+                  <p className="text-subtle leading-relaxed text-sm">
+                    Комплексный обзор 13 платформ — функциональность, дизайн лендингов, цены и рекомендации
                   </p>
                 </div>
               </div>
