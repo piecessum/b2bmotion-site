@@ -33,7 +33,7 @@ export function LogoCloud() {
         <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-40 bg-gradient-to-r from-page to-transparent z-10" />
         <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-40 bg-gradient-to-l from-page to-transparent z-10" />
 
-        <div className="flex animate-marquee will-change-transform">
+        <div className="flex animate-marquee">
           {[0, 1].map((set) => (
             <div key={set} className="flex items-center shrink-0" style={{ gap: "1.25rem", paddingRight: "1.25rem" }}>
               {companies.map((company, i) => (
