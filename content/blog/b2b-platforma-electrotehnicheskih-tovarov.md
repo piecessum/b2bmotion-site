@@ -3,7 +3,7 @@ title: "Как мы стали экспертами на рынке оптово
 description: "История развития профессионального решения, стандарты РАЭК и ETIM в оптовой торговле"
 date: "2025-08-20"
 author: "Команда B2B Движение"
-image: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80"
+image: "https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?auto=format&fit=crop&w=800&q=80"
 ---
 
 ## Специфика рынка электротоваров

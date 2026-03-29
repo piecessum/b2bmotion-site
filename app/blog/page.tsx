@@ -17,7 +17,7 @@ export default function BlogPage() {
       <Navbar />
 
       <section className="pt-36 pb-28 px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           {/* Header */}
           <div className="mb-16">
             <span className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-xs font-medium uppercase tracking-[0.2em] text-[#60A5FA] bg-[#3B82F6]/[0.06] border border-[#3B82F6]/[0.1] rounded-full">
@@ -31,8 +31,8 @@ export default function BlogPage() {
             </p>
           </div>
 
-          {/* Posts */}
-          <div className="flex flex-col gap-5">
+          {/* Pinned */}
+          <div className="flex flex-col gap-5 mb-5">
             {/* Pinned video */}
             <Link
               href="/video"
@@ -83,6 +83,10 @@ export default function BlogPage() {
               </div>
             </Link>
 
+          </div>
+
+          {/* Posts grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {posts.map((post) => (
               <Link
                 key={post.slug}
@@ -100,8 +104,8 @@ export default function BlogPage() {
                   </div>
                 )}
 
-                <div className="relative z-10 p-8">
-                  <div className="flex items-center gap-3 mb-4 text-xs text-dim">
+                <div className="relative z-10 p-6">
+                  <div className="flex items-center gap-3 mb-3 text-xs text-dim">
                     <Calendar className="w-3.5 h-3.5" />
                     <time>
                       {new Date(post.date).toLocaleDateString("ru-RU", {
@@ -118,11 +122,11 @@ export default function BlogPage() {
                     )}
                   </div>
 
-                  <h2 className="font-heading font-semibold text-xl text-heading mb-2 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
+                  <h2 className="font-heading font-semibold text-lg text-heading mb-2 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors leading-snug">
                     {post.title}
                   </h2>
 
-                  <p className="text-subtle leading-relaxed mb-4">
+                  <p className="text-subtle leading-relaxed mb-4 text-sm line-clamp-2">
                     {post.description}
                   </p>
 
