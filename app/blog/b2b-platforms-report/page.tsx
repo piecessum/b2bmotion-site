@@ -647,7 +647,7 @@ function MarketCard({ label, value, sub, color }: { label: string; value: string
 
 function ChartBox({ title, sub, children, className = "" }: { title: string; sub: string; children: React.ReactNode; className?: string }) {
   return (
-    <div className={`p-6 rounded-2xl glass-card overflow-hidden md:overflow-visible relative hover:z-50 ${className}`}>
+    <div className={`p-6 rounded-2xl glass-card overflow-hidden md:overflow-visible relative hover:z-10 ${className}`}>
       <h3 className="font-heading font-semibold text-sm text-heading mb-1">{title}</h3>
       <p className="text-[11px] text-dim mb-4">{sub}</p>
       {children}
