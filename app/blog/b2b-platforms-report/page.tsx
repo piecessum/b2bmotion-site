@@ -594,9 +594,20 @@ const tooltipWrapperStyle: React.CSSProperties = {
   overflow: "hidden",
 }
 
+const tooltipItemStyle: React.CSSProperties = {
+  color: "var(--heading)",
+}
+
+const tooltipLabelStyle: React.CSSProperties = {
+  color: "var(--heading)",
+  fontWeight: 600,
+}
+
 const tooltipProps = {
   contentStyle: tooltipStyle,
   wrapperStyle: tooltipWrapperStyle,
+  itemStyle: tooltipItemStyle,
+  labelStyle: tooltipLabelStyle,
   cursor: false as const,
   isAnimationActive: false,
   allowEscapeViewBox: { x: false, y: true },
