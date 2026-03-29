@@ -263,32 +263,32 @@ export default function B2BPlatformsReport() {
             <SectionHeader num="03" title="Функциональность" />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
-              <ChartBox title="Профили российских платформ" sub="Радарная диаграмма">
-                <ResponsiveContainer width="100%" height={300}>
-                  <RadarChart data={radarRU}>
+              <ChartBox title="Профили российских платформ" sub="Радарная диаграмма по ключевым параметрам">
+                <ResponsiveContainer width="100%" height={380}>
+                  <RadarChart data={radarRU} cx="50%" cy="55%">
                     <PolarGrid stroke="var(--glass-border)" />
-                    <PolarAngleAxis dataKey="metric" tick={{ fill: "var(--dim-text)", fontSize: 11 }} />
-                    <PolarRadiusAxis domain={[0, 10]} tick={{ fill: "var(--dimmer-text)", fontSize: 10 }} />
-                    <Radar name="B2B Движение" dataKey="B2B Движение" stroke={RU_COLOR} fill={RU_COLOR} fillOpacity={0.1} />
-                    <Radar name="Agora" dataKey="Agora" stroke={GREEN} fill={GREEN} fillOpacity={0.1} />
-                    <Radar name="Compo" dataKey="Compo" stroke={YELLOW} fill={YELLOW} fillOpacity={0.1} />
-                    <Radar name="Sellty" dataKey="Sellty" stroke={GL_COLOR} fill={GL_COLOR} fillOpacity={0.08} />
-                    <Legend wrapperStyle={{ fontSize: 11, color: "var(--dim-text)" }} />
+                    <PolarAngleAxis dataKey="metric" tick={{ fill: "var(--dim-text)", fontSize: 12 }} />
+                    <PolarRadiusAxis domain={[0, 10]} angle={90} tickCount={6} axisLine={false} tick={{ fill: "var(--dim-text)", fontSize: 11 }} />
+                    <Radar name="B2B Движение" dataKey="B2B Движение" stroke={RU_COLOR} fill={RU_COLOR} fillOpacity={0.1} strokeWidth={2} />
+                    <Radar name="Agora" dataKey="Agora" stroke={GREEN} fill={GREEN} fillOpacity={0.1} strokeWidth={2} />
+                    <Radar name="Compo" dataKey="Compo" stroke={YELLOW} fill={YELLOW} fillOpacity={0.1} strokeWidth={2} />
+                    <Radar name="Sellty" dataKey="Sellty" stroke={GL_COLOR} fill={GL_COLOR} fillOpacity={0.08} strokeWidth={2} />
+                    <Legend verticalAlign="top" wrapperStyle={{ fontSize: 11, color: "var(--dim-text)", paddingBottom: 4 }} />
                   </RadarChart>
                 </ResponsiveContainer>
               </ChartBox>
 
               <ChartBox title="Профили глобальных платформ" sub="Топ-4 глобальные платформы">
-                <ResponsiveContainer width="100%" height={300}>
-                  <RadarChart data={radarGlobal}>
+                <ResponsiveContainer width="100%" height={380}>
+                  <RadarChart data={radarGlobal} cx="50%" cy="55%">
                     <PolarGrid stroke="var(--glass-border)" />
-                    <PolarAngleAxis dataKey="metric" tick={{ fill: "var(--dim-text)", fontSize: 11 }} />
-                    <PolarRadiusAxis domain={[0, 10]} tick={{ fill: "var(--dimmer-text)", fontSize: 10 }} />
-                    <Radar name="Shopify Plus" dataKey="Shopify Plus" stroke={RU_COLOR} fill={RU_COLOR} fillOpacity={0.1} />
-                    <Radar name="BigCommerce" dataKey="BigCommerce" stroke={GREEN} fill={GREEN} fillOpacity={0.1} />
-                    <Radar name="Salesforce" dataKey="Salesforce" stroke={YELLOW} fill={YELLOW} fillOpacity={0.1} />
-                    <Radar name="WooCommerce" dataKey="WooCommerce" stroke={GL_COLOR} fill={GL_COLOR} fillOpacity={0.08} />
-                    <Legend wrapperStyle={{ fontSize: 11, color: "var(--dim-text)" }} />
+                    <PolarAngleAxis dataKey="metric" tick={{ fill: "var(--dim-text)", fontSize: 12 }} />
+                    <PolarRadiusAxis domain={[0, 10]} angle={90} tickCount={6} axisLine={false} tick={{ fill: "var(--dim-text)", fontSize: 11 }} />
+                    <Radar name="Shopify Plus" dataKey="Shopify Plus" stroke={RU_COLOR} fill={RU_COLOR} fillOpacity={0.1} strokeWidth={2} />
+                    <Radar name="BigCommerce" dataKey="BigCommerce" stroke={GREEN} fill={GREEN} fillOpacity={0.1} strokeWidth={2} />
+                    <Radar name="Salesforce" dataKey="Salesforce" stroke={YELLOW} fill={YELLOW} fillOpacity={0.1} strokeWidth={2} />
+                    <Radar name="WooCommerce" dataKey="WooCommerce" stroke={GL_COLOR} fill={GL_COLOR} fillOpacity={0.08} strokeWidth={2} />
+                    <Legend verticalAlign="top" wrapperStyle={{ fontSize: 11, color: "var(--dim-text)", paddingBottom: 4 }} />
                   </RadarChart>
                 </ResponsiveContainer>
               </ChartBox>
