@@ -5,22 +5,6 @@ import { notFound } from "next/navigation"
 import { Calendar, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
-const bannerPairs = [
-  { light: "/bg-for-blog-1.png", dark: "/bg-for-blog-4.png" },
-  { light: "/bg-for-blog-2.png", dark: "/bg-for-blog-6.png" },
-  { light: "/bg-for-blog-3.png", dark: "/bg-for-blog-8.png" },
-  { light: "/bg-for-blog-5.png", dark: "/bg-for-blog-4.png" },
-  { light: "/bg-for-blog-7.png", dark: "/bg-for-blog-6.png" },
-]
-
-function getBanner(slug: string) {
-  let hash = 0
-  for (let i = 0; i < slug.length; i++) {
-    hash = slug.charCodeAt(i) + ((hash << 5) - hash)
-  }
-  return bannerPairs[Math.abs(hash) % bannerPairs.length]
-}
-
 export function generateStaticParams() {
   const posts = getAllPosts("blog")
   return posts.map((post) => ({ slug: post.slug }))
@@ -42,28 +26,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   if (!post) notFound()
 
-  const banner = getBanner(slug)
-
   return (
     <main className="relative min-h-screen bg-page noise-overlay">
       <Navbar />
 
-      {/* Abstract banner */}
-      <div className="relative w-full h-44 sm:h-52 overflow-hidden">
-        <img
-          src={banner.light}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover dark:hidden"
-        />
-        <img
-          src={banner.dark}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover hidden dark:block"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--page)]" />
-      </div>
-
-      <article className="pt-10 pb-28 px-6">
+      <article className="pt-36 pb-28 px-6">
         <div className="max-w-3xl mx-auto">
           {/* Back */}
           <Link
