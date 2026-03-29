@@ -177,7 +177,7 @@ export default function B2BPlatformsReport() {
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--glass-border)" />
                     <XAxis dataKey="year" tick={{ fill: "var(--dim-text)", fontSize: 12 }} />
                     <YAxis tick={{ fill: "var(--dim-text)", fontSize: 12 }} />
-                    <Tooltip contentStyle={tooltipStyle} cursor={cursorStyle} />
+                    <Tooltip contentStyle={tooltipStyle} cursor={false} />
                     <Bar dataKey="value" name="B2B e-com РФ (трлн ₽)" radius={[4, 4, 0, 0]}>
                       {marketGrowth.map((_, i) => (
                         <Cell key={i} fill={i === marketGrowth.length - 1 ? GREEN : RU_COLOR} fillOpacity={0.5 + i * 0.08} />
@@ -193,7 +193,7 @@ export default function B2BPlatformsReport() {
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--glass-border)" />
                     <XAxis dataKey="year" tick={{ fill: "var(--dim-text)", fontSize: 12 }} />
                     <YAxis tick={{ fill: "var(--dim-text)", fontSize: 12 }} />
-                    <Tooltip contentStyle={tooltipStyle} cursor={cursorStyle} />
+                    <Tooltip contentStyle={tooltipStyle} cursor={false} />
                     <Line type="monotone" dataKey="value" name="Global ecom ($B)" stroke={GL_COLOR} strokeWidth={2} fill={GL_COLOR} fillOpacity={0.1} dot={{ fill: GL_COLOR, r: 4 }} />
                   </LineChart>
                 </ResponsiveContainer>
@@ -220,7 +220,7 @@ export default function B2BPlatformsReport() {
                   <CartesianGrid strokeDasharray="3 3" stroke="var(--glass-border)" />
                   <XAxis type="number" dataKey="x" name="Общая оценка" domain={[6, 10]} tick={{ fill: "var(--dim-text)", fontSize: 11 }} label={{ value: "Общая оценка", position: "bottom", fill: "var(--dimmer-text)", fontSize: 11 }} />
                   <YAxis type="number" dataKey="y" name="Цена/качество" domain={[5, 10]} tick={{ fill: "var(--dim-text)", fontSize: 11 }} label={{ value: "Цена/качество", angle: -90, position: "insideLeft", fill: "var(--dimmer-text)", fontSize: 11 }} />
-                  <Tooltip contentStyle={tooltipStyle} cursor={cursorStyle} formatter={(val: number, name: string) => [val, name === "x" ? "Общая" : "Ц/К"]} labelFormatter={() => ""} />
+                  <Tooltip contentStyle={tooltipStyle} cursor={false} formatter={(val: number, name: string) => [val, name === "x" ? "Общая" : "Ц/К"]} labelFormatter={() => ""} />
                   <Scatter name="Российские" data={platforms.filter((p) => p.tag === "ru").map((p) => ({ x: p.overall, y: p.vq, name: p.name }))} fill={RU_COLOR} />
                   <Scatter name="Глобальные" data={platforms.filter((p) => p.tag === "global").map((p) => ({ x: p.overall, y: p.vq, name: p.name }))} fill={GL_COLOR} />
                   <Legend wrapperStyle={{ fontSize: 12, color: "var(--dim-text)" }} />
@@ -234,7 +234,7 @@ export default function B2BPlatformsReport() {
                   <CartesianGrid strokeDasharray="3 3" stroke="var(--glass-border)" />
                   <XAxis type="number" domain={[6, 10]} tick={{ fill: "var(--dim-text)", fontSize: 11 }} />
                   <YAxis type="category" dataKey="name" tick={{ fill: "var(--body-text)", fontSize: 11 }} width={110} />
-                  <Tooltip contentStyle={tooltipStyle} cursor={cursorStyle} />
+                  <Tooltip contentStyle={tooltipStyle} cursor={false} />
                   <Bar dataKey="overall" name="Общая оценка" radius={[0, 4, 4, 0]}>
                     {sortedByOverall.map((p, i) => (
                       <Cell key={i} fill={p.tag === "ru" ? RU_COLOR : GL_COLOR} fillOpacity={0.6} stroke={p.tag === "ru" ? RU_COLOR : GL_COLOR} strokeWidth={1.5} />
@@ -349,7 +349,7 @@ export default function B2BPlatformsReport() {
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--glass-border)" />
                     <XAxis type="number" domain={[0, 10]} tick={{ fill: "var(--dim-text)", fontSize: 11 }} />
                     <YAxis type="category" dataKey="name" tick={{ fill: "var(--body-text)", fontSize: 10 }} width={100} />
-                    <Tooltip contentStyle={tooltipStyle} cursor={cursorStyle} />
+                    <Tooltip contentStyle={tooltipStyle} cursor={false} />
                     <Legend wrapperStyle={{ fontSize: 11, color: "var(--dim-text)" }} />
                     <Bar dataKey="design" name="Дизайн" fill={`${RU_COLOR}b3`} radius={[0, 3, 3, 0]} />
                     <Bar dataKey="content" name="Контент" fill={`${GREEN}99`} radius={[0, 3, 3, 0]} />
@@ -402,7 +402,7 @@ export default function B2BPlatformsReport() {
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--glass-border)" />
                     <XAxis dataKey="segment" tick={{ fill: "var(--dim-text)", fontSize: 11 }} />
                     <YAxis tick={{ fill: "var(--dim-text)", fontSize: 11 }} domain={[0, 9]} />
-                    <Tooltip contentStyle={tooltipStyle} cursor={cursorStyle} />
+                    <Tooltip contentStyle={tooltipStyle} cursor={false} />
                     <Legend wrapperStyle={{ fontSize: 11, color: "var(--dim-text)" }} />
                     <Bar dataKey="ru" name="Российские (из 5)" fill={`${RU_COLOR}b3`} radius={[4, 4, 0, 0]} />
                     <Bar dataKey="global" name="Глобальные (из 8)" fill={`${GL_COLOR}99`} radius={[4, 4, 0, 0]} />
@@ -418,7 +418,7 @@ export default function B2BPlatformsReport() {
                         <Cell key={i} fill={d.color} fillOpacity={0.8} stroke="var(--glass-border)" strokeWidth={2} />
                       ))}
                     </Pie>
-                    <Tooltip contentStyle={tooltipStyle} cursor={cursorStyle} />
+                    <Tooltip contentStyle={tooltipStyle} cursor={false} />
                     <Legend wrapperStyle={{ fontSize: 11, color: "var(--dim-text)" }} />
                   </PieChart>
                 </ResponsiveContainer>
@@ -574,7 +574,6 @@ const tooltipStyle: React.CSSProperties = {
   lineHeight: "1.5",
 }
 
-const cursorStyle = { fill: "var(--heading)", opacity: 0.07 }
 
 function SectionHeader({ num, title }: { num: string; title: string }) {
   return (
