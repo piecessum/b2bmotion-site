@@ -576,8 +576,14 @@ const tooltipStyle: React.CSSProperties = {
   transition: "opacity 0.15s ease, transform 0.15s ease",
 }
 
+const tooltipWrapperStyle: React.CSSProperties = {
+  zIndex: 50,
+  pointerEvents: "none",
+}
+
 const tooltipProps = {
   contentStyle: tooltipStyle,
+  wrapperStyle: tooltipWrapperStyle,
   cursor: false as const,
   isAnimationActive: false,
   allowEscapeViewBox: { x: true, y: true },
@@ -617,7 +623,7 @@ function MarketCard({ label, value, sub, color }: { label: string; value: string
 
 function ChartBox({ title, sub, children, className = "" }: { title: string; sub: string; children: React.ReactNode; className?: string }) {
   return (
-    <div className={`p-6 rounded-2xl glass-card ${className}`}>
+    <div className={`p-6 rounded-2xl glass-card overflow-visible ${className}`}>
       <h3 className="font-heading font-semibold text-sm text-heading mb-1">{title}</h3>
       <p className="text-[11px] text-dim mb-4">{sub}</p>
       {children}
