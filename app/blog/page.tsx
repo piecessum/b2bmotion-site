@@ -48,7 +48,7 @@ export default function BlogPage() {
                     <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-[#60A5FA] bg-[#3B82F6]/10 px-2 py-0.5 rounded-full">Видео</span>
                     <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-dim bg-overlay-3 px-2 py-0.5 rounded-full">Закреплено</span>
                   </div>
-                  <h2 className="font-heading font-semibold text-xl text-heading mb-1 group-hover:text-white transition-colors">
+                  <h2 className="font-heading font-semibold text-xl text-heading mb-1 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
                     В2В Движение — оптимальное решение для оптового бизнеса
                   </h2>
                   <p className="text-subtle leading-relaxed text-sm">
@@ -73,7 +73,7 @@ export default function BlogPage() {
                     <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-[#06B6D4] bg-[#06B6D4]/10 px-2 py-0.5 rounded-full">Отчёт</span>
                     <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-dim bg-overlay-3 px-2 py-0.5 rounded-full">Закреплено</span>
                   </div>
-                  <h2 className="font-heading font-semibold text-xl text-heading mb-1 group-hover:text-white transition-colors">
+                  <h2 className="font-heading font-semibold text-xl text-heading mb-1 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
                     B2B eCommerce Платформы: Россия vs Мировой рынок
                   </h2>
                   <p className="text-subtle leading-relaxed text-sm">
@@ -109,7 +109,7 @@ export default function BlogPage() {
                     )}
                   </div>
 
-                  <h2 className="font-heading font-semibold text-xl text-heading mb-2 group-hover:text-white transition-colors">
+                  <h2 className="font-heading font-semibold text-xl text-heading mb-2 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
                     {post.title}
                   </h2>
 
