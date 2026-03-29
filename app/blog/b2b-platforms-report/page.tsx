@@ -424,13 +424,13 @@ export default function B2BPlatformsReport() {
               <ChartBox title="Модели развёртывания" sub="Распределение по типу инфраструктуры">
                 <ResponsiveContainer width="100%" height={280}>
                   <PieChart>
-                    <Pie data={deployData} cx="50%" cy="50%" innerRadius={60} outerRadius={100} dataKey="value" nameKey="name" label={({ name, value }) => `${name}: ${value}`} labelLine={false}>
+                    <Pie data={deployData} cx="50%" cy="45%" innerRadius={50} outerRadius={85} dataKey="value" nameKey="name" paddingAngle={2}>
                       {deployData.map((d, i) => (
                         <Cell key={i} fill={d.color} fillOpacity={0.8} stroke="var(--glass-border)" strokeWidth={2} />
                       ))}
                     </Pie>
                     <Tooltip {...tooltipProps} />
-                    <Legend wrapperStyle={{ fontSize: 11, color: "var(--dim-text)" }} />
+                    <Legend verticalAlign="bottom" wrapperStyle={{ fontSize: 11, color: "var(--dim-text)" }} />
                   </PieChart>
                 </ResponsiveContainer>
               </ChartBox>
