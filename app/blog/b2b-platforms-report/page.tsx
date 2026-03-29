@@ -296,11 +296,11 @@ export default function B2BPlatformsReport() {
 
             <ChartBox title="Матрица ключевых функций" sub="Наличие критически важных B2B-функций">
               <div className="overflow-x-auto mt-3">
-                <table className="w-full min-w-[900px] text-sm">
+                <table className="w-full min-w-[1050px] text-sm">
                   <thead>
                     <tr className="border-b border-glass-border">
                       {["Платформа", "Опт. цены", "Персон. каталоги", "Мульти-скидки", "Согл. заказов", "1С интеграция", "МойСклад", "MDM/PIM", "ФЗ-152", "Мультивалюта"].map((h) => (
-                        <th key={h} className="text-left py-3 px-2 text-[10px] font-medium uppercase tracking-wider text-dim">{h}</th>
+                        <th key={h} className="text-left py-3 px-2 text-[10px] font-medium uppercase tracking-wider text-dim whitespace-nowrap">{h}</th>
                       ))}
                     </tr>
                   </thead>
@@ -308,15 +308,15 @@ export default function B2BPlatformsReport() {
                     {platforms.map((p) => (
                       <tr key={p.name} className="border-b border-glass-border/50 hover:bg-overlay-2 transition-colors">
                         <td className="py-2.5 px-2 font-medium text-body whitespace-nowrap"><TagBadge tag={p.tag} />{p.name}</td>
-                        <td className="py-2.5 px-2"><CellBadge value={p.wholesPrices} /></td>
-                        <td className="py-2.5 px-2"><CellBadge value={p.perscat} /></td>
-                        <td className="py-2.5 px-2"><CellBadge value={p.multidisc} /></td>
-                        <td className="py-2.5 px-2"><CellBadge value={p.ordapprove} /></td>
-                        <td className="py-2.5 px-2"><CellBadge value={p.c1} /></td>
-                        <td className="py-2.5 px-2"><CellBadge value={p.moysklad} /></td>
-                        <td className="py-2.5 px-2"><CellBadge value={p.mdm} /></td>
-                        <td className="py-2.5 px-2"><CellBadge value={p.fz152} /></td>
-                        <td className="py-2.5 px-2"><CellBadge value={p.multicur} /></td>
+                        <td className="py-2.5 px-2 whitespace-nowrap"><CellBadge value={p.wholesPrices} /></td>
+                        <td className="py-2.5 px-2 whitespace-nowrap"><CellBadge value={p.perscat} /></td>
+                        <td className="py-2.5 px-2 whitespace-nowrap"><CellBadge value={p.multidisc} /></td>
+                        <td className="py-2.5 px-2 whitespace-nowrap"><CellBadge value={p.ordapprove} /></td>
+                        <td className="py-2.5 px-2 whitespace-nowrap"><CellBadge value={p.c1} /></td>
+                        <td className="py-2.5 px-2 whitespace-nowrap"><CellBadge value={p.moysklad} /></td>
+                        <td className="py-2.5 px-2 whitespace-nowrap"><CellBadge value={p.mdm} /></td>
+                        <td className="py-2.5 px-2 whitespace-nowrap"><CellBadge value={p.fz152} /></td>
+                        <td className="py-2.5 px-2 whitespace-nowrap"><CellBadge value={p.multicur} /></td>
                       </tr>
                     ))}
                   </tbody>
