@@ -67,6 +67,18 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <p className="mt-4 text-lg text-subtle">{post.description}</p>
           </header>
 
+          {/* Cover image */}
+          {post.image && (
+            <div className="relative w-full h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden mb-12">
+              <img
+                src={post.image}
+                alt={post.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+            </div>
+          )}
+
           {/* Divider */}
           <div className="section-divider mb-12" />
 
