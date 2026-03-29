@@ -215,15 +215,26 @@ export default function B2BPlatformsReport() {
             </div>
 
             <ChartBox title="Общая оценка vs Цена/качество" sub="Позиционирование каждой платформы" className="mb-5">
-              <ResponsiveContainer width="100%" height={320}>
-                <ScatterChart margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
+              <ResponsiveContainer width="100%" height={360}>
+                <ScatterChart margin={{ top: 30, right: 20, bottom: 30, left: 10 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="var(--glass-border)" />
-                  <XAxis type="number" dataKey="x" name="Общая оценка" domain={[6, 10]} tick={{ fill: "var(--dim-text)", fontSize: 11 }} label={{ value: "Общая оценка", position: "bottom", fill: "var(--dimmer-text)", fontSize: 11 }} />
-                  <YAxis type="number" dataKey="y" name="Цена/качество" domain={[5, 10]} tick={{ fill: "var(--dim-text)", fontSize: 11 }} label={{ value: "Цена/качество", angle: -90, position: "insideLeft", fill: "var(--dimmer-text)", fontSize: 11 }} />
-                  <Tooltip {...tooltipProps} formatter={(val: number, name: string) => [val, name === "x" ? "Общая" : "Ц/К"]} labelFormatter={() => ""} />
+                  <XAxis type="number" dataKey="x" name="Общая оценка" domain={[5, 10]} tick={{ fill: "var(--dim-text)", fontSize: 11 }} label={{ value: "Общая оценка", position: "bottom", offset: 10, fill: "var(--dimmer-text)", fontSize: 11 }} />
+                  <YAxis type="number" dataKey="y" name="Цена/качество" domain={[4, 10]} tick={{ fill: "var(--dim-text)", fontSize: 11 }} label={{ value: "Цена/качество", angle: -90, position: "insideLeft", fill: "var(--dimmer-text)", fontSize: 11 }} />
+                  <Tooltip
+                    {...tooltipProps}
+                    content={({ active, payload }) => {
+                      if (!active || !payload?.length) return null
+                      const d = payload[0].payload
+                      return (
+                        <div style={tooltipStyle}>
+                          <span style={{ fontWeight: 600 }}>{d.name}</span>: Общ.{d.x} / Ц/К {d.y}
+                        </div>
+                      )
+                    }}
+                  />
+                  <Legend verticalAlign="top" wrapperStyle={{ fontSize: 12, color: "var(--dim-text)", paddingBottom: 8 }} />
                   <Scatter name="Российские" data={platforms.filter((p) => p.tag === "ru").map((p) => ({ x: p.overall, y: p.vq, name: p.name }))} fill={RU_COLOR} />
                   <Scatter name="Глобальные" data={platforms.filter((p) => p.tag === "global").map((p) => ({ x: p.overall, y: p.vq, name: p.name }))} fill={GL_COLOR} />
-                  <Legend wrapperStyle={{ fontSize: 12, color: "var(--dim-text)" }} />
                 </ScatterChart>
               </ResponsiveContainer>
             </ChartBox>
