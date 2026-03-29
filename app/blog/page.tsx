@@ -87,11 +87,20 @@ export default function BlogPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group relative p-8 rounded-2xl glass-card overflow-hidden"
+                className="group relative rounded-2xl glass-card overflow-hidden"
               >
-                <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-[#3B82F6]/[0.03] to-transparent pointer-events-none" />
+                {post.image && (
+                  <div className="relative w-full h-48 overflow-hidden">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  </div>
+                )}
 
-                <div className="relative z-10">
+                <div className="relative z-10 p-8">
                   <div className="flex items-center gap-3 mb-4 text-xs text-dim">
                     <Calendar className="w-3.5 h-3.5" />
                     <time>
