@@ -606,8 +606,8 @@ const tooltipProps = {
 
 function SectionHeader({ num, title }: { num: string; title: string }) {
   return (
-    <div className="flex items-baseline gap-4 mb-8">
-      <span className="text-[11px] font-medium tracking-[0.15em] text-[#60A5FA]">{num}</span>
+    <div className="flex items-baseline gap-3 mb-8">
+      <span className="font-heading font-bold text-xl sm:text-2xl gradient-text">{num}</span>
       <h2 className="font-heading font-bold text-xl sm:text-2xl text-heading">{title}</h2>
     </div>
   )
