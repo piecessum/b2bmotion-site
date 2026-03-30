@@ -105,9 +105,9 @@ export default function BlogPage() {
                 )}
 
                 <div className="relative z-10 p-6">
-                  <div className="flex items-center gap-3 mb-3 text-xs text-dim">
-                    <Calendar className="w-3.5 h-3.5" />
-                    <time>
+                  <div className="flex items-center gap-3 mb-3 text-[11px] sm:text-xs text-dim">
+                    <Calendar className="w-3.5 h-3.5 shrink-0" />
+                    <time className="whitespace-nowrap">
                       {new Date(post.date).toLocaleDateString("ru-RU", {
                         day: "numeric",
                         month: "long",
@@ -116,8 +116,8 @@ export default function BlogPage() {
                     </time>
                     {post.author && (
                       <>
-                        <span className="w-1 h-1 rounded-full bg-dimmest" />
-                        <span>{post.author}</span>
+                        <span className="w-1 h-1 rounded-full bg-dimmest shrink-0" />
+                        <span className="whitespace-nowrap">{post.author}</span>
                       </>
                     )}
                   </div>
