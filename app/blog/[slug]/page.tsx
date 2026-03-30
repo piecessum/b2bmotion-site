@@ -1,30 +1,38 @@
-import { getAllPosts, getPostBySlug } from "@/lib/content"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { notFound } from "next/navigation"
-import { Calendar, ArrowLeft } from "lucide-react"
-import Link from "next/link"
+import { getAllPosts, getPostBySlug } from "@/lib/content";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { notFound } from "next/navigation";
+import { Calendar, ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 export function generateStaticParams() {
-  const posts = getAllPosts("blog")
-  return posts.map((post) => ({ slug: post.slug }))
+  const posts = getAllPosts("blog");
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const post = getPostBySlug("blog", slug)
-  if (!post) return {}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = getPostBySlug("blog", slug);
+  if (!post) return {};
   return {
     title: `${post.title} — B2B Движение`,
     description: post.description,
-  }
+  };
 }
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const post = getPostBySlug("blog", slug)
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = getPostBySlug("blog", slug);
 
-  if (!post) notFound()
+  if (!post) notFound();
 
   return (
     <main className="relative min-h-screen bg-page noise-overlay">
@@ -52,12 +60,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   year: "numeric",
                 })}
               </time>
-              {post.author && (
-                <>
-                  <span className="w-1 h-1 rounded-full bg-dimmest" />
-                  <span>{post.author}</span>
-                </>
-              )}
+              <span className="w-1 h-1 rounded-full bg-dimmest" />
+              <span>
+                {post.tags?.includes("кейс") || post.slug.startsWith("keis-")
+                  ? "История успеха"
+                  : "Публикация"}
+              </span>
             </div>
 
             <h1 className="font-heading font-bold text-[clamp(28px,4vw,42px)] tracking-[-0.02em] text-heading leading-tight">
@@ -85,8 +93,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           {/* Content */}
           <div className="prose-custom">
             {post.content.split("\n").map((line, i) => {
-              const trimmed = line.trim()
-              if (!trimmed) return <br key={i} />
+              const trimmed = line.trim();
+              if (!trimmed) return <br key={i} />;
               if (trimmed.startsWith("## "))
                 return (
                   <h2
@@ -95,7 +103,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   >
                     {trimmed.replace("## ", "")}
                   </h2>
-                )
+                );
               if (trimmed.startsWith("### "))
                 return (
                   <h3
@@ -104,7 +112,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   >
                     {trimmed.replace("### ", "")}
                   </h3>
-                )
+                );
               if (trimmed.startsWith("- "))
                 return (
                   <li
@@ -113,12 +121,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   >
                     {renderInline(trimmed.replace("- ", ""))}
                   </li>
-                )
+                );
               return (
                 <p key={i} className="text-body leading-relaxed mb-4">
                   {renderInline(trimmed)}
                 </p>
-              )
+              );
             })}
           </div>
 
@@ -137,19 +145,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <Footer />
     </main>
-  )
+  );
 }
 
 function renderInline(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g)
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
         <strong key={i} className="text-subheading font-medium">
           {part.slice(2, -2)}
         </strong>
-      )
+      );
     }
-    return part
-  })
+    return part;
+  });
 }
