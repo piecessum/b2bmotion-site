@@ -146,32 +146,44 @@ const allCases: CaseStudy[] = industries.flatMap((industry) =>
   (casesByIndustry[industry] || []).map((c) => ({ ...c, industry }))
 )
 
-function useTypewriter(words: string[], typingSpeed = 80, deletingSpeed = 50, pauseDuration = 2000) {
+function useTypewriter(words: string[], typingSpeed = 80, deletingSpeed = 50, pauseDuration = 4000) {
   const [displayText, setDisplayText] = useState("")
   const [wordIndex, setWordIndex] = useState(0)
-  const [isDeleting, setIsDeleting] = useState(false)
+  const [phase, setPhase] = useState<"typing" | "paused" | "deleting">("typing")
 
   useEffect(() => {
     const currentWord = words[wordIndex]
 
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        setDisplayText(currentWord.slice(0, displayText.length + 1))
-        if (displayText.length + 1 === currentWord.length) {
-          setTimeout(() => setIsDeleting(true), pauseDuration)
-          return
-        }
-      } else {
-        setDisplayText(currentWord.slice(0, displayText.length - 1))
-        if (displayText.length === 0) {
-          setIsDeleting(false)
-          setWordIndex((prev) => (prev + 1) % words.length)
-        }
+    if (phase === "typing") {
+      if (displayText.length < currentWord.length) {
+        const t = setTimeout(() => {
+          setDisplayText(currentWord.slice(0, displayText.length + 1))
+        }, typingSpeed)
+        return () => clearTimeout(t)
       }
-    }, isDeleting ? deletingSpeed : typingSpeed)
+      // Слово напечатано — переходим в паузу
+      setPhase("paused")
+      return
+    }
 
-    return () => clearTimeout(timeout)
-  }, [displayText, isDeleting, wordIndex, words, typingSpeed, deletingSpeed, pauseDuration])
+    if (phase === "paused") {
+      const t = setTimeout(() => setPhase("deleting"), pauseDuration)
+      return () => clearTimeout(t)
+    }
+
+    if (phase === "deleting") {
+      if (displayText.length > 0) {
+        const t = setTimeout(() => {
+          setDisplayText(displayText.slice(0, -1))
+        }, deletingSpeed)
+        return () => clearTimeout(t)
+      }
+      // Стёрто — следующее слово
+      setWordIndex((prev) => (prev + 1) % words.length)
+      setPhase("typing")
+      return
+    }
+  }, [displayText, phase, wordIndex, words, typingSpeed, deletingSpeed, pauseDuration])
 
   return displayText
 }
