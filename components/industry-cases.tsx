@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState, useCallback } from "react"
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
+import { useEffect, useRef, useState, useCallback } from "react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const industries = [
   "Электротехника",
@@ -15,23 +15,24 @@ const industries = [
   "Светотехника",
   "Серверные",
   "Металлопрокат",
-]
+];
 
 interface CaseStudy {
-  company: string
-  description: string
-  gradient: string
-  iconGradient: string
-  logo?: string
-  slug: string
-  industry: string
+  company: string;
+  description: string;
+  gradient: string;
+  iconGradient: string;
+  logo?: string;
+  slug: string;
+  industry: string;
 }
 
 const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
-  "Электротехника": [
+  Электротехника: [
     {
       company: "РОСЭК",
-      description: "Федеральный дистрибьютор электротехнического оборудования, одна из ведущих инжиниринговых компаний в области энергетики и климатики. Входит в ТОП-5 электротехнических компаний Урала.",
+      description:
+        "Федеральный дистрибьютор электротехнического оборудования, одна из ведущих инжиниринговых компаний в области энергетики и климатики. Входит в ТОП-5 электротехнических компаний Урала.",
       gradient: "from-amber-500/20 via-orange-500/10 to-yellow-500/20",
       iconGradient: "from-amber-400/20 to-orange-400/20",
       logo: "/rosek.svg",
@@ -39,7 +40,8 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
     },
     {
       company: "РОС-Электро",
-      description: "Крупная региональная сеть электрооборудования, кабельно-проводниковой и светотехнической продукции крупнейших производителей.",
+      description:
+        "Крупная региональная сеть электрооборудования, кабельно-проводниковой и светотехнической продукции крупнейших производителей.",
       gradient: "from-orange-500/20 via-red-500/10 to-amber-500/20",
       iconGradient: "from-orange-400/20 to-red-400/20",
       logo: "/roselektro.svg",
@@ -47,16 +49,18 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
     },
     {
       company: "50 Герц",
-      description: "Федеральный дистрибьютор электротехнического оборудования, одна из ведущих инжиниринговых компаний в области энергетики и климатики.",
+      description:
+        "Федеральный дистрибьютор электротехнического оборудования, одна из ведущих инжиниринговых компаний в области энергетики и климатики.",
       gradient: "from-yellow-500/20 via-amber-500/10 to-orange-500/20",
       iconGradient: "from-yellow-400/20 to-amber-400/20",
       slug: "keis-50-gerts",
     },
   ],
-  "Сантехника": [
+  Сантехника: [
     {
       company: "Хогарт",
-      description: "Поставщик инженерного оборудования, отопления, вентиляции и сантехники от ведущих мировых производителей. Более 200 брендов.",
+      description:
+        "Поставщик инженерного оборудования, отопления, вентиляции и сантехники от ведущих мировых производителей. Более 200 брендов.",
       gradient: "from-cyan-500/20 via-blue-500/10 to-teal-500/20",
       iconGradient: "from-cyan-400/20 to-blue-400/20",
       logo: "/hogart.svg",
@@ -64,173 +68,208 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
     },
     {
       company: "Веста",
-      description: "Ведущий поставщик сантехники и оборудования для ванных комнат на российском рынке. Более 10 лет занимается оптовыми поставками.",
+      description:
+        "Ведущий поставщик сантехники и оборудования для ванных комнат на российском рынке. Более 10 лет занимается оптовыми поставками.",
       gradient: "from-blue-500/20 via-cyan-500/10 to-sky-500/20",
       iconGradient: "from-blue-400/20 to-sky-400/20",
       logo: "/vesta.svg",
       slug: "keis-vesta",
     },
   ],
-  "FMCG": [
+  FMCG: [
     {
       company: "РЭЙД-21",
-      description: "Крупнейшая дистрибьюторская компания в Республике Башкортостан. Более 5000 наименований продуктов питания и бытовой химии.",
+      description:
+        "Крупнейшая дистрибьюторская компания в Республике Башкортостан. Более 5000 наименований продуктов питания и бытовой химии.",
       gradient: "from-green-500/20 via-emerald-500/10 to-lime-500/20",
       iconGradient: "from-green-400/20 to-emerald-400/20",
       logo: "/raid21.svg",
       slug: "keis-raid21",
     },
   ],
-  "Видеонаблюдение": [
+  Видеонаблюдение: [
     {
       company: "ПРОТЭК",
-      description: "Поставщик систем безопасности, видеонаблюдения, управления доступом, охранной и пожарной сигнализации с отгрузкой по всей России.",
+      description:
+        "Поставщик систем безопасности, видеонаблюдения, управления доступом, охранной и пожарной сигнализации с отгрузкой по всей России.",
       gradient: "from-slate-500/20 via-zinc-500/10 to-gray-500/20",
       iconGradient: "from-slate-400/20 to-zinc-400/20",
       logo: "/protek.svg",
       slug: "keis-protek",
     },
   ],
-  "Стройматериалы": [
+  Стройматериалы: [
     {
       company: "СТРОЙМИКС",
-      description: "Продавец строительных и отделочных материалов в Центральном Черноземье. Официальные представители проверенных производителей.",
+      description:
+        "Продавец строительных и отделочных материалов в Центральном Черноземье. Официальные представители проверенных производителей.",
       gradient: "from-rose-500/20 via-pink-500/10 to-red-500/20",
       iconGradient: "from-rose-400/20 to-pink-400/20",
       logo: "/stroymix.svg",
       slug: "keis-stroymix",
     },
   ],
-  "Мебель": [
+  Мебель: [
+    {
+      company: "Древиз",
+      description:
+        "Крупнейший дистрибьютор мебельных материалов в ЦФО. Автоматизировал оптовые продажи и работу с дилерами с помощью b2bmotion. 70+ брендов, 8 филиалов по РФ, 3 000+ клиентов.",
+      gradient: "from-violet-500/20 via-purple-500/10 to-indigo-500/20",
+      iconGradient: "from-violet-400/20 to-purple-400/20",
+      logo: "/dreviz.svg",
+      slug: "keis-dreviz",
+    },
     {
       company: "Мегаплит",
-      description: "Поставщик занимает лидирующие позиции в мебельной отрасли по поставкам мебельных комплектующих и строительных материалов.",
+      description:
+        "Поставщик занимает лидирующие позиции в мебельной отрасли по поставкам мебельных комплектующих и строительных материалов.",
       gradient: "from-violet-500/20 via-purple-500/10 to-indigo-500/20",
       iconGradient: "from-violet-400/20 to-purple-400/20",
       logo: "/kristal.svg",
       slug: "keis-megaplit",
     },
   ],
-  "Светотехника": [
+  Светотехника: [
     {
       company: "Электрические технологии",
-      description: "Сеть магазинов электрооборудования, инженерной продукции и светотехники для профессионалов электромонтажа.",
+      description:
+        "Сеть магазинов электрооборудования, инженерной продукции и светотехники для профессионалов электромонтажа.",
       gradient: "from-sky-500/20 via-blue-500/10 to-indigo-500/20",
       iconGradient: "from-sky-400/20 to-blue-400/20",
       logo: "/elektricheskie-tekhnologii.svg",
       slug: "keis-elektricheskie-tekhnologii",
     },
   ],
-  "Серверные": [
+  Серверные: [
     {
       company: "Ирбис",
-      description: "Дистрибьютор кабеля, материалов и оборудования для строительства и эксплуатации сетей связи, видеонаблюдения на территории Сибири, Дальнего Востока, Урала.",
+      description:
+        "Дистрибьютор кабеля, материалов и оборудования для строительства и эксплуатации сетей связи, видеонаблюдения на территории Сибири, Дальнего Востока, Урала.",
       gradient: "from-teal-500/20 via-emerald-500/10 to-cyan-500/20",
       iconGradient: "from-teal-400/20 to-emerald-400/20",
       logo: "/irbis.svg",
       slug: "keis-irbis",
     },
   ],
-  "Металлопрокат": [
+  Металлопрокат: [
     {
       company: "Ариэль Металл",
-      description: "Универсальный поставщик черного металлопроката и труб. Входит в состав Российского союза поставщиков металлопроката.",
+      description:
+        "Универсальный поставщик черного металлопроката и труб. Входит в состав Российского союза поставщиков металлопроката.",
       gradient: "from-zinc-500/20 via-neutral-500/10 to-slate-500/20",
       iconGradient: "from-zinc-400/20 to-neutral-400/20",
       slug: "keis-ariel-metall",
     },
   ],
-}
+};
 
 const allCases: CaseStudy[] = industries.flatMap((industry) =>
-  (casesByIndustry[industry] || []).map((c) => ({ ...c, industry }))
-)
+  (casesByIndustry[industry] || []).map((c) => ({ ...c, industry })),
+);
 
-function useTypewriter(words: string[], typingSpeed = 80, deletingSpeed = 50, pauseDuration = 4000) {
-  const [displayText, setDisplayText] = useState("")
-  const [wordIndex, setWordIndex] = useState(0)
-  const [phase, setPhase] = useState<"typing" | "paused" | "deleting">("typing")
+function useTypewriter(
+  words: string[],
+  typingSpeed = 80,
+  deletingSpeed = 50,
+  pauseDuration = 4000,
+) {
+  const [displayText, setDisplayText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [phase, setPhase] = useState<"typing" | "paused" | "deleting">(
+    "typing",
+  );
 
   useEffect(() => {
-    const currentWord = words[wordIndex]
+    const currentWord = words[wordIndex];
 
     if (phase === "typing") {
       if (displayText.length < currentWord.length) {
         const t = setTimeout(() => {
-          setDisplayText(currentWord.slice(0, displayText.length + 1))
-        }, typingSpeed)
-        return () => clearTimeout(t)
+          setDisplayText(currentWord.slice(0, displayText.length + 1));
+        }, typingSpeed);
+        return () => clearTimeout(t);
       }
       // Слово напечатано — переходим в паузу
-      setPhase("paused")
-      return
+      setPhase("paused");
+      return;
     }
 
     if (phase === "paused") {
-      const t = setTimeout(() => setPhase("deleting"), pauseDuration)
-      return () => clearTimeout(t)
+      const t = setTimeout(() => setPhase("deleting"), pauseDuration);
+      return () => clearTimeout(t);
     }
 
     if (phase === "deleting") {
       if (displayText.length > 0) {
         const t = setTimeout(() => {
-          setDisplayText(displayText.slice(0, -1))
-        }, deletingSpeed)
-        return () => clearTimeout(t)
+          setDisplayText(displayText.slice(0, -1));
+        }, deletingSpeed);
+        return () => clearTimeout(t);
       }
       // Стёрто — следующее слово
-      setWordIndex((prev) => (prev + 1) % words.length)
-      setPhase("typing")
-      return
+      setWordIndex((prev) => (prev + 1) % words.length);
+      setPhase("typing");
+      return;
     }
-  }, [displayText, phase, wordIndex, words, typingSpeed, deletingSpeed, pauseDuration])
+  }, [
+    displayText,
+    phase,
+    wordIndex,
+    words,
+    typingSpeed,
+    deletingSpeed,
+    pauseDuration,
+  ]);
 
-  return displayText
+  return displayText;
 }
 
 export function IndustryCases() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [canScrollRight, setCanScrollRight] = useState(true)
+  const sectionRef = useRef<HTMLElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const typedText = useTypewriter(industries)
+  const typedText = useTypewriter(industries);
 
   const updateScrollState = useCallback(() => {
-    const el = scrollRef.current
-    if (!el) return
-    setCanScrollLeft(el.scrollLeft > 10)
-    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10)
-  }, [])
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 10);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
+  }, []);
 
   useEffect(() => {
-    const el = scrollRef.current
-    if (!el) return
-    el.addEventListener("scroll", updateScrollState, { passive: true })
-    updateScrollState()
-    return () => el.removeEventListener("scroll", updateScrollState)
-  }, [updateScrollState])
+    const el = scrollRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    updateScrollState();
+    return () => el.removeEventListener("scroll", updateScrollState);
+  }, [updateScrollState]);
 
   const scroll = (direction: "left" | "right") => {
-    const el = scrollRef.current
-    if (!el) return
-    const cardWidth = 340
-    el.scrollBy({ left: direction === "left" ? -cardWidth * 2 : cardWidth * 2, behavior: "smooth" })
-  }
+    const el = scrollRef.current;
+    if (!el) return;
+    const cardWidth = 340;
+    el.scrollBy({
+      left: direction === "left" ? -cardWidth * 2 : cardWidth * 2,
+      behavior: "smooth",
+    });
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible")
-        })
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
       },
-      { threshold: 0.1 }
-    )
-    const reveals = sectionRef.current?.querySelectorAll(".reveal")
-    reveals?.forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
+      { threshold: 0.1 },
+    );
+    const reveals = sectionRef.current?.querySelectorAll(".reveal");
+    reveals?.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section ref={sectionRef} id="cases" className="py-28">
@@ -262,12 +301,16 @@ export function IndustryCases() {
           >
             {/* Image area */}
             <div className="relative aspect-[16/10] overflow-hidden">
-              <div className={`absolute inset-0 bg-gradient-to-br ${caseStudy.gradient}`} />
+              <div
+                className={`absolute inset-0 bg-gradient-to-br ${caseStudy.gradient}`}
+              />
               <div className="absolute inset-0 bg-page/30" />
               <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
 
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${caseStudy.iconGradient} backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
+                <div
+                  className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${caseStudy.iconGradient} backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}
+                >
                   {caseStudy.logo ? (
                     <Image
                       src={caseStudy.logo}
@@ -333,5 +376,5 @@ export function IndustryCases() {
         </button>
       </div>
     </section>
-  )
+  );
 }
