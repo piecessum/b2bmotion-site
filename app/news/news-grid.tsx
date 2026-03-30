@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useState, useMemo } from "react"
-import Link from "next/link"
-import { ArrowRight, Calendar } from "lucide-react"
-import type { Post } from "@/lib/content"
+import { useState, useMemo } from "react";
+import Link from "next/link";
+import { ArrowRight, Calendar } from "lucide-react";
+import type { Post } from "@/lib/content";
 
 const TAG_LABELS: Record<string, string> = {
   b2bmotion: "B2B Движение",
@@ -11,36 +11,36 @@ const TAG_LABELS: Record<string, string> = {
   интеграции: "Интеграции",
   мобильная_версия: "Мобильная версия",
   mdm: "MDM",
-}
+};
 
 export function NewsGrid({ posts }: { posts: Post[] }) {
-  const [activeTag, setActiveTag] = useState<string | null>(null)
+  const [activeTag, setActiveTag] = useState<string | null>(null);
 
   const tags = useMemo(() => {
-    const set = new Set<string>()
+    const set = new Set<string>();
     for (const post of posts) {
-      for (const tag of post.tags ?? []) set.add(tag)
+      for (const tag of post.tags ?? []) set.add(tag);
     }
     return Array.from(set).sort(
       (a, b) =>
         posts.filter((p) => p.tags?.includes(b)).length -
-        posts.filter((p) => p.tags?.includes(a)).length
-    )
-  }, [posts])
+        posts.filter((p) => p.tags?.includes(a)).length,
+    );
+  }, [posts]);
 
   const filtered = activeTag
     ? posts.filter((p) => p.tags?.includes(activeTag))
-    : posts
+    : posts;
 
   return (
     <>
-      <div className="flex flex-wrap gap-2 mb-8">
+      <div className="flex flex-wrap gap-3 mb-8">
         <button
           onClick={() => setActiveTag(null)}
-          className={`px-4 py-2 text-sm rounded-full border transition-colors duration-200 ${
+          className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
             activeTag === null
-              ? "bg-[#8B5CF6]/10 border-[#8B5CF6]/30 text-[#C084FC]"
-              : "border-white/[0.06] text-dim hover:text-body hover:border-white/10"
+              ? "bg-[#8B5CF6] text-white border-[#8B5CF6] shadow-[0_0_20px_rgba(139,92,246,0.3)]"
+              : "bg-white/5 text-dim border-white/10 hover:bg-white/10 hover:text-body"
           }`}
         >
           Все
@@ -49,10 +49,10 @@ export function NewsGrid({ posts }: { posts: Post[] }) {
           <button
             key={tag}
             onClick={() => setActiveTag(tag === activeTag ? null : tag)}
-            className={`px-4 py-2 text-sm rounded-full border transition-colors duration-200 ${
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
               activeTag === tag
-                ? "bg-[#8B5CF6]/10 border-[#8B5CF6]/30 text-[#C084FC]"
-                : "border-white/[0.06] text-dim hover:text-body hover:border-white/10"
+                ? "bg-transparent text-[#8B5CF6] border-[#8B5CF6] shadow-[0_0_20px_rgba(139,92,246,0.2)]"
+                : "bg-white/5 text-dim border-white/10 hover:bg-white/10 hover:text-body"
             }`}
           >
             {TAG_LABELS[tag] || tag}
@@ -113,5 +113,5 @@ export function NewsGrid({ posts }: { posts: Post[] }) {
         </p>
       )}
     </>
-  )
+  );
 }
