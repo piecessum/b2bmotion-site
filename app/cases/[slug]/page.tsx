@@ -100,6 +100,20 @@ export default async function CaseStudyPage({
               {post.description}
             </p>
 
+            {/* Date and type */}
+            <div className="flex items-center gap-3 text-sm text-dim">
+              <Calendar className="w-4 h-4" />
+              <time>
+                {new Date(post.date).toLocaleDateString("ru-RU", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </time>
+              <span className="w-1 h-1 rounded-full bg-dimmest" />
+              <span>История успеха</span>
+            </div>
+
             {/* Key Metrics */}
             {metrics.length > 0 && (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
