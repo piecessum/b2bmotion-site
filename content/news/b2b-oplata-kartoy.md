@@ -3,7 +3,7 @@ title: "Онлайн-оплата картой в B2B-системе Sanergy"
 description: "Добавили в B2B-систему возможность расплачиваться картой онлайн."
 date: "2018-12-28"
 tags: ["интеграции"]
-image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80"
+image: "/images/news/b2b-oplata-kartoy.jpg"
 ---
 
 Компания добавила функцию оплаты по карте в свою B2B-платформу для санитарно-гигиенической продукции Sanergy.

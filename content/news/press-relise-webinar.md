@@ -3,7 +3,7 @@ title: "Первый открытый вебинар по B2B-системе"
 description: "Бесплатный вебинар по внедрению B2B-системы от компании B2B Движение."
 date: "2020-04-17"
 tags: ["b2bmotion"]
-image: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?auto=format&fit=crop&w=800&q=80"
+image: "/images/news/press-relise-webinar.jpg"
 ---
 
 Страница посвящена вебинару по внедрению B2B-системы от компании B2B Движение.
