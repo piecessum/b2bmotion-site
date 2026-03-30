@@ -250,7 +250,7 @@ export function IndustryCases() {
       {/* Scrollable cards */}
       <div
         ref={scrollRef}
-        className="flex gap-5 overflow-x-auto pb-4 scrollbar-hide px-6"
+        className="flex gap-5 overflow-x-auto py-6 scrollbar-hide px-6"
         style={{ scrollSnapType: "x mandatory" }}
       >
         {allCases.map((caseStudy, i) => (
