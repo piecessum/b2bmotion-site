@@ -257,7 +257,7 @@ export function IndustryCases() {
           <Link
             href={`/blog/${caseStudy.slug}`}
             key={caseStudy.slug}
-            className="group relative flex-shrink-0 w-[320px] rounded-2xl overflow-hidden glass-card hover:!translate-y-0 hover:shadow-[0_0_25px_rgba(59,130,246,0.15),0_0_50px_rgba(139,92,246,0.1)] transition-shadow duration-500"
+            className="group relative flex-shrink-0 w-[320px] rounded-2xl overflow-hidden bg-[linear-gradient(135deg,rgba(15,15,20,0.8),rgba(15,15,20,0.5))] border border-[var(--glass-border)] backdrop-blur-[20px] shadow-[0_1px_3px_rgba(0,0,0,0.2)] hover:border-[rgba(59,130,246,0.15)] hover:shadow-[0_0_0_1px_rgba(59,130,246,0.1),0_8px_40px_-12px_rgba(59,130,246,0.15),0_0_80px_-20px_rgba(139,92,246,0.1)] transition-all duration-500"
             style={{ scrollSnapAlign: "start" }}
           >
             {/* Image area */}
