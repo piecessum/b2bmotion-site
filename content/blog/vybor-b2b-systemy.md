@@ -3,7 +3,7 @@ title: "Как выбрать B2B-систему и не прогадать"
 description: "Практическая инструкция, реальные кейсы, цифры, рекомендации и обзор рыночных решений"
 date: "2026-02-15"
 author: "Команда B2B Движение"
-image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80"
+image: "/images/blog/vybor-b2b-systemy.jpg"
 ---
 
 ## Определите цели и критерии

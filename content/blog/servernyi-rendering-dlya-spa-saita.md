@@ -3,7 +3,7 @@ title: "SEO-эпопея: Как мы внедряли серверный рен
 description: "Почему одностраничные приложения не совместимы с поисковыми роботами"
 date: "2025-10-05"
 author: "Команда B2B Движение"
-image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=800&q=80"
+image: "/images/blog/servernyi-rendering-dlya-spa-saita.jpg"
 ---
 
 ## Проблема: SPA и поисковые роботы

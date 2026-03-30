@@ -3,7 +3,7 @@ title: "Портрет B2B-покупателя"
 description: "Ключевые особенности поведения профессионального покупателя в интернет-продажах"
 date: "2024-08-05"
 author: "Команда B2B Движение"
-image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80"
+image: "/images/blog/b2b-pokupatel.jpg"
 ---
 
 ## Кто такой B2B-покупатель

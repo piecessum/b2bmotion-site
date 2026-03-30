@@ -3,7 +3,7 @@ title: "7 ключевых B2B-направлений 2024 года"
 description: "Актуальные тенденции: видеоконтент, подкасты и искусственный интеллект"
 date: "2024-01-15"
 author: "Команда B2B Движение"
-image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80"
+image: "/images/blog/b2b-trends-2024.jpg"
 ---
 
 ## Искусственный интеллект в B2B-продажах

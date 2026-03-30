@@ -3,7 +3,7 @@ title: "Розница и опт: Чем B2B-платформа отличает
 description: "Семь отличий: от поиска и спецификаций до персональных цен и скидок"
 date: "2022-08-10"
 author: "Команда B2B Движение"
-image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80"
+image: "/images/blog/b2b-platforma.jpg"
 ---
 
 ## Ценообразование и скидки

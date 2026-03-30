@@ -3,7 +3,7 @@ title: "Чат-боты и виртуальная реальность: 5 гла
 description: "Развитие электронной коммерции: от AR/VR до голосового поиска"
 date: "2020-02-15"
 author: "Команда B2B Движение"
-image: "https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?auto=format&fit=crop&w=800&q=80"
+image: "/images/blog/b2b-trends-2020.jpg"
 ---
 
 ## Чат-боты для обслуживания клиентов

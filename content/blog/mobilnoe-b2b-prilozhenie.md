@@ -3,7 +3,7 @@ title: "Мобильное приложение B2B Движение: стати
 description: "Как сэкономить на разработке мобильного приложения для оптовых продаж"
 date: "2025-12-10"
 author: "Команда B2B Движение"
-image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80"
+image: "/images/blog/mobilnoe-b2b-prilozhenie.jpg"
 ---
 
 ## Мобильные продажи в B2B: цифры и тенденции

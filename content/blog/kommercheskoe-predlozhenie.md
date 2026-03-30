@@ -3,7 +3,7 @@ title: "В платформе B2B Движение можно составлят
 description: "Инструкция для клиентов по составлению и отправке оптовых предложений"
 date: "2022-11-20"
 author: "Команда B2B Движение"
-image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=800&q=80"
+image: "/images/blog/kommercheskoe-predlozhenie.jpg"
 ---
 
 ## Что такое коммерческое предложение в B2B-платформе

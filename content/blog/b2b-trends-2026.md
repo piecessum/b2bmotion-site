@@ -3,7 +3,7 @@ title: "Главные направления B2B-продаж в 2026 году"
 description: "Собрали актуальные тенденции, которые будут играть ключевую роль в 2026 году в B2B"
 date: "2026-03-20"
 author: "Команда B2B Движение"
-image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80"
+image: "/images/blog/b2b-trends-2026.jpg"
 ---
 
 ## Искусственный интеллект в B2B-продажах

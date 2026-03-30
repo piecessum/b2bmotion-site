@@ -3,7 +3,7 @@ title: "B2B-портал для оптовых покупателей"
 description: "Описание возможностей портала B2B Движение и целевой аудитории"
 date: "2022-04-05"
 author: "Команда B2B Движение"
-image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80"
+image: "/images/blog/b2b-dvizhenie.jpg"
 ---
 
 ## Что такое B2B Движение

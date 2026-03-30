@@ -3,7 +3,7 @@ title: "Как Шерлок. Каким должен быть поиск в B2B-
 description: "Особенности поиска товаров оптовыми покупателями, синонимы и релевантность"
 date: "2024-10-10"
 author: "Команда B2B Движение"
-image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=800&q=80"
+image: "/images/blog/poisk.jpg"
 ---
 
 ## Почему поиск в B2B -- это не просто строка на сайте
