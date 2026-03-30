@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { ArrowRight } from "lucide-react"
+import { useEffect, useRef, useState, useCallback } from "react"
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -24,9 +24,10 @@ interface CaseStudy {
   iconGradient: string
   logo?: string
   slug: string
+  industry: string
 }
 
-const casesByIndustry: Record<string, CaseStudy[]> = {
+const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
   "Электротехника": [
     {
       company: "РОСЭК",
@@ -141,10 +142,69 @@ const casesByIndustry: Record<string, CaseStudy[]> = {
   ],
 }
 
+const allCases: CaseStudy[] = industries.flatMap((industry) =>
+  (casesByIndustry[industry] || []).map((c) => ({ ...c, industry }))
+)
+
+function useTypewriter(words: string[], typingSpeed = 80, deletingSpeed = 50, pauseDuration = 2000) {
+  const [displayText, setDisplayText] = useState("")
+  const [wordIndex, setWordIndex] = useState(0)
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  useEffect(() => {
+    const currentWord = words[wordIndex]
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        setDisplayText(currentWord.slice(0, displayText.length + 1))
+        if (displayText.length + 1 === currentWord.length) {
+          setTimeout(() => setIsDeleting(true), pauseDuration)
+          return
+        }
+      } else {
+        setDisplayText(currentWord.slice(0, displayText.length - 1))
+        if (displayText.length === 0) {
+          setIsDeleting(false)
+          setWordIndex((prev) => (prev + 1) % words.length)
+        }
+      }
+    }, isDeleting ? deletingSpeed : typingSpeed)
+
+    return () => clearTimeout(timeout)
+  }, [displayText, isDeleting, wordIndex, words, typingSpeed, deletingSpeed, pauseDuration])
+
+  return displayText
+}
+
 export function IndustryCases() {
   const sectionRef = useRef<HTMLElement>(null)
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+
+  const typedText = useTypewriter(industries)
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    setCanScrollLeft(el.scrollLeft > 10)
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10)
+  }, [])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    el.addEventListener("scroll", updateScrollState, { passive: true })
+    updateScrollState()
+    return () => el.removeEventListener("scroll", updateScrollState)
+  }, [updateScrollState])
+
+  const scroll = (direction: "left" | "right") => {
+    const el = scrollRef.current
+    if (!el) return
+    const cardWidth = 340
+    el.scrollBy({ left: direction === "left" ? -cardWidth * 2 : cardWidth * 2, behavior: "smooth" })
+  }
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -160,120 +220,105 @@ export function IndustryCases() {
     return () => observer.disconnect()
   }, [])
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsAnimating(true)
-      setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % industries.length)
-        setIsAnimating(false)
-      }, 300)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [])
-
-  const currentIndustry = industries[currentIndex]
-  const currentCases = casesByIndustry[currentIndustry]
-
   return (
-    <section ref={sectionRef} id="cases" className="py-28 px-6">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,48px)] tracking-[-0.02em] text-heading">
-            Кейсы в отраслях
-          </h2>
-          <div className="mt-2">
-            <span
-              className={`gradient-text-animated font-heading font-bold text-[clamp(28px,4.5vw,44px)] tracking-[-0.02em] inline-block transition-all duration-300 ${
-                isAnimating ? "opacity-0 translate-y-3 blur-sm" : "opacity-100 translate-y-0 blur-0"
-              }`}
-            >
-              {currentIndustry}
-            </span>
-          </div>
+    <section ref={sectionRef} id="cases" className="py-28">
+      {/* Header */}
+      <div className="text-center mb-12 px-6">
+        <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,48px)] tracking-[-0.02em] text-heading">
+          Кейсы в отраслях
+        </h2>
+        <div className="mt-2 h-[1.3em] text-[clamp(28px,4.5vw,44px)]">
+          <span className="gradient-text-animated font-heading font-bold tracking-[-0.02em] inline-block">
+            {typedText}
+          </span>
+          <span className="inline-block w-[3px] h-[0.8em] bg-[#8B5CF6] ml-1 align-middle animate-pulse" />
         </div>
+      </div>
 
-        {/* Cards */}
-        <div className={`grid grid-cols-1 gap-5 ${
-          currentCases.length === 1 ? "md:grid-cols-1 max-w-md mx-auto" :
-          currentCases.length === 2 ? "md:grid-cols-2 max-w-3xl mx-auto" :
-          "md:grid-cols-3"
-        }`}>
-          {currentCases.map((caseStudy, i) => (
-            <Link
-              href={`/blog/${caseStudy.slug}`}
-              key={`${currentIndustry}-${i}`}
-              className={`group relative rounded-2xl overflow-hidden glass-card transition-all duration-500 ${
-                isAnimating ? "opacity-0 scale-[0.97]" : "opacity-100 scale-100"
-              }`}
-              style={{ transitionDelay: `${i * 80}ms` }}
-            >
-              {/* Image area */}
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <div className={`absolute inset-0 bg-gradient-to-br ${caseStudy.gradient}`} />
-                <div className="absolute inset-0 bg-page/30" />
-                <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
+      {/* Scrollable cards */}
+      <div
+        ref={scrollRef}
+        className="flex gap-5 overflow-x-auto pb-4 scrollbar-hide px-6"
+        style={{ scrollSnapType: "x mandatory" }}
+      >
+        {allCases.map((caseStudy, i) => (
+          <Link
+            href={`/blog/${caseStudy.slug}`}
+            key={caseStudy.slug}
+            className="group relative flex-shrink-0 w-[320px] rounded-2xl overflow-hidden glass-card hover:scale-[1.02] transition-transform duration-300"
+            style={{ scrollSnapAlign: "start" }}
+          >
+            {/* Image area */}
+            <div className="relative aspect-[16/10] overflow-hidden">
+              <div className={`absolute inset-0 bg-gradient-to-br ${caseStudy.gradient}`} />
+              <div className="absolute inset-0 bg-page/30" />
+              <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
 
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${caseStudy.iconGradient} backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
-                    {caseStudy.logo ? (
-                      <Image
-                        src={caseStudy.logo}
-                        alt={caseStudy.company}
-                        width={100}
-                        height={100}
-                        className="h-10 w-auto object-contain opacity-70 dark:invert"
-                      />
-                    ) : (
-                      <span className="text-3xl font-heading font-bold text-white/70">
-                        {caseStudy.company.charAt(0)}
-                      </span>
-                    )}
-                  </div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${caseStudy.iconGradient} backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}>
+                  {caseStudy.logo ? (
+                    <Image
+                      src={caseStudy.logo}
+                      alt={caseStudy.company}
+                      width={100}
+                      height={100}
+                      className="h-10 w-auto object-contain opacity-70 dark:invert"
+                    />
+                  ) : (
+                    <span className="text-3xl font-heading font-bold text-white/70">
+                      {caseStudy.company.charAt(0)}
+                    </span>
+                  )}
                 </div>
               </div>
+            </div>
 
-              {/* Content */}
-              <div className="p-6">
-                <span className="text-[10px] text-dim uppercase tracking-[0.15em]">
-                  {currentIndustry}
-                </span>
-                <h3 className="font-heading font-bold text-xl text-heading mt-2 mb-3">
-                  {caseStudy.company}
-                </h3>
-                <p className="text-sm text-subtle leading-relaxed mb-5">
-                  {caseStudy.description}
-                </p>
-                <span className="inline-flex items-center gap-2 text-sm font-medium text-[#60A5FA] group-hover:text-[#93C5FD] group-hover:gap-3 transition-all duration-300">
-                  Изучить кейс
-                  <ArrowRight className="w-4 h-4" />
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
+            {/* Content */}
+            <div className="p-6">
+              <span className="text-[10px] text-dim uppercase tracking-[0.15em]">
+                {caseStudy.industry}
+              </span>
+              <h3 className="font-heading font-bold text-xl text-heading mt-2 mb-3">
+                {caseStudy.company}
+              </h3>
+              <p className="text-sm text-subtle leading-relaxed mb-5">
+                {caseStudy.description}
+              </p>
+              <span className="inline-flex items-center gap-2 text-sm font-medium text-[#60A5FA] group-hover:text-[#93C5FD] group-hover:gap-3 transition-all duration-300">
+                Изучить кейс
+                <ArrowRight className="w-4 h-4" />
+              </span>
+            </div>
+          </Link>
+        ))}
+      </div>
 
-        {/* Dots */}
-        <div className="flex items-center justify-center gap-2 mt-12">
-          {industries.map((industry, i) => (
-            <button
-              key={industry}
-              onClick={() => {
-                setIsAnimating(true)
-                setTimeout(() => {
-                  setCurrentIndex(i)
-                  setIsAnimating(false)
-                }, 300)
-              }}
-              className={`h-2 rounded-full transition-all duration-500 ${
-                i === currentIndex
-                  ? "w-10 bg-gradient-to-r from-[#3B82F6] to-[#8B5CF6] shadow-[0_0_12px_rgba(59,130,246,0.4)]"
-                  : "w-2 bg-dimmest hover:bg-dimmer"
-              }`}
-              aria-label={industry}
-            />
-          ))}
-        </div>
+      {/* Navigation buttons */}
+      <div className="hidden md:flex items-center justify-center gap-3 mt-8 px-6">
+        <button
+          onClick={() => scroll("left")}
+          disabled={!canScrollLeft}
+          className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all duration-300 ${
+            canScrollLeft
+              ? "border-white/10 bg-surface hover:bg-white/10 text-heading cursor-pointer"
+              : "border-white/5 bg-surface/50 text-dim cursor-default"
+          }`}
+          aria-label="Прокрутить влево"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={() => scroll("right")}
+          disabled={!canScrollRight}
+          className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all duration-300 ${
+            canScrollRight
+              ? "border-white/10 bg-surface hover:bg-white/10 text-heading cursor-pointer"
+              : "border-white/5 bg-surface/50 text-dim cursor-default"
+          }`}
+          aria-label="Прокрутить вправо"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
       </div>
     </section>
   )

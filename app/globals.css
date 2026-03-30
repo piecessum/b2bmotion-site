@@ -547,6 +547,17 @@
 .reveal-delay-5 { transition-delay: 0.5s; }
 
 /* ============================
+   SCROLLBAR HIDE
+   ============================ */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================
    GRADIENT SHIFT
    ============================ */
 @keyframes gradient-shift {
