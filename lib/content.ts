@@ -9,6 +9,7 @@ export interface Post {
   date: string
   author?: string
   image?: string
+  tags?: string[]
   content: string
 }
 
@@ -34,6 +35,7 @@ export function getAllPosts(collection: "blog" | "news"): Post[] {
       date: data.date || "",
       author: data.author || undefined,
       image: data.image || undefined,
+      tags: data.tags || undefined,
       content,
     } as Post
   })
@@ -61,6 +63,7 @@ export function getPostBySlug(
     date: data.date || "",
     author: data.author || undefined,
     image: data.image || undefined,
+    tags: data.tags || undefined,
     content,
   }
 }
