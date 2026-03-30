@@ -257,7 +257,7 @@ export function IndustryCases() {
           <Link
             href={`/blog/${caseStudy.slug}`}
             key={caseStudy.slug}
-            className="group relative flex-shrink-0 w-[320px] rounded-2xl overflow-hidden glass-card hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)] transition-all duration-300"
+            className="group relative flex-shrink-0 w-[320px] rounded-2xl overflow-hidden glass-card hover:shadow-[0_0_25px_rgba(59,130,246,0.15),0_0_50px_rgba(139,92,246,0.1)] transition-shadow duration-500"
             style={{ scrollSnapAlign: "start" }}
           >
             {/* Image area */}
