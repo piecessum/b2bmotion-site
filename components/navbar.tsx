@@ -124,7 +124,7 @@ export function Navbar() {
           </a>
 
           {/* Desktop links */}
-          <div className="hidden md:flex items-center ml-2">
+          <div className="hidden lg:flex items-center ml-2">
             <a
               href="/platform"
               className={navLinkClass(pathname === "/platform")}
@@ -175,7 +175,7 @@ export function Navbar() {
           </div>
 
           {/* Theme toggle + CTA */}
-          <div className="hidden md:flex items-center ml-auto gap-2">
+          <div className="hidden lg:flex items-center ml-auto gap-2">
             <ThemeToggle />
             <a
               href="/contacts"
@@ -186,7 +186,7 @@ export function Navbar() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center ml-auto gap-1">
+          <div className="lg:hidden flex items-center ml-auto gap-1">
             <ThemeToggle />
             <button
               className="flex items-center justify-center w-10 h-10 text-body"
@@ -199,7 +199,7 @@ export function Navbar() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="md:hidden mt-2 p-3 rounded-2xl bg-dropdown-bg border border-glass-border backdrop-blur-2xl max-h-[75vh] overflow-y-auto">
+          <div className="lg:hidden mt-2 p-3 rounded-2xl bg-dropdown-bg border border-glass-border backdrop-blur-2xl max-h-[75vh] overflow-y-auto">
             <div className="flex flex-col">
               <div className="flex flex-wrap gap-1 mb-2">
                 {[
