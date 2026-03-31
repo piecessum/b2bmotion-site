@@ -296,7 +296,7 @@ export function IndustryCases() {
           <Link
             href={`/blog/${caseStudy.slug}`}
             key={caseStudy.slug}
-            className="group relative flex-shrink-0 w-[320px] rounded-2xl overflow-hidden bg-white dark:bg-[linear-gradient(135deg,rgba(15,15,20,0.8),rgba(15,15,20,0.5))] border border-gray-200 dark:border-[var(--glass-border)] backdrop-blur-[20px] shadow-[0_1px_3px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.2)] hover:border-[#3B82F6]/30 dark:hover:border-[rgba(59,130,246,0.15)] hover:shadow-[0_0_0_1px_rgba(59,130,246,0.1),0_8px_40px_-12px_rgba(59,130,246,0.15),0_0_80px_-20px_rgba(139,92,246,0.1)] transition-all duration-500"
+            className="group relative flex-shrink-0 w-[320px] rounded-2xl overflow-hidden bg-white dark:bg-[linear-gradient(135deg,rgba(15,15,20,0.8),rgba(15,15,20,0.5))] border border-gray-200 dark:border-[var(--glass-border)] backdrop-blur-[20px] shadow-[0_1px_3px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.2)] hover:border-[#3B82F6]/30 dark:hover:border-[rgba(59,130,246,0.15)] hover:shadow-[0_8px_40px_-12px_rgba(59,130,246,0.15),0_0_80px_-20px_rgba(139,92,246,0.1)] dark:hover:shadow-[0_0_0_1px_rgba(59,130,246,0.1),0_8px_40px_-12px_rgba(59,130,246,0.15),0_0_80px_-20px_rgba(139,92,246,0.1)] transition-all duration-500"
             style={{ scrollSnapAlign: "start" }}
           >
             {/* Image area */}
@@ -339,7 +339,7 @@ export function IndustryCases() {
               <p className="text-sm text-gray-600 dark:text-subtle leading-relaxed mb-5">
                 {caseStudy.description}
               </p>
-              <span className="inline-flex items-center gap-2 text-sm font-medium text-[#3B82F6] group-hover:text-[#2563EB] dark:group-hover:text-[#93C5FD] group-hover:gap-3 transition-all duration-300">
+              <span className="inline-flex items-center gap-2 text-sm font-medium text-[#3B82F6] dark:text-[#60A5FA] group-hover:text-[#2563EB] dark:group-hover:text-[#93C5FD] group-hover:gap-3 transition-all duration-300">
                 Изучить кейс
                 <ArrowRight className="w-4 h-4" />
               </span>
