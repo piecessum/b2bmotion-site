@@ -107,13 +107,7 @@ export function Footer() {
                   className="opacity-70 hover:opacity-100 transition-opacity duration-300"
                   aria-label="VK"
                 >
-                  <Image
-                    src="/vk.svg"
-                    alt="VK"
-                    width={24}
-                    height={24}
-                    className="brightness-0 invert"
-                  />
+                  <Image src="/vk.svg" alt="VK" width={24} height={24} />
                 </a>
                 <a
                   href="https://rutube.ru/channel/63705491/"
@@ -127,7 +121,6 @@ export function Footer() {
                     alt="RuTube"
                     width={24}
                     height={24}
-                    className="brightness-0 invert"
                   />
                 </a>
               </div>
