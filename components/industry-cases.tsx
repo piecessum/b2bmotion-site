@@ -296,7 +296,7 @@ export function IndustryCases() {
           <Link
             href={`/blog/${caseStudy.slug}`}
             key={caseStudy.slug}
-            className="group relative flex-shrink-0 w-[320px] rounded-2xl overflow-hidden bg-[linear-gradient(135deg,rgba(15,15,20,0.8),rgba(15,15,20,0.5))] border border-[var(--glass-border)] backdrop-blur-[20px] shadow-[0_1px_3px_rgba(0,0,0,0.2)] hover:border-[rgba(59,130,246,0.15)] hover:shadow-[0_0_0_1px_rgba(59,130,246,0.1),0_8px_40px_-12px_rgba(59,130,246,0.15),0_0_80px_-20px_rgba(139,92,246,0.1)] transition-all duration-500"
+            className="group relative flex-shrink-0 w-[320px] rounded-2xl overflow-hidden bg-white dark:bg-[linear-gradient(135deg,rgba(15,15,20,0.8),rgba(15,15,20,0.5))] border border-gray-200 dark:border-[var(--glass-border)] backdrop-blur-[20px] shadow-[0_1px_3px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.2)] hover:border-[#3B82F6]/30 dark:hover:border-[rgba(59,130,246,0.15)] hover:shadow-[0_0_0_1px_rgba(59,130,246,0.1),0_8px_40px_-12px_rgba(59,130,246,0.15),0_0_80px_-20px_rgba(139,92,246,0.1)] transition-all duration-500"
             style={{ scrollSnapAlign: "start" }}
           >
             {/* Image area */}
@@ -320,7 +320,7 @@ export function IndustryCases() {
                       className="h-10 w-auto object-contain opacity-70 dark:invert"
                     />
                   ) : (
-                    <span className="text-3xl font-heading font-bold text-white/70">
+                    <span className="text-3xl font-heading font-bold text-gray-700 dark:text-white/70">
                       {caseStudy.company.charAt(0)}
                     </span>
                   )}
@@ -330,16 +330,16 @@ export function IndustryCases() {
 
             {/* Content */}
             <div className="p-6">
-              <span className="text-[10px] text-dim uppercase tracking-[0.15em]">
+              <span className="text-[10px] text-gray-500 dark:text-dim uppercase tracking-[0.15em]">
                 {caseStudy.industry}
               </span>
-              <h3 className="font-heading font-bold text-xl text-heading mt-2 mb-3">
+              <h3 className="font-heading font-bold text-xl text-gray-900 dark:text-heading mt-2 mb-3">
                 {caseStudy.company}
               </h3>
-              <p className="text-sm text-subtle leading-relaxed mb-5">
+              <p className="text-sm text-gray-600 dark:text-subtle leading-relaxed mb-5">
                 {caseStudy.description}
               </p>
-              <span className="inline-flex items-center gap-2 text-sm font-medium text-[#60A5FA] group-hover:text-[#93C5FD] group-hover:gap-3 transition-all duration-300">
+              <span className="inline-flex items-center gap-2 text-sm font-medium text-[#3B82F6] group-hover:text-[#2563EB] dark:group-hover:text-[#93C5FD] group-hover:gap-3 transition-all duration-300">
                 Изучить кейс
                 <ArrowRight className="w-4 h-4" />
               </span>
@@ -355,8 +355,8 @@ export function IndustryCases() {
           disabled={!canScrollLeft}
           className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all duration-300 ${
             canScrollLeft
-              ? "border-white/10 bg-surface hover:bg-white/10 text-heading cursor-pointer"
-              : "border-white/5 bg-surface/50 text-dim cursor-default"
+              ? "border-gray-300 dark:border-white/10 bg-white dark:bg-surface hover:bg-gray-100 dark:hover:bg-white/10 text-gray-900 dark:text-heading cursor-pointer"
+              : "border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-surface/50 text-gray-400 dark:text-dim cursor-default"
           }`}
           aria-label="Прокрутить влево"
         >
@@ -367,8 +367,8 @@ export function IndustryCases() {
           disabled={!canScrollRight}
           className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all duration-300 ${
             canScrollRight
-              ? "border-white/10 bg-surface hover:bg-white/10 text-heading cursor-pointer"
-              : "border-white/5 bg-surface/50 text-dim cursor-default"
+              ? "border-gray-300 dark:border-white/10 bg-white dark:bg-surface hover:bg-gray-100 dark:hover:bg-white/10 text-gray-900 dark:text-heading cursor-pointer"
+              : "border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-surface/50 text-gray-400 dark:text-dim cursor-default"
           }`}
           aria-label="Прокрутить вправо"
         >
