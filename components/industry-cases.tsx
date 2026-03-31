@@ -304,8 +304,8 @@ export function IndustryCases() {
               <div
                 className={`absolute inset-0 bg-gradient-to-br ${caseStudy.gradient}`}
               />
-              <div className="absolute inset-0 bg-page/30 dark:bg-page/30" />
-              <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent dark:from-surface" />
+              <div className="absolute inset-0 bg-white/50 dark:bg-page/30" />
+              <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent dark:from-surface" />
 
               <div className="absolute inset-0 flex items-center justify-center">
                 <div
@@ -329,7 +329,7 @@ export function IndustryCases() {
             </div>
 
             {/* Content */}
-            <div className="p-6">
+            <div className="p-6 bg-white dark:bg-transparent">
               <span className="text-[10px] text-gray-500 dark:text-dim uppercase tracking-[0.15em]">
                 {caseStudy.industry}
               </span>
