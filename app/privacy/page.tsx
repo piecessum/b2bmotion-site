@@ -1,40 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ArrowLeft } from "lucide-react";
 
-function useReveal(ref: React.RefObject<HTMLElement | null>) {
-  useEffect(() => {
-    const elements = ref.current?.querySelectorAll(".reveal");
-    if (!elements || elements.length === 0) return;
-
-    const o = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            o.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "50px" },
-    );
-
-    elements.forEach((el) => o.observe(el));
-    return () => o.disconnect();
-  }, [ref]);
-}
-
 export default function PrivacyPage() {
   const router = useRouter();
-  const r = useRef<HTMLElement>(null);
-  useReveal(r);
 
   return (
-    <main ref={r} className="relative min-h-screen bg-page-alt noise-overlay">
+    <main className="relative min-h-screen bg-page-alt noise-overlay">
       <Navbar />
 
       <section className="relative pt-36 pb-32 px-6 overflow-hidden">
@@ -45,21 +20,21 @@ export default function PrivacyPage() {
         <div className="relative z-10 max-w-4xl mx-auto">
           <button
             onClick={() => router.back()}
-            className="reveal inline-flex items-center gap-2 text-sm text-subtle hover:text-[#3B82F6] transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-sm text-subtle hover:text-[#3B82F6] transition-colors mb-8"
           >
             <ArrowLeft className="w-4 h-4" />
             Назад
           </button>
 
           <div className="text-center mb-16">
-            <h1 className="reveal font-heading font-bold text-[clamp(28px,5vw,42px)] leading-[1.2] tracking-[-0.02em] mb-4 text-heading">
+            <h1 className="font-heading font-bold text-[clamp(28px,5vw,42px)] leading-[1.2] tracking-[-0.02em] mb-4 text-heading">
               Политика конфиденциальности и обработки персональных данных
             </h1>
-            <p className="reveal text-sm text-subtle">Дата публикации: 2025</p>
+            <p className="text-sm text-subtle">Дата публикации: 2025</p>
           </div>
 
           <div className="prose prose-invert max-w-none">
-            <div className="reveal p-8 bg-surface-hover rounded-2xl border border-border-default text-body leading-relaxed space-y-6">
+            <div className="p-8 bg-surface-hover rounded-2xl border border-border-default text-body leading-relaxed space-y-6">
               <p>
                 Настоящая Политика конфиденциальности персональной информации
                 (далее — Политика) действует в отношении всей информации,
