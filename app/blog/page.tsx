@@ -9,8 +9,14 @@ export const metadata = {
     "Статьи о B2B-продажах, автоматизации и e-commerce для оптовых компаний.",
 };
 
-export default function BlogPage() {
+interface BlogPageProps {
+  searchParams: Promise<{ filter?: string }>;
+}
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
   const posts = getAllPosts("blog");
+  const params = await searchParams;
+  const initialFilter = params.filter === "cases" ? "cases" : "all";
 
   return (
     <main className="relative min-h-screen bg-page noise-overlay">
@@ -32,7 +38,7 @@ export default function BlogPage() {
             </p>
           </div>
 
-          <BlogContent posts={posts} />
+          <BlogContent posts={posts} initialFilter={initialFilter} />
         </div>
       </section>
 
