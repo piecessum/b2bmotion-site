@@ -8,14 +8,22 @@ import { ArrowLeft } from "lucide-react";
 
 function useReveal(ref: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
+    const elements = ref.current?.querySelectorAll(".reveal");
+    if (!elements || elements.length === 0) return;
+
     const o = new IntersectionObserver(
-      (es) =>
-        es.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add("visible");
-        }),
-      { threshold: 0.1 },
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            o.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "50px" },
     );
-    ref.current?.querySelectorAll(".reveal").forEach((el) => o.observe(el));
+
+    elements.forEach((el) => o.observe(el));
     return () => o.disconnect();
   }, [ref]);
 }
