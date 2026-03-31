@@ -139,7 +139,7 @@ export function Footer() {
         <div className="section-divider mb-8" />
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-dimmest">
-            &copy; ООО &laquo;ТриДаВинчи&raquo;, 2025
+            &copy; ООО &laquo;ТриДаВинчи&raquo;, 2026
           </p>
           <div className="flex items-center gap-6">
             <a
