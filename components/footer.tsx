@@ -1,4 +1,4 @@
-import { Logo } from "@/components/logo"
+import { Logo } from "@/components/logo";
 
 export function Footer() {
   return (
@@ -17,7 +17,9 @@ export function Footer() {
 
           {/* Платформа */}
           <div>
-            <h4 className="font-medium text-subtle mb-4 text-sm uppercase tracking-wider">Платформа</h4>
+            <h4 className="font-medium text-subtle mb-4 text-sm uppercase tracking-wider">
+              Платформа
+            </h4>
             <ul className="space-y-3">
               {[
                 { label: "Возможности", href: "#platform" },
@@ -26,7 +28,10 @@ export function Footer() {
                 { label: "База знаний", href: "/wiki" },
               ].map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-sm text-dimmer hover:text-body transition-colors duration-300">
+                  <a
+                    href={link.href}
+                    className="text-sm text-dimmer hover:text-body transition-colors duration-300"
+                  >
                     {link.label}
                   </a>
                 </li>
@@ -36,7 +41,9 @@ export function Footer() {
 
           {/* Компания */}
           <div>
-            <h4 className="font-medium text-subtle mb-4 text-sm uppercase tracking-wider">Компания</h4>
+            <h4 className="font-medium text-subtle mb-4 text-sm uppercase tracking-wider">
+              Компания
+            </h4>
             <ul className="space-y-3">
               {[
                 { label: "Клиенты", href: "#clients" },
@@ -44,7 +51,10 @@ export function Footer() {
                 { label: "Карьера", href: "#" },
               ].map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-sm text-dimmer hover:text-body transition-colors duration-300">
+                  <a
+                    href={link.href}
+                    className="text-sm text-dimmer hover:text-body transition-colors duration-300"
+                  >
                     {link.label}
                   </a>
                 </li>
@@ -54,15 +64,23 @@ export function Footer() {
 
           {/* Контакты */}
           <div>
-            <h4 className="font-medium text-subtle mb-4 text-sm uppercase tracking-wider">Контакты</h4>
+            <h4 className="font-medium text-subtle mb-4 text-sm uppercase tracking-wider">
+              Контакты
+            </h4>
             <ul className="space-y-3">
               <li>
-                <a href="tel:+74951234567" className="text-sm text-dimmer hover:text-body transition-colors duration-300">
+                <a
+                  href="tel:+74951234567"
+                  className="text-sm text-dimmer hover:text-body transition-colors duration-300"
+                >
                   +7 (495) 123-45-67
                 </a>
               </li>
               <li>
-                <a href="mailto:hello@b2b-dvizhenie.ru" className="text-sm text-dimmer hover:text-body transition-colors duration-300">
+                <a
+                  href="mailto:hello@b2b-dvizhenie.ru"
+                  className="text-sm text-dimmer hover:text-body transition-colors duration-300"
+                >
                   hello@b2b-dvizhenie.ru
                 </a>
               </li>
@@ -80,15 +98,21 @@ export function Footer() {
             &copy; ООО &laquo;ТриДаВинчи&raquo;, 2025
           </p>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-sm text-dimmest hover:text-dim transition-colors duration-300">
+            <a
+              href="/privacy"
+              className="text-sm text-dimmest hover:text-dim transition-colors duration-300"
+            >
               Политика конфиденциальности
             </a>
-            <a href="#" className="text-sm text-dimmest hover:text-dim transition-colors duration-300">
+            <a
+              href="#"
+              className="text-sm text-dimmest hover:text-dim transition-colors duration-300"
+            >
               Условия использования
             </a>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }
