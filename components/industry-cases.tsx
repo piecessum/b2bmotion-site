@@ -296,7 +296,7 @@ export function IndustryCases() {
           <Link
             href={`/blog/${caseStudy.slug}`}
             key={caseStudy.slug}
-            className="group relative flex-shrink-0 w-[320px] rounded-2xl overflow-hidden bg-white dark:bg-[linear-gradient(135deg,rgba(15,15,20,0.8),rgba(15,15,20,0.5))] border border-gray-200 dark:border-[var(--glass-border)] backdrop-blur-[20px] shadow-[0_1px_3px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.2)] hover:border-[#3B82F6]/30 dark:hover:border-[rgba(59,130,246,0.15)] hover:shadow-[0_8px_40px_-12px_rgba(59,130,246,0.15),0_0_80px_-20px_rgba(139,92,246,0.1)] dark:hover:shadow-[0_0_0_1px_rgba(59,130,246,0.1),0_8px_40px_-12px_rgba(59,130,246,0.15),0_0_80px_-20px_rgba(139,92,246,0.1)] transition-all duration-500"
+            className="group relative flex-shrink-0 w-[320px] rounded-2xl overflow-hidden bg-white dark:bg-surface border border-gray-200 dark:border-[var(--glass-border)] backdrop-blur-[20px] shadow-[0_1px_3px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.2)] hover:border-[#3B82F6]/30 dark:hover:border-[rgba(59,130,246,0.15)] hover:shadow-[0_8px_40px_-12px_rgba(59,130,246,0.15),0_0_80px_-20px_rgba(139,92,246,0.1)] dark:hover:shadow-[0_0_0_1px_rgba(59,130,246,0.1),0_8px_40px_-12px_rgba(59,130,246,0.15),0_0_80px_-20px_rgba(139,92,246,0.1)] transition-all duration-500"
             style={{ scrollSnapAlign: "start" }}
           >
             {/* Image area */}
@@ -304,7 +304,7 @@ export function IndustryCases() {
               <div
                 className={`absolute inset-0 bg-gradient-to-br ${caseStudy.gradient}`}
               />
-              <div className="absolute inset-0 bg-white/50 dark:bg-page/30" />
+              <div className="absolute inset-0 bg-white/40 dark:bg-surface/40" />
               <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent dark:from-surface" />
 
               <div className="absolute inset-0 flex items-center justify-center">
@@ -329,7 +329,7 @@ export function IndustryCases() {
             </div>
 
             {/* Content */}
-            <div className="p-6 bg-white dark:bg-transparent">
+            <div className="p-6">
               <span className="text-[10px] text-gray-500 dark:text-dim uppercase tracking-[0.15em]">
                 {caseStudy.industry}
               </span>
