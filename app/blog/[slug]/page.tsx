@@ -1,6 +1,7 @@
 import { getAllPosts, getPostBySlug } from "@/lib/content";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { BlogBanner } from "@/components/blog-banner";
 import { notFound } from "next/navigation";
 import { Calendar, ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -129,6 +130,9 @@ export default async function BlogPostPage({
               );
             })}
           </div>
+
+          {/* Blog Banner */}
+          <BlogBanner />
 
           {/* Bottom divider */}
           <div className="section-divider mt-16 mb-10" />
