@@ -43,7 +43,7 @@ export function BlogBanner() {
 
           <Link
             href="/contacts"
-            className="group inline-flex items-center gap-2 px-6 py-3 bg-white/10 text-body font-medium rounded-xl border border-white/20 hover:bg-white/15 hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] transition-all duration-300 dark:text-white"
+            className="group inline-flex items-center gap-2 px-6 py-3 bg-black/10 text-body font-medium rounded-xl border border-black/20 hover:bg-black/15 hover:border-black/30 hover:shadow-[0_0_20px_rgba(0,0,0,0.1)] transition-all duration-300 dark:bg-white/10 dark:text-white dark:border-white/20 dark:hover:bg-white/15 dark:hover:border-white/30 dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
           >
             <svg
               className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300"
