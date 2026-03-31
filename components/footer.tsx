@@ -104,22 +104,16 @@ export function Footer() {
                   href="https://vk.com/3davinci"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="opacity-70 hover:opacity-100 transition-opacity duration-300"
+                  className="text-dim hover:text-body transition-colors duration-300"
                   aria-label="VK"
                 >
-                  <Image
-                    src="/vk.svg"
-                    alt="VK"
-                    width={24}
-                    height={24}
-                    className="grayscale brightness-0 invert"
-                  />
+                  <Image src="/vk.svg" alt="VK" width={24} height={24} />
                 </a>
                 <a
                   href="https://rutube.ru/channel/63705491/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="opacity-70 hover:opacity-100 transition-opacity duration-300"
+                  className="text-dim hover:text-body transition-colors duration-300"
                   aria-label="RuTube"
                 >
                   <Image
@@ -127,7 +121,6 @@ export function Footer() {
                     alt="RuTube"
                     width={24}
                     height={24}
-                    className="grayscale brightness-0 invert"
                   />
                 </a>
               </div>
