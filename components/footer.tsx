@@ -105,10 +105,10 @@ export function Footer() {
               Политика конфиденциальности
             </a>
             <a
-              href="#"
+              href="/agreement"
               className="text-sm text-dimmest hover:text-dim transition-colors duration-300"
             >
-              Условия использования
+              Пользовательское соглашение
             </a>
           </div>
         </div>
