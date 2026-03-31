@@ -47,7 +47,7 @@ export function Footer() {
             </h4>
             <ul className="space-y-3">
               {[
-                { label: "Клиенты", href: "#clients" },
+                { label: "Клиенты", href: "/blog?filter=cases" },
                 { label: "О нас", href: "#" },
                 { label: "Карьера", href: "#" },
               ].map((link) => (

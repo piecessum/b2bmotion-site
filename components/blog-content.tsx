@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, Calendar, Play, BarChart3 } from "lucide-react";
 
@@ -31,8 +31,20 @@ const industries = [
 ];
 
 export function BlogContent({ posts }: BlogContentProps) {
-  const [filter, setFilter] = useState<"all" | "cases">("all");
+  const searchParams = useSearchParams();
+  const initialFilter =
+    searchParams.get("filter") === "cases" ? "cases" : "all";
+  const [filter, setFilter] = useState<"all" | "cases">(initialFilter);
   const [industryFilter, setIndustryFilter] = useState<string | null>(null);
+
+  useEffect(() => {
+    const filterParam = searchParams.get("filter");
+    if (filterParam === "cases") {
+      setFilter("cases");
+    } else if (filterParam === "all") {
+      setFilter("all");
+    }
+  }, [searchParams]);
 
   const isCaseStudy = (post: Post) =>
     post.tags?.includes("кейс") || post.slug.startsWith("keis-");
