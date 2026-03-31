@@ -104,30 +104,30 @@ export function Footer() {
                   href="https://vk.com/3davinci"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center w-10 h-10 rounded-full bg-black dark:bg-white transition-colors duration-300 hover:opacity-80"
+                  className="flex items-center justify-center w-10 h-10 rounded-[12px] bg-black dark:bg-white transition-colors duration-300 hover:opacity-80"
                   aria-label="VK"
                 >
                   <Image
                     src="/vk.svg"
                     alt="VK"
-                    width={20}
-                    height={20}
-                    className="invert dark:invert-0"
+                    width={24}
+                    height={24}
+                    className="dark:invert"
                   />
                 </a>
                 <a
                   href="https://rutube.ru/channel/63705491/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center w-10 h-10 rounded-full bg-black dark:bg-white transition-colors duration-300 hover:opacity-80"
+                  className="flex items-center justify-center w-10 h-10 rounded-[12px] bg-black dark:bg-white transition-colors duration-300 hover:opacity-80"
                   aria-label="RuTube"
                 >
                   <Image
                     src="/rutube.svg"
                     alt="RuTube"
-                    width={20}
-                    height={20}
-                    className="invert dark:invert-0"
+                    width={24}
+                    height={24}
+                    className="dark:invert"
                   />
                 </a>
               </div>
