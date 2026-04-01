@@ -23,7 +23,21 @@ export function RelatedCases({ cases, currentSlug }: RelatedCasesProps) {
   // Исключаем текущий кейс и берём максимум 6
   const relatedCases = cases.filter((c) => c.slug !== currentSlug).slice(0, 6);
 
+  console.log(
+    "[RelatedCases] total:",
+    cases.length,
+    "related:",
+    relatedCases.length,
+    "current:",
+    currentSlug,
+  );
+  console.log(
+    "[RelatedCases] cases:",
+    relatedCases.map((c) => ({ slug: c.slug, title: c.title, logo: c.logo })),
+  );
+
   if (relatedCases.length === 0) {
+    console.log("[RelatedCases] No related cases to show");
     return null;
   }
 
