@@ -23,7 +23,9 @@ export function RelatedCases({ cases, currentSlug }: RelatedCasesProps) {
   // Исключаем текущий кейс и берём максимум 6
   const relatedCases = cases.filter((c) => c.slug !== currentSlug).slice(0, 6);
 
-  if (relatedCases.length === 0) return null;
+  if (relatedCases.length === 0) {
+    return null;
+  }
 
   return (
     <section className="relative py-16 px-0 overflow-hidden">
