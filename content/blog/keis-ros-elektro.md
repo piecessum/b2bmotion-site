@@ -5,6 +5,7 @@ date: "2025-05-12"
 author: "Команда B2B Движение"
 image: "/images/blog/keis-ros-elektro.jpg"
 tags: ["кейс", "электротехника"]
+logo: "/roselektro.svg"
 ---
 
 Описание кейса скоро появится.

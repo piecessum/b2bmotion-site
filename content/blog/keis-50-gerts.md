@@ -5,6 +5,7 @@ date: "2025-10-22"
 author: "Команда B2B Движение"
 image: "/images/blog/keis-50-gerts.jpg"
 tags: ["кейс", "электротехника"]
+logo: "/forumelektro.svg"
 ---
 
 Описание кейса скоро появится.

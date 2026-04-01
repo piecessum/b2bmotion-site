@@ -5,6 +5,7 @@ date: "2025-11-05"
 author: "Команда B2B Движение"
 image: "/images/blog/keis-raid21.jpg"
 tags: ["кейс", "fmcg"]
+logo: "/raid21.svg"
 ---
 
 Описание кейса скоро появится.

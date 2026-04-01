@@ -5,6 +5,7 @@ date: "2025-03-25"
 author: "Команда B2B Движение"
 image: "/images/blog/keis-megaplit.jpg"
 tags: ["кейс", "мебельная фурнитура"]
+logo: "/sanlayt.svg"
 ---
 
 Описание кейса скоро появится.

@@ -38,10 +38,10 @@ export function RelatedCases({ cases, currentSlug }: RelatedCasesProps) {
         </h2>
       </div>
 
-      {/* Horizontal scroll container */}
+      {/* Horizontal scroll container - full width */}
       <div
         ref={scrollRef}
-        className="flex gap-6 overflow-x-auto pb-6 px-6 snap-x snap-mandatory scrollbar-hide"
+        className="flex gap-6 overflow-x-auto pb-6 px-6 snap-x snap-mandatory scrollbar-hide w-full"
         style={{
           scrollSnapType: "x mandatory",
           WebkitOverflowScrolling: "touch",
@@ -63,7 +63,7 @@ export function RelatedCases({ cases, currentSlug }: RelatedCasesProps) {
                       alt={caseItem.title}
                       width={56}
                       height={56}
-                      className="h-8 w-auto object-contain opacity-70 dark:invert"
+                      className="h-9 w-auto object-contain dark:invert"
                     />
                   ) : (
                     <span className="text-xl font-heading font-bold text-white/70">

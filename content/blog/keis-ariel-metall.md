@@ -5,6 +5,7 @@ date: "2025-02-18"
 author: "Команда B2B Движение"
 image: "/images/blog/keis-ariel-metall.jpg"
 tags: ["кейс", "металлопрокат"]
+logo: "/kristal.svg"
 ---
 
 Описание кейса скоро появится.

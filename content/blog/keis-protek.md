@@ -5,6 +5,7 @@ date: "2025-08-25"
 author: "Команда B2B Движение"
 image: "/images/blog/keis-protek.jpg"
 tags: ["кейс", "видеонаблюдение"]
+logo: "/protek.svg"
 ---
 
 Описание кейса скоро появится.
