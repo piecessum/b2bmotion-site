@@ -1,6 +1,7 @@
 import { getAllPosts, getPostBySlug } from "@/lib/content";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { RelatedCases } from "@/components/related-cases";
 import { notFound } from "next/navigation";
 import {
   Calendar,
@@ -10,6 +11,7 @@ import {
   Users,
   CheckCircle2,
   Quote,
+  Package,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -45,6 +47,12 @@ export default async function CaseStudyPage({
   const post = getPostBySlug("blog", slug);
 
   if (!post) notFound();
+
+  // Get all case studies for related section
+  const allPosts = getAllPosts("blog");
+  const caseStudies = allPosts.filter(
+    (p) => p.tags?.includes("кейс") || p.slug.startsWith("keis-"),
+  );
 
   // Parse frontmatter data
   const metrics = (post as any).metrics || [];
@@ -442,6 +450,9 @@ export default async function CaseStudyPage({
               </Link>
             </div>
           </section>
+
+          {/* Related Cases */}
+          <RelatedCases cases={caseStudies} currentSlug={slug} />
 
           <Link
             href="/cases"
