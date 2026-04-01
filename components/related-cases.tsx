@@ -23,36 +23,19 @@ export function RelatedCases({ cases, currentSlug }: RelatedCasesProps) {
   // Исключаем текущий кейс и берём максимум 6
   const relatedCases = cases.filter((c) => c.slug !== currentSlug).slice(0, 6);
 
-  console.log(
-    "[RelatedCases] total:",
-    cases.length,
-    "related:",
-    relatedCases.length,
-    "current:",
-    currentSlug,
-  );
-  console.log(
-    "[RelatedCases] cases:",
-    relatedCases.map((c) => ({ slug: c.slug, title: c.title, logo: c.logo })),
-  );
-
   if (relatedCases.length === 0) {
-    console.log("[RelatedCases] No related cases to show");
     return null;
   }
 
   return (
-    <section className="relative py-16 px-0 overflow-hidden bg-red-100 dark:bg-red-900/20 border-2 border-red-500">
+    <section className="relative py-16 px-0 overflow-hidden">
       {/* Divider */}
       <div className="section-divider mb-10" />
 
       <div className="max-w-6xl mx-auto px-6 mb-8">
         <h2 className="font-heading font-semibold text-2xl text-heading">
-          Другие кейсы (тест)
+          Другие кейсы
         </h2>
-        <p className="text-sm text-dim mt-2">
-          Кейсов найдено: {relatedCases.length}
-        </p>
       </div>
 
       {/* Horizontal scroll container */}
@@ -64,18 +47,45 @@ export function RelatedCases({ cases, currentSlug }: RelatedCasesProps) {
           WebkitOverflowScrolling: "touch",
         }}
       >
-        {relatedCases.map((caseItem, idx) => (
-          <div
+        {relatedCases.map((caseItem) => (
+          <Link
             key={caseItem.slug}
-            className="flex-shrink-0 w-[280px] sm:w-[320px] rounded-2xl bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-500 p-6"
+            href={`/cases/${caseItem.slug}`}
+            className="group flex-shrink-0 w-[280px] sm:w-[320px] rounded-2xl glass-card overflow-hidden hover:border-[rgba(59,130,246,0.15)] hover:shadow-[0_0_0_1px_rgba(59,130,246,0.1),0_8px_40px_-12px_rgba(59,130,246,0.15)] transition-all duration-500 snap-start"
           >
-            <p className="text-sm font-bold text-blue-600">Кейс #{idx + 1}</p>
-            <p className="text-sm">{caseItem.title}</p>
-            <p className="text-xs text-dim mt-1">Slug: {caseItem.slug}</p>
-            <p className="text-xs text-dim mt-1">
-              Logo: {caseItem.logo || "нет"}
-            </p>
-          </div>
+            <div className="p-6">
+              {/* Logo and industry */}
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 backdrop-blur-md border border-white/10 flex items-center justify-center shrink-0">
+                  {caseItem.logo ? (
+                    <Image
+                      src={caseItem.logo}
+                      alt={caseItem.title}
+                      width={56}
+                      height={56}
+                      className="h-8 w-auto object-contain opacity-70 dark:invert"
+                    />
+                  ) : (
+                    <span className="text-xl font-heading font-bold text-white/70">
+                      {caseItem.title.charAt(0)}
+                    </span>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-[10px] text-dim uppercase tracking-[0.15em] block mb-1">
+                    {caseItem.tags?.[1] || "Кейс"}
+                  </span>
+                  <h3 className="font-heading font-semibold text-base text-heading group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors leading-snug line-clamp-2">
+                    {caseItem.title.replace("Кейс: ", "")}
+                  </h3>
+                </div>
+              </div>
+
+              <p className="text-subtle leading-relaxed text-sm line-clamp-2">
+                {caseItem.description}
+              </p>
+            </div>
+          </Link>
         ))}
       </div>
     </section>
