@@ -1,30 +1,37 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
-import { ArrowRight } from "lucide-react"
+import { useEffect, useRef } from "react";
+import { ArrowRight } from "lucide-react";
 
 export function CTASection() {
-  const sectionRef = useRef<HTMLElement>(null)
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible")
-        })
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
       },
-      { threshold: 0.1 }
-    )
-    const reveals = sectionRef.current?.querySelectorAll(".reveal")
-    reveals?.forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
+      { threshold: 0.1 },
+    );
+    const reveals = sectionRef.current?.querySelectorAll(".reveal");
+    reveals?.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section ref={sectionRef} id="cta" className="relative py-32 px-6 overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="cta"
+      className="relative py-32 px-6 overflow-hidden"
+    >
       {/* Animated gradient background */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="aurora-orb w-[700px] h-[400px] bg-gradient-to-r from-[#3B82F6]/12 via-[#8B5CF6]/10 to-[#06B6D4]/12 blur-[140px] opacity-40 dark:opacity-100" style={{ animationDuration: '15s' }} />
+        <div
+          className="aurora-orb w-[700px] h-[400px] bg-gradient-to-r from-[#3B82F6]/12 via-[#8B5CF6]/10 to-[#06B6D4]/12 blur-[140px] opacity-40 dark:opacity-100"
+          style={{ animationDuration: "15s" }}
+        />
       </div>
 
       {/* Dot grid */}
@@ -32,9 +39,8 @@ export function CTASection() {
 
       <div className="relative z-10 max-w-3xl mx-auto text-center">
         <h2 className="reveal font-heading font-bold text-[clamp(36px,6vw,56px)] tracking-[-0.02em] text-heading mb-6">
-          Готовы{" "}
-          <span className="gradient-text-animated">ускорить</span>
-          {" "}продажи?
+          Готовы <span className="gradient-text-animated">ускорить</span>{" "}
+          продажи?
         </h2>
 
         <p className="reveal text-lg text-subtle mb-10 max-w-xl mx-auto leading-relaxed">
@@ -52,15 +58,21 @@ export function CTASection() {
         </div>
 
         <div className="reveal flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-dim">
-          <a href="tel:+74951234567" className="hover:text-body transition-colors duration-300">
-            +7 (495) 123-45-67
+          <a
+            href="tel:+74993503436"
+            className="hover:text-body transition-colors duration-300"
+          >
+            +7 (499) 350-34-36
           </a>
           <span className="hidden sm:block w-1 h-1 rounded-full bg-border-subtle" />
-          <a href="mailto:hello@b2b-dvizhenie.ru" className="hover:text-body transition-colors duration-300">
-            hello@b2b-dvizhenie.ru
+          <a
+            href="mailto:ageev@b2bmotion.ru"
+            className="hover:text-body transition-colors duration-300"
+          >
+            ageev@b2bmotion.ru
           </a>
         </div>
       </div>
     </section>
-  )
+  );
 }
