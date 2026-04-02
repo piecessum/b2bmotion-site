@@ -32,8 +32,8 @@ export function RelatedCases({ cases, currentSlug }: RelatedCasesProps) {
         Другие кейсы
       </h2>
 
-      {/* Horizontal scroll on mobile, grid on desktop */}
-      <div className="flex gap-3 overflow-x-auto pb-3 scrollbar-hide sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible sm:pb-0">
+      {/* Horizontal scroll on mobile (full-bleed), grid on desktop */}
+      <div className="-mx-6 px-6 flex gap-3 overflow-x-auto pb-3 scrollbar-hide sm:mx-0 sm:px-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible sm:pb-0">
         {relatedCases.map((caseItem) => {
           const companyName = caseItem.title.replace(/^Кейс:\s*/, "").split("—")[0].trim();
           const industry = caseItem.industry || caseItem.tags?.[1] || "Кейс";
