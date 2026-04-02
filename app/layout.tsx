@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Outfit, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
+import { CookieConsent } from '@/components/cookie-consent'
 import './globals.css'
 
 const outfit = Outfit({ 
@@ -49,6 +50,7 @@ export default function RootLayout({
       <body className={`${outfit.variable} ${dmSans.variable} font-body antialiased bg-page text-heading`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
+          <CookieConsent />
         </ThemeProvider>
         <Analytics />
       </body>
