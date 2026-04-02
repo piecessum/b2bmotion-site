@@ -212,17 +212,17 @@ export function Navbar() {
 
         {/* Cookie consent bar */}
         {cookieVisible && (
-          <div className="border-t border-glass-border px-4 py-2">
-            <div className="flex items-center gap-3">
-              <span className="text-xs text-subtle leading-snug">
+          <div className="border-t border-glass-border px-2 py-1.5">
+            <div className="flex items-center gap-2 px-3">
+              <span className="text-xs text-subtle leading-snug flex-1 min-w-0">
                 Мы используем cookie для аналитики и улучшения сайта.{" "}
-                <Link href="/privacy" className="text-[#60A5FA] hover:underline">
+                <Link href="/privacy" className="text-[#60A5FA] hover:underline whitespace-nowrap">
                   Подробнее
                 </Link>
               </span>
               <button
                 onClick={acceptCookies}
-                className="shrink-0 ml-auto px-3 py-1 rounded-lg text-xs font-medium bg-[#3B82F6] text-white hover:bg-[#2563EB] transition-colors"
+                className="shrink-0 px-3 py-1 rounded-lg text-xs font-medium bg-[#3B82F6] text-white hover:bg-[#2563EB] transition-colors"
               >
                 OK
               </button>

@@ -7,7 +7,9 @@
       "Bash(git commit *)",
       "Bash(git push *)",
       "WebFetch(b2bmotion.ru)",
-      "Bash(cp *)"
+      "Bash(cp *)",
+      "Bash(git fetch *)",
+      "Bash(git pull *)"
     ]
   },
   "$version": 3

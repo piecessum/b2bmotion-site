@@ -64,7 +64,13 @@
       "Bash(bash update-image-paths.sh)",
       "Bash(head -20 /Users/Alex/Documents/b2bmotion-site-main/content/blog/*.md)",
       "Bash(grep -h '^image:' /Users/Alex/Documents/b2bmotion-site-main/content/blog/*.md)",
-      "Bash(ls /Users/Alex/Documents/b2bmotion-site-main/content/blog/*.md)"
+      "Bash(ls /Users/Alex/Documents/b2bmotion-site-main/content/blog/*.md)",
+      "Bash(wc -l /Users/Alex/Documents/b2bmotion-site-main/content/blog/keis-*.md)",
+      "Bash(find /Users/Alex/Documents/b2bmotion-site-main/app -type f -name *case* -o -type d -name *case*)",
+      "Bash(ls -la /Users/Alex/Documents/b2bmotion-site-main/app/cases/[slug]/)",
+      "Bash(grep -r \"prose-custom\\\\|prose\" /Users/Alex/Documents/b2bmotion-site-main --include=*.css --include=*.tsx)",
+      "Bash(grep -r \"getPostBySlug\\\\|getAllPosts\" /Users/Alex/Documents/b2bmotion-site-main/lib --include=*.ts --include=*.tsx)",
+      "Bash(lsof -ti:3000)"
     ]
   }
 }
