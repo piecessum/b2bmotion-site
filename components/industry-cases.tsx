@@ -294,7 +294,7 @@ export function IndustryCases() {
       >
         {allCases.map((caseStudy, i) => (
           <Link
-            href={`/blog/${caseStudy.slug}`}
+            href={`/cases/${caseStudy.slug}`}
             key={caseStudy.slug}
             className="group relative flex-shrink-0 w-[320px] rounded-2xl overflow-hidden bg-white dark:bg-surface border border-gray-200 dark:border-[var(--glass-border)] backdrop-blur-[20px] shadow-[0_1px_3px_rgba(0,0,0,0.1)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.2)] hover:border-[#3B82F6]/30 dark:hover:border-[rgba(59,130,246,0.15)] hover:shadow-[0_8px_40px_-12px_rgba(59,130,246,0.15),0_0_80px_-20px_rgba(139,92,246,0.1)] dark:hover:shadow-[0_0_0_1px_rgba(59,130,246,0.1),0_8px_40px_-12px_rgba(59,130,246,0.15),0_0_80px_-20px_rgba(139,92,246,0.1)] transition-all duration-500"
             style={{ scrollSnapAlign: "start" }}

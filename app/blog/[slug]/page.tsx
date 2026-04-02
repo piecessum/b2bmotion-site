@@ -2,7 +2,7 @@ import { getAllPosts, getPostBySlug } from "@/lib/content";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BlogBanner } from "@/components/blog-banner";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Calendar, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -34,6 +34,9 @@ export default async function BlogPostPage({
   const post = getPostBySlug("blog", slug);
 
   if (!post) notFound();
+
+  const isCase = post.tags?.includes("кейс") || slug.startsWith("keis-");
+  if (isCase) redirect(`/cases/${slug}`);
 
   return (
     <main className="relative min-h-screen bg-page noise-overlay">
