@@ -194,7 +194,7 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
         {filteredPosts.map((post) => (
           <Link
             key={post.slug}
-            href={isCaseStudy(post) ? `/cases/${post.slug}` : `/blog/${post.slug}`}
+            href={`/blog/${post.slug}`}
             className="group relative rounded-2xl glass-card overflow-hidden"
           >
             {post.image && (

@@ -41,7 +41,7 @@ export function RelatedCases({ cases, currentSlug }: RelatedCasesProps) {
           return (
             <Link
               key={caseItem.slug}
-              href={`/cases/${caseItem.slug}`}
+              href={`/blog/${caseItem.slug}`}
               className="group flex items-center gap-3 shrink-0 w-[220px] sm:w-auto rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-3 hover:border-[#3B82F6]/30 dark:hover:border-[rgba(59,130,246,0.15)] transition-all duration-300"
             >
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 border border-white/10 flex items-center justify-center shrink-0">
