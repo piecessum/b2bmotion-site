@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { Logo } from "@/components/logo"
 import { ThemeToggle } from "@/components/theme-toggle"
+import Link from "next/link"
 
 const industries = [
   { label: "Для электрического рынка", href: "/electro" },
@@ -96,6 +97,17 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const [cookieVisible, setCookieVisible] = useState(false)
+
+  useEffect(() => {
+    const accepted = localStorage.getItem("cookie-consent")
+    if (!accepted) setCookieVisible(true)
+  }, [])
+
+  const acceptCookies = () => {
+    localStorage.setItem("cookie-consent", "1")
+    setCookieVisible(false)
+  }
 
   const isIndustryActive = industryPaths.some((p) => pathname.startsWith(p))
   const isServiceActive = servicePaths.some((p) => pathname.startsWith(p))
@@ -112,12 +124,13 @@ export function Navbar() {
     <>
       <nav className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-[1100px]">
         <div
-          className={`flex items-center px-2 rounded-2xl transition-all duration-500 ${
+          className={`rounded-2xl transition-all duration-500 ${
             scrolled
               ? "bg-nav-bg-scrolled border border-glass-border backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
               : "bg-nav-bg border border-glass-border backdrop-blur-xl"
           }`}
         >
+        <div className="flex items-center px-2">
           {/* Logo */}
           <a href="/" className="flex items-center px-3 h-11 shrink-0">
             <Logo gradient className="h-3 w-auto" />
@@ -195,6 +208,34 @@ export function Navbar() {
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
+        </div>
+
+        {/* Cookie consent bar */}
+        {cookieVisible && (
+          <div className="border-t border-glass-border px-4 py-2">
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-subtle leading-snug">
+                Мы используем cookie для аналитики и улучшения сайта.{" "}
+                <Link href="/privacy" className="text-[#60A5FA] hover:underline">
+                  Подробнее
+                </Link>
+              </span>
+              <button
+                onClick={acceptCookies}
+                className="shrink-0 ml-auto px-3 py-1 rounded-lg text-xs font-medium bg-[#3B82F6] text-white hover:bg-[#2563EB] transition-colors"
+              >
+                OK
+              </button>
+              <button
+                onClick={acceptCookies}
+                className="shrink-0 p-1 rounded-md text-dim hover:text-body hover:bg-white/10 transition-colors"
+                aria-label="Закрыть"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
+        )}
         </div>
 
         {/* Mobile menu */}
