@@ -166,9 +166,23 @@ export default function ProductsPage() {
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-[1.2fr,1fr] gap-10 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+                {/* Image */}
+                <div className={`${reversed ? "lg:order-2" : ""}`}>
+                  <div className="relative w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#3B82F6]/[0.04] via-[#8B5CF6]/[0.03] to-[#06B6D4]/[0.04] border border-border-default">
+                    <Image
+                      src={`/${section.image}`}
+                      alt={section.title}
+                      width={600}
+                      height={400}
+                      className="w-full h-auto object-contain p-4"
+                      priority={idx < 2}
+                    />
+                  </div>
+                </div>
+
                 {/* Features */}
-                <div className={`space-y-3 ${reversed ? "lg:order-2" : ""}`}>
+                <div className={`space-y-3 ${reversed ? "lg:order-1" : ""}`}>
                   {section.features.map((feature, i) => (
                     <div
                       key={i}
@@ -180,20 +194,6 @@ export default function ProductsPage() {
                       </span>
                     </div>
                   ))}
-                </div>
-
-                {/* Image */}
-                <div className={`${reversed ? "lg:order-1" : ""}`}>
-                  <div className="relative w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#3B82F6]/[0.04] via-[#8B5CF6]/[0.03] to-[#06B6D4]/[0.04] border border-border-default">
-                    <Image
-                      src={`/${section.image}`}
-                      alt={section.title}
-                      width={600}
-                      height={400}
-                      className="w-full h-auto object-contain p-4"
-                      priority={idx < 2}
-                    />
-                  </div>
                 </div>
               </div>
             </div>
