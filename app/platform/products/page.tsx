@@ -1,21 +1,31 @@
-import { Navbar } from "@/components/navbar"
-import { CTASection } from "@/components/cta-section"
-import { Footer } from "@/components/footer"
+import { Navbar } from "@/components/navbar";
+import { CTASection } from "@/components/cta-section";
+import { Footer } from "@/components/footer";
 import {
-  FileText, Search, DollarSign, ShoppingCart, CreditCard, FileCheck2,
-  Check, ArrowRight, ArrowLeft, ImageIcon,
-} from "lucide-react"
-import Link from "next/link"
+  FileText,
+  Search,
+  DollarSign,
+  ShoppingCart,
+  CreditCard,
+  FileCheck2,
+  Check,
+  ArrowRight,
+  ArrowLeft,
+} from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 
 export const metadata = {
   title: "Товары и заказы — Функционал B2B Движение",
-  description: "Управление товарами, каталогом, ценами, заказами, оплатой и документооборотом в B2B-платформе.",
-}
+  description:
+    "Управление товарами, каталогом, ценами, заказами, оплатой и документооборотом в B2B-платформе.",
+};
 
 const sections = [
   {
     icon: FileText,
     title: "Данные о товаре",
+    image: "product-data.png",
     features: [
       "Заполнение описания, свойств, бренда, серии, артикулов и штрихкодов к товару",
       "Галерея фото, видео, сертификатов, гарантий и других необходимых документов",
@@ -32,6 +42,7 @@ const sections = [
   {
     icon: Search,
     title: "Каталог и поиск",
+    image: "catalog-searc.png",
     features: [
       "Распределение товаров по дереву каталога компании",
       "Интеллектуальный поиск по любым совпадениям: код товара, название, свойства и т.п.",
@@ -44,6 +55,7 @@ const sections = [
   {
     icon: DollarSign,
     title: "Ценообразование",
+    image: "pricing.png",
     features: [
       "Тарифы — настраиваемые типы цен + настройка базового тарифа для новых пользователей",
       "Сегментирование компаний-контрагентов и настройка индивидуальных скидок",
@@ -55,6 +67,7 @@ const sections = [
   {
     icon: ShoppingCart,
     title: "Заказы",
+    image: "orders.png",
     features: [
       "Бесшовная передача заказов клиентов сразу в 1С или другую ERP-систему без дополнительной обработки менеджером",
       "Отслеживание текущего состояния заказа клиентом — статуса заказа и отдельных позиций внутри заказа",
@@ -66,6 +79,7 @@ const sections = [
   {
     icon: CreditCard,
     title: "Оплата и доставка",
+    image: "payment-delivery.png",
     features: [
       "Оплата через выставление счёта контрагенту",
       "Эквайринг — оплата картой",
@@ -78,18 +92,27 @@ const sections = [
   {
     icon: FileCheck2,
     title: "Документооборот",
+    image: "documents.png",
     features: [
       "Передача документов к заказу из 1С с факсимильными подписью и печатью: счёт, накладная, счёт-фактура",
       "Неоднократное перевыставление счёта, если произошла корректировка заказа",
       "Возможность контрагента запросить акт сверки",
     ],
   },
-]
+];
 
 const otherPages = [
-  { title: "Личный кабинет покупателя", href: "/platform/cabinet", desc: "Персональные условия и управление данными" },
-  { title: "Маркетинг и аналитика", href: "/platform/marketing", desc: "Акции, статистика и увеличение продаж" },
-]
+  {
+    title: "Личный кабинет покупателя",
+    href: "/platform/cabinet",
+    desc: "Персональные условия и управление данными",
+  },
+  {
+    title: "Маркетинг и аналитика",
+    href: "/platform/marketing",
+    desc: "Акции, статистика и увеличение продаж",
+  },
+];
 
 export default function ProductsPage() {
   return (
@@ -116,15 +139,17 @@ export default function ProductsPage() {
             Товары и <span className="gradient-text">заказы</span>
           </h1>
           <p className="text-lg text-body max-w-2xl">
-            Полное управление товарным каталогом, гибкое ценообразование, бесшовная обработка заказов и электронный документооборот — всё в одной системе.
+            Полное управление товарным каталогом, гибкое ценообразование,
+            бесшовная обработка заказов и электронный документооборот — всё в
+            одной системе.
           </p>
         </div>
       </section>
 
       {/* Sections */}
       {sections.map((section, idx) => {
-        const Icon = section.icon
-        const reversed = idx % 2 !== 0
+        const Icon = section.icon;
+        const reversed = idx % 2 !== 0;
 
         return (
           <section
@@ -141,35 +166,39 @@ export default function ProductsPage() {
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-                {/* Image placeholder */}
-                <div className={`${reversed ? "lg:order-2" : ""}`}>
-                  <div className="aspect-[16/10] rounded-2xl bg-gradient-to-br from-[#3B82F6]/[0.04] via-[#8B5CF6]/[0.03] to-[#06B6D4]/[0.04] border border-border-default flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center">
-                        <ImageIcon className="w-6 h-6 text-[#3B82F6]/30" />
-                      </div>
-                      <span className="text-sm text-dim">Скриншот раздела</span>
-                    </div>
-                  </div>
-                </div>
-
+              <div className="grid grid-cols-1 lg:grid-cols-[1.2fr,1fr] gap-10 items-start">
                 {/* Features */}
-                <div className={`space-y-3 ${reversed ? "lg:order-1" : ""}`}>
+                <div className={`space-y-3 ${reversed ? "lg:order-2" : ""}`}>
                   {section.features.map((feature, i) => (
                     <div
                       key={i}
                       className="flex gap-3 items-start p-4 rounded-xl bg-surface border border-border-default"
                     >
                       <Check className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
-                      <span className="text-sm text-body leading-relaxed">{feature}</span>
+                      <span className="text-sm text-body leading-relaxed">
+                        {feature}
+                      </span>
                     </div>
                   ))}
+                </div>
+
+                {/* Image */}
+                <div className={`${reversed ? "lg:order-1" : ""}`}>
+                  <div className="relative w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#3B82F6]/[0.04] via-[#8B5CF6]/[0.03] to-[#06B6D4]/[0.04] border border-border-default">
+                    <Image
+                      src={`/${section.image}`}
+                      alt={section.title}
+                      width={600}
+                      height={400}
+                      className="w-full h-auto object-contain p-4"
+                      priority={idx < 2}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </section>
-        )
+        );
       })}
 
       {/* Other pages nav */}
@@ -201,5 +230,5 @@ export default function ProductsPage() {
       <CTASection />
       <Footer />
     </main>
-  )
+  );
 }

@@ -1,21 +1,30 @@
-import { Navbar } from "@/components/navbar"
-import { CTASection } from "@/components/cta-section"
-import { Footer } from "@/components/footer"
+import { Navbar } from "@/components/navbar";
+import { CTASection } from "@/components/cta-section";
+import { Footer } from "@/components/footer";
 import {
-  TrendingUp, Tag, ShoppingBag, Globe, BarChart3,
-  Check, ArrowRight, ArrowLeft, ImageIcon,
-} from "lucide-react"
-import Link from "next/link"
+  TrendingUp,
+  Tag,
+  ShoppingBag,
+  Globe,
+  BarChart3,
+  Check,
+  ArrowRight,
+  ArrowLeft,
+} from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 
 export const metadata = {
   title: "Маркетинг и аналитика — Функционал B2B Движение",
-  description: "Увеличение среднего чека, акции, работа с брошенными корзинами, SEO-продвижение и подробная статистика.",
-}
+  description:
+    "Увеличение среднего чека, акции, работа с брошенными корзинами, SEO-продвижение и подробная статистика.",
+};
 
 const sections = [
   {
     icon: TrendingUp,
     title: "Увеличение среднего чека",
+    image: "avg-check.png",
     features: [
       "Предложение комплектов товаров, например, расходников и аксессуаров",
       "Распродажа уценённых товаров — можно указать степень дефектов",
@@ -25,6 +34,7 @@ const sections = [
   {
     icon: Tag,
     title: "Акции и предложения",
+    image: "promotions.png",
     features: [
       "Спецпредложения и хиты продаж на главной странице",
       "Маркировка акционных товаров визуальными элементами в каталоге",
@@ -34,6 +44,7 @@ const sections = [
   {
     icon: ShoppingBag,
     title: "Работа с брошенными корзинами",
+    image: "abandoned-carts.png",
     features: [
       "Сегментация собранных, но неоформленных корзин по среднему чеку",
       "Отправка уведомлений менеджерам о самых крупных брошенных корзинах клиентов",
@@ -42,6 +53,7 @@ const sections = [
   {
     icon: Globe,
     title: "Продвижение и маркетинг",
+    image: "marketing.png",
     features: [
       "Настройка главной страницы",
       "Проценка сторонних смет и предложений от конкурентов при загрузке списком или готовым Excel-документом",
@@ -52,6 +64,7 @@ const sections = [
   {
     icon: BarChart3,
     title: "Статистика",
+    image: "statistics.png",
     features: [
       "Отчёты продаж по менеджерам и эффективности их работы",
       "Отчёты по заказам, отгрузкам, среднему чеку",
@@ -59,12 +72,20 @@ const sections = [
       "Статистика «потерянных» клиентов — тех, что раньше покупали, но перестали",
     ],
   },
-]
+];
 
 const otherPages = [
-  { title: "Товары и заказы", href: "/platform/products", desc: "Каталог, цены, заказы и документооборот" },
-  { title: "Личный кабинет покупателя", href: "/platform/cabinet", desc: "Персональные условия и управление данными" },
-]
+  {
+    title: "Товары и заказы",
+    href: "/platform/products",
+    desc: "Каталог, цены, заказы и документооборот",
+  },
+  {
+    title: "Личный кабинет покупателя",
+    href: "/platform/cabinet",
+    desc: "Персональные условия и управление данными",
+  },
+];
 
 export default function MarketingPage() {
   return (
@@ -91,15 +112,17 @@ export default function MarketingPage() {
             Маркетинг и <span className="gradient-text">аналитика</span>
           </h1>
           <p className="text-lg text-body max-w-2xl">
-            Инструменты для увеличения продаж, управления акциями, работы с брошенными корзинами и детальная статистика по всем показателям бизнеса.
+            Инструменты для увеличения продаж, управления акциями, работы с
+            брошенными корзинами и детальная статистика по всем показателям
+            бизнеса.
           </p>
         </div>
       </section>
 
       {/* Sections */}
       {sections.map((section, idx) => {
-        const Icon = section.icon
-        const reversed = idx % 2 !== 0
+        const Icon = section.icon;
+        const reversed = idx % 2 !== 0;
 
         return (
           <section
@@ -116,35 +139,39 @@ export default function MarketingPage() {
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-                {/* Image placeholder */}
-                <div className={`${reversed ? "lg:order-2" : ""}`}>
-                  <div className="aspect-[16/10] rounded-2xl bg-gradient-to-br from-[#06B6D4]/[0.04] via-[#3B82F6]/[0.03] to-[#8B5CF6]/[0.04] border border-border-default flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-[#06B6D4]/10 flex items-center justify-center">
-                        <ImageIcon className="w-6 h-6 text-[#06B6D4]/30" />
-                      </div>
-                      <span className="text-sm text-dim">Скриншот раздела</span>
-                    </div>
-                  </div>
-                </div>
-
+              <div className="grid grid-cols-1 lg:grid-cols-[1.2fr,1fr] gap-10 items-start">
                 {/* Features */}
-                <div className={`space-y-3 ${reversed ? "lg:order-1" : ""}`}>
+                <div className={`space-y-3 ${reversed ? "lg:order-2" : ""}`}>
                   {section.features.map((feature, i) => (
                     <div
                       key={i}
                       className="flex gap-3 items-start p-4 rounded-xl bg-surface border border-border-default"
                     >
                       <Check className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
-                      <span className="text-sm text-body leading-relaxed">{feature}</span>
+                      <span className="text-sm text-body leading-relaxed">
+                        {feature}
+                      </span>
                     </div>
                   ))}
+                </div>
+
+                {/* Image */}
+                <div className={`${reversed ? "lg:order-1" : ""}`}>
+                  <div className="relative w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#06B6D4]/[0.04] via-[#3B82F6]/[0.03] to-[#8B5CF6]/[0.04] border border-border-default">
+                    <Image
+                      src={`/${section.image}`}
+                      alt={section.title}
+                      width={600}
+                      height={400}
+                      className="w-full h-auto object-contain p-4"
+                      priority={idx < 2}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </section>
-        )
+        );
       })}
 
       {/* Other pages nav */}
@@ -176,5 +203,5 @@ export default function MarketingPage() {
       <CTASection />
       <Footer />
     </main>
-  )
+  );
 }

@@ -1,20 +1,21 @@
-import { Navbar } from "@/components/navbar"
-import { CTASection } from "@/components/cta-section"
-import { Footer } from "@/components/footer"
-import {
-  Gift, Building2, Check, ArrowRight, ArrowLeft, ImageIcon,
-} from "lucide-react"
-import Link from "next/link"
+import { Navbar } from "@/components/navbar";
+import { CTASection } from "@/components/cta-section";
+import { Footer } from "@/components/footer";
+import { Gift, Building2, Check, ArrowRight, ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 
 export const metadata = {
   title: "Личный кабинет покупателя — Функционал B2B Движение",
-  description: "Персональные предложения, мультикомпании, финансовый контроль и удобные уведомления для покупателей.",
-}
+  description:
+    "Персональные предложения, мультикомпании, финансовый контроль и удобные уведомления для покупателей.",
+};
 
 const sections = [
   {
     icon: Gift,
     title: "Персональные предложения",
+    image: "personal-offers.png",
     features: [
       "Индивидуальные скидки для конкретного клиента",
       "Рекомендованные спецификации от менеджера с предложением лучших условий",
@@ -25,6 +26,7 @@ const sections = [
   {
     icon: Building2,
     title: "Данные о компании покупателя",
+    image: "company-data.png",
     features: [
       "Мультикомпании — возможность работать от лица нескольких компаний и переключаться между ними",
       "Отображение кредитного лимита, дебиторской задолженности и дней просрочки",
@@ -33,12 +35,20 @@ const sections = [
       "Контакты персонального менеджера",
     ],
   },
-]
+];
 
 const otherPages = [
-  { title: "Товары и заказы", href: "/platform/products", desc: "Каталог, цены, заказы и документооборот" },
-  { title: "Маркетинг и аналитика", href: "/platform/marketing", desc: "Акции, статистика и увеличение продаж" },
-]
+  {
+    title: "Товары и заказы",
+    href: "/platform/products",
+    desc: "Каталог, цены, заказы и документооборот",
+  },
+  {
+    title: "Маркетинг и аналитика",
+    href: "/platform/marketing",
+    desc: "Акции, статистика и увеличение продаж",
+  },
+];
 
 export default function CabinetPage() {
   return (
@@ -65,15 +75,17 @@ export default function CabinetPage() {
             Личный кабинет <span className="gradient-text">покупателя</span>
           </h1>
           <p className="text-lg text-body max-w-2xl">
-            Персональные условия, управление несколькими компаниями, финансовый контроль и удобные уведомления — всё для комфортной работы ваших клиентов.
+            Персональные условия, управление несколькими компаниями, финансовый
+            контроль и удобные уведомления — всё для комфортной работы ваших
+            клиентов.
           </p>
         </div>
       </section>
 
       {/* Sections */}
       {sections.map((section, idx) => {
-        const Icon = section.icon
-        const reversed = idx % 2 !== 0
+        const Icon = section.icon;
+        const reversed = idx % 2 !== 0;
 
         return (
           <section
@@ -90,35 +102,39 @@ export default function CabinetPage() {
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-                {/* Image placeholder */}
-                <div className={`${reversed ? "lg:order-2" : ""}`}>
-                  <div className="aspect-[16/10] rounded-2xl bg-gradient-to-br from-[#8B5CF6]/[0.04] via-[#3B82F6]/[0.03] to-[#06B6D4]/[0.04] border border-border-default flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-[#8B5CF6]/10 flex items-center justify-center">
-                        <ImageIcon className="w-6 h-6 text-[#8B5CF6]/30" />
-                      </div>
-                      <span className="text-sm text-dim">Скриншот раздела</span>
-                    </div>
-                  </div>
-                </div>
-
+              <div className="grid grid-cols-1 lg:grid-cols-[1.2fr,1fr] gap-10 items-start">
                 {/* Features */}
-                <div className={`space-y-3 ${reversed ? "lg:order-1" : ""}`}>
+                <div className={`space-y-3 ${reversed ? "lg:order-2" : ""}`}>
                   {section.features.map((feature, i) => (
                     <div
                       key={i}
                       className="flex gap-3 items-start p-4 rounded-xl bg-surface border border-border-default"
                     >
                       <Check className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
-                      <span className="text-sm text-body leading-relaxed">{feature}</span>
+                      <span className="text-sm text-body leading-relaxed">
+                        {feature}
+                      </span>
                     </div>
                   ))}
+                </div>
+
+                {/* Image */}
+                <div className={`${reversed ? "lg:order-1" : ""}`}>
+                  <div className="relative w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#8B5CF6]/[0.04] via-[#3B82F6]/[0.03] to-[#06B6D4]/[0.04] border border-border-default">
+                    <Image
+                      src={`/${section.image}`}
+                      alt={section.title}
+                      width={600}
+                      height={400}
+                      className="w-full h-auto object-contain p-4"
+                      priority={idx < 2}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </section>
-        )
+        );
       })}
 
       {/* Other pages nav */}
@@ -150,5 +166,5 @@ export default function CabinetPage() {
       <CTASection />
       <Footer />
     </main>
-  )
+  );
 }
