@@ -289,7 +289,7 @@ export function IndustryCases() {
       {/* Scrollable cards */}
       <div
         ref={scrollRef}
-        className="flex gap-5 overflow-x-auto py-6 scrollbar-hide px-6 md:px-[max(1.5rem,calc((100vw-64rem)/2+1.5rem))]"
+        className="flex gap-5 overflow-x-auto py-6 scrollbar-hide px-6 scroll-pl-6 md:px-[max(1.5rem,calc((100vw-64rem)/2+1.5rem))] md:scroll-pl-[max(1.5rem,calc((100vw-64rem)/2+1.5rem))]"
         style={{ scrollSnapType: "x mandatory" }}
       >
         {allCases.map((caseStudy, i) => (
