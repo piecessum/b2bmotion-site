@@ -25,14 +25,15 @@ export function RelatedCases({ cases, currentSlug }: RelatedCasesProps) {
   }
 
   return (
-    <section className="py-16">
-      <div className="section-divider mb-10" />
+    <section className="py-10">
+      <div className="section-divider mb-8" />
 
-      <h2 className="font-heading font-semibold text-2xl text-heading mb-8">
+      <h2 className="font-heading font-semibold text-lg text-heading mb-5">
         Другие кейсы
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Horizontal scroll on mobile, grid on desktop */}
+      <div className="flex gap-3 overflow-x-auto pb-3 scrollbar-hide sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible sm:pb-0">
         {relatedCases.map((caseItem) => {
           const companyName = caseItem.title.replace(/^Кейс:\s*/, "").split("—")[0].trim();
           const industry = caseItem.industry || caseItem.tags?.[1] || "Кейс";
@@ -41,31 +42,29 @@ export function RelatedCases({ cases, currentSlug }: RelatedCasesProps) {
             <Link
               key={caseItem.slug}
               href={`/cases/${caseItem.slug}`}
-              className="group flex items-center gap-4 rounded-2xl glass-card p-5 hover:border-[rgba(59,130,246,0.15)] hover:shadow-[0_0_0_1px_rgba(59,130,246,0.1),0_8px_40px_-12px_rgba(59,130,246,0.15)] transition-all duration-500"
+              className="group flex items-center gap-3 shrink-0 w-[220px] sm:w-auto rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-3 hover:border-[#3B82F6]/30 dark:hover:border-[rgba(59,130,246,0.15)] transition-all duration-300"
             >
-              {/* Logo */}
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 backdrop-blur-md border border-white/10 flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 border border-white/10 flex items-center justify-center shrink-0">
                 {caseItem.logo ? (
                   <Image
                     src={caseItem.logo}
                     alt={companyName}
-                    width={48}
-                    height={48}
-                    className="h-8 w-auto object-contain dark:invert"
+                    width={40}
+                    height={40}
+                    className="h-6 w-auto object-contain dark:invert"
                   />
                 ) : (
-                  <span className="text-lg font-heading font-bold text-white/70">
+                  <span className="text-sm font-heading font-bold text-white/70">
                     {companyName.charAt(0)}
                   </span>
                 )}
               </div>
 
-              {/* Company name + industry */}
-              <div className="flex-1 min-w-0">
+              <div className="min-w-0">
                 <h3 className="font-heading font-semibold text-sm text-heading group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors leading-snug truncate">
                   {companyName}
                 </h3>
-                <span className="text-xs text-dim capitalize">
+                <span className="text-[11px] text-dim capitalize">
                   {industry}
                 </span>
               </div>

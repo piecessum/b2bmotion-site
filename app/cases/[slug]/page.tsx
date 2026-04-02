@@ -125,7 +125,7 @@ export default async function CaseStudyPage({
                 {metrics.map((metric: any, i: number) => (
                   <div
                     key={i}
-                    className="rounded-xl bg-white/[0.03] border border-white/[0.06] p-4 text-center"
+                    className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-4 text-center"
                   >
                     <div className="text-2xl font-heading font-bold text-[#60A5FA] mb-1">
                       {metric.value}
@@ -160,25 +160,25 @@ export default async function CaseStudyPage({
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                 {clientInfo.name && (
-                  <div className="rounded-xl bg-white/[0.03] border border-white/[0.06] p-4">
+                  <div className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-4">
                     <div className="text-[10px] uppercase tracking-wider text-dim mb-1">Компания</div>
                     <div className="text-sm text-body font-medium">{clientInfo.name}</div>
                   </div>
                 )}
                 {clientInfo.location && (
-                  <div className="rounded-xl bg-white/[0.03] border border-white/[0.06] p-4">
+                  <div className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-4">
                     <div className="text-[10px] uppercase tracking-wider text-dim mb-1">Локация</div>
                     <div className="text-sm text-body">{clientInfo.location}</div>
                   </div>
                 )}
                 {clientInfo.founded && (
-                  <div className="rounded-xl bg-white/[0.03] border border-white/[0.06] p-4">
+                  <div className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-4">
                     <div className="text-[10px] uppercase tracking-wider text-dim mb-1">Основание</div>
-                    <div className="text-sm text-body">{clientInfo.founded}</div>
+                    <div className="text-sm text-body">{clientInfo.founded} год</div>
                   </div>
                 )}
                 {clientInfo.clients && (
-                  <div className="rounded-xl bg-white/[0.03] border border-white/[0.06] p-4">
+                  <div className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-4">
                     <div className="text-[10px] uppercase tracking-wider text-dim mb-1">Клиентов</div>
                     <div className="text-sm text-body">{clientInfo.clients}</div>
                   </div>
@@ -186,7 +186,7 @@ export default async function CaseStudyPage({
               </div>
 
               {(clientInfo.brands || clientInfo.branches || clientInfo.businessModel) && (
-                <div className="rounded-xl bg-white/[0.03] border border-white/[0.06] p-5 space-y-3">
+                <div className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-5 space-y-3">
                   {clientInfo.businessModel && (
                     <div>
                       <span className="text-[10px] uppercase tracking-wider text-dim">Бизнес-модель: </span>
@@ -214,7 +214,7 @@ export default async function CaseStudyPage({
           {(problems.length > 0 || solution.length > 0) && (
             <section className="mb-10 grid md:grid-cols-2 gap-4">
               {problems.length > 0 && (
-                <div className="rounded-xl bg-white/[0.03] border border-white/[0.06] p-6">
+                <div className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-6">
                   <h2 className="font-heading font-semibold text-base text-heading mb-4">
                     Задачи и боли
                   </h2>
@@ -230,7 +230,7 @@ export default async function CaseStudyPage({
               )}
 
               {solution.length > 0 && (
-                <div className="rounded-xl bg-white/[0.03] border border-white/[0.06] p-6">
+                <div className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-6">
                   <h2 className="font-heading font-semibold text-base text-heading mb-4">
                     Решение
                   </h2>
@@ -256,7 +256,7 @@ export default async function CaseStudyPage({
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {results.map((result: any, i: number) => (
-                  <div key={i} className="rounded-xl bg-white/[0.03] border border-white/[0.06] p-4">
+                  <div key={i} className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-4">
                     <div className="text-[10px] uppercase tracking-wider text-dim mb-2">
                       {result.metric}
                     </div>
@@ -276,7 +276,7 @@ export default async function CaseStudyPage({
           {/* Quote Block */}
           {quote && (
             <section className="mb-10">
-              <div className="rounded-xl border-l-2 border-[#3B82F6]/40 bg-white/[0.03] border border-white/[0.06] p-6 md:p-8">
+              <div className="rounded-xl border-l-2 border-[#3B82F6]/40 bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-6 md:p-8">
                 <Quote className="w-5 h-5 text-[#60A5FA]/50 mb-3" />
                 <blockquote className="text-base md:text-lg text-body leading-relaxed mb-4">
                   «{quote.text}»
@@ -294,7 +294,7 @@ export default async function CaseStudyPage({
               <h2 className="font-heading font-semibold text-lg text-heading mb-4">
                 Интеграции
               </h2>
-              <div className="rounded-xl bg-white/[0.03] border border-white/[0.06] p-5">
+              <div className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-5">
                 <ul className="space-y-2">
                   {integrations.map((integration: string, i: number) => (
                     <li key={i} className="flex gap-2.5 items-start text-sm">
