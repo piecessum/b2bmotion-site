@@ -309,53 +309,7 @@ export default async function CaseStudyPage({
 
           {/* Content Body */}
           <div className="prose-custom">
-            {post.content.split("\n").map((line, i) => {
-              const trimmed = line.trim();
-              if (!trimmed) return null;
-              if (trimmed.startsWith("## "))
-                return (
-                  <h2
-                    key={i}
-                    className="font-heading font-semibold text-lg text-heading mt-8 mb-3"
-                  >
-                    {trimmed.replace("## ", "")}
-                  </h2>
-                );
-              if (trimmed.startsWith("### "))
-                return (
-                  <h3
-                    key={i}
-                    className="font-heading font-semibold text-base text-subheading mt-6 mb-2"
-                  >
-                    {trimmed.replace("### ", "")}
-                  </h3>
-                );
-              if (trimmed.startsWith("- "))
-                return (
-                  <li
-                    key={i}
-                    className="text-sm text-body leading-relaxed ml-4 mb-1 list-disc marker:text-[#3B82F6]"
-                  >
-                    {renderInline(trimmed.replace("- ", ""))}
-                  </li>
-                );
-              // Numbered list items
-              if (/^\d+\.\s/.test(trimmed))
-                return (
-                  <li
-                    key={i}
-                    className="text-sm text-body leading-relaxed ml-4 mb-1 list-decimal marker:text-[#3B82F6]"
-                  >
-                    {renderInline(trimmed.replace(/^\d+\.\s/, ""))}
-                  </li>
-                );
-              if (trimmed.startsWith("|")) return null;
-              return (
-                <p key={i} className="text-sm text-body leading-relaxed mb-3">
-                  {renderInline(trimmed)}
-                </p>
-              );
-            })}
+            {renderContentBlocks(post.content)}
           </div>
 
           {/* Bottom divider */}
@@ -404,7 +358,8 @@ export default async function CaseStudyPage({
 }
 
 function renderInline(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  // Handle **bold** and *italic*
+  const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
@@ -413,6 +368,98 @@ function renderInline(text: string) {
         </strong>
       );
     }
+    if (part.startsWith("*") && part.endsWith("*") && part.length > 2) {
+      return (
+        <em key={i} className="text-dim not-italic text-xs">
+          {part.slice(1, -1)}
+        </em>
+      );
+    }
     return part;
   });
+}
+
+function renderContentBlocks(content: string) {
+  const lines = content.split("\n");
+  const elements: React.ReactNode[] = [];
+  let i = 0;
+
+  while (i < lines.length) {
+    const trimmed = lines[i].trim();
+
+    if (!trimmed || trimmed.startsWith("|")) {
+      i++;
+      continue;
+    }
+
+    if (trimmed.startsWith("## ")) {
+      elements.push(
+        <h2 key={i} className="font-heading font-semibold text-lg text-heading mt-8 mb-3">
+          {trimmed.replace("## ", "")}
+        </h2>
+      );
+      i++;
+      continue;
+    }
+
+    if (trimmed.startsWith("### ")) {
+      elements.push(
+        <h3 key={i} className="font-heading font-semibold text-base text-subheading mt-6 mb-2">
+          {trimmed.replace("### ", "")}
+        </h3>
+      );
+      i++;
+      continue;
+    }
+
+    // Collect consecutive bullet list items into <ul>
+    if (trimmed.startsWith("- ")) {
+      const items: { text: string; key: number }[] = [];
+      while (i < lines.length && lines[i].trim().startsWith("- ")) {
+        items.push({ text: lines[i].trim().replace("- ", ""), key: i });
+        i++;
+      }
+      elements.push(
+        <ul key={`ul-${items[0].key}`} className="ml-4 space-y-1 mb-3">
+          {items.map((item) => (
+            <li key={item.key} className="text-sm text-body leading-relaxed list-disc marker:text-[#3B82F6]">
+              {renderInline(item.text)}
+            </li>
+          ))}
+        </ul>
+      );
+      continue;
+    }
+
+    // Collect consecutive numbered list items into <ol>
+    if (/^\d+\.\s/.test(trimmed)) {
+      const items: { text: string; num: number; key: number }[] = [];
+      while (i < lines.length && /^\d+\.\s/.test(lines[i].trim())) {
+        const line = lines[i].trim();
+        const num = parseInt(line.match(/^(\d+)\./)![1], 10);
+        items.push({ text: line.replace(/^\d+\.\s/, ""), num, key: i });
+        i++;
+      }
+      elements.push(
+        <ol key={`ol-${items[0].key}`} className="ml-4 space-y-1 mb-3" start={items[0].num}>
+          {items.map((item) => (
+            <li key={item.key} className="text-sm text-body leading-relaxed list-decimal marker:text-[#3B82F6]">
+              {renderInline(item.text)}
+            </li>
+          ))}
+        </ol>
+      );
+      continue;
+    }
+
+    // Regular paragraph
+    elements.push(
+      <p key={i} className="text-sm text-body leading-relaxed mb-3">
+        {renderInline(trimmed)}
+      </p>
+    );
+    i++;
+  }
+
+  return elements;
 }
