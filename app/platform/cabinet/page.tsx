@@ -88,10 +88,7 @@ export default function CabinetPage() {
         const reversed = idx % 2 !== 0;
 
         return (
-          <section
-            key={section.title}
-            className={`py-20 px-6 ${idx % 2 === 0 ? "bg-page" : "bg-page-alt"}`}
-          >
+          <section key={section.title} className="py-20 px-6 bg-page">
             <div className="max-w-6xl mx-auto">
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-10 h-10 rounded-xl bg-[#8B5CF6]/10 flex items-center justify-center shrink-0">
