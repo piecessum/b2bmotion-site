@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react"
 import { Navbar } from "@/components/navbar"
 import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
+import Image from "next/image"
 import {
   ShoppingCart, Link2, BarChart3, DollarSign, FileText, Search,
   Upload, Smartphone, HardHat, Building2, Landmark, ArrowRight
@@ -242,12 +243,12 @@ export default function BuildingPage() {
       {/* Mobile App Banner */}
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="reveal relative overflow-hidden rounded-3xl bg-gradient-to-br from-orange-900/40 via-amber-900/30 to-yellow-900/40 border border-orange-500/10">
+          <div className="reveal relative overflow-hidden rounded-3xl bg-gradient-to-br from-orange-900/40 via-amber-900/30 to-yellow-900/40 border border-orange-500/10 min-h-[420px]">
             <div className="absolute inset-0 bg-gradient-to-r from-page/90 via-page/70 to-transparent" />
             <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.08]">
               <div className="absolute inset-0 bg-gradient-to-bl from-orange-400 to-amber-600 blur-[60px]" />
             </div>
-            <div className="relative z-10 p-10 md:p-16 max-w-3xl">
+            <div className="relative z-10 p-10 md:p-16 max-w-[55%]">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center">
                   <Smartphone className="w-6 h-6 text-orange-500" />
@@ -262,6 +263,16 @@ export default function BuildingPage() {
               <a href="#cta" className="inline-flex px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">
                 Оставить заявку
               </a>
+            </div>
+            {/* Phone mockup */}
+            <div className="hidden md:block absolute right-8 lg:right-16 bottom-0 w-[280px] lg:w-[320px] z-10">
+              <Image
+                src="/mockup_phone_str.png"
+                alt="Мобильное приложение для стройматериалов"
+                width={640}
+                height={1280}
+                className="w-full h-auto drop-shadow-2xl"
+              />
             </div>
           </div>
         </div>
