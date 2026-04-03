@@ -58,12 +58,12 @@ const brands = [
 ]
 
 const clients = [
-  { name: "РОСЭК", desc: "Федеральный дистрибьютор, входит в ТОП-5 электротехнических компаний Урала", url: "https://rosek24.ru/" },
-  { name: "РОС-Электро", desc: "Крупная региональная сеть электрооборудования и светотехнической продукции", url: "https://b2b.ros-elektro.ru/" },
-  { name: "База Электроматериалов", desc: "Федеральный дистрибьютор электротехнического оборудования", url: "https://electro58.ru/" },
-  { name: "Форум Электро", desc: "Поставщик электротехнической и кабельно-проводниковой продукции с 30-летним стажем", url: "https://b2b.forumelectro.ru/" },
-  { name: "Сан Лайт Электро", desc: "Один из лидеров среди поставщиков низковольтной аппаратуры и светотехники", url: "https://lk-24.ru/" },
-  { name: "Кристалл-Электро", desc: "Франчайзинговая сеть электротоваров по 5 регионам России", url: "https://opt.k-kirov.ru/" },
+  { name: "РОСЭК", desc: "Федеральный дистрибьютор, входит в ТОП-5 электротехнических компаний Урала", url: "https://rosek24.ru/", logo: "/rosek.svg" },
+  { name: "РОС-Электро", desc: "Крупная региональная сеть электрооборудования и светотехнической продукции", url: "https://b2b.ros-elektro.ru/", logo: "/roselektro.svg" },
+  { name: "База Электроматериалов", desc: "Федеральный дистрибьютор электротехнического оборудования", url: "https://electro58.ru/", logo: "/Baza electro.svg" },
+  { name: "Форум Электро", desc: "Поставщик электротехнической и кабельно-проводниковой продукции с 30-летним стажем", url: "https://b2b.forumelectro.ru/", logo: "/Fav_forum.svg" },
+  { name: "Сан Лайт Электро", desc: "Один из лидеров среди поставщиков низковольтной аппаратуры и светотехники", url: "https://lk-24.ru/", logo: "/sanlayt.svg" },
+  { name: "Кристалл-Электро", desc: "Франчайзинговая сеть электротоваров по 5 регионам России", url: "https://opt.k-kirov.ru/", logo: "/kristal.svg" },
 ]
 
 function useReveal(ref: React.RefObject<HTMLElement | null>) {
@@ -200,12 +200,21 @@ export default function ElectroPage() {
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">Электротехническую B2B-систему уже приобрели</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {clients.map((c, i) => (
-              <div key={i} className="reveal p-6 bg-surface-hover rounded-2xl border border-border-default hover:border-[#3B82F6]/40 transition-all duration-500 glow-card">
-                <h3 className="font-heading font-semibold text-xl text-heading mb-2">{c.name}</h3>
-                <p className="text-sm text-body mb-4 leading-relaxed">{c.desc}</p>
-                <a href={c.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-medium gradient-text hover:opacity-80 transition-opacity">
-                  Перейти в систему <ArrowRight className="w-4 h-4" style={{ color: '#3B82F6' }} />
-                </a>
+              <div key={i} className="reveal relative overflow-hidden p-6 bg-surface-hover rounded-2xl border border-border-default hover:border-[#3B82F6]/40 transition-all duration-500 glow-card">
+                <div className="relative z-10">
+                  <h3 className="font-heading font-semibold text-xl text-heading mb-2">{c.name}</h3>
+                  <p className="text-sm text-body mb-4 leading-relaxed">{c.desc}</p>
+                  <a href={c.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-medium gradient-text hover:opacity-80 transition-opacity">
+                    Перейти в систему <ArrowRight className="w-4 h-4" style={{ color: '#3B82F6' }} />
+                  </a>
+                </div>
+                <Image
+                  src={c.logo}
+                  alt=""
+                  width={128}
+                  height={128}
+                  className="absolute -bottom-3 right-2 w-24 h-24 object-contain opacity-[0.07] dark:opacity-[0.09] dark:invert pointer-events-none"
+                />
               </div>
             ))}
           </div>
