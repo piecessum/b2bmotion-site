@@ -250,20 +250,25 @@ export default function ComputersPage() {
       </section>
 
       {/* Banner */}
-      <section className="relative py-28 px-6 overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="/computers/server-room-banner.jpg"
-            alt=""
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-violet-900/90 via-violet-900/80 to-transparent" />
-          <div className="absolute inset-0 bg-black/40" />
-        </div>
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <p className="reveal font-heading font-bold text-[clamp(22px,3.5vw,32px)] leading-snug text-white">
-            B2B Движение Tech — умная B2B-платформа, как и товары в вашем каталоге. Современная, быстрая и безопасная — все, чтобы упростить работу и жизнь клиентов.
-          </p>
+      <section className="py-20 px-6">
+        <div className="relative max-w-5xl mx-auto rounded-3xl overflow-hidden">
+          <div className="absolute inset-0">
+            <img
+              src="/computers/server-room-banner.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-violet-900/90 via-violet-900/80 to-transparent" />
+            <div className="absolute inset-0 bg-black/40" />
+          </div>
+          <div className="relative z-10 py-20 px-8 md:px-16 text-center">
+            <h3 className="reveal font-heading font-bold text-2xl md:text-3xl text-white mb-4">
+              B2B Движение Tech
+            </h3>
+            <p className="reveal text-base md:text-lg text-white/85 max-w-2xl mx-auto leading-relaxed">
+              Умная B2B-платформа, как и товары в вашем каталоге. Современная, быстрая и безопасная — все, чтобы упростить работу и жизнь клиентов.
+            </p>
+          </div>
         </div>
       </section>
 
