@@ -17,7 +17,7 @@ const platformPages = [
 const industries = [
   { label: "Для электрического рынка", href: "/electro" },
   { label: "Для товаров первого спроса (FMCG)", href: "/fmcg" },
-  { label: "Для рынка стройматериалов", href: "#" },
+  { label: "Для рынка стройматериалов", href: "/building" },
   { label: "Для продажи компьютерных товаров", href: "#" },
 ]
 
