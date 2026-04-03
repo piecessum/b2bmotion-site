@@ -249,11 +249,6 @@ export default function BuildingPage() {
               <div className="absolute inset-0 bg-gradient-to-bl from-orange-400 to-amber-600 blur-[60px]" />
             </div>
             <div className="relative z-10 p-10 md:p-16 md:max-w-[55%]">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center">
-                  <Smartphone className="w-6 h-6 text-orange-500" />
-                </div>
-              </div>
               <h3 className="font-heading font-bold text-[clamp(28px,4vw,40px)] tracking-[-0.02em] text-heading mb-4">
                 Мобильное приложение<br />в пакете с B2B-системой
               </h3>
