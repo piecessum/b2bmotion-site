@@ -48,11 +48,12 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
       slug: "keis-ros-elektro",
     },
     {
-      company: "50 Герц",
+      company: "База Электроматериалов",
       description:
         "Федеральный дистрибьютор электротехнического оборудования, одна из ведущих инжиниринговых компаний в области энергетики и климатики.",
       gradient: "from-yellow-500/20 via-amber-500/10 to-orange-500/20",
       iconGradient: "from-yellow-400/20 to-amber-400/20",
+      logo: "/Baza electro.svg",
       slug: "keis-50-gerts",
     },
   ],
