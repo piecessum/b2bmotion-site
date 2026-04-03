@@ -265,16 +265,16 @@ export default function BuildingPage() {
               </a>
             </div>
             {/* Phone mockup — mobile: below text, desktop: absolute right */}
-            <div className="relative z-10 flex justify-center overflow-hidden h-[300px] md:hidden">
+            <div className="relative z-10 flex justify-center overflow-hidden h-[340px] md:hidden">
               <Image
                 src="/mockup_phone_str.png"
                 alt="Мобильное приложение для стройматериалов"
                 width={1152}
                 height={1152}
-                className="w-[400px] h-auto drop-shadow-2xl"
+                className="w-[340px] h-auto drop-shadow-2xl"
               />
             </div>
-            <div className="hidden md:block absolute right-4 lg:right-12 -bottom-[180px] lg:-bottom-[200px] w-[500px] lg:w-[580px] z-10">
+            <div className="hidden md:block absolute -right-6 lg:right-6 top-6 w-[420px] lg:w-[460px] z-10">
               <Image
                 src="/mockup_phone_str.png"
                 alt="Мобильное приложение для стройматериалов"
