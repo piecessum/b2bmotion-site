@@ -29,25 +29,25 @@ const features = [
     icon: Search,
     title: "Поиск аналогов\nи комплектующих",
     desc: "B2B-система легко подбирает технические аналоги, если нужна альтернатива или нужного товара не оказалось в наличии. Также в системе можно в один клик подобрать комплектующие. Например, оперативную память к конкретной модели сервера.",
-    img: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600&h=400&fit=crop",
+    img: "/computers/search-analogs.jpg",
   },
   {
     icon: RotateCcw,
     title: "Управление\nрекламациями",
     desc: "Пользователи в режиме онлайн смогут вернуть оптовый заказ полностью или его часть, если он не соответствует каким-то параметрам. Для сложной электроники и серверов процент брака — это реальность. Возможность возврата товаров поможет увеличить доверие покупателей к B2B-системе.",
-    img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=400&fit=crop",
+    img: "/computers/server-room.jpg",
   },
   {
     icon: FileCheck,
     title: "Сертификаты\nи документация",
     desc: "К каждому товару можно прикрепить подробную документацию и сертификаты соответствия, а покупатель сможет скачать их в один клик. Это может повлиять на продажи и юридическую и техническую безопасность при прохождении проверок.",
-    img: "https://images.unsplash.com/photo-1563986768609-322da13575f2?w=600&h=400&fit=crop",
+    img: "/computers/certificates.jpg",
   },
   {
     icon: MessageCircle,
     title: "Техподдержка\nи онлайн-чат",
     desc: "Перед запуском системы можно подключить онлайн-чат с менеджером. Так вопросы пользователя можно будет превратить в список рекомендованных товаров с персональными ценами, которые можно в один клик положить в корзину.",
-    img: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop",
+    img: "/computers/tech-support.jpg",
   },
 ]
 
@@ -253,7 +253,7 @@ export default function ComputersPage() {
       <section className="relative py-28 px-6 overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&h=600&fit=crop"
+            src="/computers/server-room-banner.jpg"
             alt=""
             className="w-full h-full object-cover"
           />
