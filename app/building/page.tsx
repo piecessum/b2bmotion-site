@@ -265,12 +265,12 @@ export default function BuildingPage() {
               </a>
             </div>
             {/* Phone mockup */}
-            <div className="hidden md:block absolute right-8 lg:right-16 bottom-0 w-[280px] lg:w-[320px] z-10">
+            <div className="hidden md:block absolute right-4 lg:right-12 -bottom-16 w-[380px] lg:w-[440px] z-10">
               <Image
                 src="/mockup_phone_str.png"
                 alt="Мобильное приложение для стройматериалов"
-                width={640}
-                height={1280}
+                width={1152}
+                height={1152}
                 className="w-full h-auto drop-shadow-2xl"
               />
             </div>
