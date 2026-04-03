@@ -18,14 +18,14 @@ const categories = [
 ]
 
 const capabilities = [
-  { icon: Zap, title: "Автоматизация оптовых продаж", desc: "Ваши клиенты получат актуальную информацию по срокам доставки, ценам и наличию, смогут самостоятельно оформить заказ в удобное время и выставить себе счет без участия менеджера.", large: true },
-  { icon: DollarSign, title: "Цены с индивидуальными скидками", desc: "Каждый клиент видит свои персональные цены, график платежей и дебиторскую задолженность, может покупать товары с учетом своего кредитного лимита и индивидуальных скидок.", large: false },
-  { icon: RotateCcw, title: "Возможность повторного заказа", desc: "Платформа позволяет оформлять регулярный ассортимент продуктов, которые ваши клиенты приобретают постоянно. Он хранится в виде спецификаций, и заказать товары можно повторно всего в один клик.", large: false },
-  { icon: FileText, title: "Хранение документов в одном месте", desc: "Платформа позволяет прикреплять к продукту его сертификат, данные о составе, партии и другие необходимые документы. А еще каждый пользователь может видеть в одном месте свои счета, счета-фактуры и накладные.", large: true },
-  { icon: Clock, title: "Контроль сроков годности", desc: "В карточке товара покупатель видит не просто товар и его характеристики, но и сроки годности партии, которую ему отгрузят. Также в B2B-системе можно настроить предложение товаров с истекающим сроком по спеццене.", large: false },
-  { icon: Box, title: "Наименьшая кратность товара", desc: "В системе можно настроить минимальную кратность товара, когда компания продает определенные товары упаковками с фиксированным количеством единиц.", large: false },
-  { icon: Warehouse, title: "Интеграция со складом", desc: "Платформа отражает наличие товаров, их остатки на всех складах, сроки реализации и ближайших поставок. Если товары не продаются поштучно — можно загрузить остатки в рулоне или упаковке.", large: true },
-  { icon: Smartphone, title: "Мобильное приложение", desc: "Вместе с платформой компания приобретает брендированное мобильное приложение с фирменным стилем и логотипом. Ваши клиенты смогут заказывать товары из любой точки, когда под рукой нет компьютера.", large: false },
+  { icon: Zap, title: "Автоматизация продаж", desc: "Клиенты сами оформляют заказы и выставляют счета — без звонков менеджеру" },
+  { icon: DollarSign, title: "Персональные цены", desc: "Индивидуальные скидки, кредитные лимиты и график платежей для каждого клиента" },
+  { icon: RotateCcw, title: "Повторный заказ в один клик", desc: "Регулярный ассортимент сохраняется в спецификации — повторная закупка мгновенно" },
+  { icon: FileText, title: "Документы в одном месте", desc: "Сертификаты, составы, счета-фактуры и накладные — всё прикреплено к товару и заказу" },
+  { icon: Clock, title: "Контроль сроков годности", desc: "Покупатель видит сроки партии. Товары с истекающим сроком — автоматически по спеццене" },
+  { icon: Box, title: "Кратность товара", desc: "Продажа упаковками с фиксированным количеством единиц" },
+  { icon: Warehouse, title: "Интеграция со складом", desc: "Остатки по всем складам в реальном времени, сроки поставок и реализации" },
+  { icon: Smartphone, title: "Мобильное приложение", desc: "Брендированное приложение с вашим логотипом — заказы из любой точки" },
 ]
 
 const advantages = [
@@ -195,66 +195,73 @@ export default function FmcgPage() {
             Возможности B2B Движение FMCG
           </h2>
 
-          {/* Dashboard mockup */}
-          <div className="reveal mb-16 p-6 bg-surface rounded-2xl border border-border-default">
-            <div className="flex items-center gap-2 mb-5">
-              <div className="w-3 h-3 rounded-full bg-emerald-500/30" />
-              <div className="w-3 h-3 rounded-full bg-amber-500/30" />
-              <div className="w-3 h-3 rounded-full bg-red-500/30" />
-              <span className="ml-2 text-xs text-subtle">Панель управления FMCG</span>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5">
-              {[
-                { label: "Заказов сегодня", value: "47", change: "+12%" },
-                { label: "Средний чек", value: "84 500 ₽", change: "+8%" },
-                { label: "Активных клиентов", value: "312", change: "+5%" },
-                { label: "Повторных заказов", value: "68%", change: "+3%" },
-              ].map((s, i) => (
-                <div key={i} className="p-4 bg-page-alt rounded-xl">
-                  <p className="text-xs text-subtle mb-1">{s.label}</p>
-                  <p className="text-xl font-bold text-heading">{s.value}</p>
-                  <p className="text-xs text-emerald-500">{s.change}</p>
-                </div>
-              ))}
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="md:col-span-2 p-4 bg-page-alt rounded-xl">
-                <p className="text-xs text-subtle mb-3">Динамика заказов</p>
-                <div className="flex items-end gap-1 h-20">
-                  {[35, 42, 28, 55, 47, 60, 38, 72, 65, 80, 58, 47].map((h, i) => (
-                    <div key={i} className="flex-1 bg-gradient-to-t from-emerald-500/40 to-emerald-500/80 rounded-sm" style={{ height: `${h}%` }} />
-                  ))}
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {/* Dashboard — row 1: metrics */}
+            <div className="reveal md:col-span-4 p-5 bg-surface-hover rounded-2xl border border-border-default">
+              <p className="text-xs text-subtle mb-4">Панель управления FMCG</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[
+                  { label: "Заказов сегодня", value: "47", change: "+12%" },
+                  { label: "Средний чек", value: "84 500 ₽", change: "+8%" },
+                  { label: "Активных клиентов", value: "312", change: "+5%" },
+                  { label: "Повторных заказов", value: "68%", change: "+3%" },
+                ].map((s, i) => (
+                  <div key={i} className="p-3 bg-page-alt rounded-xl">
+                    <p className="text-xs text-subtle mb-1">{s.label}</p>
+                    <p className="text-xl font-bold text-heading">{s.value}</p>
+                    <p className="text-xs text-emerald-500">{s.change}</p>
+                  </div>
+                ))}
               </div>
-              <div className="p-4 bg-page-alt rounded-xl">
-                <p className="text-xs text-subtle mb-3">Топ категории</p>
-                <div className="space-y-2">
-                  {[
-                    ["Продукты питания", "42%"],
-                    ["Бытовая химия", "28%"],
-                    ["Напитки", "18%"],
-                    ["Прочее", "12%"],
-                  ].map(([name, pct], i) => (
-                    <div key={i} className="flex justify-between text-xs">
+            </div>
+
+            {/* Dashboard — row 2: chart + categories */}
+            <div className="reveal md:col-span-3 p-5 bg-surface-hover rounded-2xl border border-border-default">
+              <p className="text-xs text-subtle mb-3">Динамика заказов</p>
+              <div className="flex gap-1.5 h-28">
+                {[
+                  { h: 35, d: "Пн" }, { h: 42, d: "Вт" }, { h: 28, d: "Ср" }, { h: 55, d: "Чт" }, { h: 47, d: "Пт" }, { h: 60, d: "Сб" }, { h: 38, d: "Вс" },
+                  { h: 72, d: "Пн" }, { h: 65, d: "Вт" }, { h: 80, d: "Ср" }, { h: 58, d: "Чт" }, { h: 47, d: "Пт" },
+                ].map((bar, i) => (
+                  <div key={i} className="flex-1 flex flex-col justify-end items-center">
+                    <div className="w-full bg-gradient-to-t from-emerald-500/30 to-emerald-500/80 rounded-t-sm" style={{ height: `${bar.h}%` }} />
+                    <span className="text-[9px] text-subtle leading-none mt-1.5 flex-shrink-0">{bar.d}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="reveal md:col-span-1 p-5 bg-surface-hover rounded-2xl border border-border-default">
+              <p className="text-xs text-subtle mb-3">Топ категории</p>
+              <div className="space-y-3">
+                {[
+                  ["Продукты питания", "42%"],
+                  ["Бытовая химия", "28%"],
+                  ["Напитки", "18%"],
+                  ["Прочее", "12%"],
+                ].map(([name, pct], i) => (
+                  <div key={i}>
+                    <div className="flex justify-between text-xs mb-1">
                       <span className="text-body">{name}</span>
                       <span className="text-heading font-medium">{pct}</span>
                     </div>
-                  ))}
-                </div>
+                    <div className="h-1 bg-page-alt rounded-full overflow-hidden">
+                      <div className="h-full bg-emerald-500/60 rounded-full" style={{ width: pct as string }} />
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Capabilities cards — integrated into the same grid */}
             {capabilities.map((c, i) => (
-              <div key={i} className={`reveal p-8 bg-surface-hover rounded-2xl border border-border-default hover:border-emerald-500/40 transition-all duration-500 glow-card ${c.large ? "md:col-span-2" : ""}`}>
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+              <div key={i} className="reveal md:col-span-2 p-6 bg-surface-hover rounded-2xl border border-border-default hover:border-emerald-500/40 transition-all duration-500 glow-card">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
                     <c.icon className="w-5 h-5 text-emerald-500" />
                   </div>
-                  <h3 className="font-heading font-semibold text-xl text-heading">{c.title}</h3>
+                  <h3 className="font-heading font-semibold text-lg text-heading">{c.title}</h3>
                 </div>
-                <p className="text-body leading-relaxed">{c.desc}</p>
+                <p className="text-sm text-body leading-relaxed">{c.desc}</p>
               </div>
             ))}
           </div>
