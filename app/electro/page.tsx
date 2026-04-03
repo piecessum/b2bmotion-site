@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react"
 import { Navbar } from "@/components/navbar"
 import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
+import Image from "next/image"
 import { Search, DollarSign, Zap, BarChart3, Link, FileText, ArrowRight, Check, Database, RefreshCw, GitCompare, Shield } from "lucide-react"
 
 const stats = [
@@ -27,6 +28,33 @@ const raekBenefits = [
   { icon: RefreshCw, title: "Регулярное обновление", desc: "Информация актуализируется раз в сутки с учётом ребрендинга" },
   { icon: GitCompare, title: "Аналоги и связанные товары", desc: "Поиск аналогов с учётом физических габаритов и характеристик" },
   { icon: Shield, title: "Чертежи и сертификаты", desc: "Фотографии, чертежи, паспорта изделий, сертификаты EAC, гарантийные талоны" },
+]
+
+const brands = [
+  { name: "IEK", logo: "/IEK.svg" },
+  { name: "DKC", logo: "/DKC.svg" },
+  { name: "Siemens", logo: "/Siemens.svg" },
+  { name: "WAGO", logo: "/WAGO.svg" },
+  { name: "Systeme Electric", logo: "/Systeme Electric.svg" },
+  { name: "КЭАЗ", logo: "/КЭАЗ.svg" },
+  { name: "EKF", logo: "/EKF.svg" },
+  { name: "TDM", logo: "/TDM.svg" },
+  { name: "Eaton", logo: "/Eaton.svg" },
+  { name: "Nexans", logo: "/Nexans.svg" },
+  { name: "Arlight", logo: "/Arlight.svg" },
+  { name: "Navigator", logo: "/Navigator.svg" },
+  { name: "ERA", logo: "/ERA.svg" },
+  { name: "Phillips", logo: "/Phillips.svg" },
+  { name: "VARTON", logo: "/VARTON.svg" },
+  { name: "REXANT", logo: "/REXANT.svg" },
+  { name: "Jazzway", logo: "/Jazzway.svg" },
+  { name: "Ecola", logo: "/Ecola.svg" },
+  { name: "Ostec", logo: "/Ostec.svg" },
+  { name: "Promrukav", logo: "/Promrukav.svg" },
+  { name: "KM-profil", logo: "/KM-profil.svg" },
+  { name: "KVT", logo: "/KVT.svg" },
+  { name: "Enkor", logo: "/Enkor.svg" },
+  { name: "Daccord", logo: "/Daccord.svg" },
 ]
 
 const clients = [
@@ -134,6 +162,32 @@ export default function ElectroPage() {
               <div key={i} className="reveal flex gap-4 p-6 bg-surface-hover rounded-2xl border border-border-default">
                 <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0"><b.icon className="w-5 h-5 text-emerald-500" /></div>
                 <div><h3 className="font-heading font-semibold text-heading mb-1">{b.title}</h3><p className="text-sm text-body">{b.desc}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Brands */}
+      <section className="py-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-4">Бренды в базе РАЭК</h2>
+            <p className="reveal text-body max-w-2xl mx-auto">Более 760 производителей электротехнического оборудования — от кабельной продукции до автоматики и светотехники</p>
+          </div>
+          <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3">
+            {brands.map((b, i) => (
+              <div
+                key={i}
+                className="reveal aspect-square flex items-center justify-center p-4 rounded-2xl bg-surface-hover border border-border-default hover:border-[#3B82F6]/30 transition-all duration-300"
+              >
+                <Image
+                  src={b.logo}
+                  alt={b.name}
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-contain opacity-80 hover:opacity-100 transition-opacity dark:brightness-[3] dark:contrast-75"
+                />
               </div>
             ))}
           </div>
