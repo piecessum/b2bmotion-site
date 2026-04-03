@@ -243,8 +243,8 @@ export default function BuildingPage() {
       {/* Mobile App Banner */}
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="reveal relative overflow-hidden rounded-3xl bg-gradient-to-br from-orange-900/40 via-amber-900/30 to-yellow-900/40 border border-orange-500/10 md:max-h-[420px]">
-            <div className="absolute inset-0 bg-gradient-to-r from-page/90 via-page/70 to-transparent" />
+          <div className="reveal relative rounded-3xl bg-gradient-to-br from-orange-900/40 via-amber-900/30 to-yellow-900/40 border border-orange-500/10">
+            <div className="absolute inset-0 bg-gradient-to-r from-page/90 via-page/70 to-transparent rounded-3xl" />
             <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.08]">
               <div className="absolute inset-0 bg-gradient-to-bl from-orange-400 to-amber-600 blur-[60px]" />
             </div>
@@ -259,22 +259,22 @@ export default function BuildingPage() {
                 Оставить заявку
               </a>
             </div>
-            {/* Phone mockup — mobile: below text, desktop: absolute right */}
-            <div className="relative z-10 flex justify-center h-[320px] md:hidden">
+            {/* Phone mockup */}
+            <div className="relative z-10 flex justify-center md:hidden -mt-4">
               <Image
                 src="/mockup_phone_str.png"
                 alt="Мобильное приложение для стройматериалов"
-                width={1152}
-                height={1152}
-                className="w-[340px] h-auto drop-shadow-2xl flex-shrink-0"
+                width={477}
+                height={520}
+                className="w-[300px] h-auto drop-shadow-2xl"
               />
             </div>
-            <div className="hidden md:block absolute right-0 lg:right-8 top-8 w-[520px] lg:w-[560px] z-10">
+            <div className="hidden md:block absolute right-6 lg:right-12 bottom-0 w-[380px] lg:w-[420px] z-10">
               <Image
                 src="/mockup_phone_str.png"
                 alt="Мобильное приложение для стройматериалов"
-                width={1152}
-                height={1152}
+                width={477}
+                height={520}
                 className="w-full h-auto drop-shadow-2xl"
               />
             </div>
