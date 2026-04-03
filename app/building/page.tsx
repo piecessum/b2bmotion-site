@@ -265,7 +265,7 @@ export default function BuildingPage() {
               </a>
             </div>
             {/* Phone mockup */}
-            <div className="hidden md:block absolute right-4 lg:right-12 -bottom-16 w-[646px] lg:w-[748px] z-10">
+            <div className="hidden md:block absolute -right-16 lg:-right-8 -bottom-[280px] lg:-bottom-[320px] w-[646px] lg:w-[748px] z-10">
               <Image
                 src="/mockup_phone_str.png"
                 alt="Мобильное приложение для стройматериалов"
