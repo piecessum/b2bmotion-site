@@ -70,7 +70,10 @@
       "Bash(ls -la /Users/Alex/Documents/b2bmotion-site-main/app/cases/[slug]/)",
       "Bash(grep -r \"prose-custom\\\\|prose\" /Users/Alex/Documents/b2bmotion-site-main --include=*.css --include=*.tsx)",
       "Bash(grep -r \"getPostBySlug\\\\|getAllPosts\" /Users/Alex/Documents/b2bmotion-site-main/lib --include=*.ts --include=*.tsx)",
-      "Bash(lsof -ti:3000)"
+      "Bash(lsof -ti:3000)",
+      "Bash(git diff:*)",
+      "Bash(ls /Users/Alex/Documents/b2bmotion-site-main/public/*.svg /Users/Alex/Documents/b2bmotion-site-main/public/**/*.svg)",
+      "Bash(grep -r \"FMCG\\\\|fmcg\" /Users/Alex/Documents/b2bmotion-site-main --include=*.tsx --include=*.ts --include=*.jsx --include=*.js)"
     ]
   }
 }

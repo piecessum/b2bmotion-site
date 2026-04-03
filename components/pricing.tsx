@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useRef } from "react"
 import { useTheme } from "next-themes"
 import { Check, Sparkles } from "lucide-react"
 
@@ -52,22 +52,8 @@ export function Pricing() {
   const sectionRef = useRef<HTMLElement>(null)
   const { resolvedTheme } = useTheme()
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible")
-        })
-      },
-      { threshold: 0.1 }
-    )
-    const reveals = sectionRef.current?.querySelectorAll(".reveal")
-    reveals?.forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <section ref={sectionRef} id="pricing" className="relative py-28 px-6">
+    <section id="pricing" className="relative py-28 px-6">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-section/50 to-transparent pointer-events-none" />
 
       <div className="relative max-w-6xl mx-auto">

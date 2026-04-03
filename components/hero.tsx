@@ -5,40 +5,7 @@ import Image from "next/image"
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
-  const devicesRef = useRef<HTMLDivElement>(null)
   const [mousePos, setMousePos] = useState({ x: 50, y: 50 })
-  const [devicesVisible, setDevicesVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible")
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
-
-    const reveals = sectionRef.current?.querySelectorAll(".reveal")
-    reveals?.forEach((el) => observer.observe(el))
-
-    return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setDevicesVisible(true)
-        })
-      },
-      { threshold: 0.05 }
-    )
-    if (devicesRef.current) observer.observe(devicesRef.current)
-    return () => observer.disconnect()
-  }, [])
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -147,25 +114,19 @@ export function Hero() {
       </div>
 
       {/* Devices showcase — desktop: all 3, mobile: phone only */}
-      <div ref={devicesRef} className="md:reveal md:reveal-delay-5 relative z-10 w-full max-w-5xl mx-auto px-6 mt-auto">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 mt-auto">
         {/* Desktop layout */}
-        <div className="relative mx-auto hidden md:block" style={{ maxWidth: 900, perspective: "1200px" }}>
+        <div className="relative mx-auto hidden md:block" style={{ maxWidth: 900 }}>
           {/* Glow behind laptop */}
           <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[80%] h-[200px] bg-gradient-to-r from-[#3B82F6]/10 via-[#8B5CF6]/8 to-[#06B6D4]/10 blur-[80px] pointer-events-none dark:opacity-100 opacity-50" />
 
           {/* Tablet — left, BEHIND laptop */}
           <div
-            className="absolute z-0 transition-all ease-out"
+            className="absolute z-0"
             style={{
-              transitionDuration: "1.4s",
-              transitionDelay: "300ms",
               bottom: "5%",
               left: "-24%",
               width: "55%",
-              opacity: devicesVisible ? 1 : 0,
-              transform: devicesVisible
-                ? "translateZ(0) translateX(0) scale(1)"
-                : "translateZ(-200px) translateX(-40px) scale(0.85)",
             }}
           >
             <Image
@@ -189,17 +150,11 @@ export function Hero() {
 
           {/* Phone — right, IN FRONT of laptop */}
           <div
-            className="absolute z-20 transition-all ease-out"
+            className="absolute z-20"
             style={{
-              transitionDuration: "1.4s",
-              transitionDelay: "500ms",
               bottom: "2%",
               right: "-8%",
               width: "24%",
-              opacity: devicesVisible ? 1 : 0,
-              transform: devicesVisible
-                ? "translateZ(0) translateX(0) scale(1)"
-                : "translateZ(-200px) translateX(40px) scale(0.85)",
             }}
           >
             <Image

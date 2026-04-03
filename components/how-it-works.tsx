@@ -104,20 +104,6 @@ export function HowItWorks() {
   const isDark = resolvedTheme === 'dark'
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible")
-        })
-      },
-      { threshold: 0.1 }
-    )
-    const reveals = sectionRef.current?.querySelectorAll(".reveal")
-    reveals?.forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
     const handleScroll = () => {
       if (!stepsContainerRef.current) return
       const rect = stepsContainerRef.current.getBoundingClientRect()

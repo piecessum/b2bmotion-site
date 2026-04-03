@@ -1,23 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
-
-function useReveal(ref: React.RefObject<HTMLElement | null>) {
-  useEffect(() => {
-    const o = new IntersectionObserver(
-      (es) =>
-        es.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add("visible");
-        }),
-      { threshold: 0.1 },
-    );
-    ref.current?.querySelectorAll(".reveal").forEach((el) => o.observe(el));
-    return () => o.disconnect();
-  }, [ref]);
-}
 
 const contacts = [
   {
@@ -47,11 +32,8 @@ const contacts = [
 ];
 
 export default function ContactsPage() {
-  const r = useRef<HTMLElement>(null);
-  useReveal(r);
-
   return (
-    <main ref={r} className="relative min-h-screen bg-page-alt noise-overlay">
+    <main className="relative min-h-screen bg-page-alt noise-overlay">
       <Navbar />
 
       <section className="relative pt-36 pb-32 px-6 overflow-hidden">

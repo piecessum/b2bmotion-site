@@ -1,28 +1,11 @@
 "use client"
 
-import { useEffect, useRef } from "react"
 import { Play } from "lucide-react"
 import Link from "next/link"
 
 export function VideoBanner() {
-  const sectionRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible")
-        })
-      },
-      { threshold: 0.1 }
-    )
-    const reveals = sectionRef.current?.querySelectorAll(".reveal")
-    reveals?.forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <section ref={sectionRef} className="py-16 px-6">
+    <section className="py-16 px-6">
       <div className="max-w-4xl mx-auto">
         <Link
           href="/video"
