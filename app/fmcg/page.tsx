@@ -31,18 +31,33 @@ const capabilities = [
 const advantages = [
   {
     icon: Zap,
-    title: "Точность и быстрая скорость заказа",
-    desc: "Многие товары из FMCG-категории имеют ограниченный срок годности, и продавать их нужно очень быстро. Наша платформа создана так, чтобы ваши клиенты могли совершать заказы мгновенно и самостоятельно с любого устройства. Круглосуточный доступ к каталогу, быстрый интеллектуальный поиск, актуальная информация по наличию, остаткам, ценам, срокам доставки и возможность сохранять повторяющиеся заказы в спецификацию, чтобы повторить закупку в один клик.",
+    title: "Мгновенные заказы 24/7",
+    subtitle: "Продавайте быстрее конкурентов",
+    points: [
+      "Заказ с любого устройства за пару кликов",
+      "Актуальные остатки, цены и сроки доставки",
+      "Повтор закупки в один клик по спецификации",
+    ],
   },
   {
     icon: Users,
-    title: "Единое информационное пространство",
-    desc: "Из-за большой конкуренции на рынке FMCG роль квалифицированных менеджеров слишком высока. Платформа помогает перевести все заказы в единое информационное пространство и автоматизировать их. Это поможет разгрузить менеджеров и освободить их время для поиска новых клиентов и улучшения взаимоотношений со старыми. Кроме того, все сотрудники компании получат доступ к единой информации о клиентах, их дебиторской задолженности и заказам — это улучшит работу всех отделов заказчика.",
+    title: "Все заказы — в одном месте",
+    subtitle: "Разгрузите менеджеров на 40%",
+    points: [
+      "Автоматизация рутинных заказов",
+      "Единая база клиентов и задолженностей",
+      "Больше времени на привлечение новых клиентов",
+    ],
   },
   {
     icon: Tag,
-    title: "Акции и специальные предложения для клиентов",
-    desc: "В сегменте FMCG один и тот же товар продвигают сразу несколько дистрибьюторов. Чтобы обойти конкурентов, удержать старых клиентов и привлечь новых, менеджеры прямо в системе могут составить рекомендованные спецификации с индивидуальными условиями и скидками для покупателей. Также в системе можно настроить готовые подборки сезонных и самых продаваемых товаров или остатков и предлагать их конкретным покупателям. Скидки можно назначить на категорию, бренд или конкретный артикул товара.",
+    title: "Гибкие акции и скидки",
+    subtitle: "Отстройтесь от дистрибьюторов-конкурентов",
+    points: [
+      "Персональные условия для каждого покупателя",
+      "Подборки сезонных и топовых товаров",
+      "Скидки на категорию, бренд или артикул",
+    ],
   },
 ]
 
@@ -253,18 +268,22 @@ export default function FmcgPage() {
             Важные преимущества B2B-платформы
           </h2>
           <p className="reveal text-center gradient-text font-heading font-bold text-[clamp(24px,3vw,36px)] tracking-[-0.02em] mb-16">для FMCG-рынка</p>
-          <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {advantages.map((a, i) => (
-              <div key={i} className="reveal p-8 md:p-10 bg-surface-hover rounded-2xl border border-border-default hover:border-emerald-500/30 transition-all duration-300">
-                <div className="flex items-start gap-5">
-                  <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0 mt-1">
-                    <a.icon className="w-6 h-6 text-emerald-500" />
-                  </div>
-                  <div>
-                    <h3 className="font-heading font-semibold text-xl text-heading mb-3">{a.title}</h3>
-                    <p className="text-body leading-relaxed">{a.desc}</p>
-                  </div>
+              <div key={i} className="reveal p-7 bg-surface-hover rounded-2xl border border-border-default hover:border-emerald-500/40 transition-all duration-500 glow-card flex flex-col">
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4">
+                  <a.icon className="w-6 h-6 text-emerald-500" />
                 </div>
+                <h3 className="font-heading font-semibold text-xl text-heading mb-1">{a.title}</h3>
+                <p className="text-sm text-emerald-500 font-medium mb-5">{a.subtitle}</p>
+                <ul className="space-y-3 mt-auto">
+                  {a.points.map((p, j) => (
+                    <li key={j} className="flex items-start gap-2.5 text-sm text-body">
+                      <ArrowRight className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      {p}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
