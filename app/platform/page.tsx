@@ -242,7 +242,7 @@ function PlatformPageInner() {
   const currentTab = tabs[activeTab]
 
   return (
-    <main ref={mainRef} className="relative min-h-screen bg-page noise-overlay">
+    <main ref={mainRef} className="relative min-h-screen bg-page noise-overlay overflow-x-hidden">
       <Navbar />
 
       {/* Hero — compact */}
@@ -294,7 +294,7 @@ function PlatformPageInner() {
       {/* Tabs */}
       <section className="px-6 pb-6">
         <div className="max-w-6xl mx-auto">
-          <div className="flex justify-center">
+          <div className="flex justify-center overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none" }}>
             <nav className="inline-flex p-1 rounded-xl bg-overlay-4 border border-glass-border gap-1">
               {tabs.map((tab, i) => (
                 <button
