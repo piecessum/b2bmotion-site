@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react"
 import { Navbar } from "@/components/navbar"
 import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
+import Image from "next/image"
 import {
   MessageCircle,
   ShoppingCart,
@@ -213,26 +214,38 @@ export default function ChatbotsPage() {
             <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-4">
               Персональный чат-бот в Telegram
             </h2>
-            <p className="reveal text-body max-w-2xl mx-auto mb-10">
+            <p className="reveal text-body max-w-2xl mx-auto">
               Чат-боты для бизнеса уже используют 300 миллионов человек
             </p>
           </div>
-          <div className="max-w-xl mx-auto">
-            <p className="reveal font-heading font-semibold text-xl text-heading mb-6 text-center">
-              Чат-боты помогают:
-            </p>
-            <div className="space-y-3">
-              {helpItems.map((item, i) => (
-                <div
-                  key={i}
-                  className="reveal flex items-center gap-3 p-4 bg-surface-hover rounded-xl border border-border-default"
-                >
-                  <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
-                    <Check className="w-3.5 h-3.5 text-emerald-500" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <p className="reveal font-heading font-semibold text-xl text-heading mb-6">
+                Чат-боты помогают:
+              </p>
+              <div className="space-y-3">
+                {helpItems.map((item, i) => (
+                  <div
+                    key={i}
+                    className="reveal flex items-center gap-3 p-4 bg-surface-hover rounded-xl border border-border-default"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-3.5 h-3.5 text-emerald-500" />
+                    </div>
+                    <span className="text-body">{item}</span>
                   </div>
-                  <span className="text-body">{item}</span>
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+            <div className="reveal flex items-center justify-center">
+              <Image
+                src="/Robot.png"
+                alt="Чат-бот в Telegram"
+                width={500}
+                height={500}
+                className="w-full max-w-md lg:max-w-none h-auto object-contain"
+                unoptimized
+              />
             </div>
           </div>
         </div>
