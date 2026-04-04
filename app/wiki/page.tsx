@@ -1,17 +1,17 @@
+"use client"
+
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { BookOpen, ArrowRight } from "lucide-react"
+import { BookOpen, Mail, Phone, ChevronRight } from "lucide-react"
 import Link from "next/link"
-
-export const metadata = {
-  title: "База знаний — B2B Движение",
-  description: "Документация, инструкции и руководства по работе с платформой B2B Движение.",
-}
+import { useState } from "react"
 
 const sections = [
   {
+    id: "function",
     title: "Функционал системы",
     href: "/wiki/function",
+    description: "Основные модули и возможности платформы",
     items: [
       "Регистрация и авторизация",
       "Интеллектуальный поиск",
@@ -28,8 +28,10 @@ const sections = [
     ],
   },
   {
+    id: "custom",
     title: "Кастомизация под клиента",
     href: "#",
+    description: "Настройка платформы под ваши бизнес-процессы",
     items: [
       "Каталог и товары",
       "Регионы и склады",
@@ -51,8 +53,10 @@ const sections = [
     ],
   },
   {
+    id: "tech",
     title: "Технические настройки",
     href: "#",
+    description: "Интеграции, API и техническая документация",
     items: [
       "Общие тех.сведения",
       "Интеграция с шлюзовыми таблицами (ШТ)",
@@ -65,60 +69,107 @@ const sections = [
 ]
 
 export default function KnowledgePage() {
+  const [activeTab, setActiveTab] = useState(0)
+
   return (
     <main className="relative min-h-screen bg-page noise-overlay">
       <Navbar />
 
       <section className="pt-36 pb-28 px-6">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-5xl mx-auto">
+
           {/* Header */}
-          <div className="mb-16">
-            <span className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-xs font-medium uppercase tracking-[0.2em] text-[#60A5FA] bg-[#3B82F6]/[0.06] border border-[#3B82F6]/[0.1] rounded-full">
+          <div className="mb-14 max-w-2xl">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 mb-5 text-[11px] font-medium uppercase tracking-[0.18em] text-dim bg-overlay-4 border border-glass-border rounded-full">
               <BookOpen className="w-3.5 h-3.5" />
-              Документация
+              База знаний
             </span>
-            <h1 className="font-heading font-bold text-[clamp(32px,5vw,52px)] tracking-[-0.02em] text-heading">
-              База знаний продукта{" "}
+            <h1 className="font-heading font-bold text-[clamp(28px,4.5vw,44px)] leading-[1.15] tracking-[-0.025em] text-heading">
+              Документация платформы{" "}
               <span className="gradient-text">«B2B Движение»</span>
             </h1>
-            <p className="mt-4 text-lg text-subtle max-w-2xl">
-              от компании 3Davinci
+            <p className="mt-3 text-base text-subtle">
+              Руководства, инструкции и справочные материалы по работе с платформой от компании 3Davinci.
             </p>
           </div>
 
-          {/* Sections Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {sections.map((section, i) => (
-              <div
-                key={i}
-                className="p-8 rounded-2xl glass-card overflow-hidden"
-              >
-                <Link href={section.href} className="group flex items-center justify-between mb-6">
-                  <h2 className="font-heading font-semibold text-xl text-heading group-hover:text-[#60A5FA] transition-colors">
-                    {section.title}
-                  </h2>
-                  {section.href !== "#" && <ArrowRight className="w-4 h-4 text-dim group-hover:text-[#60A5FA] transition-colors" />}
-                </Link>
-                <ul className="space-y-3">
-                  {section.items.map((item, j) => (
-                    <li key={j} className="flex items-start gap-3">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]/50 mt-2 shrink-0" />
-                      <span className="text-sm text-body hover:text-heading transition-colors cursor-pointer">
-                        {item}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+          {/* Tabs */}
+          <div className="border-b border-glass-border mb-8">
+            <nav className="flex gap-1 -mb-px overflow-x-auto">
+              {sections.map((section, i) => (
+                <button
+                  key={section.id}
+                  onClick={() => setActiveTab(i)}
+                  className={`
+                    relative px-5 py-3 text-sm font-medium whitespace-nowrap transition-colors
+                    ${activeTab === i
+                      ? "text-heading"
+                      : "text-dim hover:text-subtle"
+                    }
+                  `}
+                >
+                  {section.title}
+                  {activeTab === i && (
+                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#3B82F6] rounded-t-full" />
+                  )}
+                </button>
+              ))}
+            </nav>
+          </div>
+
+          {/* Tab content */}
+          <div className="mb-20">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h2 className="font-heading font-semibold text-xl text-heading">
+                  {sections[activeTab].title}
+                </h2>
+                <p className="text-sm text-subtle mt-1">
+                  {sections[activeTab].description}
+                </p>
               </div>
-            ))}
+              {sections[activeTab].href !== "#" && (
+                <Link
+                  href={sections[activeTab].href}
+                  className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-heading bg-overlay-4 hover:bg-overlay-6 border border-glass-border rounded-xl transition-colors"
+                >
+                  Открыть раздел
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </Link>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {sections[activeTab].items.map((item, j) => (
+                <div
+                  key={j}
+                  className="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-overlay-4 transition-colors cursor-pointer"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]/40 shrink-0" />
+                  <span className="text-sm text-body group-hover:text-heading transition-colors">
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {sections[activeTab].href !== "#" && (
+              <Link
+                href={sections[activeTab].href}
+                className="sm:hidden inline-flex items-center gap-1.5 mt-4 px-4 py-2 text-sm font-medium text-heading bg-overlay-4 hover:bg-overlay-6 border border-glass-border rounded-xl transition-colors"
+              >
+                Открыть раздел
+                <ChevronRight className="w-3.5 h-3.5" />
+              </Link>
+            )}
           </div>
 
           {/* Contact block */}
-          <div className="mt-16 rounded-2xl bg-gradient-to-br from-violet-500/[0.12] to-blue-500/[0.06] border border-violet-500/15 overflow-hidden">
-            <div className="flex flex-col sm:flex-row items-center gap-8 p-10">
+          <div className="rounded-2xl glass-card overflow-hidden">
+            <div className="flex flex-col sm:flex-row items-center gap-8 p-8 sm:p-10">
               {/* Photo */}
               <div className="shrink-0">
-                <div className="w-40 h-40 rounded-full overflow-hidden ring-4 ring-violet-500/25 shadow-lg shadow-violet-500/10">
+                <div className="w-36 h-36 rounded-2xl overflow-hidden ring-1 ring-glass-border">
                   <img
                     src="/Portrett av smilende mann i skjorte 2.png"
                     alt="Агеев Дмитрий"
@@ -128,35 +179,35 @@ export default function KnowledgePage() {
               </div>
               {/* Info */}
               <div className="text-center sm:text-left">
+                <p className="text-xs font-medium uppercase tracking-[0.15em] text-dim mb-2">
+                  Ваш персональный менеджер
+                </p>
                 <p className="font-heading font-semibold text-heading text-xl">
                   Агеев Дмитрий
                 </p>
-                <p className="text-subtle text-base mt-1 mb-5">
-                  Руководитель отдела продаж — ответит на любые вопросы
+                <p className="text-subtle text-sm mt-1 mb-5">
+                  Руководитель отдела продаж — ответит на любые вопросы по платформе
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a
                     href="mailto:ageev@b2bmotion.ru"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-violet-500/10 hover:bg-violet-500/20 text-sm text-heading transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-overlay-4 hover:bg-overlay-6 border border-glass-border text-sm text-heading transition-colors"
                   >
-                    <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
+                    <Mail className="w-4 h-4 text-dim" />
                     ageev@b2bmotion.ru
                   </a>
                   <a
                     href="tel:+74993503436"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-violet-500/10 hover:bg-violet-500/20 text-sm text-heading transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-overlay-4 hover:bg-overlay-6 border border-glass-border text-sm text-heading transition-colors"
                   >
-                    <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
+                    <Phone className="w-4 h-4 text-dim" />
                     +7 (499) 35-0-34-36
                   </a>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
