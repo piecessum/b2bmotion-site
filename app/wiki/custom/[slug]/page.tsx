@@ -1,27 +1,28 @@
-import { notFound } from "next/navigation"
-import { ArrowLeft, BookOpen } from "lucide-react"
-import Link from "next/link"
-import Image from "next/image"
-import { wikiCustomArticles } from "@/lib/wiki-custom-data"
-import { RichTextRenderer } from "@/components/wiki/rich-text-renderer"
+import { notFound } from "next/navigation";
+import { ArrowLeft, BookOpen } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { wikiCustomArticles } from "@/lib/wiki-custom-data";
+import { RichTextRenderer } from "@/components/wiki/rich-text-renderer";
 
 interface WikiArticlePageProps {
-  params: {
-    slug: string
-  }
+  params: Promise<{ slug: string }>;
 }
 
 export function generateStaticParams() {
   return wikiCustomArticles.map((article) => ({
     slug: article.slug,
-  }))
+  }));
 }
 
-export default function WikiCustomArticlePage({ params }: WikiArticlePageProps) {
-  const article = wikiCustomArticles.find((a) => a.slug === params.slug)
+export default async function WikiCustomArticlePage({
+  params,
+}: WikiArticlePageProps) {
+  const { slug } = await params;
+  const article = wikiCustomArticles.find((a) => a.slug === slug);
 
   if (!article) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -64,5 +65,5 @@ export default function WikiCustomArticlePage({ params }: WikiArticlePageProps) 
         <RichTextRenderer content={article.text} />
       </div>
     </main>
-  )
+  );
 }
