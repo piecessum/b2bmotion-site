@@ -128,23 +128,11 @@ export default function KnowledgePage() {
             </p>
           </div>
 
-          {/* Search + Tabs row */}
-          <div className="flex flex-col xl:flex-row xl:items-center gap-4 mb-6">
-            {/* Search */}
-            <div className="relative xl:max-w-md xl:shrink-0">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-dim" />
-              <input
-                type="text"
-                placeholder="Поиск по разделам и публикациям..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-11 pr-4 py-3 bg-overlay-3 rounded-xl border border-glass-border text-sm text-body placeholder:text-dim focus:outline-none focus:border-[#3B82F6]/30 transition-colors"
-              />
-            </div>
-
+          {/* Tabs + Search row */}
+          <div className="flex flex-col xl:flex-row xl:items-center gap-4 xl:gap-8 mb-6">
             {/* Tabs */}
             <div
-              className="overflow-x-auto scrollbar-hide xl:flex-1"
+              className="overflow-x-auto scrollbar-hide xl:shrink-0"
               style={{ scrollbarWidth: "none" }}
             >
               <nav className="inline-flex p-1 rounded-xl bg-overlay-4 border border-glass-border gap-1">
@@ -165,6 +153,18 @@ export default function KnowledgePage() {
                   </button>
                 ))}
               </nav>
+            </div>
+
+            {/* Search — fills remaining space on desktop */}
+            <div className="relative xl:flex-1">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-dim" />
+              <input
+                type="text"
+                placeholder="Поиск по разделам и публикациям..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full pl-11 pr-4 py-3 bg-overlay-3 rounded-xl border border-glass-border text-sm text-body placeholder:text-dim focus:outline-none focus:border-[#3B82F6]/30 transition-colors"
+              />
             </div>
           </div>
 
