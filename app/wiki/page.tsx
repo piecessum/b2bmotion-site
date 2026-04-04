@@ -163,7 +163,7 @@ function KnowledgePageInner() {
                       px-5 py-2.5 text-sm font-medium whitespace-nowrap rounded-lg transition-all
                       ${
                         activeTab === i
-                          ? "bg-surface text-heading shadow-sm border border-glass-border"
+                          ? "bg-white/[0.10] text-heading shadow-sm border border-white/[0.15]"
                           : "text-dim hover:text-body border border-transparent"
                       }
                     `}
