@@ -247,8 +247,15 @@ function PlatformPageInner() {
 
       {/* Hero — compact */}
       <section className="relative pt-36 pb-14 px-6 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] opacity-[0.06] pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-violet-500 rounded-full blur-[120px]" />
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <img
+            src="/3d_bg.png"
+            alt=""
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--page)] to-transparent" />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <span className="reveal inline-block px-4 py-1.5 mb-5 text-xs font-medium uppercase tracking-[0.15em] text-[#3B82F6] bg-[#3B82F6]/10 rounded-full">
