@@ -1,47 +1,29 @@
 const fs = require("fs");
 const path = require("path");
+const { parse } = require("csv-parse/sync");
 
 // Read CSV file
 const csvPath = path.join(process.env.HOME, "Downloads/wiki-custom.csv");
 const csvContent = fs.readFileSync(csvPath, "utf-8");
 
-// Parse CSV with semicolon delimiter
-const lines = csvContent.split("\n").filter((line) => line.trim());
-const header = lines[0];
+// Parse CSV with semicolon delimiter using csv-parse library
+const records = parse(csvContent, {
+  delimiter: ";",
+  columns: true,
+  skip_empty_lines: true,
+  relax_quotes: true,
+  relax_column_count: true,
+});
 
 const articles = [];
 const categories = new Set();
 
-for (let i = 1; i < lines.length; i++) {
-  // Simple CSV parser that handles quoted fields
-  const line = lines[i];
-  const fields = [];
-  let current = "";
-  let inQuotes = false;
-
-  for (let j = 0; j < line.length; j++) {
-    const char = line[j];
-    if (char === '"') {
-      if (inQuotes && line[j + 1] === '"') {
-        current += '"';
-        j++;
-      } else {
-        inQuotes = !inQuotes;
-      }
-    } else if (char === ";" && !inQuotes) {
-      fields.push(current);
-      current = "";
-    } else {
-      current += char;
-    }
-  }
-  fields.push(current);
-
-  const postId = fields[0];
-  const title = fields[2];
-  const category = fields[3];
-  const media = fields[5];
-  const textRaw = fields[7];
+for (const row of records) {
+  const postId = row["Post ID"];
+  const title = row["Title"];
+  const category = row["Category"];
+  const media = row["Media"];
+  const textRaw = row["Text"];
 
   if (!postId || !title) continue;
 
@@ -49,19 +31,26 @@ for (let i = 1; i < lines.length; i++) {
     category.split(";").forEach((cat) => categories.add(cat.trim()));
   }
 
-  // Parse text JSON
+  // Parse text JSON - the CSV field is already unescaped by csv-parse
   let text = [];
   try {
-    // Unescape the JSON string
-    const unescaped = textRaw.replace(/\\"/g, '"').replace(/\\\\/g, "\\");
-    text = JSON.parse(unescaped);
+    text = JSON.parse(textRaw);
   } catch (e) {
-    // If parsing fails, try with different escaping
+    // Try fixing common issues
     try {
+      // Sometimes the JSON has unescaped quotes inside strings
       const fixed = textRaw.replace(/""/g, '"');
       text = JSON.parse(fixed);
     } catch (e2) {
-      console.error(`Failed to parse text for ${postId}: ${e2.message}`);
+      // If it's not JSON at all, treat as plain HTML text
+      if (textRaw && textRaw.length > 0 && !textRaw.startsWith("[")) {
+        text = [{ ty: "text", te: textRaw }];
+      } else {
+        console.error(
+          `Failed to parse text for ${postId} (${title}): ${e2.message}`,
+        );
+        console.error(`  Raw length: ${textRaw?.length || 0}`);
+      }
     }
   }
 
@@ -144,7 +133,9 @@ export const wikiCustomArticles: WikiCustomArticle[] = ${JSON.stringify(articles
 const outputPath = path.join(__dirname, "../lib/wiki-custom-data.ts");
 fs.writeFileSync(outputPath, tsContent, "utf-8");
 
+const failedCount = articles.filter((a) => a.text.length === 0).length;
 console.log(
   `Generated ${articles.length} articles with ${categories.size} categories`,
 );
+console.log(`Failed to parse text for ${failedCount} articles`);
 console.log("Categories:", Array.from(categories).sort().join(", "));
