@@ -73,7 +73,24 @@
       "Bash(lsof -ti:3000)",
       "Bash(git diff:*)",
       "Bash(ls /Users/Alex/Documents/b2bmotion-site-main/public/*.svg /Users/Alex/Documents/b2bmotion-site-main/public/**/*.svg)",
-      "Bash(grep -r \"FMCG\\\\|fmcg\" /Users/Alex/Documents/b2bmotion-site-main --include=*.tsx --include=*.ts --include=*.jsx --include=*.js)"
+      "Bash(grep -r \"FMCG\\\\|fmcg\" /Users/Alex/Documents/b2bmotion-site-main --include=*.tsx --include=*.ts --include=*.jsx --include=*.js)",
+      "Bash(ls /Users/Alex/Documents/b2bmotion-site-main/public/*.svg)",
+      "Bash(ls -la /Users/Alex/Documents/b2bmotion-site-main/components/*.tsx)",
+      "Bash(identify /Users/Alex/Documents/b2bmotion-site-main/public/mockup_phone_str.png)",
+      "Bash(sips -g pixelWidth -g pixelHeight /Users/Alex/Documents/b2bmotion-site-main/public/mockup_phone_str.png)",
+      "Bash(grep -r Отрасли /Users/Alex/Documents/b2bmotion-site-main --include=*.tsx --include=*.ts --include=*.jsx --include=*.js)",
+      "Bash(curl -sL -o /Users/Alex/Documents/b2bmotion-site-main/public/computers/search-analogs.jpg \"https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600&h=400&fit=crop\")",
+      "Bash(curl -sL -o /Users/Alex/Documents/b2bmotion-site-main/public/computers/server-room.jpg \"https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&h=400&fit=crop\")",
+      "Bash(curl -sL -o /Users/Alex/Documents/b2bmotion-site-main/public/computers/certificates.jpg \"https://images.unsplash.com/photo-1563986768609-322da13575f2?w=600&h=400&fit=crop\")",
+      "Bash(curl -sL -o /Users/Alex/Documents/b2bmotion-site-main/public/computers/tech-support.jpg \"https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop\")",
+      "Bash(curl -sL -o /Users/Alex/Documents/b2bmotion-site-main/public/computers/server-room-banner.jpg \"https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&h=600&fit=crop\")",
+      "Bash(curl -sL -o /Users/Alex/Documents/b2bmotion-site-main/public/computers/certificates.jpg \"https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop\")",
+      "Bash(file /Users/Alex/Documents/b2bmotion-site-main/public/computers/*.jpg)",
+      "Bash(wc -l /Users/Alex/Documents/b2bmotion-site-main/app/*/page.tsx)",
+      "Bash(ls /Users/Alex/Documents/b2bmotion-site-main/public/Portrett*)",
+      "Bash(ls -la /Users/Alex/Documents/b2bmotion-site-main/*.json)",
+      "Bash(ls -la /Users/Alex/Documents/b2bmotion-site-main/*.ts)",
+      "Bash(ls -la /Users/Alex/Documents/b2bmotion-site-main/*.js)"
     ]
   }
 }

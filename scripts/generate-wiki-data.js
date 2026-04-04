@@ -1,12 +1,12 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 // Read CSV file
-const csvPath = path.join(process.env.HOME, 'Downloads/wiki-custom.csv');
-const csvContent = fs.readFileSync(csvPath, 'utf-8');
+const csvPath = path.join(process.env.HOME, "Downloads/wiki-custom.csv");
+const csvContent = fs.readFileSync(csvPath, "utf-8");
 
 // Parse CSV with semicolon delimiter
-const lines = csvContent.split('\n').filter(line => line.trim());
+const lines = csvContent.split("\n").filter((line) => line.trim());
 const header = lines[0];
 
 const articles = [];
@@ -16,7 +16,7 @@ for (let i = 1; i < lines.length; i++) {
   // Simple CSV parser that handles quoted fields
   const line = lines[i];
   const fields = [];
-  let current = '';
+  let current = "";
   let inQuotes = false;
 
   for (let j = 0; j < line.length; j++) {
@@ -28,9 +28,9 @@ for (let i = 1; i < lines.length; i++) {
       } else {
         inQuotes = !inQuotes;
       }
-    } else if (char === ';' && !inQuotes) {
+    } else if (char === ";" && !inQuotes) {
       fields.push(current);
-      current = '';
+      current = "";
     } else {
       current += char;
     }
@@ -46,14 +46,14 @@ for (let i = 1; i < lines.length; i++) {
   if (!postId || !title) continue;
 
   if (category) {
-    category.split(';').forEach(cat => categories.add(cat.trim()));
+    category.split(";").forEach((cat) => categories.add(cat.trim()));
   }
 
   // Parse text JSON
   let text = [];
   try {
     // Unescape the JSON string
-    const unescaped = textRaw.replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+    const unescaped = textRaw.replace(/\\"/g, '"').replace(/\\\\/g, "\\");
     text = JSON.parse(unescaped);
   } catch (e) {
     // If parsing fails, try with different escaping
@@ -65,18 +65,60 @@ for (let i = 1; i < lines.length; i++) {
     }
   }
 
-  // Generate slug from title
+  // Generate slug from title using transliteration
+  const translitMap = {
+    а: "a",
+    б: "b",
+    в: "v",
+    г: "g",
+    д: "d",
+    е: "e",
+    ё: "yo",
+    ж: "zh",
+    з: "z",
+    и: "i",
+    й: "y",
+    к: "k",
+    л: "l",
+    м: "m",
+    н: "n",
+    о: "o",
+    п: "p",
+    р: "r",
+    с: "s",
+    т: "t",
+    у: "u",
+    ф: "f",
+    х: "kh",
+    ц: "ts",
+    ч: "ch",
+    ш: "sh",
+    щ: "shch",
+    ъ: "",
+    ы: "y",
+    ь: "",
+    э: "e",
+    ю: "yu",
+    я: "ya",
+    і: "i",
+    ї: "yi",
+    є: "ye",
+    ґ: "g",
+  };
   const slug = title
     .toLowerCase()
-    .replace(/[^\w\sа-яё-]/gi, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .substring(0, 60);
+    .split("")
+    .map((char) => (translitMap[char] !== undefined ? translitMap[char] : char))
+    .join("")
+    .replace(/[^\w\s-]/gi, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .substring(0, 80);
 
   articles.push({
     id: postId,
-    title: title.replace(/^"|"$/g, ''),
-    category: category || 'Без категории',
+    title: title.replace(/^"|"$/g, ""),
+    category: category || "Без категории",
     image: media,
     slug,
     text,
@@ -99,8 +141,10 @@ export const wikiCustomCategories = ${JSON.stringify(Array.from(categories).sort
 export const wikiCustomArticles: WikiCustomArticle[] = ${JSON.stringify(articles, null, 2)}
 `;
 
-const outputPath = path.join(__dirname, '../lib/wiki-custom-data.ts');
-fs.writeFileSync(outputPath, tsContent, 'utf-8');
+const outputPath = path.join(__dirname, "../lib/wiki-custom-data.ts");
+fs.writeFileSync(outputPath, tsContent, "utf-8");
 
-console.log(`Generated ${articles.length} articles with ${categories.size} categories`);
-console.log('Categories:', Array.from(categories).sort().join(', '));
+console.log(
+  `Generated ${articles.length} articles with ${categories.size} categories`,
+);
+console.log("Categories:", Array.from(categories).sort().join(", "));

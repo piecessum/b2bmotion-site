@@ -16,7 +16,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Фильтр «Ваш регулярный ассортимент».",
     "category": "Настройки",
     "image": "https://static.tildacdn.com/tild6532-6464-4165-b964-313436313164/___.png",
-    "slug": "фильтр-ваш-регулярный-ассортимент",
+    "slug": "filtr-vash-regulyarnyy-assortiment",
     "text": [
       {
         "ty": "text",
@@ -84,7 +84,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Настройка работы фильтров",
     "category": "Каталог и товары",
     "image": "https://static.tildacdn.com/tild3766-6133-4665-a366-363234613938/__.png",
-    "slug": "настройка-работы-фильтров",
+    "slug": "nastroyka-raboty-filtrov",
     "text": []
   },
   {
@@ -140,7 +140,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Гайд по работе с инструментами для SEO",
     "category": "SEO",
     "image": "https://static.tildacdn.com/tild3538-3834-4664-b066-366531623533/SEO_.png",
-    "slug": "гайд-по-работе-с-инструментами-для-seo",
+    "slug": "gayd-po-rabote-s-instrumentami-dlya-seo",
     "text": []
   },
   {
@@ -148,7 +148,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Центр уведомлений",
     "category": "Уведомления",
     "image": "https://static.tildacdn.com/tild6462-3564-4938-b434-623262663761/_.png",
-    "slug": "центр-уведомлений",
+    "slug": "tsentr-uvedomleniy",
     "text": [
       {
         "ty": "text",
@@ -279,7 +279,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Фильтр по типу изделия",
     "category": "Каталог и товары",
     "image": "https://static.tildacdn.com/tild3139-3631-4632-b066-306261663962/___.png",
-    "slug": "фильтр-по-типу-изделия",
+    "slug": "filtr-po-tipu-izdeliya",
     "text": []
   },
   {
@@ -287,7 +287,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Автоматическое создание счетов",
     "category": "Оплата и доставка",
     "image": "https://static.tildacdn.com/tild3438-3761-4333-b636-646539323731/photo.png",
-    "slug": "автоматическое-создание-счетов",
+    "slug": "avtomaticheskoe-sozdanie-schetov",
     "text": []
   },
   {
@@ -295,7 +295,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Все корзины",
     "category": "Без категории",
     "image": "https://static.tildacdn.com/tild6166-3964-4163-b934-393365663538/_.png",
-    "slug": "все-корзины",
+    "slug": "vse-korziny",
     "text": [
       {
         "ty": "text",
@@ -329,7 +329,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Продавцы компании",
     "category": "Компании",
     "image": "https://static.tildacdn.com/tild3931-3531-4364-b138-613331386431/photo.png",
-    "slug": "продавцы-компании",
+    "slug": "prodavtsy-kompanii",
     "text": [
       {
         "ty": "text",
@@ -389,7 +389,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Список пользователей.",
     "category": "Без категории",
     "image": "https://static.tildacdn.com/tild3734-3531-4233-b633-623638393731/photo.png",
-    "slug": "список-пользователей",
+    "slug": "spisok-polzovateley",
     "text": [
       {
         "ty": "text",
@@ -449,7 +449,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Заказы",
     "category": "Без категории",
     "image": "https://static.tildacdn.com/tild6431-6636-4431-b039-336566353330/photo.png",
-    "slug": "заказы",
+    "slug": "zakazy",
     "text": [
       {
         "ty": "text",
@@ -509,7 +509,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Рубрикатор",
     "category": "Главная страница",
     "image": "https://static.tildacdn.com/tild3565-3634-4430-a334-346266653861/photo.png",
-    "slug": "рубрикатор",
+    "slug": "rubrikator",
     "text": []
   },
   {
@@ -517,7 +517,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Бухгалтерские/юридические документы",
     "category": "Юридические/бухгалтерские документы",
     "image": "https://static.tildacdn.com/tild6330-3261-4230-b231-626561373164/_.png",
-    "slug": "бухгалтерскиеюридические-документы",
+    "slug": "bukhgalterskieyuridicheskie-dokumenty",
     "text": []
   },
   {
@@ -525,7 +525,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Индивидуальные настройки B2B-системы",
     "category": "Настройки",
     "image": "https://static.tildacdn.com/tild3235-3065-4436-b362-613462363565/__B2B-.png",
-    "slug": "индивидуальные-настройки-b2b-системы",
+    "slug": "individualnye-nastroyki-b2b-sistemy",
     "text": [
       {
         "ty": "text",
@@ -725,7 +725,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Логи синхронизаций ШТ",
     "category": "Мониторинг ШТ",
     "image": "https://static.tildacdn.com/tild6162-3162-4737-a535-333561333031/_.png",
-    "slug": "логи-синхронизаций-шт",
+    "slug": "logi-sinkhronizatsiy-sht",
     "text": []
   },
   {
@@ -733,7 +733,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Мониторинг шлюзовых таблиц (ШТ)",
     "category": "Мониторинг ШТ",
     "image": "https://static.tildacdn.com/tild3232-3537-4437-b339-643636626535/photo.png",
-    "slug": "мониторинг-шлюзовых-таблиц-шт",
+    "slug": "monitoring-shlyuzovykh-tablits-sht",
     "text": []
   },
   {
@@ -741,7 +741,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Статистика и аналитика",
     "category": "Статистика",
     "image": "https://static.tildacdn.com/tild6661-6461-4866-b566-333537633930/photo.png",
-    "slug": "статистика-и-аналитика",
+    "slug": "statistika-i-analitika",
     "text": [
       {
         "ty": "callout",
@@ -905,7 +905,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Размещение рекламы",
     "category": "Реклама",
     "image": "https://static.tildacdn.com/tild3165-3466-4331-b035-393261336430/photo.png",
-    "slug": "размещение-рекламы",
+    "slug": "razmeshchenie-reklamy",
     "text": []
   },
   {
@@ -913,7 +913,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Пользовательское соглашение",
     "category": "Правовые документы",
     "image": "https://static.tildacdn.com/tild3233-6337-4537-a263-333333373262/_.png",
-    "slug": "пользовательское-соглашение",
+    "slug": "polzovatelskoe-soglashenie",
     "text": [
       {
         "ty": "preface",
@@ -938,7 +938,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Публичная оферта",
     "category": "Правовые документы",
     "image": "https://static.tildacdn.com/tild6630-6238-4130-a532-376537643831/photo.png",
-    "slug": "публичная-оферта",
+    "slug": "publichnaya-oferta",
     "text": [
       {
         "ty": "preface",
@@ -963,7 +963,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Политика конфиденциальности",
     "category": "Правовые документы",
     "image": "https://static.tildacdn.com/tild3038-6461-4331-b566-643837663061/_.png",
-    "slug": "политика-конфиденциальности",
+    "slug": "politika-konfidentsialnosti",
     "text": [
       {
         "ty": "callout",
@@ -984,7 +984,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Согласие на обработку персональных данных",
     "category": "Правовые документы",
     "image": "https://static.tildacdn.com/tild6433-6464-4638-b034-303564653235/_.png",
-    "slug": "согласие-на-обработку-персональных-данных",
+    "slug": "soglasie-na-obrabotku-personalnykh-dannykh",
     "text": [
       {
         "ty": "heading",
@@ -1015,7 +1015,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Функционал «Подсказки»",
     "category": "Блок «Помощь»",
     "image": "https://static.tildacdn.com/tild6531-3139-4066-a531-623934306134/photo.png",
-    "slug": "функционал-подсказки",
+    "slug": "funktsional-podskazki",
     "text": [
       {
         "ty": "text",
@@ -1064,7 +1064,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Настроить блок «Помощь» для клиента",
     "category": "Блок «Помощь»",
     "image": "https://static.tildacdn.com/tild3934-3238-4063-b536-666364656466/photo.png",
-    "slug": "настроить-блок-помощь-для-клиента",
+    "slug": "nastroit-blok-pomoshch-dlya-klienta",
     "text": [
       {
         "ty": "text",
@@ -1131,7 +1131,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Ведение онлайн чата. Возможность подключить WhatsApp чат",
     "category": "Онлайн-чат",
     "image": "https://static.tildacdn.com/tild3862-3630-4166-a161-356631346665/photo.png",
-    "slug": "ведение-онлайн-чата-возможность-подключить-whatsapp-чат",
+    "slug": "vedenie-onlayn-chata-vozmozhnost-podklyuchit-whatsapp-chat",
     "text": [
       {
         "ty": "text",
@@ -1148,7 +1148,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Телеграм-бот для уведомлений менеджеров B2B-системы",
     "category": "Уведомления",
     "image": "https://static.tildacdn.com/tild6132-3564-4931-a562-323462383935/_.png",
-    "slug": "телеграм-бот-для-уведомлений-менеджеров-b2b-системы",
+    "slug": "telegram-bot-dlya-uvedomleniy-menedzherov-b2b-sistemy",
     "text": [
       {
         "ty": "text",
@@ -1175,7 +1175,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Уведомления о простроченной задолженности",
     "category": "Уведомления",
     "image": "https://static.tildacdn.com/tild3133-3162-4739-b436-623861663566/_.png",
-    "slug": "уведомления-о-простроченной-задолженности",
+    "slug": "uvedomleniya-o-prostrochennoy-zadolzhennosti",
     "text": [
       {
         "ty": "heading",
@@ -1215,7 +1215,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Настройка уведомлений",
     "category": "Уведомления",
     "image": "https://static.tildacdn.com/tild6532-3561-4565-a134-383234643561/photo.png",
-    "slug": "настройка-уведомлений",
+    "slug": "nastroyka-uvedomleniy",
     "text": [
       {
         "ty": "text",
@@ -1286,7 +1286,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Что делать, если поиск не ищет?",
     "category": "Поиск",
     "image": "https://static.tildacdn.com/tild3438-3931-4337-b132-383464623132/__.png",
-    "slug": "что-делать-если-поиск-не-ищет",
+    "slug": "chto-delat-esli-poisk-ne-ishchet",
     "text": [
       {
         "ty": "text",
@@ -1490,7 +1490,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Логи поиска",
     "category": "Поиск",
     "image": "https://static.tildacdn.com/tild3662-6536-4331-b264-356165303835/photo.png",
-    "slug": "логи-поиска",
+    "slug": "logi-poiska",
     "text": []
   },
   {
@@ -1498,7 +1498,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Подсказки в поисковой строке",
     "category": "Поиск",
     "image": "https://static.tildacdn.com/tild6635-6662-4561-b738-653362613766/photo.png",
-    "slug": "подсказки-в-поисковой-строке",
+    "slug": "podskazki-v-poiskovoy-stroke",
     "text": [
       {
         "ty": "text",
@@ -1528,7 +1528,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Ранжирование поисковой выдачи",
     "category": "Поиск",
     "image": "https://static.tildacdn.com/tild6537-6465-4865-a361-646334336137/photo.png",
-    "slug": "ранжирование-поисковой-выдачи",
+    "slug": "ranzhirovanie-poiskovoy-vydachi",
     "text": []
   },
   {
@@ -1536,7 +1536,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Настройка поиска",
     "category": "Поиск",
     "image": "https://static.tildacdn.com/tild6466-3831-4462-a464-386432653563/_.png",
-    "slug": "настройка-поиска",
+    "slug": "nastroyka-poiska",
     "text": []
   },
   {
@@ -1544,7 +1544,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Алгоритм поиска",
     "category": "Поиск",
     "image": "https://static.tildacdn.com/tild3264-3362-4665-a630-323531613234/_.png",
-    "slug": "алгоритм-поиска",
+    "slug": "algoritm-poiska",
     "text": []
   },
   {
@@ -1552,7 +1552,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Контентные страницы",
     "category": "Главная страница",
     "image": "https://static.tildacdn.com/tild3934-6436-4237-a230-386631356664/photo.png",
-    "slug": "контентные-страницы",
+    "slug": "kontentnye-stranitsy",
     "text": []
   },
   {
@@ -1560,7 +1560,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Загрузка изображений для Главной страницы",
     "category": "Главная страница",
     "image": "https://static.tildacdn.com/tild6561-3562-4138-b630-653939383135/photo.png",
-    "slug": "загрузка-изображений-для-главной-страницы",
+    "slug": "zagruzka-izobrazheniy-dlya-glavnoy-stranitsy",
     "text": [
       {
         "ty": "text",
@@ -1590,7 +1590,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Инфоблоки на главной старнице",
     "category": "Главная страница",
     "image": "https://static.tildacdn.com/tild3439-6438-4333-a564-646533363765/photo.png",
-    "slug": "инфоблоки-на-главной-старнице",
+    "slug": "infobloki-na-glavnoy-starnitse",
     "text": [
       {
         "ty": "video",
@@ -1620,7 +1620,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Хиты продаж и спецпредложения на главной странице",
     "category": "Главная страница",
     "image": "https://static.tildacdn.com/tild3462-3731-4837-b463-646161393662/_.png",
-    "slug": "хиты-продаж-и-спецпредложения-на-главной-странице",
+    "slug": "khity-prodazh-i-spetspredlozheniya-na-glavnoy-stranitse",
     "text": [
       {
         "ty": "heading",
@@ -1647,7 +1647,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Баннеры на главной странице",
     "category": "Главная страница",
     "image": "https://static.tildacdn.com/tild3265-3364-4236-b635-646232623336/photo.png",
-    "slug": "баннеры-на-главной-странице",
+    "slug": "bannery-na-glavnoy-stranitse",
     "text": [
       {
         "ty": "callout",
@@ -1679,7 +1679,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Новости на Главной странице",
     "category": "Главная страница",
     "image": "https://static.tildacdn.com/tild3963-6666-4237-b430-356331313563/photo.png",
-    "slug": "новости-на-главной-странице",
+    "slug": "novosti-na-glavnoy-stranitse",
     "text": [
       {
         "ty": "callout",
@@ -1725,7 +1725,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Контакты в верхней шапке на главной странице",
     "category": "Главная страница",
     "image": "https://static.tildacdn.com/tild3236-3164-4362-b931-333632316231/__.png",
-    "slug": "контакты-в-верхней-шапке-на-главной-странице",
+    "slug": "kontakty-v-verkhney-shapke-na-glavnoy-stranitse",
     "text": [
       {
         "ty": "text",
@@ -1772,7 +1772,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Контакты менеджера",
     "category": "Пользователи",
     "image": "https://static.tildacdn.com/tild6130-3630-4561-a436-353633613334/_.png",
-    "slug": "контакты-менеджера",
+    "slug": "kontakty-menedzhera",
     "text": [
       {
         "ty": "heading",
@@ -1800,7 +1800,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Сброс паролей",
     "category": "Пользователи",
     "image": "https://static.tildacdn.com/tild3531-6166-4064-a631-343333623835/_.png",
-    "slug": "сброс-паролей",
+    "slug": "sbros-paroley",
     "text": [
       {
         "ty": "text",
@@ -1840,7 +1840,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Передача клиентов от одного менеджера другому",
     "category": "Пользователи",
     "image": "https://static.tildacdn.com/tild3233-6639-4763-b831-626530633831/photo.png",
-    "slug": "передача-клиентов-от-одного-менеджера-другому",
+    "slug": "peredacha-klientov-ot-odnogo-menedzhera-drugomu",
     "text": [
       {
         "ty": "heading",
@@ -1929,7 +1929,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Бухгалтерские документы для клиентов",
     "category": "Пользователи;Юридические/бухгалтерские документы",
     "image": "https://static.tildacdn.com/tild3234-6537-4339-b038-306664656132/photo.png",
-    "slug": "бухгалтерские-документы-для-клиентов",
+    "slug": "bukhgalterskie-dokumenty-dlya-klientov",
     "text": [
       {
         "ty": "heading",
@@ -2003,7 +2003,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Сортировка нецелевых и удаление клиентов",
     "category": "Пользователи",
     "image": "https://static.tildacdn.com/tild6238-3564-4933-a266-313231316432/photo.png",
-    "slug": "сортировка-нецелевых-и-удаление-клиентов",
+    "slug": "sortirovka-netselevykh-i-udalenie-klientov",
     "text": []
   },
   {
@@ -2011,7 +2011,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Разграничение прав доступа для роли \"Клиент",
     "category": "Пользователи",
     "image": "https://static.tildacdn.com/tild3965-3461-4232-a165-313438653735/_.png",
-    "slug": "разграничение-прав-доступа-для-роли-клиент",
+    "slug": "razgranichenie-prav-dostupa-dlya-roli-klient",
     "text": []
   },
   {
@@ -2019,7 +2019,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Настройки неавторизованного клиента",
     "category": "Пользователи",
     "image": "https://static.tildacdn.com/tild3137-6430-4638-b137-313365336561/_.png",
-    "slug": "настройки-неавторизованного-клиента",
+    "slug": "nastroyki-neavtorizovannogo-klienta",
     "text": [
       {
         "ty": "heading",
@@ -2068,7 +2068,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Приглашения зарегистрироваться для клиента",
     "category": "Пользователи",
     "image": "https://static.tildacdn.com/tild6639-6536-4539-b935-653663663431/photo.png",
-    "slug": "приглашения-зарегистрироваться-для-клиента",
+    "slug": "priglasheniya-zaregistrirovatsya-dlya-klienta",
     "text": [
       {
         "ty": "heading",
@@ -2141,7 +2141,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Самостоятельная регистрация клиента",
     "category": "Пользователи",
     "image": "https://static.tildacdn.com/tild3263-6165-4066-b062-663530616634/_.png",
-    "slug": "самостоятельная-регистрация-клиента",
+    "slug": "samostoyatelnaya-registratsiya-klienta",
     "text": [
       {
         "ty": "heading",
@@ -2159,7 +2159,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Иерархия и права пользователей",
     "category": "Пользователи",
     "image": "https://static.tildacdn.com/tild3662-6632-4165-a330-616430363261/photo.png",
-    "slug": "иерархия-и-права-пользователей",
+    "slug": "ierarkhiya-i-prava-polzovateley",
     "text": [
       {
         "ty": "text",
@@ -2218,7 +2218,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Открытка в спецификации",
     "category": "Спецификации",
     "image": "https://static.tildacdn.com/tild3637-6164-4336-b836-353039346465/photo.png",
-    "slug": "открытка-в-спецификации",
+    "slug": "otkrytka-v-spetsifikatsii",
     "text": [
       {
         "ty": "heading",
@@ -2320,7 +2320,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Поделиться спецификацией",
     "category": "Спецификации",
     "image": "https://static.tildacdn.com/tild3866-6162-4163-b836-346564356239/_.png",
-    "slug": "поделиться-спецификацией",
+    "slug": "podelitsya-spetsifikatsiey",
     "text": [
       {
         "ty": "heading",
@@ -2363,7 +2363,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Рекомендованные спецификации",
     "category": "Спецификации",
     "image": "https://static.tildacdn.com/tild3537-6461-4564-b430-363763336333/_.png",
-    "slug": "рекомендованные-спецификации",
+    "slug": "rekomendovannye-spetsifikatsii",
     "text": [
       {
         "ty": "heading",
@@ -2390,7 +2390,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Что такое спецификации?",
     "category": "Спецификации",
     "image": "https://static.tildacdn.com/tild3061-3836-4666-b130-313336313532/__.png",
-    "slug": "что-такое-спецификации",
+    "slug": "chto-takoe-spetsifikatsii",
     "text": [
       {
         "ty": "heading",
@@ -2426,7 +2426,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Зависимость цен компании от региона",
     "category": "Компании",
     "image": "https://static.tildacdn.com/tild3732-3463-4533-a464-323831323962/__.png",
-    "slug": "зависимость-цен-компании-от-региона",
+    "slug": "zavisimost-tsen-kompanii-ot-regiona",
     "text": [
       {
         "ty": "text",
@@ -2471,7 +2471,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Применение скидок на компанию",
     "category": "Компании",
     "image": "https://static.tildacdn.com/tild6434-6261-4331-b265-353534616638/__.png",
-    "slug": "применение-скидок-на-компанию",
+    "slug": "primenenie-skidok-na-kompaniyu",
     "text": [
       {
         "ty": "text",
@@ -2502,7 +2502,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Сегментирование компаний",
     "category": "Компании",
     "image": "https://static.tildacdn.com/tild3361-6337-4365-b934-356336363339/photo.png",
-    "slug": "сегментирование-компаний",
+    "slug": "segmentirovanie-kompaniy",
     "text": [
       {
         "ty": "heading",
@@ -2579,7 +2579,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Назначение менеджера на компанию",
     "category": "Компании",
     "image": "https://static.tildacdn.com/tild3162-3737-4763-b835-613033396637/___.png",
-    "slug": "назначение-менеджера-на-компанию",
+    "slug": "naznachenie-menedzhera-na-kompaniyu",
     "text": [
       {
         "ty": "text",
@@ -2597,7 +2597,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Мультикомпании",
     "category": "Компании",
     "image": "https://static.tildacdn.com/tild3837-3363-4736-b430-393539363033/photo.png",
-    "slug": "мультикомпании",
+    "slug": "multikompanii",
     "text": [
       {
         "ty": "callout",
@@ -2664,7 +2664,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Поиск нужной компании",
     "category": "Компании",
     "image": "https://static.tildacdn.com/tild6330-6431-4234-b236-303831363734/__.png",
-    "slug": "поиск-нужной-компании",
+    "slug": "poisk-nuzhnoy-kompanii",
     "text": []
   },
   {
@@ -2672,7 +2672,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Удаление компании",
     "category": "Компании",
     "image": "https://static.tildacdn.com/tild3965-6562-4732-b235-386235626334/_.png",
-    "slug": "удаление-компании",
+    "slug": "udalenie-kompanii",
     "text": [
       {
         "ty": "callout",
@@ -2689,7 +2689,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Редактирование компании",
     "category": "Компании",
     "image": "https://static.tildacdn.com/tild3534-3331-4936-a132-653065396134/_.png",
-    "slug": "редактирование-компании",
+    "slug": "redaktirovanie-kompanii",
     "text": [
       {
         "ty": "callout",
@@ -2710,7 +2710,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Назначение компании клиенту",
     "category": "Компании",
     "image": "https://static.tildacdn.com/tild3966-6139-4534-b166-613762326262/__.png",
-    "slug": "назначение-компании-клиенту",
+    "slug": "naznachenie-kompanii-klientu",
     "text": []
   },
   {
@@ -2718,7 +2718,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Самовывоз и доставка",
     "category": "Оплата и доставка",
     "image": "https://static.tildacdn.com/tild3334-6563-4561-b265-643963613031/photo.png",
-    "slug": "самовывоз-и-доставка",
+    "slug": "samovyvoz-i-dostavka",
     "text": [
       {
         "ty": "text",
@@ -2795,7 +2795,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Оплата по QR-коду",
     "category": "Оплата и доставка",
     "image": "https://static.tildacdn.com/tild6266-3033-4631-a530-623766336134/qr_code.png",
-    "slug": "оплата-по-qr-коду",
+    "slug": "oplata-po-qr-kodu",
     "text": []
   },
   {
@@ -2803,7 +2803,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Онлайн-оплата картой",
     "category": "Оплата и доставка",
     "image": "https://static.tildacdn.com/tild6432-3036-4861-a339-306662333132/_.png",
-    "slug": "онлайн-оплата-картой",
+    "slug": "onlayn-oplata-kartoy",
     "text": []
   },
   {
@@ -2811,7 +2811,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Настройка складов",
     "category": "Регионы и склады",
     "image": "https://static.tildacdn.com/tild3763-3664-4665-a531-663836346636/photo.png",
-    "slug": "настройка-складов",
+    "slug": "nastroyka-skladov",
     "text": []
   },
   {
@@ -2819,7 +2819,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Настройка регионов",
     "category": "Регионы и склады",
     "image": "https://static.tildacdn.com/tild3964-3334-4262-a634-343131386561/photo.png",
-    "slug": "настройка-регионов",
+    "slug": "nastroyka-regionov",
     "text": [
       {
         "ty": "heading",
@@ -2988,7 +2988,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Экспорт каталога (для Яндекс Маркет и Google Merchant Centre)",
     "category": "Каталог и товары",
     "image": "https://static.tildacdn.com/tild3363-6533-4235-a161-616234616338/photo.png",
-    "slug": "экспорт-каталога-для-яндекс-маркет-и-google-merchant-centre",
+    "slug": "eksport-kataloga-dlya-yandeks-market-i-google-merchant-centre",
     "text": [
       {
         "ty": "heading",
@@ -3020,7 +3020,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Шильдики к товарам",
     "category": "Каталог и товары",
     "image": "https://static.tildacdn.com/tild6461-3166-4531-b266-666639313030/photo.png",
-    "slug": "шильдики-к-товарам",
+    "slug": "shildiki-k-tovaram",
     "text": [
       {
         "ty": "text",
@@ -3172,7 +3172,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Аналоги товаров",
     "category": "Каталог и товары",
     "image": "https://static.tildacdn.com/tild6566-3737-4338-b661-396161626432/photo.png",
-    "slug": "аналоги-товаров",
+    "slug": "analogi-tovarov",
     "text": [
       {
         "ty": "text",
@@ -3230,7 +3230,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Единицы измерения товара",
     "category": "Каталог и товары",
     "image": "https://static.tildacdn.com/tild3463-6262-4637-b033-346530366161/photo.png",
-    "slug": "единицы-измерения-товара",
+    "slug": "edinitsy-izmereniya-tovara",
     "text": [
       {
         "ty": "text",
@@ -3339,7 +3339,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Кратность товара",
     "category": "Каталог и товары",
     "image": "https://static.tildacdn.com/tild3264-3133-4137-a364-323663333362/photo.png",
-    "slug": "кратность-товара",
+    "slug": "kratnost-tovara",
     "text": [
       {
         "ty": "text",
@@ -3466,7 +3466,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Настройка фильтров",
     "category": "Каталог и товары",
     "image": "https://static.tildacdn.com/tild3533-3137-4162-b634-633232383535/photo.png",
-    "slug": "настройка-фильтров",
+    "slug": "nastroyka-filtrov",
     "text": []
   },
   {
@@ -3474,7 +3474,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Настройка каталога",
     "category": "Каталог и товары",
     "image": "https://static.tildacdn.com/tild3936-6266-4066-a637-623632303165/photo.png",
-    "slug": "настройка-каталога",
+    "slug": "nastroyka-kataloga",
     "text": []
   },
   {
@@ -3482,7 +3482,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
     "title": "Товары",
     "category": "Каталог и товары",
     "image": "https://static.tildacdn.com/tild6537-3033-4231-a636-376364386333/photo.png",
-    "slug": "товары",
+    "slug": "tovary",
     "text": [
       {
         "ty": "callout",

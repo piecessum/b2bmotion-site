@@ -9,7 +9,12 @@
       "WebFetch(b2bmotion.ru)",
       "Bash(cp *)",
       "Bash(git fetch *)",
-      "Bash(git pull *)"
+      "Bash(git pull *)",
+      "Read(//Users/Alex/Downloads/**)",
+      "Bash(python3 *)",
+      "Bash(tr *)",
+      "Bash(node *)",
+      "Bash(mkdir *)"
     ]
   },
   "$version": 3
