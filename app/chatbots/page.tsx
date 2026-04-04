@@ -312,21 +312,33 @@ export default function ChatbotsPage() {
             <div className="absolute top-0 right-0 w-[400px] h-[400px] opacity-[0.08] pointer-events-none">
               <div className="absolute inset-0 bg-gradient-to-br from-violet-500 to-purple-500 rounded-full blur-[80px]" />
             </div>
-            <div className="relative z-10">
-              <h3 className="font-heading font-bold text-[clamp(24px,4vw,36px)] tracking-[-0.02em] text-heading mb-4">
-                Уведомления о заказах через бота
-              </h3>
-              <p className="text-body max-w-lg mb-8 leading-relaxed">
-                Мгновенные сообщения о действиях клиентов — под рукой
-                в Telegram-аккаунте менеджера
-              </p>
-              <a
-                href="#cta"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
-              >
-                Узнать подробности
-                <ArrowRight className="w-5 h-5" />
-              </a>
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center md:gap-8">
+              <div className="flex-1">
+                <h3 className="font-heading font-bold text-[clamp(24px,4vw,36px)] tracking-[-0.02em] text-heading mb-4">
+                  Уведомления о заказах через бота
+                </h3>
+                <p className="text-body max-w-lg mb-8 leading-relaxed">
+                  Мгновенные сообщения о действиях клиентов — под рукой
+                  в Telegram-аккаунте менеджера
+                </p>
+                <a
+                  href="#cta"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
+                >
+                  Узнать подробности
+                  <ArrowRight className="w-5 h-5" />
+                </a>
+              </div>
+              <div className="mt-8 md:mt-0 flex-shrink-0 flex justify-center">
+                <Image
+                  src="/kolocol.png"
+                  alt="Уведомления"
+                  width={200}
+                  height={200}
+                  className="w-40 md:w-48 h-auto drop-shadow-[0_0_30px_rgba(139,92,246,0.3)]"
+                  unoptimized
+                />
+              </div>
             </div>
           </div>
         </div>
