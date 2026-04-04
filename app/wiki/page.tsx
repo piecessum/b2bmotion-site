@@ -162,15 +162,15 @@ export default function KnowledgePage() {
           </div>
 
           {/* Contact block */}
-          <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#3B82F6]/[0.06] to-[#8B5CF6]/[0.04] border border-[#3B82F6]/10">
+          <div className="relative rounded-2xl overflow-x-clip bg-gradient-to-br from-[#3B82F6]/[0.06] to-[#8B5CF6]/[0.04] border border-[#3B82F6]/10">
             <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#8B5CF6]/[0.08] to-transparent rounded-full blur-3xl pointer-events-none" />
             <div className="relative flex flex-row items-end">
-              {/* Photo — прижато к низу и левому краю, обрезается только снизу */}
-              <div className="hidden sm:block shrink-0 w-48 self-stretch relative">
+              {/* Photo — выступает вверх за баннер, обрезается только снизу */}
+              <div className="hidden sm:block shrink-0 w-52 self-stretch relative">
                 <img
                   src="/Portrett av smilende mann i skjorte 2.png"
                   alt="Агеев Дмитрий"
-                  className="absolute bottom-0 left-6 w-44 max-h-[110%] object-cover object-top"
+                  className="absolute bottom-0 left-4 w-48 drop-shadow-lg"
                 />
               </div>
               {/* Info */}
