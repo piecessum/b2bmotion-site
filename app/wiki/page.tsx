@@ -128,41 +128,44 @@ export default function KnowledgePage() {
             </p>
           </div>
 
-          {/* Search */}
-          <div className="relative mb-8 max-w-md">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-dim" />
-            <input
-              type="text"
-              placeholder="Поиск по разделам и публикациям..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 bg-overlay-3 rounded-xl border border-glass-border text-sm text-body placeholder:text-dim focus:outline-none focus:border-[#3B82F6]/30 transition-colors"
-            />
-          </div>
+          {/* Search + Tabs row */}
+          <div className="flex flex-col xl:flex-row xl:items-center gap-4 mb-6">
+            {/* Search */}
+            <div className="relative xl:max-w-md xl:shrink-0">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-dim" />
+              <input
+                type="text"
+                placeholder="Поиск по разделам и публикациям..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full pl-11 pr-4 py-3 bg-overlay-3 rounded-xl border border-glass-border text-sm text-body placeholder:text-dim focus:outline-none focus:border-[#3B82F6]/30 transition-colors"
+              />
+            </div>
 
-          {/* Tabs */}
-          <div
-            className="mb-6 -mx-6 px-6 overflow-x-auto scrollbar-hide"
-            style={{ scrollbarWidth: "none" }}
-          >
-            <nav className="inline-flex p-1 rounded-xl bg-overlay-4 border border-glass-border gap-1">
-              {tabs.map((tab, i) => (
-                <button
-                  key={tab.id}
-                  onClick={() => handleTabChange(i)}
-                  className={`
-                    px-5 py-2.5 text-sm font-medium whitespace-nowrap rounded-lg transition-all
-                    ${
-                      activeTab === i
-                        ? "bg-surface text-heading shadow-sm border border-glass-border"
-                        : "text-dim hover:text-body border border-transparent"
-                    }
-                  `}
-                >
-                  {tab.title}
-                </button>
-              ))}
-            </nav>
+            {/* Tabs */}
+            <div
+              className="overflow-x-auto scrollbar-hide xl:flex-1"
+              style={{ scrollbarWidth: "none" }}
+            >
+              <nav className="inline-flex p-1 rounded-xl bg-overlay-4 border border-glass-border gap-1">
+                {tabs.map((tab, i) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => handleTabChange(i)}
+                    className={`
+                      px-5 py-2.5 text-sm font-medium whitespace-nowrap rounded-lg transition-all
+                      ${
+                        activeTab === i
+                          ? "bg-surface text-heading shadow-sm border border-glass-border"
+                          : "text-dim hover:text-body border border-transparent"
+                      }
+                    `}
+                  >
+                    {tab.title}
+                  </button>
+                ))}
+              </nav>
+            </div>
           </div>
 
           {/* Category filters */}
