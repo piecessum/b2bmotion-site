@@ -55,7 +55,7 @@ export function RichTextRenderer({ content }: RichTextRendererProps) {
             return (
               <div
                 key={index}
-                className="rounded-xl p-5 border-l-4 bg-[#f1f1f1] dark:bg-white/[0.04]"
+                className="rounded-xl p-5 border-l-4 bg-[#fafbfc] dark:bg-white/[0.04]"
                 style={{ borderLeftColor: borderColor }}
               >
                 <div
