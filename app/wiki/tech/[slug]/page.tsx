@@ -42,7 +42,7 @@ export default async function WikiTechArticlePage({
 
       <div className="max-w-4xl mx-auto px-6 pt-32 pb-20">
         <Link
-          href="/wiki"
+          href="/wiki?tab=tech"
           className="inline-flex items-center gap-2 text-sm text-subtle hover:text-body transition-colors mb-8 group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />

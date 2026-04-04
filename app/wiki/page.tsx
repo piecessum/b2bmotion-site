@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BookOpen, Search, Mail, Phone } from "lucide-react";
@@ -81,9 +82,27 @@ const tabs = [
 /* ── Component ── */
 
 export default function KnowledgePage() {
-  const [activeTab, setActiveTab] = useState(0);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Read tab from URL on mount
+  const getInitialTab = () => {
+    if (typeof window === "undefined") return 0;
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get("tab");
+    return tab === "custom" ? 1 : tab === "tech" ? 2 : 0;
+  };
+
+  const [activeTab, setActiveTab] = useState(getInitialTab);
   const [activeCategory, setActiveCategory] = useState("Все");
   const [search, setSearch] = useState("");
+
+  // Sync URL when tab changes
+  useEffect(() => {
+    const tabParam = activeTab === 0 ? "" : activeTab === 1 ? "custom" : "tech";
+    const url = tabParam ? `${pathname}?tab=${tabParam}` : pathname;
+    router.replace(url, { scroll: false });
+  }, [activeTab, router, pathname]);
 
   const currentTab = tabs[activeTab];
 

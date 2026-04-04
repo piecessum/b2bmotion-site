@@ -44,7 +44,7 @@ export default async function WikiFunctionArticlePage({
       <div className="max-w-4xl mx-auto px-6 pt-32 pb-20">
         {/* Back button */}
         <Link
-          href="/wiki"
+          href="/wiki?tab=function"
           className="inline-flex items-center gap-2 text-sm text-subtle hover:text-body transition-colors mb-8 group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
