@@ -38,37 +38,43 @@ const tabs = [
     id: "function",
     title: "Функционал системы",
     categories: ["Все", ...wikiFunctionCategories],
-    articles: wikiFunctionArticles.map((a) => ({
-      title: a.title,
-      description: getDescription(a.text),
-      category: a.category,
-      image: a.image,
-      slug: a.slug,
-    })),
+    articles: wikiFunctionArticles
+      .filter((a) => a.image)
+      .map((a) => ({
+        title: a.title,
+        description: getDescription(a.text),
+        category: a.category,
+        image: a.image,
+        slug: a.slug,
+      })),
   },
   {
     id: "custom",
     title: "Кастомизация под клиента",
     categories: ["Все", ...wikiCustomCategories],
-    articles: wikiCustomArticles.map((a) => ({
-      title: a.title,
-      description: getDescription(a.text),
-      category: a.category,
-      image: a.image,
-      slug: a.slug,
-    })),
+    articles: wikiCustomArticles
+      .filter((a) => a.image)
+      .map((a) => ({
+        title: a.title,
+        description: getDescription(a.text),
+        category: a.category,
+        image: a.image,
+        slug: a.slug,
+      })),
   },
   {
     id: "tech",
     title: "Технические настройки",
     categories: ["Все", ...wikiTechCategories],
-    articles: wikiTechArticles.map((a) => ({
-      title: a.title,
-      description: getDescription(a.text),
-      category: a.category,
-      image: a.image,
-      slug: a.slug,
-    })),
+    articles: wikiTechArticles
+      .filter((a) => a.image)
+      .map((a) => ({
+        title: a.title,
+        description: getDescription(a.text),
+        category: a.category,
+        image: a.image,
+        slug: a.slug,
+      })),
   },
 ];
 
