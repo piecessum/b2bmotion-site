@@ -312,7 +312,7 @@ function PlatformPageInner() {
         const color = currentTab.color
 
         return (
-          <section key={`${currentTab.id}-${section.title}`} className="py-16 px-6 bg-page">
+          <section key={`${currentTab.id}-${section.title}`} className="py-16 px-6">
             <div className="max-w-6xl mx-auto">
               <div className="flex items-center gap-3 mb-8">
                 <div
@@ -360,7 +360,7 @@ function PlatformPageInner() {
       })}
 
       {/* Roadmap */}
-      <section id="roadmap" className="py-24 px-6 bg-page-alt">
+      <section id="roadmap" className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3 mb-16 justify-center">
             <div className="w-10 h-10 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center">
