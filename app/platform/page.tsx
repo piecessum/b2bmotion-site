@@ -271,7 +271,7 @@ function PlatformPageInner() {
             <br />
             <span className="gradient-text">оптовых продаж</span>
           </h1>
-          <p className="reveal text-base text-heading/80 max-w-xl mx-auto mb-8">
+          <p className="reveal text-base text-black dark:text-white max-w-xl mx-auto mb-8">
             Управление каталогом, заказами, ценами и клиентами — в одном решении с интеграцией в вашу 1С
           </p>
           <div className="reveal flex flex-col sm:flex-row items-center justify-center gap-3">
