@@ -274,7 +274,7 @@ export default function KnowledgePage() {
                       <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-[#60A5FA] mb-2 block">
                         {article.category}
                       </span>
-                      <h3 className="font-heading font-semibold text-base text-heading mb-2 group-hover:text-white transition-colors">
+                      <h3 className="font-heading font-semibold text-base text-heading mb-2 group-hover:text-[#3B82F6] transition-colors">
                         {article.title}
                       </h3>
                       <p className="text-xs text-subtle leading-relaxed line-clamp-3">

@@ -106,7 +106,7 @@ export default async function WikiCustomArticlePage({
                     <span className="text-[9px] font-medium uppercase tracking-[0.15em] text-[#60A5FA] block mb-1">
                       {related.category}
                     </span>
-                    <p className="text-sm text-heading font-medium line-clamp-2 group-hover:text-white transition-colors">
+                    <p className="text-sm text-heading font-medium line-clamp-2 group-hover:text-[#3B82F6] transition-colors">
                       {related.title}
                     </p>
                   </div>
