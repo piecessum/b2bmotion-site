@@ -149,29 +149,28 @@ function KnowledgePageInner() {
 
           {/* Tabs + Search row */}
           <div className="flex flex-col xl:flex-row xl:items-center gap-4 xl:gap-8 mb-6">
-            {/* Tabs */}
-            <div
-              className="overflow-x-auto scrollbar-hide xl:shrink-0"
-              style={{ scrollbarWidth: "none" }}
-            >
-              <nav className="inline-flex p-1 rounded-xl bg-overlay-4 border border-glass-border gap-1">
-                {tabs.map((tab, i) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => handleTabChange(i)}
-                    className={`
-                      px-5 py-2.5 text-sm font-medium whitespace-nowrap rounded-lg transition-all
-                      ${
-                        activeTab === i
-                          ? "bg-white text-heading shadow-sm border border-black/10 dark:bg-white/[0.10] dark:border-white/[0.15]"
-                          : "text-dim hover:text-body border border-transparent"
-                      }
-                    `}
-                  >
-                    {tab.title}
-                  </button>
-                ))}
-              </nav>
+            {/* Tabs — full-width scroll on mobile */}
+            <div className="-mx-6 px-6 xl:mx-0 xl:px-0 xl:shrink-0 overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none" }}>
+              <div className="min-w-min">
+                <nav className="inline-flex p-1 rounded-xl bg-overlay-4 border border-glass-border gap-1">
+                  {tabs.map((tab, i) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => handleTabChange(i)}
+                      className={`
+                        px-5 py-2.5 text-sm font-medium whitespace-nowrap rounded-lg transition-all
+                        ${
+                          activeTab === i
+                            ? "bg-white text-heading shadow-sm border border-black/10 dark:bg-white/[0.10] dark:border-white/[0.15]"
+                            : "text-dim hover:text-body border border-transparent"
+                        }
+                      `}
+                    >
+                      {tab.title}
+                    </button>
+                  ))}
+                </nav>
+              </div>
             </div>
 
             {/* Search — fits placeholder text, aligned right on desktop */}
