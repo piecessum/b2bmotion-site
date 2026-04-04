@@ -170,7 +170,7 @@ export default function KnowledgePage() {
           </div>
 
           {/* Tabs */}
-          <div className="mb-6 -mx-6 px-6 overflow-x-auto">
+          <div className="mb-6 -mx-6 px-6 overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
             <nav className="inline-flex p-1 rounded-xl bg-overlay-4 border border-glass-border gap-1">
               {tabs.map((tab, i) => (
                 <button
