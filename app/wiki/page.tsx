@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useState, useMemo, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BookOpen, Search, Mail, Phone } from "lucide-react";
@@ -79,30 +79,30 @@ const tabs = [
   },
 ];
 
-/* ── Component ── */
+/* ── Inner component with useSearchParams ── */
 
-export default function KnowledgePage() {
+function KnowledgePageInner() {
   const router = useRouter();
-  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const tabFromUrl = searchParams.get("tab");
+  const initialTab =
+    tabFromUrl === "function"
+      ? 0
+      : tabFromUrl === "custom"
+        ? 1
+        : tabFromUrl === "tech"
+          ? 2
+          : 0;
 
-  // Read tab from URL on mount
-  const getInitialTab = () => {
-    if (typeof window === "undefined") return 0;
-    const params = new URLSearchParams(window.location.search);
-    const tab = params.get("tab");
-    return tab === "custom" ? 1 : tab === "tech" ? 2 : 0;
-  };
-
-  const [activeTab, setActiveTab] = useState(getInitialTab);
+  const [activeTab, setActiveTab] = useState(initialTab);
   const [activeCategory, setActiveCategory] = useState("Все");
   const [search, setSearch] = useState("");
 
   // Sync URL when tab changes
   useEffect(() => {
-    const tabParam = activeTab === 0 ? "" : activeTab === 1 ? "custom" : "tech";
-    const url = tabParam ? `${pathname}?tab=${tabParam}` : pathname;
-    router.replace(url, { scroll: false });
-  }, [activeTab, router, pathname]);
+    const tabMap = ["function", "custom", "tech"];
+    router.replace(`?tab=${tabMap[activeTab]}`, { scroll: false });
+  }, [activeTab, router]);
 
   const currentTab = tabs[activeTab];
 
@@ -319,5 +319,15 @@ export default function KnowledgePage() {
 
       <Footer />
     </main>
+  );
+}
+
+/* ── Default export with Suspense ── */
+
+export default function KnowledgePage() {
+  return (
+    <Suspense fallback={null}>
+      <KnowledgePageInner />
+    </Suspense>
   );
 }
