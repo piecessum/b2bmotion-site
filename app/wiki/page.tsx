@@ -260,9 +260,9 @@ export default function KnowledgePage() {
           {/* Contact block */}
           <div className="relative mt-20 rounded-2xl overflow-x-clip bg-gradient-to-br from-[#3B82F6]/[0.06] to-[#8B5CF6]/[0.04] border border-[#3B82F6]/10">
             <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#8B5CF6]/[0.08] to-transparent rounded-full blur-3xl pointer-events-none" />
-            <div className="relative flex flex-col sm:flex-row items-end">
-              {/* Photo desktop */}
-              <div className="hidden sm:block shrink-0 w-52 relative min-h-[280px]">
+            <div className="relative flex flex-col sm:flex-row sm:items-center">
+              {/* Photo desktop — выходит вверх за баннер */}
+              <div className="hidden sm:block shrink-0 w-52 self-stretch relative">
                 <img
                   src="/Portrett av smilende mann i skjorte 2.png"
                   alt="Агеев Дмитрий"
@@ -270,7 +270,7 @@ export default function KnowledgePage() {
                 />
               </div>
               {/* Info */}
-              <div className="pt-8 px-8 pb-0 sm:py-10 sm:px-6 sm:pl-4">
+              <div className="pt-8 px-8 pb-0 sm:py-8 sm:px-6 sm:pl-4">
                 <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#3B82F6] mb-2">
                   Ваш персональный менеджер
                 </p>
