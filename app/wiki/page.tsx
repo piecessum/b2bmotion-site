@@ -262,7 +262,7 @@ export default function KnowledgePage() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#8B5CF6]/[0.08] to-transparent rounded-full blur-3xl pointer-events-none" />
             <div className="relative flex flex-col sm:flex-row items-end">
               {/* Photo desktop */}
-              <div className="hidden sm:block shrink-0 w-52 self-stretch relative">
+              <div className="hidden sm:block shrink-0 w-52 relative min-h-[280px]">
                 <img
                   src="/Portrett av smilende mann i skjorte 2.png"
                   alt="Агеев Дмитрий"
