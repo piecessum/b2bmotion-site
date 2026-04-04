@@ -114,11 +114,11 @@ export default function KnowledgePage() {
           </div>
 
           {/* Contact block */}
-          <div className="mt-16 rounded-2xl bg-gradient-to-br from-amber-500/[0.12] to-orange-400/[0.06] border border-amber-500/15 overflow-hidden">
-            <div className="flex flex-col sm:flex-row items-center gap-6 p-8">
+          <div className="mt-16 rounded-2xl bg-gradient-to-br from-violet-500/[0.12] to-blue-500/[0.06] border border-violet-500/15 overflow-hidden">
+            <div className="flex flex-col sm:flex-row items-center gap-8 p-10">
               {/* Photo */}
               <div className="shrink-0">
-                <div className="w-28 h-28 rounded-full overflow-hidden ring-4 ring-amber-500/20 shadow-lg">
+                <div className="w-40 h-40 rounded-full overflow-hidden ring-4 ring-violet-500/25 shadow-lg shadow-violet-500/10">
                   <img
                     src="/Portrett av smilende mann i skjorte 2.png"
                     alt="Агеев Дмитрий"
@@ -128,27 +128,27 @@ export default function KnowledgePage() {
               </div>
               {/* Info */}
               <div className="text-center sm:text-left">
-                <p className="font-heading font-semibold text-heading text-lg">
+                <p className="font-heading font-semibold text-heading text-xl">
                   Агеев Дмитрий
                 </p>
-                <p className="text-subtle text-sm mt-1 mb-4">
+                <p className="text-subtle text-base mt-1 mb-5">
                   Руководитель отдела продаж — ответит на любые вопросы
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a
                     href="mailto:ageev@b2bmotion.ru"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-sm text-heading transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-violet-500/10 hover:bg-violet-500/20 text-sm text-heading transition-colors"
                   >
-                    <svg className="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                     ageev@b2bmotion.ru
                   </a>
                   <a
                     href="tel:+74993503436"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-sm text-heading transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-violet-500/10 hover:bg-violet-500/20 text-sm text-heading transition-colors"
                   >
-                    <svg className="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                     +7 (499) 35-0-34-36
