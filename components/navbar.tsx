@@ -8,10 +8,9 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import Link from "next/link"
 
 const platformPages = [
-  { label: "Обзор платформы", href: "/platform" },
-  { label: "Товары и заказы", href: "/platform/products" },
-  { label: "Личный кабинет покупателя", href: "/platform/cabinet" },
-  { label: "Маркетинг и аналитика", href: "/platform/marketing" },
+  { label: "Товары и заказы", href: "/platform?tab=products" },
+  { label: "Личный кабинет", href: "/platform?tab=cabinet" },
+  { label: "Маркетинг и аналитика", href: "/platform?tab=marketing" },
 ]
 
 const industries = [
@@ -28,7 +27,7 @@ const services = [
   { label: "Мобильное приложение", href: "/mobile-app" },
 ]
 
-const platformPaths = platformPages.map((i) => i.href)
+const platformPaths = ["/platform", ...platformPages.map((i) => i.href)]
 const industryPaths = industries.map((i) => i.href).filter((h) => h !== "#")
 const servicePaths = services.map((i) => i.href).filter((h) => h !== "#")
 
@@ -147,15 +146,12 @@ export function Navbar() {
 
           {/* Desktop links */}
           <div className="hidden lg:flex items-center ml-2">
-            <Dropdown
-              label="Функционал"
-              items={platformPages}
-              open={openDropdown === "platform"}
-              onToggle={() =>
-                setOpenDropdown(openDropdown === "platform" ? null : "platform")
-              }
-              isActive={isPlatformActive}
-            />
+            <a
+              href="/platform"
+              className={navLinkClass(isPlatformActive)}
+            >
+              Функционал
+            </a>
 
             <Dropdown
               label="Отрасли"
@@ -256,6 +252,7 @@ export function Navbar() {
             <div className="flex flex-col">
               <div className="flex flex-wrap gap-1 mb-2">
                 {[
+                  { label: "Функционал", href: "/platform" },
                   { label: "Новости", href: "/news" },
                   { label: "Блог", href: "/blog" },
                   { label: "Контакты", href: "/contacts" },
@@ -278,23 +275,6 @@ export function Navbar() {
               <div className="h-px bg-overlay-6 my-1" />
 
               <div className="grid grid-cols-2 gap-2 my-2">
-                <div>
-                  <div className="px-2 py-1.5 text-[10px] text-dim uppercase tracking-wider font-medium">Функционал</div>
-                  {platformPages.map((item) => (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      className={`block px-2 py-2 text-xs rounded-lg transition-all duration-200 leading-tight ${
-                        pathname === item.href
-                          ? "text-subheading bg-overlay-6"
-                          : "text-body hover:text-heading hover:bg-overlay-4"
-                      }`}
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      {item.label}
-                    </a>
-                  ))}
-                </div>
                 <div>
                   <div className="px-2 py-1.5 text-[10px] text-dim uppercase tracking-wider font-medium">Отрасли</div>
                   {industries.map((item) => (

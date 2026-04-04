@@ -1,43 +1,204 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useState, useEffect, useRef, Suspense } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Navbar } from "@/components/navbar"
 import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
 import {
-  ShoppingCart, UserCircle, BarChart3, Map, ArrowRight,
+  FileText,
+  Search,
+  DollarSign,
+  ShoppingCart,
+  CreditCard,
+  FileCheck2,
+  Gift,
+  Building2,
+  TrendingUp,
+  Tag,
+  ShoppingBag,
+  Globe,
+  BarChart3,
+  Check,
+  Map,
 } from "lucide-react"
-import Link from "next/link"
+import Image from "next/image"
 
-const featurePages = [
+/* ── Data: Товары и заказы ── */
+
+const productsSections = [
   {
-    icon: ShoppingCart,
-    num: "01",
-    title: "Товары и заказы",
-    desc: "Управление каталогом, ценообразование, бесшовная обработка заказов, оплата, доставка и электронный документооборот.",
-    href: "/platform/products",
-    color: "#3B82F6",
-    highlights: ["Данные о товаре", "Каталог и поиск", "Ценообразование", "Заказы", "Оплата и доставка", "Документооборот"],
+    icon: FileText,
+    title: "Данные о товаре",
+    image: "product.png",
+    features: [
+      "Заполнение описания, свойств, бренда, серии, артикулов и штрихкодов к товару",
+      "Галерея фото, видео, сертификатов, гарантий и других необходимых документов",
+      "Передача остатков по складам и сроков доставки будущих поставок",
+      "Передача нескольких типов цен/тарифов к товару",
+      "Пересчёт цены товара в разных единицах измерения",
+      "Учёт кратности и минимально допустимой партии товара",
+      "Передача весогабаритных характеристик товара, тары и упаковки",
+      "Возможность листать карточки товара как журнал",
+      "Настраиваемая цветовая палитра к товарам",
+      "MDM-система для массового управления данными",
+    ],
   },
   {
-    icon: UserCircle,
-    num: "02",
-    title: "Личный кабинет покупателя",
-    desc: "Персональные предложения, мультикомпании, финансовый контроль и удобные уведомления для ваших клиентов.",
-    href: "/platform/cabinet",
-    color: "#8B5CF6",
-    highlights: ["Персональные предложения", "Данные о компании покупателя"],
+    icon: Search,
+    title: "Каталог и поиск",
+    image: "catalog-searc.png",
+    features: [
+      "Распределение товаров по дереву каталога компании",
+      "Интеллектуальный поиск по любым совпадениям: код товара, название, свойства и т.п.",
+      "Подбор товаров по параметрам с помощью удобных фильтров",
+      "Актуальная информация о товарах в режиме реального времени: наличие по складам, индивидуальная цена",
+      "Автоматический подбор аналогов и связанных товаров",
+      "Быстрые кнопки на добавление товара в корзину/спецификацию без открытия лишних окон",
+    ],
+  },
+  {
+    icon: DollarSign,
+    title: "Ценообразование",
+    image: "pricing.png",
+    features: [
+      "Тарифы — настраиваемые типы цен + настройка базового тарифа для новых пользователей",
+      "Сегментирование компаний-контрагентов и настройка индивидуальных скидок",
+      "Скидки на конкретный товар с ограниченным сроком действия",
+      "Скидки от объёма корзины + напоминание, сколько ещё добавить, чтобы применилась скидка",
+      "Отображение цены в зависимости от региона покупателя",
+    ],
+  },
+  {
+    icon: ShoppingCart,
+    title: "Заказы",
+    image: "orders.png",
+    features: [
+      "Бесшовная передача заказов клиентов сразу в 1С или другую ERP-систему без дополнительной обработки менеджером",
+      "Отслеживание текущего состояния заказа клиентом — статуса заказа и отдельных позиций внутри заказа",
+      "Создание покупателем предзаказов на будущее из своих рабочих спецификаций и возможность поделиться ими",
+      "Возможность покупателя повторить заказ из своего регулярного ассортимента",
+      "Раздельное оформление заказов от нескольких продавцов",
+    ],
+  },
+  {
+    icon: CreditCard,
+    title: "Оплата и доставка",
+    image: "payment-delivery.png",
+    features: [
+      "Оплата через выставление счёта контрагенту",
+      "Эквайринг — оплата картой",
+      "Оплата через платёжные сервисы",
+      "Оплата по QR-коду",
+      "Доставка до адреса покупателя с расчётом в зависимости от зон доставки",
+      "Самовывоз + выбор точек самовывоза",
+    ],
+  },
+  {
+    icon: FileCheck2,
+    title: "Документооборот",
+    image: "documents.png",
+    features: [
+      "Передача документов к заказу из 1С с факсимильными подписью и печатью: счёт, накладная, счёт-фактура",
+      "Неоднократное перевыставление счёта, если произошла корректировка заказа",
+      "Возможность контрагента запросить акт сверки",
+    ],
+  },
+]
+
+/* ── Data: Личный кабинет ── */
+
+const cabinetSections = [
+  {
+    icon: Gift,
+    title: "Персональные предложения",
+    image: "personal-offers.png",
+    features: [
+      "Индивидуальные скидки для конкретного клиента",
+      "Рекомендованные спецификации от менеджера с предложением лучших условий",
+      "Центр уведомлений, чтобы не пропускать выгодные акции",
+      "Бонусные программы лояльности",
+    ],
+  },
+  {
+    icon: Building2,
+    title: "Данные о компании покупателя",
+    image: "company-data.png",
+    features: [
+      "Мультикомпании — возможность работать от лица нескольких компаний и переключаться между ними",
+      "Отображение кредитного лимита, дебиторской задолженности и дней просрочки",
+      "График платежей",
+      "Настройка удобного формата уведомлений: E-mail, СМС или всплывающие уведомления на телефон",
+      "Контакты персонального менеджера",
+    ],
+  },
+]
+
+/* ── Data: Маркетинг и аналитика ── */
+
+const marketingSections = [
+  {
+    icon: TrendingUp,
+    title: "Увеличение среднего чека",
+    image: "avg-check.png",
+    features: [
+      "Предложение комплектов товаров, например, расходников и аксессуаров",
+      "Распродажа уценённых товаров — можно указать степень дефектов",
+      "Рекомендованные спецификации от менеджера с лучшими условиями и скидками",
+    ],
+  },
+  {
+    icon: Tag,
+    title: "Акции и предложения",
+    image: "promotions.png",
+    features: [
+      "Спецпредложения и хиты продаж на главной странице",
+      "Маркировка акционных товаров визуальными элементами в каталоге",
+      "Указание срока действия акций с таймером",
+    ],
+  },
+  {
+    icon: ShoppingBag,
+    title: "Работа с брошенными корзинами",
+    image: "abandoned-carts.png",
+    features: [
+      "Сегментация собранных, но неоформленных корзин по среднему чеку",
+      "Отправка уведомлений менеджерам о самых крупных брошенных корзинах клиентов",
+    ],
+  },
+  {
+    icon: Globe,
+    title: "Продвижение и маркетинг",
+    image: "marketing.png",
+    features: [
+      "Настройка главной страницы",
+      "Проценка сторонних смет и предложений от конкурентов при загрузке списком или готовым Excel-документом",
+      "Возможность выставления КП от лица покупателей их клиентам с наценкой",
+      "Поисковое (SEO) продвижение для лучшей индексации",
+    ],
   },
   {
     icon: BarChart3,
-    num: "03",
-    title: "Маркетинг и аналитика",
-    desc: "Инструменты увеличения продаж, управление акциями, работа с брошенными корзинами и детальная статистика.",
-    href: "/platform/marketing",
-    color: "#06B6D4",
-    highlights: ["Увеличение среднего чека", "Акции и предложения", "Брошенные корзины", "Продвижение", "Статистика"],
+    title: "Статистика",
+    image: "statistics.png",
+    features: [
+      "Отчёты продаж по менеджерам и эффективности их работы",
+      "Отчёты по заказам, отгрузкам, среднему чеку",
+      "Отчёты по новым регистрациям",
+      "Статистика «потерянных» клиентов — тех, что раньше покупали, но перестали",
+    ],
   },
 ]
+
+/* ── Tabs config ── */
+
+const tabs = [
+  { id: "products", title: "Товары и заказы", sections: productsSections, color: "#3B82F6" },
+  { id: "cabinet", title: "Личный кабинет", sections: cabinetSections, color: "#8B5CF6" },
+  { id: "marketing", title: "Маркетинг и аналитика", sections: marketingSections, color: "#06B6D4" },
+]
+
+/* ── Roadmap ── */
 
 const roadmap = [
   { status: "done" as const, title: "SEO-оптимизация", desc: "Качественная индексация поисковыми роботами" },
@@ -47,6 +208,8 @@ const roadmap = [
   { status: "planned" as const, title: "Офлайн-режим", desc: "Работа без интернета" },
   { status: "planned" as const, title: "Обучение пользователей", desc: "Интерактивные подсказки в интерфейсе" },
 ]
+
+/* ── Helpers ── */
 
 function useReveal(ref: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
@@ -59,41 +222,56 @@ function useReveal(ref: React.RefObject<HTMLElement | null>) {
   }, [ref])
 }
 
-export default function PlatformPage() {
+/* ── Inner component ── */
+
+function PlatformPageInner() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const tabFromUrl = searchParams.get("tab")
+  const initialTab = tabFromUrl === "products" ? 0 : tabFromUrl === "cabinet" ? 1 : tabFromUrl === "marketing" ? 2 : 0
+
+  const [activeTab, setActiveTab] = useState(initialTab)
   const mainRef = useRef<HTMLElement>(null)
   useReveal(mainRef)
 
+  useEffect(() => {
+    const tabMap = ["products", "cabinet", "marketing"]
+    router.replace(`?tab=${tabMap[activeTab]}`, { scroll: false })
+  }, [activeTab, router])
+
+  const currentTab = tabs[activeTab]
+
   return (
-    <main ref={mainRef} className="relative min-h-screen bg-page-alt noise-overlay">
+    <main ref={mainRef} className="relative min-h-screen bg-page noise-overlay">
       <Navbar />
 
-      {/* Hero */}
-      <section className="relative pt-36 pb-20 px-6 overflow-hidden">
+      {/* Hero — compact */}
+      <section className="relative pt-36 pb-14 px-6 overflow-hidden">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] opacity-[0.06] pointer-events-none">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-violet-500 rounded-full blur-[120px]" />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <span className="reveal inline-block px-4 py-1.5 mb-6 text-xs font-medium uppercase tracking-[0.15em] text-[#3B82F6] bg-[#3B82F6]/10 rounded-full">
+          <span className="reveal inline-block px-4 py-1.5 mb-5 text-xs font-medium uppercase tracking-[0.15em] text-[#3B82F6] bg-[#3B82F6]/10 rounded-full">
             Платформа
           </span>
-          <h1 className="reveal font-heading font-bold text-[clamp(36px,7vw,60px)] leading-[1.1] tracking-[-0.03em] mb-6">
+          <h1 className="reveal font-heading font-bold text-[clamp(32px,5vw,48px)] leading-[1.1] tracking-[-0.03em] mb-4">
             <span className="text-heading">Всё для автоматизации</span>
             <br />
             <span className="gradient-text">оптовых продаж</span>
           </h1>
-          <p className="reveal text-lg text-body max-w-xl mx-auto mb-10">
+          <p className="reveal text-base text-body max-w-xl mx-auto mb-8">
             Управление каталогом, заказами, ценами и клиентами — в одном решении с интеграцией в вашу 1С
           </p>
-          <div className="reveal flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="reveal flex flex-col sm:flex-row items-center justify-center gap-3">
             <a
               href="#cta"
-              className="px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
+              className="px-7 py-3.5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
             >
               Запросить демо
             </a>
             <a
               href="/#pricing"
-              className="px-8 py-4 border border-border-default text-body font-medium rounded-full hover:bg-overlay-4 hover:text-heading transition-all duration-300"
+              className="px-7 py-3.5 border border-border-default text-body font-medium rounded-full hover:bg-overlay-4 hover:text-heading transition-all duration-300"
             >
               Смотреть цены
             </a>
@@ -101,65 +279,85 @@ export default function PlatformPage() {
         </div>
       </section>
 
-      {/* Feature pages */}
-      <section className="py-24 px-6">
+      {/* Tabs */}
+      <section className="px-6 pb-6">
         <div className="max-w-6xl mx-auto">
-          <div className="space-y-6">
-            {featurePages.map((page) => {
-              const Icon = page.icon
-              return (
-                <Link
-                  key={page.href}
-                  href={page.href}
-                  className="group block rounded-2xl bg-surface border border-border-default hover:border-[#3B82F6]/30 transition-all duration-500 glow-card overflow-hidden"
+          <div className="flex justify-center">
+            <nav className="inline-flex p-1 rounded-xl bg-overlay-4 border border-glass-border gap-1">
+              {tabs.map((tab, i) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(i)}
+                  className={`
+                    px-5 py-2.5 text-sm font-medium whitespace-nowrap rounded-lg transition-all
+                    ${
+                      activeTab === i
+                        ? "bg-white text-heading shadow-sm border border-black/10 dark:bg-white/[0.10] dark:border-white/[0.15]"
+                        : "text-dim hover:text-body border border-transparent"
+                    }
+                  `}
                 >
-                  <div className="p-8 md:p-10">
-                    <div className="flex flex-col md:flex-row md:items-start gap-6">
-                      {/* Icon + number */}
-                      <div className="flex items-center gap-4 md:w-64 shrink-0">
-                        <div
-                          className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                          style={{ backgroundColor: `${page.color}15` }}
-                        >
-                          <Icon className="w-6 h-6" style={{ color: page.color }} />
-                        </div>
-                        <div>
-                          <span className="text-xs font-medium uppercase tracking-wider text-dim">
-                            {page.num}
-                          </span>
-                          <h3 className="font-heading font-bold text-xl text-heading group-hover:text-[#3B82F6] transition-colors">
-                            {page.title}
-                          </h3>
-                        </div>
-                      </div>
-
-                      {/* Description + highlights */}
-                      <div className="flex-1 min-w-0">
-                        <p className="text-body leading-relaxed mb-4">{page.desc}</p>
-                        <div className="flex flex-wrap gap-2">
-                          {page.highlights.map((h) => (
-                            <span
-                              key={h}
-                              className="px-3 py-1 text-xs rounded-full bg-page-alt border border-border-default text-subtle"
-                            >
-                              {h}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Arrow */}
-                      <div className="hidden md:flex items-center shrink-0 self-center">
-                        <ArrowRight className="w-5 h-5 text-dim group-hover:text-[#3B82F6] group-hover:translate-x-1 transition-all duration-300" />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              )
-            })}
+                  {tab.title}
+                </button>
+              ))}
+            </nav>
           </div>
         </div>
       </section>
+
+      {/* Tab content — sections */}
+      {currentTab.sections.map((section, idx) => {
+        const Icon = section.icon
+        const reversed = idx % 2 !== 0
+        const color = currentTab.color
+
+        return (
+          <section key={`${currentTab.id}-${section.title}`} className="py-16 px-6 bg-page">
+            <div className="max-w-6xl mx-auto">
+              <div className="flex items-center gap-3 mb-8">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                  style={{ backgroundColor: `${color}15` }}
+                >
+                  <Icon className="w-5 h-5" style={{ color }} />
+                </div>
+                <h2 className="font-heading font-bold text-[clamp(24px,3.5vw,32px)] tracking-[-0.02em] text-heading">
+                  {section.title}
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+                <div className={`${reversed ? "lg:order-2" : ""}`}>
+                  <div className="relative w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#3B82F6]/[0.04] via-[#8B5CF6]/[0.03] to-[#06B6D4]/[0.04] border border-border-default">
+                    <Image
+                      src={`/${section.image}`}
+                      alt={section.title}
+                      width={600}
+                      height={400}
+                      className="w-full h-auto object-contain p-4"
+                      priority={idx < 2}
+                    />
+                  </div>
+                </div>
+
+                <div className={`space-y-3 ${reversed ? "lg:order-1" : ""}`}>
+                  {section.features.map((feature, i) => (
+                    <div
+                      key={i}
+                      className="flex gap-3 items-start p-4 rounded-xl bg-surface border border-border-default"
+                    >
+                      <Check className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
+                      <span className="text-sm text-body leading-relaxed">
+                        {feature}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )
+      })}
 
       {/* Roadmap */}
       <section id="roadmap" className="py-24 px-6 bg-page-alt">
@@ -200,5 +398,15 @@ export default function PlatformPage() {
       <CTASection />
       <Footer />
     </main>
+  )
+}
+
+/* ── Default export with Suspense ── */
+
+export default function PlatformPage() {
+  return (
+    <Suspense fallback={null}>
+      <PlatformPageInner />
+    </Suspense>
   )
 }
