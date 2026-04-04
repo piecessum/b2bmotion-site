@@ -10,6 +10,10 @@ import {
   wikiCustomArticles,
   wikiCustomCategories,
 } from "@/lib/wiki-custom-data";
+import {
+  wikiFunctionArticles,
+  wikiFunctionCategories,
+} from "@/lib/wiki-function-data";
 
 /* ── Data ── */
 
@@ -17,108 +21,14 @@ const tabs = [
   {
     id: "function",
     title: "Функционал системы",
-    categories: [
-      "Все",
-      "Каталог",
-      "Заказы",
-      "Финансы",
-      "Коммуникации",
-      "Аналитика",
-      "Настройки",
-    ],
-    articles: [
-      {
-        title: "Регистрация и авторизация",
-        description:
-          "Настройка процесса регистрации покупателей, формы входа, восстановление пароля и управление сессиями.",
-        category: "Настройки",
-        image: "/vhod.png",
-      },
-      {
-        title: "Личный кабинет покупателя",
-        description:
-          "Управление профилем, история заказов, избранное, шаблоны заказов, документы и уведомления.",
-        category: "Заказы",
-        image: "/lichny-kabinet.png",
-      },
-      {
-        title: "Кабинет клиента",
-        description:
-          "Настройка интерфейса кабинета клиента, брендирование, персонализация и управление доступом.",
-        category: "Настройки",
-        image: "/kabinet-klienta.png",
-      },
-      {
-        title: "Каталог и товары",
-        description:
-          "Структура каталога, карточки товаров, характеристики, остатки по складам, изображения и вложения.",
-        category: "Каталог",
-        image: "/katalog.png",
-      },
-      {
-        title: "Избранное",
-        description:
-          "Списки избранных товаров, шаблоны заказов, быстрый повторный заказ из сохранённого.",
-        category: "Каталог",
-        image: "/izbrannoe.png",
-      },
-      {
-        title: "Прайсы, цены, скидки, валюты",
-        description:
-          "Управление прайс-листами, персональные цены, скидки от объёма, мультивалютность и сегменты покупателей.",
-        category: "Финансы",
-        image: "/skidki.png",
-      },
-      {
-        title: "Модуль доставки",
-        description:
-          "Настройка способов доставки, расчёт стоимости, зоны доставки, интеграция с транспортными компаниями.",
-        category: "Заказы",
-        image: "/dostavka.png",
-      },
-      {
-        title: "Модуль документооборота",
-        description:
-          "Автоматическое формирование счетов, накладных, актов сверки, УПД и других документов.",
-        category: "Финансы",
-        image: "/dokumenty.png",
-      },
-      {
-        title: "Модуль коммерческих предложений (КП)",
-        description:
-          "Создание и отправка КП, шаблоны, персонализация, отслеживание статусов и конверсии.",
-        category: "Коммуникации",
-        image: "/kp.png",
-      },
-      {
-        title: "Модуль статистики",
-        description:
-          "Отчёты по продажам, воронка заказов, аналитика по менеджерам, ABC-анализ, потерянные клиенты.",
-        category: "Аналитика",
-        image: "/status.png",
-      },
-      {
-        title: "Статьи и рассылки",
-        description:
-          "Email и SMS рассылки, публикация статей, сегментация базы, триггерные письма и аналитика.",
-        category: "Коммуникации",
-        image: "/stati.png",
-      },
-      {
-        title: "Мобильное приложение",
-        description:
-          "Нативное приложение для iOS и Android с каталогом, заказами, push-уведомлениями и оффлайн-режимом.",
-        category: "Каталог",
-        image: "/mobilka.png",
-      },
-      {
-        title: "Работа без 1С",
-        description:
-          "Возможность полноценной работы платформы без интеграции с 1С — автономный режим управления.",
-        category: "Настройки",
-        image: "/bez-1s.png",
-      },
-    ],
+    categories: ["Все", ...wikiFunctionCategories],
+    articles: wikiFunctionArticles.map((a) => ({
+      title: a.title,
+      description: a.text.find((t: any) => t.ty === "text")?.te || "",
+      category: a.category,
+      image: a.image,
+      slug: a.slug,
+    })),
   },
   {
     id: "custom",
@@ -254,8 +164,10 @@ export default function KnowledgePage() {
                   <Link
                     key={i}
                     href={
-                      activeTab === 1 && "slug" in article
-                        ? `/wiki/custom/${article.slug}`
+                      "slug" in article
+                        ? activeTab === 0
+                          ? `/wiki/function/${article.slug}`
+                          : `/wiki/custom/${article.slug}`
                         : `/wiki/function`
                     }
                     className="group rounded-2xl glass-card overflow-hidden hover:border-[#3B82F6]/20 transition-all duration-300 cursor-pointer"
