@@ -14,6 +14,7 @@ import {
   wikiFunctionArticles,
   wikiFunctionCategories,
 } from "@/lib/wiki-function-data";
+import { wikiTechArticles, wikiTechCategories } from "@/lib/wiki-tech-data";
 
 /* ── Data ── */
 
@@ -45,8 +46,14 @@ const tabs = [
   {
     id: "tech",
     title: "Технические настройки",
-    categories: [],
-    articles: [],
+    categories: ["Все", ...wikiTechCategories],
+    articles: wikiTechArticles.map((a) => ({
+      title: a.title,
+      description: a.text.find((t: any) => t.ty === "text")?.te || "",
+      category: a.category,
+      image: a.image,
+      slug: a.slug,
+    })),
   },
 ];
 
@@ -167,8 +174,10 @@ export default function KnowledgePage() {
                       "slug" in article
                         ? activeTab === 0
                           ? `/wiki/function/${article.slug}`
-                          : `/wiki/custom/${article.slug}`
-                        : `/wiki/function`
+                          : activeTab === 1
+                            ? `/wiki/custom/${article.slug}`
+                            : `/wiki/tech/${article.slug}`
+                        : `/wiki`
                     }
                     className="group rounded-2xl glass-card overflow-hidden hover:border-[#3B82F6]/20 transition-all duration-300 cursor-pointer"
                   >
