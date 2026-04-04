@@ -271,7 +271,7 @@ function PlatformPageInner() {
             <br />
             <span className="gradient-text">оптовых продаж</span>
           </h1>
-          <p className="reveal text-base text-body max-w-xl mx-auto mb-8">
+          <p className="reveal text-base text-heading/80 max-w-xl mx-auto mb-8">
             Управление каталогом, заказами, ценами и клиентами — в одном решении с интеграцией в вашу 1С
           </p>
           <div className="reveal flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -283,7 +283,7 @@ function PlatformPageInner() {
             </a>
             <a
               href="/#pricing"
-              className="px-7 py-3.5 border border-border-default text-body font-medium rounded-full hover:bg-overlay-4 hover:text-heading transition-all duration-300"
+              className="px-7 py-3.5 border-2 border-heading/30 text-heading font-semibold rounded-full hover:bg-overlay-4 transition-all duration-300"
             >
               Смотреть цены
             </a>
