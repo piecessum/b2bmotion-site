@@ -258,15 +258,15 @@ export default function KnowledgePage() {
           )}
 
           {/* Contact block */}
-          <div className="relative mt-20 rounded-2xl overflow-x-clip bg-gradient-to-br from-[#3B82F6]/[0.06] to-[#8B5CF6]/[0.04] border border-[#3B82F6]/10">
+          <div className="relative mt-32 rounded-2xl bg-gradient-to-br from-[#3B82F6]/[0.06] to-[#8B5CF6]/[0.04] border border-[#3B82F6]/10">
             <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#8B5CF6]/[0.08] to-transparent rounded-full blur-3xl pointer-events-none" />
             <div className="relative flex flex-col sm:flex-row sm:items-center">
-              {/* Photo desktop — выходит вверх за баннер */}
-              <div className="hidden sm:block shrink-0 w-52 self-stretch relative">
+              {/* Photo desktop — margin-top отрицательный, фото выходит вверх */}
+              <div className="hidden sm:flex shrink-0 w-52 items-end justify-center self-end">
                 <img
                   src="/Portrett av smilende mann i skjorte 2.png"
                   alt="Агеев Дмитрий"
-                  className="absolute bottom-0 left-4 w-48 drop-shadow-lg"
+                  className="w-48 -mt-14 drop-shadow-lg"
                 />
               </div>
               {/* Info */}
@@ -298,11 +298,11 @@ export default function KnowledgePage() {
                 </div>
               </div>
               {/* Photo mobile */}
-              <div className="sm:hidden relative w-full h-52 overflow-hidden">
+              <div className="sm:hidden w-full h-52 overflow-hidden">
                 <img
                   src="/Portrett av smilende mann i skjorte 2.png"
                   alt="Агеев Дмитрий"
-                  className="absolute top-0 left-1/2 -translate-x-1/2 w-44 drop-shadow-lg"
+                  className="w-44 mx-auto drop-shadow-lg"
                 />
               </div>
             </div>
