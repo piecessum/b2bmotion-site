@@ -323,10 +323,10 @@ export default function ChatbotsPage() {
                 </p>
                 <a
                   href="#cta"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full whitespace-nowrap hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
                 >
                   Узнать подробности
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-5 h-5 shrink-0" />
                 </a>
               </div>
               <div className="mt-8 md:mt-0 flex-shrink-0 flex justify-center">
