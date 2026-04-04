@@ -292,9 +292,9 @@ function PlatformPageInner() {
       </section>
 
       {/* Tabs */}
-      <section className="px-6 pb-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex justify-center overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none" }}>
+      <section className="pb-6">
+        <div className="overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none" }}>
+          <div className="flex justify-center px-6 min-w-min">
             <nav className="inline-flex p-1 rounded-xl bg-overlay-4 border border-glass-border gap-1">
               {tabs.map((tab, i) => (
                 <button
