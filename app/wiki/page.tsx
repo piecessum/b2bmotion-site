@@ -155,8 +155,8 @@ export default function KnowledgePage() {
               </nav>
             </div>
 
-            {/* Search — fills remaining space on desktop */}
-            <div className="relative xl:flex-1">
+            {/* Search — fits placeholder text, aligned right on desktop */}
+            <div className="relative xl:ml-auto xl:w-[340px]">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-dim" />
               <input
                 type="text"
