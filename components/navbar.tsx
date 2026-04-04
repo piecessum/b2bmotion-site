@@ -24,7 +24,7 @@ const industries = [
 const services = [
   { label: "B2B маркетплейс", href: "/marketplace" },
   { label: "MDM система", href: "/mdm" },
-  { label: "Чат-боты", href: "#" },
+  { label: "Чат-боты", href: "/chatbots" },
   { label: "Мобильное приложение", href: "#" },
 ]
 
