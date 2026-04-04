@@ -1,31 +1,31 @@
-import Image from "next/image"
+import Image from "next/image";
 
 interface TextBlock {
-  ty: string
-  te?: string
-  url?: string
-  w?: string
-  h?: string
-  color?: string
-  bg?: string
-  fs?: string
-  ic?: string
-  alt?: string
-  caption?: string
-  link?: string
-  blank?: string
-  rh?: string | null
-  rw?: string | null
-  al?: string | null
-  [key: string]: any
+  ty: string;
+  te?: string;
+  url?: string;
+  w?: string;
+  h?: string;
+  color?: string;
+  bg?: string;
+  fs?: string;
+  ic?: string;
+  alt?: string;
+  caption?: string;
+  link?: string;
+  blank?: string;
+  rh?: string | null;
+  rw?: string | null;
+  al?: string | null;
+  [key: string]: any;
 }
 
 interface RichTextRendererProps {
-  content: TextBlock[]
+  content: TextBlock[];
 }
 
 function renderHTML(html: string) {
-  return { __html: html }
+  return { __html: html };
 }
 
 export function RichTextRenderer({ content }: RichTextRendererProps) {
@@ -34,7 +34,7 @@ export function RichTextRenderer({ content }: RichTextRendererProps) {
       <div className="text-center py-10 text-subtle">
         <p>Контент статьи отсутствует или не загружен.</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -48,29 +48,25 @@ export function RichTextRenderer({ content }: RichTextRendererProps) {
                 className="text-body leading-relaxed"
                 dangerouslySetInnerHTML={renderHTML(block.te || "")}
               />
-            )
+            );
 
           case "callout":
-            const bgColor = block.bg || "#f1f1f1"
-            const borderColor = block.ic || "#7b7b7b"
+            const borderColor = block.ic || "#7b7b7b";
             return (
               <div
                 key={index}
-                className="rounded-xl p-5 border-l-4"
-                style={{
-                  backgroundColor: bgColor,
-                  borderColor: borderColor,
-                }}
+                className="rounded-xl p-5 border-l-4 bg-[#f1f1f1] dark:bg-white/[0.04]"
+                style={{ borderLeftColor: borderColor }}
               >
                 <div
                   className="text-body leading-relaxed"
                   dangerouslySetInnerHTML={renderHTML(block.te || "")}
                 />
               </div>
-            )
+            );
 
           case "image":
-            if (!block.url) return null
+            if (!block.url) return null;
             return (
               <div key={index} className="my-6">
                 <div className="relative w-full overflow-hidden rounded-xl bg-surface-inner">
@@ -89,10 +85,10 @@ export function RichTextRenderer({ content }: RichTextRendererProps) {
                   </p>
                 )}
               </div>
-            )
+            );
 
           case "br":
-            return <div key={index} className="h-4" />
+            return <div key={index} className="h-4" />;
 
           case "header":
             return (
@@ -101,12 +97,12 @@ export function RichTextRenderer({ content }: RichTextRendererProps) {
                 className="font-heading font-semibold text-2xl text-heading mt-8 mb-4"
                 dangerouslySetInnerHTML={renderHTML(block.te || "")}
               />
-            )
+            );
 
           default:
-            return null
+            return null;
         }
       })}
     </div>
-  )
+  );
 }
