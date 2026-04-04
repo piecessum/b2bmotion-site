@@ -16,6 +16,21 @@ import {
 } from "@/lib/wiki-function-data";
 import { wikiTechArticles, wikiTechCategories } from "@/lib/wiki-tech-data";
 
+/* ── Helpers ── */
+
+function stripHtml(html: string): string {
+  return html
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .trim();
+}
+
+function getDescription(text: any[]): string {
+  const firstText = text.find((t: any) => t.ty === "text")?.te || "";
+  const plain = stripHtml(firstText);
+  return plain.length > 150 ? plain.substring(0, 150) + "…" : plain;
+}
+
 /* ── Data ── */
 
 const tabs = [
@@ -25,7 +40,7 @@ const tabs = [
     categories: ["Все", ...wikiFunctionCategories],
     articles: wikiFunctionArticles.map((a) => ({
       title: a.title,
-      description: a.text.find((t: any) => t.ty === "text")?.te || "",
+      description: getDescription(a.text),
       category: a.category,
       image: a.image,
       slug: a.slug,
@@ -37,7 +52,7 @@ const tabs = [
     categories: ["Все", ...wikiCustomCategories],
     articles: wikiCustomArticles.map((a) => ({
       title: a.title,
-      description: a.text.find((t: any) => t.ty === "text")?.te || "",
+      description: getDescription(a.text),
       category: a.category,
       image: a.image,
       slug: a.slug,
@@ -49,7 +64,7 @@ const tabs = [
     categories: ["Все", ...wikiTechCategories],
     articles: wikiTechArticles.map((a) => ({
       title: a.title,
-      description: a.text.find((t: any) => t.ty === "text")?.te || "",
+      description: getDescription(a.text),
       category: a.category,
       image: a.image,
       slug: a.slug,
