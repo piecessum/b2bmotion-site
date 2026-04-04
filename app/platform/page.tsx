@@ -250,11 +250,16 @@ function PlatformPageInner() {
         {/* Background image */}
         <div className="absolute inset-0">
           <img
+            src="/3d_white_bg.png"
+            alt=""
+            className="w-full h-full object-cover dark:hidden"
+          />
+          <img
             src="/3d_bg.png"
             alt=""
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover hidden dark:block"
           />
-          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-white/30 dark:bg-black/50" />
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--page)] to-transparent" />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
