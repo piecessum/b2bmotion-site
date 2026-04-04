@@ -1,85 +1,149 @@
 "use client"
 
+import { useState, useMemo } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { BookOpen, Mail, Phone, ChevronRight } from "lucide-react"
-import Link from "next/link"
-import { useState } from "react"
+import { BookOpen, Search, Mail, Phone } from "lucide-react"
+import Image from "next/image"
 
-const sections = [
+/* ── Data ── */
+
+const tabs = [
   {
     id: "function",
     title: "Функционал системы",
-    href: "/wiki/function",
-    description: "Основные модули и возможности платформы",
-    items: [
-      "Регистрация и авторизация",
-      "Интеллектуальный поиск",
-      "Личный кабинет покупателя",
-      "Каталог и товары",
-      "Прайсы, цены, скидки, валюты",
-      "Модуль оплаты",
-      "Модуль доставки",
-      "Модуль документооборота",
-      "Модуль коммерческих предложений (КП)",
-      "Модуль рассылок",
-      "Модуль статистики",
-      "Мобильное приложение",
+    categories: ["Все", "Каталог", "Заказы", "Финансы", "Коммуникации", "Аналитика", "Настройки"],
+    articles: [
+      {
+        title: "Регистрация и авторизация",
+        description: "Настройка процесса регистрации покупателей, формы входа, восстановление пароля и управление сессиями.",
+        category: "Настройки",
+        image: "/vhod.png",
+      },
+      {
+        title: "Личный кабинет покупателя",
+        description: "Управление профилем, история заказов, избранное, шаблоны заказов, документы и уведомления.",
+        category: "Заказы",
+        image: "/lichny-kabinet.png",
+      },
+      {
+        title: "Кабинет клиента",
+        description: "Настройка интерфейса кабинета клиента, брендирование, персонализация и управление доступом.",
+        category: "Настройки",
+        image: "/kabinet-klienta.png",
+      },
+      {
+        title: "Каталог и товары",
+        description: "Структура каталога, карточки товаров, характеристики, остатки по складам, изображения и вложения.",
+        category: "Каталог",
+        image: "/katalog.png",
+      },
+      {
+        title: "Избранное",
+        description: "Списки избранных товаров, шаблоны заказов, быстрый повторный заказ из сохранённого.",
+        category: "Каталог",
+        image: "/izbrannoe.png",
+      },
+      {
+        title: "Прайсы, цены, скидки, валюты",
+        description: "Управление прайс-листами, персональные цены, скидки от объёма, мультивалютность и сегменты покупателей.",
+        category: "Финансы",
+        image: "/skidki.png",
+      },
+      {
+        title: "Модуль доставки",
+        description: "Настройка способов доставки, расчёт стоимости, зоны доставки, интеграция с транспортными компаниями.",
+        category: "Заказы",
+        image: "/dostavka.png",
+      },
+      {
+        title: "Модуль документооборота",
+        description: "Автоматическое формирование счетов, накладных, актов сверки, УПД и других документов.",
+        category: "Финансы",
+        image: "/dokumenty.png",
+      },
+      {
+        title: "Модуль коммерческих предложений (КП)",
+        description: "Создание и отправка КП, шаблоны, персонализация, отслеживание статусов и конверсии.",
+        category: "Коммуникации",
+        image: "/kp.png",
+      },
+      {
+        title: "Модуль статистики",
+        description: "Отчёты по продажам, воронка заказов, аналитика по менеджерам, ABC-анализ, потерянные клиенты.",
+        category: "Аналитика",
+        image: "/status.png",
+      },
+      {
+        title: "Статьи и рассылки",
+        description: "Email и SMS рассылки, публикация статей, сегментация базы, триггерные письма и аналитика.",
+        category: "Коммуникации",
+        image: "/stati.png",
+      },
+      {
+        title: "Мобильное приложение",
+        description: "Нативное приложение для iOS и Android с каталогом, заказами, push-уведомлениями и оффлайн-режимом.",
+        category: "Каталог",
+        image: "/mobilka.png",
+      },
+      {
+        title: "Работа без 1С",
+        description: "Возможность полноценной работы платформы без интеграции с 1С — автономный режим управления.",
+        category: "Настройки",
+        image: "/bez-1s.png",
+      },
     ],
   },
   {
     id: "custom",
     title: "Кастомизация под клиента",
-    href: "#",
-    description: "Настройка платформы под ваши бизнес-процессы",
-    items: [
-      "Каталог и товары",
-      "Регионы и склады",
-      "Оплата и доставка",
-      "Пользователи",
-      "Компании",
-      "Спецификации",
-      "Главная страница",
-      "Поиск",
-      "Настройки",
-      "Уведомления",
-      "Онлайн-чат",
-      "«Помощь» для клиента",
-      "Правовые документы",
-      "Реклама",
-      "Статистика",
-      "Мониторинг шлюзовых таблиц (ШТ)",
-      "SEO",
-    ],
+    categories: [],
+    articles: [],
   },
   {
     id: "tech",
     title: "Технические настройки",
-    href: "#",
-    description: "Интеграции, API и техническая документация",
-    items: [
-      "Общие тех.сведения",
-      "Интеграция с шлюзовыми таблицами (ШТ)",
-      "Интеграция с 1С",
-      "Интеграция с БД РАЭК",
-      "Прямой API-доступ",
-      "Экспорт для Яндекс и Google",
-    ],
+    categories: [],
+    articles: [],
   },
 ]
 
+/* ── Component ── */
+
 export default function KnowledgePage() {
   const [activeTab, setActiveTab] = useState(0)
+  const [activeCategory, setActiveCategory] = useState("Все")
+  const [search, setSearch] = useState("")
+
+  const currentTab = tabs[activeTab]
+
+  const filtered = useMemo(() => {
+    return currentTab.articles.filter((a) => {
+      const matchCategory = activeCategory === "Все" || a.category === activeCategory
+      const q = search.toLowerCase()
+      const matchSearch =
+        !q ||
+        a.title.toLowerCase().includes(q) ||
+        a.description.toLowerCase().includes(q)
+      return matchCategory && matchSearch
+    })
+  }, [currentTab, activeCategory, search])
+
+  const handleTabChange = (i: number) => {
+    setActiveTab(i)
+    setActiveCategory("Все")
+    setSearch("")
+  }
 
   return (
     <main className="relative min-h-screen bg-page noise-overlay">
       <Navbar />
 
       <section className="pt-36 pb-28 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
 
           {/* Header */}
-          <div className="mb-14 max-w-2xl">
+          <div className="mb-10 max-w-2xl">
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 mb-5 text-[11px] font-medium uppercase tracking-[0.18em] text-dim bg-overlay-4 border border-glass-border rounded-full">
               <BookOpen className="w-3.5 h-3.5" />
               База знаний
@@ -93,13 +157,25 @@ export default function KnowledgePage() {
             </p>
           </div>
 
+          {/* Search */}
+          <div className="relative mb-8 max-w-md">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-dim" />
+            <input
+              type="text"
+              placeholder="Поиск по разделам и публикациям..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-11 pr-4 py-3 bg-overlay-3 rounded-xl border border-glass-border text-sm text-body placeholder:text-dim focus:outline-none focus:border-[#3B82F6]/30 transition-colors"
+            />
+          </div>
+
           {/* Tabs */}
-          <div className="mb-8">
+          <div className="mb-6">
             <nav className="inline-flex p-1 rounded-xl bg-overlay-4 border border-glass-border gap-1">
-              {sections.map((section, i) => (
+              {tabs.map((tab, i) => (
                 <button
-                  key={section.id}
-                  onClick={() => setActiveTab(i)}
+                  key={tab.id}
+                  onClick={() => handleTabChange(i)}
                   className={`
                     px-5 py-2.5 text-sm font-medium whitespace-nowrap rounded-lg transition-all
                     ${activeTab === i
@@ -108,64 +184,84 @@ export default function KnowledgePage() {
                     }
                   `}
                 >
-                  {section.title}
+                  {tab.title}
                 </button>
               ))}
             </nav>
           </div>
 
-          {/* Tab content */}
-          <div className="mb-20">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h2 className="font-heading font-semibold text-xl text-heading">
-                  {sections[activeTab].title}
-                </h2>
-                <p className="text-sm text-subtle mt-1">
-                  {sections[activeTab].description}
-                </p>
-              </div>
-              {sections[activeTab].href !== "#" && (
-                <Link
-                  href={sections[activeTab].href}
-                  className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-heading bg-overlay-4 hover:bg-overlay-6 border border-glass-border rounded-xl transition-colors"
+          {/* Category filters */}
+          {currentTab.categories.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-10">
+              {currentTab.categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+                    activeCategory === cat
+                      ? "bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white shadow-[0_0_20px_rgba(59,130,246,0.2)]"
+                      : "bg-overlay-3 border border-glass-border text-subtle hover:text-body hover:border-[#3B82F6]/20"
+                  }`}
                 >
-                  Открыть раздел
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </Link>
-              )}
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {sections[activeTab].items.map((item, j) => (
-                <div
-                  key={j}
-                  className="group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-overlay-4 transition-colors cursor-pointer"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6]/40 shrink-0" />
-                  <span className="text-sm text-body group-hover:text-heading transition-colors">
-                    {item}
-                  </span>
-                </div>
+                  {cat}
+                </button>
               ))}
             </div>
+          )}
 
-            {sections[activeTab].href !== "#" && (
-              <Link
-                href={sections[activeTab].href}
-                className="sm:hidden inline-flex items-center gap-1.5 mt-4 px-4 py-2 text-sm font-medium text-heading bg-overlay-4 hover:bg-overlay-6 border border-glass-border rounded-xl transition-colors"
-              >
-                Открыть раздел
-                <ChevronRight className="w-3.5 h-3.5" />
-              </Link>
-            )}
-          </div>
+          {/* Articles grid */}
+          {currentTab.articles.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                {filtered.map((article, i) => (
+                  <div
+                    key={i}
+                    className="group rounded-2xl glass-card overflow-hidden hover:border-[#3B82F6]/20 transition-all duration-300 cursor-pointer"
+                  >
+                    <div className="relative aspect-square overflow-hidden bg-surface-inner">
+                      <Image
+                        src={article.image}
+                        alt={article.title}
+                        width={520}
+                        height={520}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        unoptimized
+                      />
+                    </div>
+                    <div className="p-5">
+                      <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-[#60A5FA] mb-2 block">
+                        {article.category}
+                      </span>
+                      <h3 className="font-heading font-semibold text-base text-heading mb-2 group-hover:text-white transition-colors">
+                        {article.title}
+                      </h3>
+                      <p className="text-xs text-subtle leading-relaxed line-clamp-3">
+                        {article.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {filtered.length === 0 && (
+                <p className="text-center text-dim py-20">
+                  Ничего не найдено. Попробуйте другой запрос.
+                </p>
+              )}
+            </>
+          ) : (
+            <div className="flex items-center justify-center py-20 rounded-2xl border border-dashed border-glass-border">
+              <p className="text-dim text-sm">
+                Раздел в разработке — контент скоро появится.
+              </p>
+            </div>
+          )}
 
           {/* Contact block */}
-          <div className="relative rounded-2xl overflow-x-clip bg-gradient-to-br from-[#3B82F6]/[0.06] to-[#8B5CF6]/[0.04] border border-[#3B82F6]/10">
+          <div className="relative mt-20 rounded-2xl overflow-x-clip bg-gradient-to-br from-[#3B82F6]/[0.06] to-[#8B5CF6]/[0.04] border border-[#3B82F6]/10">
             <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#8B5CF6]/[0.08] to-transparent rounded-full blur-3xl pointer-events-none" />
             <div className="relative flex flex-col sm:flex-row items-end">
-              {/* Photo desktop — выступает вверх */}
+              {/* Photo desktop */}
               <div className="hidden sm:block shrink-0 w-52 self-stretch relative">
                 <img
                   src="/Portrett av smilende mann i skjorte 2.png"
@@ -201,7 +297,7 @@ export default function KnowledgePage() {
                   </a>
                 </div>
               </div>
-              {/* Photo mobile — под контентом, обрезается снизу */}
+              {/* Photo mobile */}
               <div className="sm:hidden relative w-full h-52 overflow-hidden">
                 <img
                   src="/Portrett av smilende mann i skjorte 2.png"
