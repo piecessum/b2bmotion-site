@@ -202,11 +202,11 @@ export default function KnowledgePage() {
                 </div>
               </div>
               {/* Photo mobile — под контентом, обрезается снизу */}
-              <div className="sm:hidden relative w-full h-36 overflow-hidden">
+              <div className="sm:hidden relative w-full h-52 overflow-hidden">
                 <img
                   src="/Portrett av smilende mann i skjorte 2.png"
                   alt="Агеев Дмитрий"
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-40 drop-shadow-lg"
+                  className="absolute top-0 left-1/2 -translate-x-1/2 w-44 drop-shadow-lg"
                 />
               </div>
             </div>
