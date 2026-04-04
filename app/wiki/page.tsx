@@ -94,24 +94,21 @@ export default function KnowledgePage() {
           </div>
 
           {/* Tabs */}
-          <div className="border-b border-glass-border mb-8">
-            <nav className="flex gap-1 -mb-px overflow-x-auto">
+          <div className="mb-8">
+            <nav className="inline-flex p-1 rounded-xl bg-overlay-4 border border-glass-border gap-1">
               {sections.map((section, i) => (
                 <button
                   key={section.id}
                   onClick={() => setActiveTab(i)}
                   className={`
-                    relative px-5 py-3 text-sm font-medium whitespace-nowrap transition-colors
+                    px-5 py-2.5 text-sm font-medium whitespace-nowrap rounded-lg transition-all
                     ${activeTab === i
-                      ? "text-heading"
-                      : "text-dim hover:text-subtle"
+                      ? "bg-surface text-heading shadow-sm border border-glass-border"
+                      : "text-dim hover:text-body border border-transparent"
                     }
                   `}
                 >
                   {section.title}
-                  {activeTab === i && (
-                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#3B82F6] rounded-t-full" />
-                  )}
                 </button>
               ))}
             </nav>
@@ -165,11 +162,12 @@ export default function KnowledgePage() {
           </div>
 
           {/* Contact block */}
-          <div className="rounded-2xl glass-card overflow-hidden">
-            <div className="flex flex-col sm:flex-row items-center gap-8 p-8 sm:p-10">
+          <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#3B82F6]/[0.06] to-[#8B5CF6]/[0.04] border border-[#3B82F6]/10">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#8B5CF6]/[0.08] to-transparent rounded-full blur-3xl pointer-events-none" />
+            <div className="relative flex flex-col sm:flex-row items-center gap-8 p-8 sm:p-10">
               {/* Photo */}
               <div className="shrink-0">
-                <div className="w-36 h-36 rounded-2xl overflow-hidden ring-1 ring-glass-border">
+                <div className="w-44 h-44 rounded-2xl overflow-hidden">
                   <img
                     src="/Portrett av smilende mann i skjorte 2.png"
                     alt="Агеев Дмитрий"
@@ -179,7 +177,7 @@ export default function KnowledgePage() {
               </div>
               {/* Info */}
               <div className="text-center sm:text-left">
-                <p className="text-xs font-medium uppercase tracking-[0.15em] text-dim mb-2">
+                <p className="text-xs font-medium uppercase tracking-[0.15em] text-[#3B82F6] mb-2">
                   Ваш персональный менеджер
                 </p>
                 <p className="font-heading font-semibold text-heading text-xl">
@@ -191,16 +189,16 @@ export default function KnowledgePage() {
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a
                     href="mailto:ageev@b2bmotion.ru"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-overlay-4 hover:bg-overlay-6 border border-glass-border text-sm text-heading transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#3B82F6]/[0.08] hover:bg-[#3B82F6]/[0.14] border border-[#3B82F6]/10 text-sm text-heading transition-colors"
                   >
-                    <Mail className="w-4 h-4 text-dim" />
+                    <Mail className="w-4 h-4 text-[#3B82F6]" />
                     ageev@b2bmotion.ru
                   </a>
                   <a
                     href="tel:+74993503436"
-                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-overlay-4 hover:bg-overlay-6 border border-glass-border text-sm text-heading transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#3B82F6]/[0.08] hover:bg-[#3B82F6]/[0.14] border border-[#3B82F6]/10 text-sm text-heading transition-colors"
                   >
-                    <Phone className="w-4 h-4 text-dim" />
+                    <Phone className="w-4 h-4 text-[#3B82F6]" />
                     +7 (499) 35-0-34-36
                   </a>
                 </div>
