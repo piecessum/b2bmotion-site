@@ -453,12 +453,59 @@ function renderBlogContent(content: string) {
   const lines = content.split("\n");
   const elements: React.ReactNode[] = [];
   let i = 0;
+  let inStats = false;
+  const statItems: { value: string; label: string; key: number }[] = [];
+
+  function flushStats() {
+    if (statItems.length > 0) {
+      elements.push(
+        <div key={`stats-${statItems[0].key}`} className="grid grid-cols-3 gap-3 my-6">
+          {statItems.map((s) => (
+            <div key={s.key} className="text-center py-4 px-3 rounded-xl bg-surface-hover border border-border-subtle">
+              <div className="font-heading font-bold text-lg md:text-xl gradient-text">{s.value}</div>
+              <div className="text-xs text-subtle mt-1">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      );
+      statItems.length = 0;
+    }
+    inStats = false;
+  }
 
   while (i < lines.length) {
     const trimmed = lines[i].trim();
 
+    // Stats block markers
+    if (trimmed === "<!-- stats -->") {
+      inStats = true;
+      i++;
+      continue;
+    }
+    if (trimmed === "<!-- /stats -->") {
+      flushStats();
+      i++;
+      continue;
+    }
+
+    // Collect stat items
+    if (inStats) {
+      const statMatch = trimmed.match(/^\*\s+\*\*([^*]+):\*\*\s*(.*)/);
+      if (statMatch) {
+        statItems.push({ value: statMatch[1], label: statMatch[2], key: i });
+      }
+      i++;
+      continue;
+    }
+
     // Empty line
     if (!trimmed) {
+      i++;
+      continue;
+    }
+
+    // HTML comments
+    if (trimmed.startsWith("<!--")) {
       i++;
       continue;
     }
@@ -527,24 +574,6 @@ function renderBlogContent(content: string) {
       continue;
     }
 
-    // **Label:** text → callout info block
-    const calloutMatch = trimmed.match(/^\*\*([^*]+):\*\*\s*(.*)/);
-    if (calloutMatch) {
-      const label = calloutMatch[1];
-      const value = calloutMatch[2];
-      elements.push(
-        <div key={i} className="flex items-start gap-3 my-4 py-3 px-4 rounded-xl bg-[#3B82F6]/5 dark:bg-[#3B82F6]/10 border border-[#3B82F6]/10 dark:border-[#3B82F6]/15">
-          <span className="shrink-0 mt-0.5 w-5 h-5 rounded-md bg-[#3B82F6]/15 flex items-center justify-center text-[#60A5FA] text-xs font-bold">i</span>
-          <p className="text-body leading-relaxed text-sm">
-            <strong className="text-heading font-semibold">{label}:</strong>{" "}
-            {renderInline(value)}
-          </p>
-        </div>
-      );
-      i++;
-      continue;
-    }
-
     // Regular paragraph
     elements.push(
       <p key={i} className="text-body leading-relaxed mb-4">
@@ -558,7 +587,7 @@ function renderBlogContent(content: string) {
 }
 
 function renderInline(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
+  const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\([^)]+\))/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
@@ -572,6 +601,14 @@ function renderInline(text: string) {
         <em key={i} className="text-dim not-italic text-xs">
           {part.slice(1, -1)}
         </em>
+      );
+    }
+    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (linkMatch) {
+      return (
+        <a key={i} href={linkMatch[2]} target="_blank" rel="noopener noreferrer" className="text-[#60A5FA] hover:text-[#93C5FD] underline underline-offset-2 decoration-[#3B82F6]/30 hover:decoration-[#3B82F6]/60 transition-colors">
+          {linkMatch[1]}
+        </a>
       );
     }
     return part;
