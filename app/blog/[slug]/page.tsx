@@ -64,81 +64,60 @@ export default async function BlogPostPage({
             Все статьи
           </Link>
 
-          {/* Header */}
-          <header className="mb-12">
-            <div className="flex items-center gap-3 mb-4 text-xs text-dim">
-              <Calendar className="w-3.5 h-3.5" />
-              <time>
-                {new Date(post.date).toLocaleDateString("ru-RU", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                })}
-              </time>
-              <span className="w-1 h-1 rounded-full bg-dimmest" />
-              <span>Публикация</span>
-            </div>
-
-            <h1 className="font-heading font-bold text-[clamp(28px,4vw,42px)] tracking-[-0.02em] text-heading leading-tight">
-              {post.title}
-            </h1>
-
-            <p className="mt-4 text-lg text-subtle">{post.description}</p>
-          </header>
-
-          {/* Cover image */}
+          {/* Cover + Header */}
           {post.image && (
-            <div className="relative w-full h-64 sm:h-80 md:h-96 rounded-2xl overflow-hidden mb-12">
+            <div className="relative -mx-6 md:mx-0 rounded-none md:rounded-2xl overflow-hidden mb-10">
               <img
                 src={post.image}
                 alt={post.title}
-                className="w-full h-full object-cover"
+                className="w-full h-72 sm:h-80 md:h-[420px] object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
+                <div className="flex items-center gap-3 mb-3 text-xs text-white/60">
+                  <Calendar className="w-3.5 h-3.5" />
+                  <time>
+                    {new Date(post.date).toLocaleDateString("ru-RU", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </time>
+                  <span className="w-1 h-1 rounded-full bg-white/40" />
+                  <span>Публикация</span>
+                </div>
+                <h1 className="font-heading font-bold text-[clamp(24px,4vw,36px)] tracking-[-0.02em] text-white leading-tight">
+                  {post.title}
+                </h1>
+              </div>
             </div>
           )}
 
-          {/* Divider */}
-          <div className="section-divider mb-12" />
+          {!post.image && (
+            <header className="mb-12">
+              <div className="flex items-center gap-3 mb-4 text-xs text-dim">
+                <Calendar className="w-3.5 h-3.5" />
+                <time>
+                  {new Date(post.date).toLocaleDateString("ru-RU", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </time>
+                <span className="w-1 h-1 rounded-full bg-dimmest" />
+                <span>Публикация</span>
+              </div>
+              <h1 className="font-heading font-bold text-[clamp(28px,4vw,42px)] tracking-[-0.02em] text-heading leading-tight">
+                {post.title}
+              </h1>
+            </header>
+          )}
+
+          <p className="text-lg text-subtle mb-10">{post.description}</p>
 
           {/* Content */}
           <div className="prose-custom">
-            {post.content.split("\n").map((line, i) => {
-              const trimmed = line.trim();
-              if (!trimmed) return <br key={i} />;
-              if (trimmed.startsWith("## "))
-                return (
-                  <h2
-                    key={i}
-                    className="font-heading font-semibold text-xl text-heading mt-10 mb-4"
-                  >
-                    {trimmed.replace("## ", "")}
-                  </h2>
-                );
-              if (trimmed.startsWith("### "))
-                return (
-                  <h3
-                    key={i}
-                    className="font-heading font-semibold text-lg text-subheading mt-8 mb-3"
-                  >
-                    {trimmed.replace("### ", "")}
-                  </h3>
-                );
-              if (trimmed.startsWith("- "))
-                return (
-                  <li
-                    key={i}
-                    className="text-body leading-relaxed ml-4 mb-1 list-disc marker:text-[#3B82F6]"
-                  >
-                    {renderInline(trimmed.replace("- ", ""))}
-                  </li>
-                );
-              return (
-                <p key={i} className="text-body leading-relaxed mb-4">
-                  {renderInline(trimmed)}
-                </p>
-              );
-            })}
+            {renderBlogContent(post.content)}
           </div>
 
           {/* Blog Banner */}
@@ -468,6 +447,114 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
       <Footer />
     </main>
   );
+}
+
+function renderBlogContent(content: string) {
+  const lines = content.split("\n");
+  const elements: React.ReactNode[] = [];
+  let i = 0;
+
+  while (i < lines.length) {
+    const trimmed = lines[i].trim();
+
+    // Empty line
+    if (!trimmed) {
+      i++;
+      continue;
+    }
+
+    // ## Main heading — bold with gradient underline
+    if (trimmed.startsWith("## ")) {
+      const text = trimmed.replace("## ", "");
+      elements.push(
+        <div key={i} className="mt-14 mb-6 first:mt-0">
+          <h2 className="font-heading font-bold text-2xl md:text-3xl text-heading tracking-[-0.02em]">
+            {text}
+          </h2>
+          <div className="mt-3 h-0.5 w-16 bg-gradient-to-r from-[#3B82F6] to-[#8B5CF6] rounded-full" />
+        </div>
+      );
+      i++;
+      continue;
+    }
+
+    // ### Numbered heading — card with number badge
+    if (trimmed.startsWith("### ")) {
+      const raw = trimmed.replace("### ", "");
+      const numMatch = raw.match(/^(\d+)\.\s*(.*)/);
+      if (numMatch) {
+        elements.push(
+          <div key={i} className="flex items-start gap-4 mt-10 mb-4">
+            <span className="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center text-white font-heading font-bold text-sm shadow-lg shadow-[#3B82F6]/20">
+              {numMatch[1]}
+            </span>
+            <h3 className="font-heading font-semibold text-xl text-heading pt-1.5">
+              {numMatch[2]}
+            </h3>
+          </div>
+        );
+      } else {
+        elements.push(
+          <h3 key={i} className="font-heading font-semibold text-lg text-subheading mt-8 mb-3">
+            {raw}
+          </h3>
+        );
+      }
+      i++;
+      continue;
+    }
+
+    // List items (- or *)
+    if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
+      const items: { text: string; key: number }[] = [];
+      while (i < lines.length) {
+        const l = lines[i].trim();
+        if (l.startsWith("- ") || l.startsWith("* ")) {
+          items.push({ text: l.replace(/^[-*]\s+/, ""), key: i });
+          i++;
+        } else break;
+      }
+      elements.push(
+        <ul key={`ul-${items[0].key}`} className="space-y-2 mb-5 ml-1">
+          {items.map((item) => (
+            <li key={item.key} className="flex items-start gap-3 text-body leading-relaxed">
+              <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#3B82F6] shrink-0" />
+              <span>{renderInline(item.text)}</span>
+            </li>
+          ))}
+        </ul>
+      );
+      continue;
+    }
+
+    // **Label:** text → callout info block
+    const calloutMatch = trimmed.match(/^\*\*([^*]+):\*\*\s*(.*)/);
+    if (calloutMatch) {
+      const label = calloutMatch[1];
+      const value = calloutMatch[2];
+      elements.push(
+        <div key={i} className="flex items-start gap-3 my-4 py-3 px-4 rounded-xl bg-[#3B82F6]/5 dark:bg-[#3B82F6]/10 border border-[#3B82F6]/10 dark:border-[#3B82F6]/15">
+          <span className="shrink-0 mt-0.5 w-5 h-5 rounded-md bg-[#3B82F6]/15 flex items-center justify-center text-[#60A5FA] text-xs font-bold">i</span>
+          <p className="text-body leading-relaxed text-sm">
+            <strong className="text-heading font-semibold">{label}:</strong>{" "}
+            {renderInline(value)}
+          </p>
+        </div>
+      );
+      i++;
+      continue;
+    }
+
+    // Regular paragraph
+    elements.push(
+      <p key={i} className="text-body leading-relaxed mb-4">
+        {renderInline(trimmed)}
+      </p>
+    );
+    i++;
+  }
+
+  return elements;
 }
 
 function renderInline(text: string) {
