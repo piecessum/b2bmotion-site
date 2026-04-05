@@ -1,48 +1,47 @@
-"use client"
+"use client";
 
-import { useEffect, useState, useRef } from "react"
-import { usePathname } from "next/navigation"
-import { Menu, X, ChevronDown } from "lucide-react"
-import { Logo } from "@/components/logo"
-import { ThemeToggle } from "@/components/theme-toggle"
-import Link from "next/link"
+import { useEffect, useState, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { Logo } from "@/components/logo";
+import { ThemeToggle } from "@/components/theme-toggle";
+import Link from "next/link";
 
 const platformPages = [
   { label: "Товары и заказы", href: "/platform?tab=products" },
   { label: "Личный кабинет", href: "/platform?tab=cabinet" },
   { label: "Маркетинг и аналитика", href: "/platform?tab=marketing" },
-]
+];
 
 const industries = [
   { label: "Для электрического рынка", href: "/electro" },
   { label: "Для товаров первого спроса (FMCG)", href: "/fmcg" },
   { label: "Для рынка стройматериалов", href: "/building" },
   { label: "Для продажи компьютерных товаров", href: "/computers" },
-]
+];
 
 const services = [
-  { label: "B2B маркетплейс", href: "/marketplace" },
   { label: "MDM система", href: "/mdm" },
   { label: "Чат-боты", href: "/chatbots" },
   { label: "Мобильное приложение", href: "/mobile-app" },
-]
+];
 
-const platformPaths = ["/platform", ...platformPages.map((i) => i.href)]
-const industryPaths = industries.map((i) => i.href).filter((h) => h !== "#")
-const servicePaths = services.map((i) => i.href).filter((h) => h !== "#")
+const platformPaths = ["/platform", ...platformPages.map((i) => i.href)];
+const industryPaths = industries.map((i) => i.href).filter((h) => h !== "#");
+const servicePaths = services.map((i) => i.href).filter((h) => h !== "#");
 
 function navLinkClass(isActive: boolean) {
   if (isActive) {
-    return "flex items-center px-3 h-11 text-sm text-subheading bg-overlay-6 rounded-lg transition-all duration-300"
+    return "flex items-center px-3 h-11 text-sm text-subheading bg-overlay-6 rounded-lg transition-all duration-300";
   }
-  return "animated-underline flex items-center px-3 h-11 text-sm text-subtle hover:text-subheading transition-colors duration-300"
+  return "animated-underline flex items-center px-3 h-11 text-sm text-subtle hover:text-subheading transition-colors duration-300";
 }
 
 function dropdownTriggerClass(isActive: boolean) {
   if (isActive) {
-    return "flex items-center gap-1 px-3 h-11 text-sm text-subheading bg-overlay-6 rounded-lg transition-all duration-300"
+    return "flex items-center gap-1 px-3 h-11 text-sm text-subheading bg-overlay-6 rounded-lg transition-all duration-300";
   }
-  return "animated-underline flex items-center gap-1 px-3 h-11 text-sm text-subtle hover:text-subheading transition-colors duration-300"
+  return "animated-underline flex items-center gap-1 px-3 h-11 text-sm text-subtle hover:text-subheading transition-colors duration-300";
 }
 
 function Dropdown({
@@ -52,30 +51,27 @@ function Dropdown({
   onToggle,
   isActive,
 }: {
-  label: string
-  items: { label: string; href: string }[]
-  open: boolean
-  onToggle: () => void
-  isActive: boolean
+  label: string;
+  items: { label: string; href: string }[];
+  open: boolean;
+  onToggle: () => void;
+  isActive: boolean;
 }) {
-  const ref = useRef<HTMLDivElement>(null)
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
-        if (open) onToggle()
+        if (open) onToggle();
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [open, onToggle])
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open, onToggle]);
 
   return (
     <div ref={ref} className="relative">
-      <button
-        onClick={onToggle}
-        className={dropdownTriggerClass(isActive)}
-      >
+      <button onClick={onToggle} className={dropdownTriggerClass(isActive)}>
         {label}
         <ChevronDown
           className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
@@ -96,37 +92,39 @@ function Dropdown({
         </div>
       )}
     </div>
-  )
+  );
 }
 
 export function Navbar() {
-  const pathname = usePathname()
-  const [scrolled, setScrolled] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
-  const [cookieVisible, setCookieVisible] = useState(false)
+  const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [cookieVisible, setCookieVisible] = useState(false);
 
   useEffect(() => {
-    const accepted = localStorage.getItem("cookie-consent")
-    if (!accepted) setCookieVisible(true)
-  }, [])
+    const accepted = localStorage.getItem("cookie-consent");
+    if (!accepted) setCookieVisible(true);
+  }, []);
 
   const acceptCookies = () => {
-    localStorage.setItem("cookie-consent", "1")
-    setCookieVisible(false)
-  }
+    localStorage.setItem("cookie-consent", "1");
+    setCookieVisible(false);
+  };
 
-  const isPlatformActive = platformPaths.some((p) => pathname === p || (p !== "/platform" && pathname.startsWith(p)))
-  const isIndustryActive = industryPaths.some((p) => pathname.startsWith(p))
-  const isServiceActive = servicePaths.some((p) => pathname.startsWith(p))
+  const isPlatformActive = platformPaths.some(
+    (p) => pathname === p || (p !== "/platform" && pathname.startsWith(p)),
+  );
+  const isIndustryActive = industryPaths.some((p) => pathname.startsWith(p));
+  const isServiceActive = servicePaths.some((p) => pathname.startsWith(p));
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
@@ -138,112 +136,120 @@ export function Navbar() {
               : "bg-nav-bg border border-glass-border backdrop-blur-xl"
           }`}
         >
-        <div className="flex items-center px-2">
-          {/* Logo */}
-          <a href="/" className="flex items-center px-3 h-11 shrink-0">
-            <Logo gradient className="h-3 w-auto" />
-          </a>
-
-          {/* Desktop links */}
-          <div className="hidden lg:flex items-center ml-2">
-            <a
-              href="/platform"
-              className={navLinkClass(isPlatformActive)}
-            >
-              Функционал
+          <div className="flex items-center px-2">
+            {/* Logo */}
+            <a href="/" className="flex items-center px-3 h-11 shrink-0">
+              <Logo gradient className="h-3 w-auto" />
             </a>
 
-            <Dropdown
-              label="Отрасли"
-              items={industries}
-              open={openDropdown === "industries"}
-              onToggle={() =>
-                setOpenDropdown(openDropdown === "industries" ? null : "industries")
-              }
-              isActive={isIndustryActive}
-            />
+            {/* Desktop links */}
+            <div className="hidden lg:flex items-center ml-2">
+              <a href="/platform" className={navLinkClass(isPlatformActive)}>
+                Функционал
+              </a>
 
-            <Dropdown
-              label="Услуги"
-              items={services}
-              open={openDropdown === "services"}
-              onToggle={() =>
-                setOpenDropdown(openDropdown === "services" ? null : "services")
-              }
-              isActive={isServiceActive}
-            />
+              <Dropdown
+                label="Отрасли"
+                items={industries}
+                open={openDropdown === "industries"}
+                onToggle={() =>
+                  setOpenDropdown(
+                    openDropdown === "industries" ? null : "industries",
+                  )
+                }
+                isActive={isIndustryActive}
+              />
 
-            <a
-              href="/news"
-              className={navLinkClass(pathname.startsWith("/news"))}
-            >
-              Новости
-            </a>
+              <Dropdown
+                label="Услуги"
+                items={services}
+                open={openDropdown === "services"}
+                onToggle={() =>
+                  setOpenDropdown(
+                    openDropdown === "services" ? null : "services",
+                  )
+                }
+                isActive={isServiceActive}
+              />
 
-            <a
-              href="/blog"
-              className={navLinkClass(pathname.startsWith("/blog"))}
-            >
-              Блог
-            </a>
-
-            <a
-              href="/contacts"
-              className={navLinkClass(pathname === "/contacts")}
-            >
-              Контакты
-            </a>
-          </div>
-
-          {/* Theme toggle + CTA */}
-          <div className="hidden lg:flex items-center ml-auto gap-2">
-            <ThemeToggle />
-            <a
-              href="/contacts"
-              className="flex items-center px-5 h-9 my-1.5 text-sm font-medium rounded-xl transition-all duration-300 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white hover:shadow-[0_0_24px_rgba(59,130,246,0.4)] hover:brightness-110 whitespace-nowrap"
-            >
-              Оставить заявку
-            </a>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="lg:hidden flex items-center ml-auto gap-1">
-            <ThemeToggle />
-            <button
-              className="flex items-center justify-center w-10 h-10 text-body"
-              onClick={() => setMobileOpen(!mobileOpen)}
-            >
-              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
-        </div>
-
-        {/* Cookie consent bar */}
-        {cookieVisible && (
-          <div className="border-t border-glass-border px-2 py-1.5">
-            <div className="flex items-center gap-2 px-3">
-              <span className="text-xs text-subtle leading-snug flex-1 min-w-0">
-                Мы используем cookie для аналитики и улучшения сайта.{" "}
-                <Link href="/privacy" className="text-[#60A5FA] hover:underline whitespace-nowrap">
-                  Подробнее
-                </Link>
-              </span>
-              <button
-                onClick={acceptCookies}
-                className="shrink-0 px-3 py-1 rounded-lg text-xs font-medium bg-[#3B82F6] text-white hover:bg-[#2563EB] transition-colors"
+              <a
+                href="/news"
+                className={navLinkClass(pathname.startsWith("/news"))}
               >
-                OK
-              </button>
-              <button
-                onClick={acceptCookies}
-                className="shrink-0 p-1 rounded-md text-dim hover:text-body hover:bg-white/10 transition-colors"
-                aria-label="Закрыть"
+                Новости
+              </a>
+
+              <a
+                href="/blog"
+                className={navLinkClass(pathname.startsWith("/blog"))}
               >
-                <X className="w-3.5 h-3.5" />
+                Блог
+              </a>
+
+              <a
+                href="/contacts"
+                className={navLinkClass(pathname === "/contacts")}
+              >
+                Контакты
+              </a>
+            </div>
+
+            {/* Theme toggle + CTA */}
+            <div className="hidden lg:flex items-center ml-auto gap-2">
+              <ThemeToggle />
+              <a
+                href="/contacts"
+                className="flex items-center px-5 h-9 my-1.5 text-sm font-medium rounded-xl transition-all duration-300 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white hover:shadow-[0_0_24px_rgba(59,130,246,0.4)] hover:brightness-110 whitespace-nowrap"
+              >
+                Оставить заявку
+              </a>
+            </div>
+
+            {/* Mobile menu button */}
+            <div className="lg:hidden flex items-center ml-auto gap-1">
+              <ThemeToggle />
+              <button
+                className="flex items-center justify-center w-10 h-10 text-body"
+                onClick={() => setMobileOpen(!mobileOpen)}
+              >
+                {mobileOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
               </button>
             </div>
           </div>
-        )}
+
+          {/* Cookie consent bar */}
+          {cookieVisible && (
+            <div className="border-t border-glass-border px-2 py-1.5">
+              <div className="flex items-center gap-2 px-3">
+                <span className="text-xs text-subtle leading-snug flex-1 min-w-0">
+                  Мы используем cookie для аналитики и улучшения сайта.{" "}
+                  <Link
+                    href="/privacy"
+                    className="text-[#60A5FA] hover:underline whitespace-nowrap"
+                  >
+                    Подробнее
+                  </Link>
+                </span>
+                <button
+                  onClick={acceptCookies}
+                  className="shrink-0 px-3 py-1 rounded-lg text-xs font-medium bg-[#3B82F6] text-white hover:bg-[#2563EB] transition-colors"
+                >
+                  OK
+                </button>
+                <button
+                  onClick={acceptCookies}
+                  className="shrink-0 p-1 rounded-md text-dim hover:text-body hover:bg-white/10 transition-colors"
+                  aria-label="Закрыть"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Mobile menu */}
@@ -276,7 +282,9 @@ export function Navbar() {
 
               <div className="grid grid-cols-2 gap-2 my-2">
                 <div>
-                  <div className="px-2 py-1.5 text-[10px] text-dim uppercase tracking-wider font-medium">Отрасли</div>
+                  <div className="px-2 py-1.5 text-[10px] text-dim uppercase tracking-wider font-medium">
+                    Отрасли
+                  </div>
                   {industries.map((item) => (
                     <a
                       key={item.label}
@@ -293,7 +301,9 @@ export function Navbar() {
                   ))}
                 </div>
                 <div>
-                  <div className="px-2 py-1.5 text-[10px] text-dim uppercase tracking-wider font-medium">Услуги</div>
+                  <div className="px-2 py-1.5 text-[10px] text-dim uppercase tracking-wider font-medium">
+                    Услуги
+                  </div>
                   {services.map((item) => (
                     <a
                       key={item.label}
@@ -323,5 +333,5 @@ export function Navbar() {
         )}
       </nav>
     </>
-  )
+  );
 }
