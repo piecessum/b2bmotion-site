@@ -66,7 +66,7 @@ export default async function BlogPostPage({
 
           {/* Cover + Header */}
           {post.image && (
-            <div className="relative -mx-6 md:mx-0 rounded-none md:rounded-2xl overflow-hidden mb-10">
+            <div className="relative rounded-2xl overflow-hidden mb-10">
               <img
                 src={post.image}
                 alt={post.title}
@@ -74,7 +74,7 @@ export default async function BlogPostPage({
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
-                <div className="flex items-center gap-3 mb-3 text-xs text-white/60">
+                <div className="flex items-center gap-3 mb-3 text-sm text-white/90">
                   <Calendar className="w-3.5 h-3.5" />
                   <time>
                     {new Date(post.date).toLocaleDateString("ru-RU", {
@@ -83,7 +83,7 @@ export default async function BlogPostPage({
                       year: "numeric",
                     })}
                   </time>
-                  <span className="w-1 h-1 rounded-full bg-white/40" />
+                  <span className="w-1 h-1 rounded-full bg-white/70" />
                   <span>Публикация</span>
                 </div>
                 <h1 className="font-heading font-bold text-[clamp(24px,4vw,36px)] tracking-[-0.02em] text-white leading-tight">
