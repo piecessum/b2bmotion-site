@@ -118,14 +118,15 @@ export default function ComputersPage() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative pt-36 pb-20 px-6 overflow-hidden">
-        {/* Background image */}
-        <div className="absolute inset-0">
+      <div className="relative">
+        {/* Background image — extends below hero for seamless transition */}
+        <div className="absolute inset-x-0 top-0 bottom-[-200px] overflow-hidden">
           <img src="/for-bg/bg-computers-white.png" alt="" className="w-full h-full object-cover dark:hidden" />
           <img src="/for-bg/bg-computers-dark.png" alt="" className="w-full h-full object-cover hidden dark:block" />
           <div className="absolute inset-0 bg-white/50 dark:bg-black/60" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--page)] from-0% via-[var(--page)] via-30% to-transparent to-80%" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--page)] from-0% via-[var(--page)] via-40% to-transparent" />
         </div>
+      <section className="relative pt-36 pb-20 px-6">
         <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <span className="reveal inline-block px-4 py-1.5 mb-6 text-xs font-medium uppercase tracking-[0.15em] text-cyan-400 bg-cyan-400/10 rounded-full">
@@ -187,6 +188,7 @@ export default function ComputersPage() {
           </div>
         </div>
       </section>
+      </div>
 
       {/* Features with images */}
       <section className="py-24 px-6">
