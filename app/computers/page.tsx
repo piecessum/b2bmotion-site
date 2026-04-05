@@ -124,7 +124,7 @@ export default function ComputersPage() {
           <img src="/for-bg/bg-computers-white.png" alt="" className="w-full h-full object-cover dark:hidden" />
           <img src="/for-bg/bg-computers-dark.png" alt="" className="w-full h-full object-cover hidden dark:block" />
           <div className="absolute inset-0 bg-white/50 dark:bg-black/60" />
-          <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-[var(--page)] via-[var(--page)]/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--page)] from-5% via-[var(--page)]/80 via-40% to-transparent to-100%" />
         </div>
         <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
