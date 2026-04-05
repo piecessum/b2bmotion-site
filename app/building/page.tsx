@@ -81,7 +81,7 @@ export default function BuildingPage() {
           <img src="/for-bg/bg-building-white.png" alt="" className="w-full h-full object-cover dark:hidden" />
           <img src="/for-bg/bg-building-dark.png" alt="" className="w-full h-full object-cover hidden dark:block" />
           <div className="absolute inset-0 bg-white/60 dark:bg-black/70" />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, var(--page-alt) 0%, var(--page-alt) 15%, transparent 70%)' }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, var(--page-alt) 0%, color-mix(in srgb, var(--page-alt) 85%, transparent) 20%, color-mix(in srgb, var(--page-alt) 40%, transparent) 45%, transparent 75%)' }} />
         </div>
         <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
