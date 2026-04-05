@@ -82,8 +82,12 @@ export default function FmcgPage() {
 
       {/* Hero */}
       <section className="relative pt-36 pb-20 px-6 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[700px] h-[700px] opacity-[0.06] pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500 to-green-500 rounded-full blur-[120px]" />
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <img src="/for-bg/bg-fmcg-white.png" alt="" className="w-full h-full object-cover dark:hidden" />
+          <img src="/for-bg/bg-fmcg-dark.png" alt="" className="w-full h-full object-cover hidden dark:block" />
+          <div className="absolute inset-0 bg-white/30 dark:bg-black/50" />
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--page)] to-transparent" />
         </div>
         <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
