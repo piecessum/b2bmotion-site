@@ -92,7 +92,7 @@ export default function ElectroPage() {
           <img src="/for-bg/bg-electro-white.png" alt="" className="w-full h-full object-cover dark:hidden" />
           <img src="/for-bg/bg-electro-dark.png" alt="" className="w-full h-full object-cover hidden dark:block" />
           <div className="absolute inset-0 bg-white/50 dark:bg-black/60" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--page)] from-5% via-[var(--page)]/80 via-40% to-transparent to-100%" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--page)] from-0% via-[var(--page)] via-30% to-transparent to-80%" />
         </div>
         <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
