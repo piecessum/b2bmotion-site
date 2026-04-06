@@ -551,6 +551,19 @@ function renderBlogContent(content: string) {
       continue;
     }
 
+    // Images ![alt](url)
+    const imgMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    if (imgMatch) {
+      elements.push(
+        <figure key={i} className="my-8">
+          <img src={imgMatch[2]} alt={imgMatch[1]} className="w-full rounded-xl border border-border-subtle" />
+          {imgMatch[1] && <figcaption className="text-xs text-dim mt-2 text-center">{imgMatch[1]}</figcaption>}
+        </figure>
+      );
+      i++;
+      continue;
+    }
+
     // List items (- or *)
     if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
       const items: { text: string; key: number }[] = [];
