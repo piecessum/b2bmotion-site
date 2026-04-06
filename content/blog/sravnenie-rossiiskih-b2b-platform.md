@@ -81,7 +81,7 @@ image: "/images/blog/sravnenie-rossiiskih-b2b-platform.jpg"
 
 ### 3. COMPO
 
-![Платформа COMPO](/images/blog/platforms/compo.jpg)
+![Платформа COMPO](/images/blog/platforms/compo.png)
 
 **Бизнес-предложение:** Фреймворк-платформа для крупных торговых и производственных компаний. Дополнительные модули (PIM, DAM, MDM) доступны как отдельные решения. Перешли от индивидуальной разработки к готовым решениям из-за проблем с масштабированием.
 
@@ -145,7 +145,7 @@ image: "/images/blog/sravnenie-rossiiskih-b2b-platform.jpg"
 
 ### 6. SELLTY
 
-![Платформа Sellty](/images/blog/platforms/sellty.jpg)
+![Платформа Sellty](/images/blog/platforms/sellty.png)
 
 **Бизнес-предложение:** Платформа для запуска B2B-портала без программистов. Облачные и коробочные решения для SMB. Запущена в 2022 году с партнёром «Корус Консалтинг».
 
@@ -225,7 +225,7 @@ image: "/images/blog/sravnenie-rossiiskih-b2b-platform.jpg"
 
 ### 10. INTERVOLGA (ИНТЕРВОЛГА)
 
-![Платформа Intervolga](/images/blog/platforms/intervolga.jpg)
+![Платформа Intervolga](/images/blog/platforms/intervolga.png)
 
 **Бизнес-предложение:** Российская IT-компания/веб-интегратор. Цифровая разработка на 1С-Битрикс. Готовая B2B-платформа + помощь в автоматизации сложных процессов.
 
