@@ -756,17 +756,26 @@
    ============================ */
 @keyframes marquee-left {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(calc(-50% - 0.5rem)); }
 }
 @keyframes marquee-right {
-  0% { transform: translateX(-50%); }
+  0% { transform: translateX(calc(-50% - 0.5rem)); }
   100% { transform: translateX(0); }
 }
 .animate-marquee-left {
-  animation: marquee-left linear infinite;
+  animation: marquee-left 40s linear infinite;
 }
 .animate-marquee-right {
-  animation: marquee-right linear infinite;
+  animation: marquee-right 40s linear infinite;
+}
+
+@media (max-width: 768px) {
+  .animate-marquee-left {
+    animation-duration: 20s;
+  }
+  .animate-marquee-right {
+    animation-duration: 20s;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

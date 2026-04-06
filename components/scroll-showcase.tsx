@@ -18,7 +18,25 @@ const row2 = [
   { src: "/for animation/2-5.png", alt: "Документы" },
 ]
 
-const DURATION = 40
+const GAP = "1rem"
+
+function ImageSet({ images, prefix }: { images: { src: string; alt: string }[]; prefix: string }) {
+  return (
+    <div className="flex shrink-0" style={{ gap: GAP }}>
+      {images.map((img, i) => (
+        <Image
+          key={`${prefix}-${i}`}
+          src={img.src}
+          alt={img.alt}
+          width={1440}
+          height={868}
+          className="flex-shrink-0 h-[200px] sm:h-[260px] md:h-[320px] lg:h-[380px] w-auto"
+          sizes="(max-width: 640px) 332px, (max-width: 768px) 432px, (max-width: 1024px) 531px, 631px"
+        />
+      ))}
+    </div>
+  )
+}
 
 function MarqueeRow({
   images,
@@ -29,27 +47,16 @@ function MarqueeRow({
   direction: "left" | "right"
   offset?: boolean
 }) {
-  const doubled = [...images, ...images]
-
   return (
     <div
-      className={`flex gap-4 md:gap-5 ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
+      className={`flex ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
       style={{
-        animationDuration: `${DURATION}s`,
+        gap: GAP,
         ...(offset ? { paddingLeft: "clamp(80px, 10vw, 180px)" } : {}),
       }}
     >
-      {doubled.map((img, i) => (
-        <Image
-          key={`${direction}-${i}`}
-          src={img.src}
-          alt={img.alt}
-          width={1440}
-          height={868}
-          className="flex-shrink-0 h-[200px] sm:h-[260px] md:h-[320px] lg:h-[380px] w-auto"
-          sizes="(max-width: 640px) 332px, (max-width: 768px) 432px, (max-width: 1024px) 531px, 631px"
-        />
-      ))}
+      <ImageSet images={images} prefix={`${direction}-a`} />
+      <ImageSet images={images} prefix={`${direction}-b`} />
     </div>
   )
 }
@@ -72,7 +79,6 @@ export function ScrollShowcase() {
         <MarqueeRow images={row1} direction="left" />
         <MarqueeRow images={row2} direction="right" offset />
       </div>
-
     </section>
   )
 }
