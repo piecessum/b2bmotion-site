@@ -459,7 +459,7 @@ function renderBlogContent(content: string) {
   function flushStats() {
     if (statItems.length > 0) {
       elements.push(
-        <div key={`stats-${statItems[0].key}`} className="grid grid-cols-3 gap-3 my-6">
+        <div key={`stats-${statItems[0].key}`} className={`grid gap-3 my-6 ${statItems.length === 2 ? 'grid-cols-2' : statItems.length === 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-3'}`}>
           {statItems.map((s) => (
             <div key={s.key} className="text-center py-4 px-3 rounded-xl bg-surface-hover border border-border-subtle">
               <div className="font-heading font-bold text-lg md:text-xl gradient-text">{s.value}</div>
