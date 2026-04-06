@@ -73,9 +73,6 @@ export function ScrollShowcase() {
         <MarqueeRow images={row2} direction="right" offset />
       </div>
 
-      {/* Edge fade masks */}
-      <div className="absolute inset-y-0 left-0 w-12 md:w-24 bg-gradient-to-r from-[var(--page)] to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-12 md:w-24 bg-gradient-to-l from-[var(--page)] to-transparent z-10 pointer-events-none" />
     </section>
   )
 }
