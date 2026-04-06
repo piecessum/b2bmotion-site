@@ -71,9 +71,7 @@ export function ScrollShowcase() {
       {/* Animated rows */}
       <div className="flex flex-col gap-4 md:gap-5">
         <MarqueeRow images={row1} direction="left" />
-        <div style={{ paddingLeft: "clamp(80px, 10vw, 180px)" }}>
-          <MarqueeRow images={row2} direction="right" />
-        </div>
+        <MarqueeRow images={row2} direction="right" />
       </div>
     </section>
   )
