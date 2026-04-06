@@ -20,7 +20,7 @@ const row2 = [
 
 function ImageSet({ images, prefix }: { images: { src: string; alt: string }[]; prefix: string }) {
   return (
-    <div className="flex shrink-0 gap-4 md:gap-5">
+    <>
       {images.map((img, i) => (
         <Image
           key={`${prefix}-${i}`}
@@ -28,11 +28,10 @@ function ImageSet({ images, prefix }: { images: { src: string; alt: string }[]; 
           alt={img.alt}
           width={1440}
           height={868}
-          className="flex-shrink-0 h-[200px] sm:h-[260px] md:h-[320px] lg:h-[380px] w-auto"
-          sizes="(max-width: 640px) 332px, (max-width: 768px) 432px, (max-width: 1024px) 531px, 631px"
+          className="flex-shrink-0 h-[200px] sm:h-[260px] md:h-[320px] lg:h-[380px] w-auto pr-4 md:pr-5"
         />
       ))}
-    </div>
+    </>
   )
 }
 
@@ -44,12 +43,14 @@ function MarqueeRow({
   direction: "left" | "right"
 }) {
   return (
-    <div
-      className={`flex gap-4 md:gap-5 ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
-    >
-      <ImageSet images={images} prefix={`${direction}-a`} />
-      <ImageSet images={images} prefix={`${direction}-b`} />
-      <ImageSet images={images} prefix={`${direction}-c`} />
+    <div className="overflow-hidden">
+      <div
+        className={`flex w-fit ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
+      >
+        <ImageSet images={images} prefix={`${direction}-a`} />
+        <ImageSet images={images} prefix={`${direction}-b`} />
+        <ImageSet images={images} prefix={`${direction}-c`} />
+      </div>
     </div>
   )
 }
@@ -70,7 +71,6 @@ export function ScrollShowcase() {
       {/* Animated rows */}
       <div className="flex flex-col gap-4 md:gap-5">
         <MarqueeRow images={row1} direction="left" />
-        {/* Brick offset via wrapper */}
         <div style={{ paddingLeft: "clamp(80px, 10vw, 180px)" }}>
           <MarqueeRow images={row2} direction="right" />
         </div>
