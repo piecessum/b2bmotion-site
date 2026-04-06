@@ -624,6 +624,72 @@ function renderBlogContent(content: string) {
       continue;
     }
 
+    // Table rows (start with |)
+    if (trimmed.startsWith("|")) {
+      const rows: string[][] = [];
+      while (i < lines.length) {
+        const l = lines[i].trim();
+        if (l.startsWith("|")) {
+          const cells = l
+            .replace(/^\|/, "")
+            .replace(/\|$/, "")
+            .split("|")
+            .map((c) => c.trim());
+          rows.push(cells);
+          i++;
+        } else break;
+      }
+      // Remove separator row (contains ---)
+      const dataRows = rows.filter(
+        (row) => !row.every((cell) => /^[-:| ]*$/.test(cell)),
+      );
+      if (dataRows.length > 0) {
+        const headers = dataRows[0];
+        const bodyRows = dataRows.slice(1);
+        elements.push(
+          <div
+            key={`table-${i}`}
+            className="my-6 overflow-x-auto rounded-xl border border-border-subtle"
+          >
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-gradient-to-r from-[#3B82F6]/10 to-[#8B5CF6]/10">
+                  {headers.map((h, ci) => (
+                    <th
+                      key={ci}
+                      className="text-left px-4 py-3 font-heading font-semibold text-subheading whitespace-nowrap"
+                    >
+                      {renderInline(h)}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {bodyRows.map((row, ri) => (
+                  <tr
+                    key={ri}
+                    className={
+                      ri % 2 === 0 ? "bg-gray-50/50 dark:bg-white/[0.01]" : ""
+                    }
+                  >
+                    {row.map((cell, ci) => (
+                      <td
+                        key={ci}
+                        className="px-4 py-3 text-body leading-relaxed"
+                      >
+                        {renderInline(cell)}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>,
+        );
+      }
+      continue;
+    }
+
     // List items (- or *)
     if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
       const items: { text: string; key: number }[] = [];
