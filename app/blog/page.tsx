@@ -16,7 +16,12 @@ interface BlogPageProps {
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const posts = getAllPosts("blog");
   const params = await searchParams;
-  const initialFilter = params.filter === "cases" ? "cases" : "all";
+  const initialFilter =
+    params.filter === "cases"
+      ? "cases"
+      : params.filter === "publications"
+        ? "publications"
+        : "all";
 
   return (
     <main className="relative min-h-screen bg-page noise-overlay">

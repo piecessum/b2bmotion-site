@@ -16,7 +16,7 @@ interface Post {
 
 interface BlogContentProps {
   posts: Post[];
-  initialFilter: "all" | "cases";
+  initialFilter: "all" | "publications" | "cases";
 }
 
 const industries = [
@@ -32,7 +32,9 @@ const industries = [
 ];
 
 export function BlogContent({ posts, initialFilter }: BlogContentProps) {
-  const [filter, setFilter] = useState<"all" | "cases">(initialFilter);
+  const [filter, setFilter] = useState<"all" | "publications" | "cases">(
+    initialFilter,
+  );
   const [industryFilter, setIndustryFilter] = useState<string | null>(null);
 
   const isCaseStudy = (post: Post) =>
@@ -55,44 +57,60 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
     return tag ? industryMap[tag.toLowerCase()] || tag : "";
   };
 
+  const publications = posts.filter((p) => !isCaseStudy(p));
+  const cases = posts.filter(isCaseStudy);
+
   const filteredPosts =
     filter === "cases"
-      ? posts.filter(isCaseStudy).filter((post) => {
+      ? cases.filter((post) => {
           if (!industryFilter) return true;
           return getIndustry(post) === industryFilter;
         })
-      : posts;
+      : filter === "publications"
+        ? publications
+        : posts;
+
+  const pinnedPosts = posts.filter(
+    (p) =>
+      p.slug === "video" ||
+      p.slug === "b2b-platforms-report" ||
+      p.tags?.includes("закреплено"),
+  );
 
   return (
     <>
-      {/* Main filter chips */}
-      <div className="flex gap-3 mb-4">
-        <button
-          onClick={() => {
-            setFilter("all");
-            setIndustryFilter(null);
-          }}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
-            filter === "all"
-              ? "bg-[#3B82F6] text-white border-[#3B82F6] shadow-[0_0_20px_rgba(59,130,246,0.3)]"
-              : "bg-white/5 text-dim border-white/10 hover:bg-white/10 hover:text-body"
-          }`}
-        >
-          Все
-        </button>
-        <button
-          onClick={() => {
-            setFilter("cases");
-            setIndustryFilter(null);
-          }}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
-            filter === "cases"
-              ? "bg-[#8B5CF6] text-white border-[#8B5CF6] shadow-[0_0_20px_rgba(139,92,246,0.3)]"
-              : "bg-white/5 text-dim border-white/10 hover:bg-white/10 hover:text-body"
-          }`}
-        >
-          Кейсы
-        </button>
+      {/* Tabs */}
+      <div
+        className="-mx-6 px-6 xl:mx-0 xl:px-0 xl:shrink-0 overflow-x-auto scrollbar-hide mb-8"
+        style={{ scrollbarWidth: "none" }}
+      >
+        <div className="min-w-min">
+          <nav className="inline-flex p-1 rounded-xl bg-overlay-4 border border-glass-border gap-1">
+            {[
+              { key: "all" as const, label: "Все" },
+              { key: "publications" as const, label: "Публикации" },
+              { key: "cases" as const, label: "Кейсы" },
+            ].map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => {
+                  setFilter(tab.key);
+                  setIndustryFilter(null);
+                }}
+                className={`
+                  px-5 py-2.5 text-sm font-medium whitespace-nowrap rounded-lg transition-all
+                  ${
+                    filter === tab.key
+                      ? "bg-white text-heading shadow-sm border border-black/10 dark:bg-white/[0.10] dark:border-white/[0.15]"
+                      : "text-dim hover:text-body border border-transparent"
+                  }
+                `}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+        </div>
       </div>
 
       {/* Industry filters (only show when cases is selected) */}
@@ -124,70 +142,75 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
         </div>
       )}
 
-      {/* Pinned (only show on "all" filter) */}
-      {filter === "all" && (
-        <div className="flex flex-col gap-5 mb-5">
-          {/* Pinned video */}
-          <Link
-            href="/video"
-            className="group relative p-8 rounded-2xl glass-card overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#3B82F6]/[0.06] via-[#8B5CF6]/[0.04] to-[#06B6D4]/[0.06]" />
-            <div className="relative z-10 flex items-center gap-6">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#7C3AED] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-[0_0_30px_rgba(59,130,246,0.25)]">
-                <Play className="w-6 h-6 text-white fill-white ml-0.5" />
-              </div>
-              <div>
-                <div className="flex items-center gap-3 mb-1">
-                  <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-[#60A5FA] bg-[#3B82F6]/10 px-2 py-0.5 rounded-full">
-                    Видео
-                  </span>
-                  <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-dim bg-overlay-3 px-2 py-0.5 rounded-full">
-                    Закреплено
-                  </span>
+      {/* Pinned (show on "all" and "publications") */}
+      {(filter === "all" || filter === "publications") &&
+        pinnedPosts.length > 0 && (
+          <div className="flex flex-col gap-5 mb-5">
+            {/* Pinned video */}
+            {pinnedPosts.find((p) => p.slug === "video") && (
+              <Link
+                href="/video"
+                className="group relative p-8 rounded-2xl glass-card overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-[#3B82F6]/[0.06] via-[#8B5CF6]/[0.04] to-[#06B6D4]/[0.06]" />
+                <div className="relative z-10 flex items-center gap-6">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#7C3AED] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-[0_0_30px_rgba(59,130,246,0.25)]">
+                    <Play className="w-6 h-6 text-white fill-white ml-0.5" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-3 mb-1">
+                      <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-[#60A5FA] bg-[#3B82F6]/10 px-2 py-0.5 rounded-full">
+                        Видео
+                      </span>
+                      <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-dim bg-overlay-3 px-2 py-0.5 rounded-full">
+                        Закреплено
+                      </span>
+                    </div>
+                    <h2 className="font-heading font-semibold text-xl text-heading mb-1 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
+                      В2В Движение — оптимальное решение для оптового бизнеса
+                    </h2>
+                    <p className="text-subtle leading-relaxed text-sm">
+                      Практические подходы к организации B2B-взаимодействия и
+                      масштабированию оптовых продаж
+                    </p>
+                  </div>
                 </div>
-                <h2 className="font-heading font-semibold text-xl text-heading mb-1 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
-                  В2В Движение — оптимальное решение для оптового бизнеса
-                </h2>
-                <p className="text-subtle leading-relaxed text-sm">
-                  Практические подходы к организации B2B-взаимодействия и
-                  масштабированию оптовых продаж
-                </p>
-              </div>
-            </div>
-          </Link>
+              </Link>
+            )}
 
-          {/* Pinned report */}
-          <Link
-            href="/blog/b2b-platforms-report"
-            className="group relative p-8 rounded-2xl glass-card overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#06B6D4]/[0.06] via-[#3B82F6]/[0.04] to-[#8B5CF6]/[0.06]" />
-            <div className="relative z-10 flex items-center gap-6">
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#06B6D4] to-[#3B82F6] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-[0_0_30px_rgba(6,182,212,0.25)]">
-                <BarChart3 className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <div className="flex items-center gap-3 mb-1">
-                  <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-[#06B6D4] bg-[#06B6D4]/10 px-2 py-0.5 rounded-full">
-                    Отчёт
-                  </span>
-                  <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-dim bg-overlay-3 px-2 py-0.5 rounded-full">
-                    Закреплено
-                  </span>
+            {/* Pinned report */}
+            {pinnedPosts.find((p) => p.slug === "b2b-platforms-report") && (
+              <Link
+                href="/blog/b2b-platforms-report"
+                className="group relative p-8 rounded-2xl glass-card overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-[#06B6D4]/[0.06] via-[#3B82F6]/[0.04] to-[#8B5CF6]/[0.06]" />
+                <div className="relative z-10 flex items-center gap-6">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#06B6D4] to-[#3B82F6] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-[0_0_30px_rgba(6,182,212,0.25)]">
+                    <BarChart3 className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-3 mb-1">
+                      <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-[#06B6D4] bg-[#06B6D4]/10 px-2 py-0.5 rounded-full">
+                        Отчёт
+                      </span>
+                      <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-dim bg-overlay-3 px-2 py-0.5 rounded-full">
+                        Закреплено
+                      </span>
+                    </div>
+                    <h2 className="font-heading font-semibold text-xl text-heading mb-1 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
+                      B2B eCommerce Платформы: Россия vs Мировой рынок
+                    </h2>
+                    <p className="text-subtle leading-relaxed text-sm">
+                      Комплексный обзор 13 платформ — функциональность, дизайн
+                      лендингов, цены и рекомендации
+                    </p>
+                  </div>
                 </div>
-                <h2 className="font-heading font-semibold text-xl text-heading mb-1 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
-                  B2B eCommerce Платформы: Россия vs Мировой рынок
-                </h2>
-                <p className="text-subtle leading-relaxed text-sm">
-                  Комплексный обзор 13 платформ — функциональность, дизайн
-                  лендингов, цены и рекомендации
-                </p>
-              </div>
-            </div>
-          </Link>
-        </div>
-      )}
+              </Link>
+            )}
+          </div>
+        )}
 
       {/* Posts grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
