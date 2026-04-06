@@ -3,6 +3,7 @@ import { Hero } from "@/components/hero"
 import { LogoCloud } from "@/components/logo-cloud"
 import { FeaturesBento } from "@/components/features-bento"
 import { HowItWorks } from "@/components/how-it-works"
+import { ScrollShowcase } from "@/components/scroll-showcase"
 import { IndustryCases } from "@/components/industry-cases"
 import { Testimonials } from "@/components/testimonials"
 import { VideoBanner } from "@/components/video-banner"
@@ -18,6 +19,7 @@ export default function Home() {
       <LogoCloud />
       <FeaturesBento />
       <HowItWorks />
+      <ScrollShowcase />
       <IndustryCases />
       <Testimonials />
       <VideoBanner />
