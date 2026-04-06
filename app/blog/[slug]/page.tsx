@@ -116,9 +116,7 @@ export default async function BlogPostPage({
           <p className="text-lg text-subtle mb-10">{post.description}</p>
 
           {/* Content */}
-          <div className="prose-custom">
-            {renderBlogContent(post.content)}
-          </div>
+          <div className="prose-custom">{renderBlogContent(post.content)}</div>
 
           {/* Blog Banner */}
           <BlogBanner />
@@ -253,48 +251,78 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                 {clientInfo.name && (
                   <div className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-4">
-                    <div className="text-[10px] uppercase tracking-wider text-dim mb-1">Компания</div>
-                    <div className="text-sm text-body font-medium">{clientInfo.name}</div>
+                    <div className="text-[10px] uppercase tracking-wider text-dim mb-1">
+                      Компания
+                    </div>
+                    <div className="text-sm text-body font-medium">
+                      {clientInfo.name}
+                    </div>
                   </div>
                 )}
                 {clientInfo.location && (
                   <div className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-4">
-                    <div className="text-[10px] uppercase tracking-wider text-dim mb-1">Локация</div>
-                    <div className="text-sm text-body">{clientInfo.location}</div>
+                    <div className="text-[10px] uppercase tracking-wider text-dim mb-1">
+                      Локация
+                    </div>
+                    <div className="text-sm text-body">
+                      {clientInfo.location}
+                    </div>
                   </div>
                 )}
                 {clientInfo.founded && (
                   <div className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-4">
-                    <div className="text-[10px] uppercase tracking-wider text-dim mb-1">Основание</div>
-                    <div className="text-sm text-body">{clientInfo.founded} год</div>
+                    <div className="text-[10px] uppercase tracking-wider text-dim mb-1">
+                      Основание
+                    </div>
+                    <div className="text-sm text-body">
+                      {clientInfo.founded} год
+                    </div>
                   </div>
                 )}
                 {clientInfo.clients && (
                   <div className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-4">
-                    <div className="text-[10px] uppercase tracking-wider text-dim mb-1">Клиентов</div>
-                    <div className="text-sm text-body">{clientInfo.clients}</div>
+                    <div className="text-[10px] uppercase tracking-wider text-dim mb-1">
+                      Клиентов
+                    </div>
+                    <div className="text-sm text-body">
+                      {clientInfo.clients}
+                    </div>
                   </div>
                 )}
               </div>
 
-              {(clientInfo.brands || clientInfo.branches || clientInfo.businessModel) && (
+              {(clientInfo.brands ||
+                clientInfo.branches ||
+                clientInfo.businessModel) && (
                 <div className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-5 space-y-3">
                   {clientInfo.businessModel && (
                     <div>
-                      <span className="text-[10px] uppercase tracking-wider text-dim">Бизнес-модель: </span>
-                      <span className="text-sm text-body">{clientInfo.businessModel}</span>
+                      <span className="text-[10px] uppercase tracking-wider text-dim">
+                        Бизнес-модель:{" "}
+                      </span>
+                      <span className="text-sm text-body">
+                        {clientInfo.businessModel}
+                      </span>
                     </div>
                   )}
                   {clientInfo.brands && (
                     <div>
-                      <span className="text-[10px] uppercase tracking-wider text-dim">Бренды: </span>
-                      <span className="text-sm text-body">{clientInfo.brands}</span>
+                      <span className="text-[10px] uppercase tracking-wider text-dim">
+                        Бренды:{" "}
+                      </span>
+                      <span className="text-sm text-body">
+                        {clientInfo.brands}
+                      </span>
                     </div>
                   )}
                   {clientInfo.branches && (
                     <div>
-                      <span className="text-[10px] uppercase tracking-wider text-dim">Филиалы: </span>
-                      <span className="text-sm text-body">{clientInfo.branches}</span>
+                      <span className="text-[10px] uppercase tracking-wider text-dim">
+                        Филиалы:{" "}
+                      </span>
+                      <span className="text-sm text-body">
+                        {clientInfo.branches}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -313,8 +341,12 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
                   <ul className="space-y-2.5">
                     {problems.map((problem: string, i: number) => (
                       <li key={i} className="flex gap-2.5 items-start text-sm">
-                        <span className="text-red-400/80 shrink-0 mt-0.5 text-xs">&#x2716;</span>
-                        <span className="text-body leading-relaxed">{problem}</span>
+                        <span className="text-red-400/80 shrink-0 mt-0.5 text-xs">
+                          &#x2716;
+                        </span>
+                        <span className="text-body leading-relaxed">
+                          {problem}
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -348,13 +380,20 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {results.map((result: any, i: number) => (
-                  <div key={i} className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-4">
+                  <div
+                    key={i}
+                    className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-4"
+                  >
                     <div className="text-[10px] uppercase tracking-wider text-dim mb-2">
                       {result.metric}
                     </div>
                     <div className="flex items-baseline gap-2 mb-1">
-                      <span className="text-xs text-dim line-through">{result.before}</span>
-                      <span className="text-sm text-body font-medium">{result.after}</span>
+                      <span className="text-xs text-dim line-through">
+                        {result.before}
+                      </span>
+                      <span className="text-sm text-body font-medium">
+                        {result.after}
+                      </span>
                     </div>
                     <div className="text-lg font-heading font-bold text-[#10B981]">
                       {result.change}
@@ -391,7 +430,9 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
                   {integrations.map((integration: string, i: number) => (
                     <li key={i} className="flex gap-2.5 items-start text-sm">
                       <Package className="w-4 h-4 text-[#60A5FA] shrink-0 mt-0.5" />
-                      <span className="text-body leading-relaxed">{integration}</span>
+                      <span className="text-body leading-relaxed">
+                        {integration}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -459,14 +500,22 @@ function renderBlogContent(content: string) {
   function flushStats() {
     if (statItems.length > 0) {
       elements.push(
-        <div key={`stats-${statItems[0].key}`} className={`grid gap-3 my-6 ${statItems.length === 2 ? 'grid-cols-2' : statItems.length === 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-1 sm:grid-cols-3'}`}>
+        <div
+          key={`stats-${statItems[0].key}`}
+          className={`grid gap-3 my-6 ${statItems.length === 2 ? "grid-cols-2" : statItems.length === 4 ? "grid-cols-2 md:grid-cols-4" : "grid-cols-1 sm:grid-cols-3"}`}
+        >
           {statItems.map((s) => (
-            <div key={s.key} className="text-center py-4 px-3 rounded-xl bg-surface-hover border border-border-subtle">
-              <div className="font-heading font-bold text-lg md:text-xl gradient-text">{s.value}</div>
+            <div
+              key={s.key}
+              className="text-center py-4 px-3 rounded-xl bg-surface-hover border border-border-subtle"
+            >
+              <div className="font-heading font-bold text-lg md:text-xl gradient-text">
+                {s.value}
+              </div>
               <div className="text-xs text-subtle mt-1">{s.label}</div>
             </div>
           ))}
-        </div>
+        </div>,
       );
       statItems.length = 0;
     }
@@ -519,7 +568,7 @@ function renderBlogContent(content: string) {
             {text}
           </h2>
           <div className="mt-3 h-0.5 w-16 bg-gradient-to-r from-[#3B82F6] to-[#8B5CF6] rounded-full" />
-        </div>
+        </div>,
       );
       i++;
       continue;
@@ -538,13 +587,16 @@ function renderBlogContent(content: string) {
             <h3 className="font-heading font-semibold text-xl text-heading pt-1.5">
               {numMatch[2]}
             </h3>
-          </div>
+          </div>,
         );
       } else {
         elements.push(
-          <h3 key={i} className="font-heading font-semibold text-lg text-subheading mt-8 mb-3">
+          <h3
+            key={i}
+            className="font-heading font-semibold text-lg text-subheading mt-8 mb-3"
+          >
             {raw}
-          </h3>
+          </h3>,
         );
       }
       i++;
@@ -556,9 +608,17 @@ function renderBlogContent(content: string) {
     if (imgMatch) {
       elements.push(
         <figure key={i} className="my-8">
-          <img src={imgMatch[2]} alt={imgMatch[1]} className="w-full rounded-xl border border-border-subtle" />
-          {imgMatch[1] && <figcaption className="text-xs text-dim mt-2 text-center">{imgMatch[1]}</figcaption>}
-        </figure>
+          <img
+            src={imgMatch[2]}
+            alt={imgMatch[1]}
+            className="w-full rounded-xl border border-border-subtle"
+          />
+          {imgMatch[1] && (
+            <figcaption className="text-xs text-dim mt-2 text-center">
+              {imgMatch[1]}
+            </figcaption>
+          )}
+        </figure>,
       );
       i++;
       continue;
@@ -577,12 +637,15 @@ function renderBlogContent(content: string) {
       elements.push(
         <ul key={`ul-${items[0].key}`} className="space-y-2 mb-5 ml-1">
           {items.map((item) => (
-            <li key={item.key} className="flex items-start gap-3 text-body leading-relaxed">
+            <li
+              key={item.key}
+              className="flex items-start gap-3 text-body leading-relaxed"
+            >
               <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#3B82F6] shrink-0" />
               <span>{renderInline(item.text)}</span>
             </li>
           ))}
-        </ul>
+        </ul>,
       );
       continue;
     }
@@ -591,7 +654,7 @@ function renderBlogContent(content: string) {
     elements.push(
       <p key={i} className="text-body leading-relaxed mb-4">
         {renderInline(trimmed)}
-      </p>
+      </p>,
     );
     i++;
   }
@@ -618,8 +681,17 @@ function renderInline(text: string) {
     }
     const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
     if (linkMatch) {
+      const href = linkMatch[2];
+      const isInternal = href.startsWith("/") || href.startsWith("#");
       return (
-        <a key={i} href={linkMatch[2]} target="_blank" rel="noopener noreferrer" className="text-[#60A5FA] hover:text-[#93C5FD] underline underline-offset-2 decoration-[#3B82F6]/30 hover:decoration-[#3B82F6]/60 transition-colors">
+        <a
+          key={i}
+          href={href}
+          {...(isInternal
+            ? {}
+            : { target: "_blank", rel: "noopener noreferrer" })}
+          className="text-[#60A5FA] hover:text-[#93C5FD] underline underline-offset-2 decoration-[#3B82F6]/30 hover:decoration-[#3B82F6]/60 transition-colors"
+        >
           {linkMatch[1]}
         </a>
       );
@@ -643,9 +715,12 @@ function renderCaseContentBlocks(content: string) {
 
     if (trimmed.startsWith("## ")) {
       elements.push(
-        <h2 key={i} className="font-heading font-semibold text-lg text-heading mt-8 mb-3">
+        <h2
+          key={i}
+          className="font-heading font-semibold text-lg text-heading mt-8 mb-3"
+        >
           {trimmed.replace("## ", "")}
-        </h2>
+        </h2>,
       );
       i++;
       continue;
@@ -653,9 +728,12 @@ function renderCaseContentBlocks(content: string) {
 
     if (trimmed.startsWith("### ")) {
       elements.push(
-        <h3 key={i} className="font-heading font-semibold text-base text-subheading mt-6 mb-2">
+        <h3
+          key={i}
+          className="font-heading font-semibold text-base text-subheading mt-6 mb-2"
+        >
           {trimmed.replace("### ", "")}
-        </h3>
+        </h3>,
       );
       i++;
       continue;
@@ -670,11 +748,14 @@ function renderCaseContentBlocks(content: string) {
       elements.push(
         <ul key={`ul-${items[0].key}`} className="ml-4 space-y-1 mb-3">
           {items.map((item) => (
-            <li key={item.key} className="text-sm text-body leading-relaxed list-disc marker:text-[#3B82F6]">
+            <li
+              key={item.key}
+              className="text-sm text-body leading-relaxed list-disc marker:text-[#3B82F6]"
+            >
               {renderInline(item.text)}
             </li>
           ))}
-        </ul>
+        </ul>,
       );
       continue;
     }
@@ -688,13 +769,20 @@ function renderCaseContentBlocks(content: string) {
         i++;
       }
       elements.push(
-        <ol key={`ol-${items[0].key}`} className="ml-4 space-y-1 mb-3" start={items[0].num}>
+        <ol
+          key={`ol-${items[0].key}`}
+          className="ml-4 space-y-1 mb-3"
+          start={items[0].num}
+        >
           {items.map((item) => (
-            <li key={item.key} className="text-sm text-body leading-relaxed list-decimal marker:text-[#3B82F6]">
+            <li
+              key={item.key}
+              className="text-sm text-body leading-relaxed list-decimal marker:text-[#3B82F6]"
+            >
               {renderInline(item.text)}
             </li>
           ))}
-        </ol>
+        </ol>,
       );
       continue;
     }
@@ -702,7 +790,7 @@ function renderCaseContentBlocks(content: string) {
     elements.push(
       <p key={i} className="text-sm text-body leading-relaxed mb-3">
         {renderInline(trimmed)}
-      </p>
+      </p>,
     );
     i++;
   }
