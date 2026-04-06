@@ -18,11 +18,9 @@ const row2 = [
   { src: "/for animation/2-5.png", alt: "Документы" },
 ]
 
-const GAP = "1rem"
-
 function ImageSet({ images, prefix }: { images: { src: string; alt: string }[]; prefix: string }) {
   return (
-    <div className="flex shrink-0" style={{ gap: GAP }}>
+    <div className="flex shrink-0 gap-4 md:gap-5">
       {images.map((img, i) => (
         <Image
           key={`${prefix}-${i}`}
@@ -41,22 +39,17 @@ function ImageSet({ images, prefix }: { images: { src: string; alt: string }[]; 
 function MarqueeRow({
   images,
   direction,
-  offset,
 }: {
   images: { src: string; alt: string }[]
   direction: "left" | "right"
-  offset?: boolean
 }) {
   return (
     <div
-      className={`flex ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
-      style={{
-        gap: GAP,
-        ...(offset ? { paddingLeft: "clamp(80px, 10vw, 180px)" } : {}),
-      }}
+      className={`flex gap-4 md:gap-5 ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
     >
       <ImageSet images={images} prefix={`${direction}-a`} />
       <ImageSet images={images} prefix={`${direction}-b`} />
+      <ImageSet images={images} prefix={`${direction}-c`} />
     </div>
   )
 }
@@ -77,7 +70,10 @@ export function ScrollShowcase() {
       {/* Animated rows */}
       <div className="flex flex-col gap-4 md:gap-5">
         <MarqueeRow images={row1} direction="left" />
-        <MarqueeRow images={row2} direction="right" offset />
+        {/* Brick offset via wrapper */}
+        <div style={{ paddingLeft: "clamp(80px, 10vw, 180px)" }}>
+          <MarqueeRow images={row2} direction="right" />
+        </div>
       </div>
     </section>
   )
