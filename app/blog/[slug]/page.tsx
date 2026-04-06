@@ -10,6 +10,8 @@ import {
   CheckCircle2,
   Quote,
   Package,
+  BookOpen,
+  ExternalLink,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -113,10 +115,83 @@ export default async function BlogPostPage({
             </header>
           )}
 
-          <p className="text-lg text-subtle mb-10">{post.description}</p>
+          <p className="text-lg text-subtle mb-6">{post.description}</p>
+
+          {/* Source note */}
+          {(post as any).source && (
+            <div className="flex items-center gap-3 rounded-xl bg-gradient-to-r from-[#3B82F6]/5 to-[#8B5CF6]/5 border border-[#3B82F6]/15 px-5 py-3.5 mb-8">
+              <ExternalLink className="w-4 h-4 text-[#60A5FA] shrink-0" />
+              <p className="text-sm text-subtle">
+                {(post as any).source.text}{" "}
+                <a
+                  href={(post as any).source.linkUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#60A5FA] hover:text-[#93C5FD] font-medium underline underline-offset-2 decoration-[#3B82F6]/30 hover:decoration-[#3B82F6]/60 transition-colors"
+                >
+                  {(post as any).source.linkText}
+                </a>
+              </p>
+            </div>
+          )}
+
+          {/* Table of Contents */}
+          {(() => {
+            const headings = extractHeadings(post.content);
+            if (headings.length < 3) return null;
+            return (
+              <nav className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-6 mb-10">
+                <div className="flex items-center gap-2.5 mb-4">
+                  <BookOpen className="w-4 h-4 text-[#60A5FA]" />
+                  <span className="font-heading font-semibold text-sm text-heading">Чеклист</span>
+                </div>
+                <ul className="space-y-1.5">
+                  {headings.map((h, idx) => (
+                    <li key={idx} className={h.level === 3 ? "pl-5" : ""}>
+                      <a
+                        href={`#${h.id}`}
+                        className={`text-sm hover:text-[#60A5FA] transition-colors leading-relaxed ${
+                          h.level === 2
+                            ? "font-medium text-body"
+                            : "text-subtle"
+                        }`}
+                      >
+                        {h.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            );
+          })()}
 
           {/* Content */}
           <div className="prose-custom">{renderBlogContent(post.content)}</div>
+
+          {/* Author Card */}
+          {(post as any).authorCard && (
+            <div className="mt-14 mb-10 rounded-2xl bg-gradient-to-br from-[#3B82F6]/5 via-transparent to-[#8B5CF6]/5 border border-gray-200 dark:border-white/[0.06] p-6 md:p-8">
+              <div className="flex items-start gap-5">
+                <img
+                  src={(post as any).authorCard.photo}
+                  alt={(post as any).authorCard.name}
+                  className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover object-top border-2 border-[#3B82F6]/20 shrink-0"
+                />
+                <div className="min-w-0">
+                  <div className="text-[10px] uppercase tracking-[0.15em] text-[#60A5FA] mb-1">Автор статьи</div>
+                  <h4 className="font-heading font-bold text-lg text-heading mb-0.5">
+                    {(post as any).authorCard.name}
+                  </h4>
+                  <p className="text-sm font-medium text-subtle mb-2">
+                    {(post as any).authorCard.role}
+                  </p>
+                  <p className="text-sm text-dim leading-relaxed">
+                    {(post as any).authorCard.bio}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Blog Banner */}
           <BlogBanner />
@@ -490,6 +565,39 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
   );
 }
 
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-zа-яё0-9\s-]/gi, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .trim();
+}
+
+function extractHeadings(content: string) {
+  const lines = content.split("\n");
+  const headings: { level: number; text: string; id: string }[] = [];
+  let inStats = false;
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (trimmed === "<!-- stats -->") { inStats = true; continue; }
+    if (trimmed === "<!-- /stats -->") { inStats = false; continue; }
+    if (inStats) continue;
+
+    if (trimmed.startsWith("## ")) {
+      const text = trimmed.replace("## ", "");
+      headings.push({ level: 2, text, id: slugify(text) });
+    } else if (trimmed.startsWith("### ")) {
+      const raw = trimmed.replace("### ", "");
+      const numMatch = raw.match(/^(\d+)\.\s*(.*)/);
+      const text = numMatch ? `${numMatch[1]}. ${numMatch[2]}` : raw;
+      headings.push({ level: 3, text, id: slugify(text) });
+    }
+  }
+  return headings;
+}
+
 function renderBlogContent(content: string) {
   const lines = content.split("\n");
   const elements: React.ReactNode[] = [];
@@ -547,6 +655,104 @@ function renderBlogContent(content: string) {
       continue;
     }
 
+    // Features block (functional analysis cards)
+    if (trimmed === "<!-- features -->") {
+      const groups: { type: string; title: string; items: string[] }[] = [];
+      let currentGroup: { type: string; title: string; items: string[] } | null = null;
+      i++;
+      while (i < lines.length) {
+        const fl = lines[i].trim();
+        if (fl === "<!-- /features -->") { i++; break; }
+        const groupMatch = fl.match(/^<!-- group:(\w+):(.+) -->$/);
+        if (groupMatch) {
+          if (currentGroup) groups.push(currentGroup);
+          currentGroup = { type: groupMatch[1], title: groupMatch[2], items: [] };
+          i++;
+          continue;
+        }
+        if (currentGroup && (fl.startsWith("* ") || fl.startsWith("- "))) {
+          currentGroup.items.push(fl.replace(/^[*-]\s+/, ""));
+        }
+        i++;
+      }
+      if (currentGroup) groups.push(currentGroup);
+
+      const colorMap: Record<string, { border: string; bg: string; icon: string; badge: string; badgeText: string }> = {
+        required: {
+          border: "border-[#8B5CF6]/30",
+          bg: "bg-[#8B5CF6]/5",
+          icon: "text-[#8B5CF6]",
+          badge: "bg-[#8B5CF6]/10 text-[#8B5CF6]",
+          badgeText: "Обязательно",
+        },
+        desired: {
+          border: "border-amber-400/30",
+          bg: "bg-amber-500/5",
+          icon: "text-amber-400",
+          badge: "bg-amber-500/10 text-amber-500",
+          badgeText: "Желательно",
+        },
+        recommended: {
+          border: "border-emerald-400/30",
+          bg: "bg-emerald-500/5",
+          icon: "text-emerald-400",
+          badge: "bg-emerald-500/10 text-emerald-400",
+          badgeText: "Рекомендуется",
+        },
+        optimal: {
+          border: "border-[#8B5CF6]/30",
+          bg: "bg-[#8B5CF6]/5",
+          icon: "text-[#8B5CF6]",
+          badge: "bg-[#8B5CF6]/10 text-[#8B5CF6]",
+          badgeText: "Оптимально",
+        },
+        good: {
+          border: "border-emerald-400/30",
+          bg: "bg-emerald-500/5",
+          icon: "text-emerald-400",
+          badge: "bg-emerald-500/10 text-emerald-400",
+          badgeText: "Хорошо",
+        },
+        bad: {
+          border: "border-red-400/30",
+          bg: "bg-red-500/5",
+          icon: "text-red-400",
+          badge: "bg-red-500/10 text-red-400",
+          badgeText: "Плохо",
+        },
+      };
+
+      elements.push(
+        <div key={`features-${i}`} className="grid gap-4 my-6 md:grid-cols-3">
+          {groups.map((g, gi) => {
+            const c = colorMap[g.type] || colorMap.recommended;
+            return (
+              <div
+                key={gi}
+                className={`rounded-xl border ${c.border} ${c.bg} p-5`}
+              >
+                <div className="flex items-center gap-2.5 mb-4">
+                  <span className={`inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full ${c.badge}`}>
+                    {c.badgeText}
+                  </span>
+                </div>
+                <h4 className="font-heading font-semibold text-base text-heading mb-3">{g.title}</h4>
+                <ul className="space-y-2">
+                  {g.items.map((item, ii) => (
+                    <li key={ii} className="flex items-start gap-2.5 text-sm text-body leading-relaxed">
+                      <CheckCircle2 className={`w-4 h-4 ${c.icon} shrink-0 mt-0.5`} />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>,
+      );
+      continue;
+    }
+
     // Empty line
     if (!trimmed) {
       i++;
@@ -563,7 +769,7 @@ function renderBlogContent(content: string) {
     if (trimmed.startsWith("## ")) {
       const text = trimmed.replace("## ", "");
       elements.push(
-        <div key={i} className="mt-14 mb-6 first:mt-0">
+        <div key={i} id={slugify(text)} className="mt-14 mb-6 first:mt-0 scroll-mt-24">
           <h2 className="font-heading font-bold text-2xl md:text-3xl text-heading tracking-[-0.02em]">
             {text}
           </h2>
@@ -579,8 +785,9 @@ function renderBlogContent(content: string) {
       const raw = trimmed.replace("### ", "");
       const numMatch = raw.match(/^(\d+)\.\s*(.*)/);
       if (numMatch) {
+        const headingId = slugify(`${numMatch[1]}. ${numMatch[2]}`);
         elements.push(
-          <div key={i} className="flex items-start gap-4 mt-10 mb-4">
+          <div key={i} id={headingId} className="flex items-start gap-4 mt-10 mb-4 scroll-mt-24">
             <span className="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center text-white font-heading font-bold text-sm shadow-lg shadow-[#3B82F6]/20">
               {numMatch[1]}
             </span>
@@ -593,7 +800,8 @@ function renderBlogContent(content: string) {
         elements.push(
           <h3
             key={i}
-            className="font-heading font-semibold text-lg text-subheading mt-8 mb-3"
+            id={slugify(raw)}
+            className="font-heading font-semibold text-lg text-subheading mt-8 mb-3 scroll-mt-24"
           >
             {raw}
           </h3>,

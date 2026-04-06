@@ -20,6 +20,17 @@ export interface Post {
   results?: any[];
   quote?: any;
   integrations?: string[];
+  authorCard?: {
+    name: string;
+    role: string;
+    bio: string;
+    photo: string;
+  };
+  source?: {
+    text: string;
+    linkText: string;
+    linkUrl: string;
+  };
 }
 
 function getContentDir(collection: "blog" | "news") {
@@ -54,6 +65,8 @@ export function getAllPosts(collection: "blog" | "news"): Post[] {
       results: data.results || undefined,
       quote: data.quote || undefined,
       integrations: data.integrations || undefined,
+      authorCard: data.authorCard || undefined,
+      source: data.source || undefined,
       content,
     } as Post;
   });
@@ -91,6 +104,8 @@ export function getPostBySlug(
     results: data.results || undefined,
     quote: data.quote || undefined,
     integrations: data.integrations || undefined,
+    authorCard: data.authorCard || undefined,
+    source: data.source || undefined,
     content,
   };
 }
