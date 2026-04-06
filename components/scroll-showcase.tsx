@@ -18,14 +18,43 @@ const row2 = [
   { src: "/for animation/2-5.png", alt: "Документы" },
 ]
 
-// Duration in seconds
 const DURATION = 40
 
-export function ScrollShowcase() {
-  // Duplicate images for seamless loop
-  const row1Double = [...row1, ...row1]
-  const row2Double = [...row2, ...row2]
+function MarqueeRow({
+  images,
+  direction,
+  offset,
+}: {
+  images: { src: string; alt: string }[]
+  direction: "left" | "right"
+  offset?: boolean
+}) {
+  const doubled = [...images, ...images]
 
+  return (
+    <div
+      className={`flex gap-4 md:gap-5 ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
+      style={{
+        animationDuration: `${DURATION}s`,
+        ...(offset ? { paddingLeft: "clamp(80px, 10vw, 180px)" } : {}),
+      }}
+    >
+      {doubled.map((img, i) => (
+        <Image
+          key={`${direction}-${i}`}
+          src={img.src}
+          alt={img.alt}
+          width={1440}
+          height={868}
+          className="flex-shrink-0 h-[200px] sm:h-[260px] md:h-[320px] lg:h-[380px] w-auto"
+          sizes="(max-width: 640px) 332px, (max-width: 768px) 432px, (max-width: 1024px) 531px, 631px"
+        />
+      ))}
+    </div>
+  )
+}
+
+export function ScrollShowcase() {
   return (
     <section className="relative py-20 md:py-32 overflow-hidden">
       {/* Section heading */}
@@ -39,63 +68,9 @@ export function ScrollShowcase() {
       </div>
 
       {/* Animated rows */}
-      <div className="relative flex flex-col gap-4 md:gap-5">
-        {/* Row 1 — moves left (visually scrolls right) */}
-        <div
-          className="flex gap-4 md:gap-5 animate-marquee-left"
-          style={{
-            animationDuration: `${DURATION}s`,
-            width: "max-content",
-          }}
-        >
-          {row1Double.map((img, i) => (
-            <div
-              key={`r1-${i}`}
-              className="relative flex-shrink-0"
-              style={{
-                width: "clamp(300px, 34vw, 560px)",
-                aspectRatio: "16 / 10",
-              }}
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                className="object-cover object-left-top"
-                sizes="(max-width: 768px) 300px, 34vw"
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* Row 2 — moves right (visually scrolls left), offset for brickwork */}
-        <div
-          className="flex gap-4 md:gap-5 animate-marquee-right"
-          style={{
-            animationDuration: `${DURATION}s`,
-            width: "max-content",
-            marginLeft: "clamp(-160px, -10vw, -80px)",
-          }}
-        >
-          {row2Double.map((img, i) => (
-            <div
-              key={`r2-${i}`}
-              className="relative flex-shrink-0"
-              style={{
-                width: "clamp(300px, 34vw, 560px)",
-                aspectRatio: "16 / 10",
-              }}
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                className="object-cover object-left-top"
-                sizes="(max-width: 768px) 300px, 34vw"
-              />
-            </div>
-          ))}
-        </div>
+      <div className="flex flex-col gap-4 md:gap-5">
+        <MarqueeRow images={row1} direction="left" />
+        <MarqueeRow images={row2} direction="right" offset />
       </div>
 
       {/* Edge fade masks */}
