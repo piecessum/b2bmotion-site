@@ -49,10 +49,11 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
   );
   const [industryFilter, setIndustryFilter] = useState<string | null>(null);
 
-  // Read industry from URL on mount
+  // Read full state from URL on mount (overrides server-cached initialFilter)
   useEffect(() => {
-    const { industry } = readUrlState();
-    if (industry) setIndustryFilter(industry);
+    const { filter: f, industry } = readUrlState();
+    setFilter(f);
+    setIndustryFilter(industry);
   }, []);
 
   // Sync state ← URL on back/forward
