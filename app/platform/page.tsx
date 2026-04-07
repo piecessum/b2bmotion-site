@@ -30,7 +30,7 @@ const productsSections = [
   {
     icon: FileText,
     title: "Данные о товаре",
-    image: "product.png",
+    image: "ui-screenshots/product.png",
     features: [
       "Заполнение описания, свойств, бренда, серии, артикулов и штрихкодов к товару",
       "Галерея фото, видео, сертификатов, гарантий и других необходимых документов",
@@ -47,7 +47,7 @@ const productsSections = [
   {
     icon: Search,
     title: "Каталог и поиск",
-    image: "catalog-searc.png",
+    image: "ui-screenshots/catalog-searc.png",
     features: [
       "Распределение товаров по дереву каталога компании",
       "Интеллектуальный поиск по любым совпадениям: код товара, название, свойства и т.п.",
@@ -60,7 +60,7 @@ const productsSections = [
   {
     icon: DollarSign,
     title: "Ценообразование",
-    image: "pricing.png",
+    image: "ui-screenshots/pricing.png",
     features: [
       "Тарифы — настраиваемые типы цен + настройка базового тарифа для новых пользователей",
       "Сегментирование компаний-контрагентов и настройка индивидуальных скидок",
@@ -72,7 +72,7 @@ const productsSections = [
   {
     icon: ShoppingCart,
     title: "Заказы",
-    image: "orders.png",
+    image: "ui-screenshots/orders.png",
     features: [
       "Бесшовная передача заказов клиентов сразу в 1С или другую ERP-систему без дополнительной обработки менеджером",
       "Отслеживание текущего состояния заказа клиентом — статуса заказа и отдельных позиций внутри заказа",
@@ -84,7 +84,7 @@ const productsSections = [
   {
     icon: CreditCard,
     title: "Оплата и доставка",
-    image: "payment-delivery.png",
+    image: "ui-screenshots/payment-delivery.png",
     features: [
       "Оплата через выставление счёта контрагенту",
       "Эквайринг — оплата картой",
@@ -97,7 +97,7 @@ const productsSections = [
   {
     icon: FileCheck2,
     title: "Документооборот",
-    image: "documents.png",
+    image: "ui-screenshots/documents.png",
     features: [
       "Передача документов к заказу из 1С с факсимильными подписью и печатью: счёт, накладная, счёт-фактура",
       "Неоднократное перевыставление счёта, если произошла корректировка заказа",
@@ -112,7 +112,7 @@ const cabinetSections = [
   {
     icon: Gift,
     title: "Персональные предложения",
-    image: "personal-offers.png",
+    image: "ui-screenshots/personal-offers.png",
     features: [
       "Индивидуальные скидки для конкретного клиента",
       "Рекомендованные спецификации от менеджера с предложением лучших условий",
@@ -123,7 +123,7 @@ const cabinetSections = [
   {
     icon: Building2,
     title: "Данные о компании покупателя",
-    image: "company-data.png",
+    image: "ui-screenshots/company-data.png",
     features: [
       "Мультикомпании — возможность работать от лица нескольких компаний и переключаться между ними",
       "Отображение кредитного лимита, дебиторской задолженности и дней просрочки",
@@ -140,7 +140,7 @@ const marketingSections = [
   {
     icon: TrendingUp,
     title: "Увеличение среднего чека",
-    image: "avg-check.png",
+    image: "ui-screenshots/avg-check.png",
     features: [
       "Предложение комплектов товаров, например, расходников и аксессуаров",
       "Распродажа уценённых товаров — можно указать степень дефектов",
@@ -150,7 +150,7 @@ const marketingSections = [
   {
     icon: Tag,
     title: "Акции и предложения",
-    image: "promotions.png",
+    image: "ui-screenshots/promotions.png",
     features: [
       "Спецпредложения и хиты продаж на главной странице",
       "Маркировка акционных товаров визуальными элементами в каталоге",
@@ -160,7 +160,7 @@ const marketingSections = [
   {
     icon: ShoppingBag,
     title: "Работа с брошенными корзинами",
-    image: "abandoned-carts.png",
+    image: "ui-screenshots/abandoned-carts.png",
     features: [
       "Сегментация собранных, но неоформленных корзин по среднему чеку",
       "Отправка уведомлений менеджерам о самых крупных брошенных корзинах клиентов",
@@ -169,7 +169,7 @@ const marketingSections = [
   {
     icon: Globe,
     title: "Продвижение и маркетинг",
-    image: "marketing.png",
+    image: "ui-screenshots/marketing.png",
     features: [
       "Настройка главной страницы",
       "Проценка сторонних смет и предложений от конкурентов при загрузке списком или готовым Excel-документом",
@@ -180,7 +180,7 @@ const marketingSections = [
   {
     icon: BarChart3,
     title: "Статистика",
-    image: "statistics.png",
+    image: "ui-screenshots/statistics.png",
     features: [
       "Отчёты продаж по менеджерам и эффективности их работы",
       "Отчёты по заказам, отгрузкам, среднему чеку",
