@@ -7,7 +7,7 @@ authorCard:
   name: "Елена Головина"
   role: "Автор, редактор"
   bio: "Пишет о B2B e-commerce, цифровой трансформации оптовых продаж и автоматизации бизнес-процессов"
-  photo: "/Elena.png"
+  photo: "/team/Elena.png"
 image: "/images/blog/mobilnoe-b2b-prilozhenie.jpg"
 ---
 

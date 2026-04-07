@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
-import { Navbar } from "@/components/navbar"
-import { CTASection } from "@/components/cta-section"
-import { Footer } from "@/components/footer"
-import Image from "next/image"
+import { useEffect, useRef } from "react";
+import { Navbar } from "@/components/navbar";
+import { CTASection } from "@/components/cta-section";
+import { Footer } from "@/components/footer";
+import Image from "next/image";
 import {
   MessageCircle,
   ShoppingCart,
@@ -19,7 +19,7 @@ import {
   ClipboardList,
   ArrowRight,
   Check,
-} from "lucide-react"
+} from "lucide-react";
 
 const botFeatures = [
   {
@@ -52,7 +52,7 @@ const botFeatures = [
     title: "Рассылка сообщений",
     desc: "Новости, акции, уведомления о скидках — адресно и в нужное время.",
   },
-]
+];
 
 const b2bTasks = [
   {
@@ -80,7 +80,7 @@ const b2bTasks = [
     title: "Управление продажами",
     desc: "Аналитика, клиентские запросы, формирование документов и прогноз продаж — в одном боте.",
   },
-]
+];
 
 const steps = [
   {
@@ -98,7 +98,7 @@ const steps = [
     title: "Разработка",
     desc: "Создадим функционал, обучим бота, протестируем и оптимизируем перед запуском",
   },
-]
+];
 
 const helpItems = [
   "Снизить расходы на обслуживание",
@@ -106,27 +106,27 @@ const helpItems = [
   "Ускорить рабочие процессы",
   "Минимизировать ошибки",
   "Улучшить взаимодействие с клиентами",
-]
+];
 
 function useReveal(ref: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) =>
         entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add("visible")
+          if (e.isIntersecting) e.target.classList.add("visible");
         }),
-      { threshold: 0.1 }
-    )
+      { threshold: 0.1 },
+    );
     ref.current
       ?.querySelectorAll(".reveal")
-      .forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [ref])
+      .forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [ref]);
 }
 
 export default function ChatbotsPage() {
-  const mainRef = useRef<HTMLElement>(null)
-  useReveal(mainRef)
+  const mainRef = useRef<HTMLElement>(null);
+  useReveal(mainRef);
 
   return (
     <main
@@ -239,7 +239,7 @@ export default function ChatbotsPage() {
             </div>
             <div className="reveal flex items-center justify-center">
               <Image
-                src="/Robot.png"
+                src="/ui-screenshots/Robot.png"
                 alt="Чат-бот в Telegram"
                 width={500}
                 height={500}
@@ -318,8 +318,8 @@ export default function ChatbotsPage() {
                   Уведомления о заказах через бота
                 </h3>
                 <p className="text-body max-w-lg mb-8 leading-relaxed">
-                  Мгновенные сообщения о действиях клиентов — под рукой
-                  в Telegram-аккаунте менеджера
+                  Мгновенные сообщения о действиях клиентов — под рукой в
+                  Telegram-аккаунте менеджера
                 </p>
                 <a
                   href="#cta"
@@ -331,7 +331,7 @@ export default function ChatbotsPage() {
               </div>
               <div className="mt-8 md:mt-0 flex-shrink-0 flex justify-center">
                 <Image
-                  src="/kolocol.png"
+                  src="/ui-screenshots/kolocol.png"
                   alt="Уведомления"
                   width={200}
                   height={200}
@@ -380,7 +380,8 @@ export default function ChatbotsPage() {
         <div className="absolute inset-0 dot-grid opacity-30" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <h2 className="reveal font-heading font-bold text-[clamp(36px,6vw,56px)] tracking-[-0.02em] text-heading mb-6">
-            Подключите <span className="gradient-text-animated">умного ассистента</span>{" "}
+            Подключите{" "}
+            <span className="gradient-text-animated">умного ассистента</span>{" "}
             для своего бизнеса
           </h2>
           <p className="reveal text-lg text-subtle mb-10 max-w-xl mx-auto leading-relaxed">
@@ -416,5 +417,5 @@ export default function ChatbotsPage() {
 
       <Footer />
     </main>
-  )
+  );
 }

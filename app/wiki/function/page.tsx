@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { ArrowLeft, Search } from "lucide-react"
-import Link from "next/link"
-import Image from "next/image"
+import { useState } from "react";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { ArrowLeft, Search } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 
 const categories = [
   "Все",
@@ -15,101 +15,115 @@ const categories = [
   "Коммуникации",
   "Аналитика",
   "Настройки",
-]
+];
 
 const articles = [
   {
     title: "Регистрация и авторизация",
-    description: "Настройка процесса регистрации покупателей, формы входа, восстановление пароля и управление сессиями.",
+    description:
+      "Настройка процесса регистрации покупателей, формы входа, восстановление пароля и управление сессиями.",
     category: "Настройки",
-    image: "/vhod.png",
+    image: "/ui-screenshots/vhod.png",
   },
   {
     title: "Личный кабинет покупателя",
-    description: "Управление профилем, история заказов, избранное, шаблоны заказов, документы и уведомления.",
+    description:
+      "Управление профилем, история заказов, избранное, шаблоны заказов, документы и уведомления.",
     category: "Заказы",
-    image: "/lichny-kabinet.png",
+    image: "/ui-screenshots/lichny-kabinet.png",
   },
   {
     title: "Кабинет клиента",
-    description: "Настройка интерфейса кабинета клиента, брендирование, персонализация и управление доступом.",
+    description:
+      "Настройка интерфейса кабинета клиента, брендирование, персонализация и управление доступом.",
     category: "Настройки",
-    image: "/kabinet-klienta.png",
+    image: "/ui-screenshots/kabinet-klienta.png",
   },
   {
     title: "Каталог и товары",
-    description: "Структура каталога, карточки товаров, характеристики, остатки по складам, изображения и вложения.",
+    description:
+      "Структура каталога, карточки товаров, характеристики, остатки по складам, изображения и вложения.",
     category: "Каталог",
-    image: "/katalog.png",
+    image: "/ui-screenshots/katalog.png",
   },
   {
     title: "Избранное",
-    description: "Списки избранных товаров, шаблоны заказов, быстрый повторный заказ из сохранённого.",
+    description:
+      "Списки избранных товаров, шаблоны заказов, быстрый повторный заказ из сохранённого.",
     category: "Каталог",
-    image: "/izbrannoe.png",
+    image: "/ui-screenshots/izbrannoe.png",
   },
   {
     title: "Прайсы, цены, скидки, валюты",
-    description: "Управление прайс-листами, персональные цены, скидки от объёма, мультивалютность и сегменты покупателей.",
+    description:
+      "Управление прайс-листами, персональные цены, скидки от объёма, мультивалютность и сегменты покупателей.",
     category: "Финансы",
-    image: "/skidki.png",
+    image: "/ui-screenshots/skidki.png",
   },
   {
     title: "Модуль доставки",
-    description: "Настройка способов доставки, расчёт стоимости, зоны доставки, интеграция с транспортными компаниями.",
+    description:
+      "Настройка способов доставки, расчёт стоимости, зоны доставки, интеграция с транспортными компаниями.",
     category: "Заказы",
-    image: "/dostavka.png",
+    image: "/ui-screenshots/dostavka.png",
   },
   {
     title: "Модуль документооборота",
-    description: "Автоматическое формирование счетов, накладных, актов сверки, УПД и других документов.",
+    description:
+      "Автоматическое формирование счетов, накладных, актов сверки, УПД и других документов.",
     category: "Финансы",
-    image: "/dokumenty.png",
+    image: "/ui-screenshots/dokumenty.png",
   },
   {
     title: "Модуль коммерческих предложений (КП)",
-    description: "Создание и отправка КП, шаблоны, персонализация, отслеживание статусов и конверсии.",
+    description:
+      "Создание и отправка КП, шаблоны, персонализация, отслеживание статусов и конверсии.",
     category: "Коммуникации",
-    image: "/kp.png",
+    image: "/ui-screenshots/kp.png",
   },
   {
     title: "Модуль статистики",
-    description: "Отчёты по продажам, воронка заказов, аналитика по менеджерам, ABC-анализ, потерянные клиенты.",
+    description:
+      "Отчёты по продажам, воронка заказов, аналитика по менеджерам, ABC-анализ, потерянные клиенты.",
     category: "Аналитика",
-    image: "/status.png",
+    image: "/ui-screenshots/status.png",
   },
   {
     title: "Статьи и рассылки",
-    description: "Email и SMS рассылки, публикация статей, сегментация базы, триггерные письма и аналитика.",
+    description:
+      "Email и SMS рассылки, публикация статей, сегментация базы, триггерные письма и аналитика.",
     category: "Коммуникации",
-    image: "/stati.png",
+    image: "/ui-screenshots/stati.png",
   },
   {
     title: "Мобильное приложение",
-    description: "Нативное приложение для iOS и Android с каталогом, заказами, push-уведомлениями и оффлайн-режимом.",
+    description:
+      "Нативное приложение для iOS и Android с каталогом, заказами, push-уведомлениями и оффлайн-режимом.",
     category: "Каталог",
-    image: "/mobilka.png",
+    image: "/ui-screenshots/mobilka.png",
   },
   {
     title: "Работа без 1С",
-    description: "Возможность полноценной работы платформы без интеграции с 1С — автономный режим управления.",
+    description:
+      "Возможность полноценной работы платформы без интеграции с 1С — автономный режим управления.",
     category: "Настройки",
-    image: "/bez-1s.png",
+    image: "/ui-screenshots/bez-1s.png",
   },
-]
+];
 
 export default function WikiFunctionPage() {
-  const [activeCategory, setActiveCategory] = useState("Все")
-  const [search, setSearch] = useState("")
+  const [activeCategory, setActiveCategory] = useState("Все");
+  const [search, setSearch] = useState("");
 
   const filtered = articles.filter((a) => {
-    const matchCategory = activeCategory === "Все" || a.category === activeCategory
+    const matchCategory =
+      activeCategory === "Все" || a.category === activeCategory;
     const matchSearch =
       !search ||
       a.title.toLowerCase().includes(search.toLowerCase()) ||
-      a.description.toLowerCase().includes(search.toLowerCase())
-    return matchCategory && matchSearch
-  })
+      a.description.toLowerCase().includes(search.toLowerCase());
+    return matchCategory && matchSearch;
+  });
 
   return (
     <main className="relative min-h-screen bg-page noise-overlay">
@@ -132,7 +146,8 @@ export default function WikiFunctionPage() {
               Функционал <span className="gradient-text">системы</span>
             </h1>
             <p className="text-lg text-subtle max-w-2xl">
-              Подробное описание всех модулей и возможностей платформы B2B Движение
+              Подробное описание всех модулей и возможностей платформы B2B
+              Движение
             </p>
           </div>
 
@@ -210,5 +225,5 @@ export default function WikiFunctionPage() {
 
       <Footer />
     </main>
-  )
+  );
 }

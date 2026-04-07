@@ -7,13 +7,13 @@ authorCard:
   name: "Елена Головина"
   role: "Автор, редактор"
   bio: "Пишет о B2B e-commerce, цифровой трансформации оптовых продаж и автоматизации бизнес-процессов"
-  photo: "/Elena.png"
+  photo: "/team/Elena.png"
 image: "/images/blog/integracia-b2b-s-1c.jpg"
 intervieweeCard:
   name: "Евгений Шилов"
   role: "Предприниматель, руководитель проектов внедрения 1С"
   bio: "~10 лет в 1С, управляет командой из 9 человек. Экспертиза во внедрении сложных продуктов типа 1С:ERP для клиентов 3DaVinci"
-  photo: "/Evgeniy.png"
+  photo: "/team/Evgeniy.png"
 ---
 
 <!-- stats -->

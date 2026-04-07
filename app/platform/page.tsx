@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef, Suspense } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { Navbar } from "@/components/navbar"
-import { CTASection } from "@/components/cta-section"
-import { Footer } from "@/components/footer"
+import { useState, useEffect, useRef, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Navbar } from "@/components/navbar";
+import { CTASection } from "@/components/cta-section";
+import { Footer } from "@/components/footer";
 import {
   FileText,
   Search,
@@ -21,8 +21,8 @@ import {
   BarChart3,
   Check,
   Map,
-} from "lucide-react"
-import Image from "next/image"
+} from "lucide-react";
+import Image from "next/image";
 
 /* ── Data: Товары и заказы ── */
 
@@ -104,7 +104,7 @@ const productsSections = [
       "Возможность контрагента запросить акт сверки",
     ],
   },
-]
+];
 
 /* ── Data: Личный кабинет ── */
 
@@ -132,7 +132,7 @@ const cabinetSections = [
       "Контакты персонального менеджера",
     ],
   },
-]
+];
 
 /* ── Data: Маркетинг и аналитика ── */
 
@@ -188,61 +188,115 @@ const marketingSections = [
       "Статистика «потерянных» клиентов — тех, что раньше покупали, но перестали",
     ],
   },
-]
+];
 
 /* ── Tabs config ── */
 
 const tabs = [
-  { id: "products", title: "Товары и заказы", sections: productsSections, color: "#3B82F6" },
-  { id: "cabinet", title: "Личный кабинет", sections: cabinetSections, color: "#8B5CF6" },
-  { id: "marketing", title: "Маркетинг и аналитика", sections: marketingSections, color: "#06B6D4" },
-]
+  {
+    id: "products",
+    title: "Товары и заказы",
+    sections: productsSections,
+    color: "#3B82F6",
+  },
+  {
+    id: "cabinet",
+    title: "Личный кабинет",
+    sections: cabinetSections,
+    color: "#8B5CF6",
+  },
+  {
+    id: "marketing",
+    title: "Маркетинг и аналитика",
+    sections: marketingSections,
+    color: "#06B6D4",
+  },
+];
 
 /* ── Roadmap ── */
 
 const roadmap = [
-  { status: "done" as const, title: "SEO-оптимизация", desc: "Качественная индексация поисковыми роботами" },
-  { status: "done" as const, title: "Мобильное приложение", desc: "iOS и Android, синхронизация с веб" },
-  { status: "wip" as const, title: "Новый дизайн V3", desc: "Обновление интерфейса по стандартам UX/UI" },
-  { status: "planned" as const, title: "ИИ-рекомендации", desc: "Прогноз продаж, умные рекомендации" },
-  { status: "planned" as const, title: "Офлайн-режим", desc: "Работа без интернета" },
-  { status: "planned" as const, title: "Обучение пользователей", desc: "Интерактивные подсказки в интерфейсе" },
-]
+  {
+    status: "done" as const,
+    title: "SEO-оптимизация",
+    desc: "Качественная индексация поисковыми роботами",
+  },
+  {
+    status: "done" as const,
+    title: "Мобильное приложение",
+    desc: "iOS и Android, синхронизация с веб",
+  },
+  {
+    status: "wip" as const,
+    title: "Новый дизайн V3",
+    desc: "Обновление интерфейса по стандартам UX/UI",
+  },
+  {
+    status: "planned" as const,
+    title: "ИИ-рекомендации",
+    desc: "Прогноз продаж, умные рекомендации",
+  },
+  {
+    status: "planned" as const,
+    title: "Офлайн-режим",
+    desc: "Работа без интернета",
+  },
+  {
+    status: "planned" as const,
+    title: "Обучение пользователей",
+    desc: "Интерактивные подсказки в интерфейсе",
+  },
+];
 
 /* ── Helpers ── */
 
 function useReveal(ref: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("visible") }),
-      { threshold: 0.1 }
-    )
-    ref.current?.querySelectorAll(".reveal").forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [ref])
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add("visible");
+        }),
+      { threshold: 0.1 },
+    );
+    ref.current
+      ?.querySelectorAll(".reveal")
+      .forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [ref]);
 }
 
 /* ── Inner component ── */
 
 function PlatformPageInner() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const tabFromUrl = searchParams.get("tab")
-  const initialTab = tabFromUrl === "products" ? 0 : tabFromUrl === "cabinet" ? 1 : tabFromUrl === "marketing" ? 2 : 0
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const tabFromUrl = searchParams.get("tab");
+  const initialTab =
+    tabFromUrl === "products"
+      ? 0
+      : tabFromUrl === "cabinet"
+        ? 1
+        : tabFromUrl === "marketing"
+          ? 2
+          : 0;
 
-  const [activeTab, setActiveTab] = useState(initialTab)
-  const mainRef = useRef<HTMLElement>(null)
-  useReveal(mainRef)
+  const [activeTab, setActiveTab] = useState(initialTab);
+  const mainRef = useRef<HTMLElement>(null);
+  useReveal(mainRef);
 
   useEffect(() => {
-    const tabMap = ["products", "cabinet", "marketing"]
-    router.replace(`?tab=${tabMap[activeTab]}`, { scroll: false })
-  }, [activeTab, router])
+    const tabMap = ["products", "cabinet", "marketing"];
+    router.replace(`?tab=${tabMap[activeTab]}`, { scroll: false });
+  }, [activeTab, router]);
 
-  const currentTab = tabs[activeTab]
+  const currentTab = tabs[activeTab];
 
   return (
-    <main ref={mainRef} className="relative min-h-screen bg-page noise-overlay overflow-x-hidden">
+    <main
+      ref={mainRef}
+      className="relative min-h-screen bg-page noise-overlay overflow-x-hidden"
+    >
       <Navbar />
 
       {/* Hero — compact */}
@@ -250,12 +304,12 @@ function PlatformPageInner() {
         {/* Background image */}
         <div className="absolute inset-0">
           <img
-            src="/3d_white_bg.png"
+            src="/backgrounds/3d_white_bg.png"
             alt=""
             className="w-full h-full object-cover dark:hidden"
           />
           <img
-            src="/3d_bg.png"
+            src="/backgrounds/3d_bg.png"
             alt=""
             className="w-full h-full object-cover hidden dark:block"
           />
@@ -272,7 +326,8 @@ function PlatformPageInner() {
             <span className="gradient-text">оптовых продаж</span>
           </h1>
           <p className="reveal text-base text-black dark:text-white max-w-xl mx-auto mb-8">
-            Управление каталогом, заказами, ценами и клиентами — в одном решении с интеграцией в вашу 1С
+            Управление каталогом, заказами, ценами и клиентами — в одном решении
+            с интеграцией в вашу 1С
           </p>
           <div className="reveal flex flex-col sm:flex-row items-center justify-center gap-3">
             <a
@@ -293,7 +348,10 @@ function PlatformPageInner() {
 
       {/* Tabs */}
       <section className="pb-6">
-        <div className="overflow-x-auto scrollbar-hide" style={{ scrollbarWidth: "none" }}>
+        <div
+          className="overflow-x-auto scrollbar-hide"
+          style={{ scrollbarWidth: "none" }}
+        >
           <div className="flex justify-center px-6 min-w-min">
             <nav className="inline-flex p-1 rounded-xl bg-overlay-4 border border-glass-border gap-1">
               {tabs.map((tab, i) => (
@@ -319,12 +377,15 @@ function PlatformPageInner() {
 
       {/* Tab content — sections */}
       {currentTab.sections.map((section, idx) => {
-        const Icon = section.icon
-        const reversed = idx % 2 !== 0
-        const color = currentTab.color
+        const Icon = section.icon;
+        const reversed = idx % 2 !== 0;
+        const color = currentTab.color;
 
         return (
-          <section key={`${currentTab.id}-${section.title}`} className="py-16 px-6">
+          <section
+            key={`${currentTab.id}-${section.title}`}
+            className="py-16 px-6"
+          >
             <div className="max-w-6xl mx-auto">
               <div className="flex items-center gap-3 mb-8">
                 <div
@@ -368,7 +429,7 @@ function PlatformPageInner() {
               </div>
             </div>
           </section>
-        )
+        );
       })}
 
       {/* Roadmap */}
@@ -397,9 +458,15 @@ function PlatformPageInner() {
                         : "bg-dimmest text-subtle"
                   }`}
                 >
-                  {item.status === "done" ? "Готово" : item.status === "wip" ? "В работе" : "В планах"}
+                  {item.status === "done"
+                    ? "Готово"
+                    : item.status === "wip"
+                      ? "В работе"
+                      : "В планах"}
                 </span>
-                <h3 className="font-heading font-semibold text-lg text-heading mb-2">{item.title}</h3>
+                <h3 className="font-heading font-semibold text-lg text-heading mb-2">
+                  {item.title}
+                </h3>
                 <p className="text-sm text-body">{item.desc}</p>
               </div>
             ))}
@@ -410,7 +477,7 @@ function PlatformPageInner() {
       <CTASection />
       <Footer />
     </main>
-  )
+  );
 }
 
 /* ── Default export with Suspense ── */
@@ -420,5 +487,5 @@ export default function PlatformPage() {
     <Suspense fallback={null}>
       <PlatformPageInner />
     </Suspense>
-  )
+  );
 }

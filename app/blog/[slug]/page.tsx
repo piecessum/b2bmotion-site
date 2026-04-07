@@ -1005,12 +1005,13 @@ function renderBlogContent(content: string) {
       quoteText = quoteText.replace(/^«\s*/, "").replace(/\s*»$/, "");
 
       const personMap: Record<string, { photo: string; role: string }> = {
-        "Артём Старченко": { photo: "/Artem.png", role: "Основатель компании и директор" },
-        "Артем Старченко": { photo: "/Artem.png", role: "Основатель компании и директор" },
-        "Екатерина Масленникова": { photo: "/Kate.png", role: "Руководитель B2B-проектов" },
-        "Екатерина Масленикова": { photo: "/Kate.png", role: "Руководитель B2B-проектов" },
-        "Дмитрий Агеев": { photo: "/dmitriy.png", role: "Руководитель отдела продаж" },
-        "Елена Головина": { photo: "/Elena.png", role: "Автор, редактор" },
+        "Артём Старченко": { photo: "/team/Artem.png", role: "Основатель компании и директор" },
+        "Артем Старченко": { photo: "/team/Artem.png", role: "Основатель компании и директор" },
+        "Екатерина Масленникова": { photo: "/team/Kate.png", role: "Руководитель B2B-проектов" },
+        "Екатерина Масленикова": { photo: "/team/Kate.png", role: "Руководитель B2B-проектов" },
+        "Дмитрий Агеев": { photo: "/team/dmitriy.png", role: "Руководитель отдела продаж" },
+        "Елена Головина": { photo: "/team/Elena.png", role: "Автор, редактор" },
+        "Илья Долгов": { photo: "/team/Ilya.png", role: "Ведущий дизайнер" },
       };
 
       const person = personMap[authorName];
@@ -1030,7 +1031,7 @@ function renderBlogContent(content: string) {
                 <img
                   src={person.photo}
                   alt={authorName}
-                  className="w-12 h-12 rounded-full object-cover object-top border-2 border-[#3B82F6]/20 shrink-0"
+                  className="w-16 h-16 rounded-full object-cover object-top border-2 border-[#3B82F6]/20 shrink-0"
                 />
               )}
               <div>

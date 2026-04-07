@@ -8,25 +8,25 @@ const testimonials = [
     quote: "Запуск прошёл быстро и без бюрократии. Поддержка реагирует оперативно. Надёжный технологический партнёр.",
     company: "РЭЙД-21",
     industry: "FMCG",
-    logo: "/raid-fav.svg",
+    logo: "/logos/raid-fav.svg",
   },
   {
     quote: "По удобству интерфейса мы не уступаем маркетплейсам, а в ряде сценариев превосходим их.",
     company: "ХОГАРТ",
     industry: "Сантехника",
-    logo: "/hogart-fav.svg",
+    logo: "/logos/hogart-fav.svg",
   },
   {
     quote: "Платформа стала обязательным инструментом продаж. Поддержка доводит задачи до результата.",
     company: "ПРОТЭК",
     industry: "Безопасность",
-    logo: "/protek-fav.svg",
+    logo: "/logos/protek-fav.svg",
   },
   {
     quote: "Гибко управляем ассортиментом: акции, контент, обновление наличия — всё оперативно.",
     company: "Древиз",
     industry: "Мебель",
-    logo: "/dreviz-fav.svg",
+    logo: "/logos/dreviz-fav.svg",
   },
 ]
 

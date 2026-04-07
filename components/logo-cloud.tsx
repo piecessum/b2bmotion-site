@@ -3,20 +3,20 @@
 import Image from "next/image"
 
 const companies = [
-  { name: "РОСЭК", logo: "/rosek.svg" },
-  { name: "ХОГАРТ", logo: "/hogart.svg" },
-  { name: "РЭЙД-21", logo: "/raid21.svg" },
-  { name: "ПРОТЭК", logo: "/protek.svg" },
-  { name: "СТРОЙМИКС", logo: "/stroymix.svg" },
-  { name: "ВЕСТА", logo: "/vesta.svg" },
-  { name: "ИРБИС", logo: "/irbis.svg" },
-  { name: "РОС-ЭЛЕКТРО", logo: "/roselektro.svg" },
-  { name: "ДРЕВИЗ", logo: "/dreviz.svg" },
-  { name: "АВЕНТА", logo: "/aventa.svg" },
-  { name: "КРИСТАЛ", logo: "/kristal.svg" },
-  { name: "САНЛАЙТ", logo: "/sanlayt.svg" },
-  { name: "ФОРУМЭЛЕКТРО", logo: "/forumelektro.svg" },
-  { name: "ЭЛЕКТРИЧЕСКИЕ ТЕХНОЛОГИИ", logo: "/elektricheskie-tekhnologii.svg" },
+  { name: "РОСЭК", logo: "/logos/rosek.svg" },
+  { name: "ХОГАРТ", logo: "/logos/hogart.svg" },
+  { name: "РЭЙД-21", logo: "/logos/raid21.svg" },
+  { name: "ПРОТЭК", logo: "/logos/protek.svg" },
+  { name: "СТРОЙМИКС", logo: "/logos/stroymix.svg" },
+  { name: "ВЕСТА", logo: "/logos/vesta.svg" },
+  { name: "ИРБИС", logo: "/logos/irbis.svg" },
+  { name: "РОС-ЭЛЕКТРО", logo: "/logos/roselektro.svg" },
+  { name: "ДРЕВИЗ", logo: "/logos/dreviz.svg" },
+  { name: "АВЕНТА", logo: "/logos/aventa.svg" },
+  { name: "КРИСТАЛ", logo: "/logos/kristal.svg" },
+  { name: "САНЛАЙТ", logo: "/logos/sanlayt.svg" },
+  { name: "ФОРУМЭЛЕКТРО", logo: "/logos/forumelektro.svg" },
+  { name: "ЭЛЕКТРИЧЕСКИЕ ТЕХНОЛОГИИ", logo: "/logos/elektricheskie-tekhnologii.svg" },
 ]
 
 export function LogoCloud() {

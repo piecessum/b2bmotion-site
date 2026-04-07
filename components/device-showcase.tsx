@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "next/image";
 
 export function DeviceShowcase() {
   return (
@@ -16,7 +16,7 @@ export function DeviceShowcase() {
           <div className="relative z-10 -mr-8 md:-mr-12 lg:-mr-16 self-center">
             <div className="w-[200px] md:w-[280px] lg:w-[340px] drop-shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
               <Image
-                src="/pad.png"
+                src="/mockups/pad.png"
                 alt="B2B платформа на планшете"
                 width={680}
                 height={510}
@@ -30,7 +30,7 @@ export function DeviceShowcase() {
           <div className="relative z-20">
             <div className="w-[300px] md:w-[440px] lg:w-[540px] drop-shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
               <Image
-                src="/laptop-hero.png"
+                src="/mockups/laptop-hero.png"
                 alt="B2B платформа на ноутбуке"
                 width={1080}
                 height={720}
@@ -44,7 +44,7 @@ export function DeviceShowcase() {
           <div className="relative z-10 -ml-8 md:-ml-12 lg:-ml-16 self-center">
             <div className="w-[90px] md:w-[130px] lg:w-[160px] drop-shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
               <Image
-                src="/phone.png"
+                src="/mockups/phone.png"
                 alt="B2B платформа на смартфоне"
                 width={320}
                 height={640}
@@ -72,5 +72,5 @@ export function DeviceShowcase() {
         </div>
       </div>
     </section>
-  )
+  );
 }

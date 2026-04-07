@@ -293,7 +293,7 @@ function KnowledgePageInner() {
               {/* Photo desktop — margin-top отрицательный, фото выходит вверх */}
               <div className="hidden sm:flex shrink-0 w-52 items-end justify-center self-end">
                 <img
-                  src="/Portrett av smilende mann i skjorte 2.png"
+                  src="/team/Portrett av smilende mann i skjorte 2.png"
                   alt="Агеев Дмитрий"
                   className="w-48 -mt-14 drop-shadow-lg"
                 />
@@ -330,7 +330,7 @@ function KnowledgePageInner() {
               {/* Photo mobile */}
               <div className="sm:hidden w-full h-52 overflow-hidden">
                 <img
-                  src="/Portrett av smilende mann i skjorte 2.png"
+                  src="/team/Portrett av smilende mann i skjorte 2.png"
                   alt="Агеев Дмитрий"
                   className="w-44 mx-auto drop-shadow-lg"
                 />

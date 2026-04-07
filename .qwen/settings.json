@@ -15,7 +15,11 @@
       "Bash(tr *)",
       "Bash(node *)",
       "Bash(mkdir *)",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "Bash(rm *)",
+      "Bash(npx *)",
+      "Bash(mv *)",
+      "Bash(true)"
     ]
   },
   "$version": 3

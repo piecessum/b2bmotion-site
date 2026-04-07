@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import Image from "next/image"
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export function Hero() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50 })
+  const sectionRef = useRef<HTMLElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth) * 100
-      const y = (e.clientY / window.innerHeight) * 100
-      setMousePos({ x, y })
-    }
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [])
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      setMousePos({ x, y });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   return (
     <section
@@ -53,8 +53,8 @@ export function Hero() {
                 i % 3 === 0
                   ? `rgba(59, 130, 246, ${0.15 + Math.random() * 0.2})`
                   : i % 3 === 1
-                  ? `rgba(139, 92, 246, ${0.12 + Math.random() * 0.18})`
-                  : `rgba(255, 255, 255, ${0.06 + Math.random() * 0.1})`,
+                    ? `rgba(139, 92, 246, ${0.12 + Math.random() * 0.18})`
+                    : `rgba(255, 255, 255, ${0.06 + Math.random() * 0.1})`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 5}s`,
@@ -116,7 +116,10 @@ export function Hero() {
       {/* Devices showcase — desktop: all 3, mobile: phone only */}
       <div className="relative z-10 w-full max-w-5xl mx-auto px-6 mt-auto">
         {/* Desktop layout */}
-        <div className="relative mx-auto hidden md:block" style={{ maxWidth: 900 }}>
+        <div
+          className="relative mx-auto hidden md:block"
+          style={{ maxWidth: 900 }}
+        >
           {/* Glow behind laptop */}
           <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[80%] h-[200px] bg-gradient-to-r from-[#3B82F6]/10 via-[#8B5CF6]/8 to-[#06B6D4]/10 blur-[80px] pointer-events-none dark:opacity-100 opacity-50" />
 
@@ -130,7 +133,7 @@ export function Hero() {
             }}
           >
             <Image
-              src="/pad.png"
+              src="/mockups/pad.png"
               alt="B2B платформа на планшете"
               width={680}
               height={510}
@@ -140,7 +143,7 @@ export function Hero() {
 
           {/* Laptop — center, static, ON TOP */}
           <Image
-            src="/laptop-hero.png"
+            src="/mockups/laptop-hero.png"
             alt="B2B Движение — платформа для оптовых продаж"
             width={1400}
             height={900}
@@ -158,7 +161,7 @@ export function Hero() {
             }}
           >
             <Image
-              src="/phone.png"
+              src="/mockups/phone.png"
               alt="B2B платформа на смартфоне"
               width={320}
               height={640}
@@ -171,7 +174,7 @@ export function Hero() {
         <div className="md:hidden flex justify-center">
           <div className="w-[220px]">
             <Image
-              src="/phone.png"
+              src="/mockups/phone.png"
               alt="B2B платформа на смартфоне"
               width={320}
               height={640}
@@ -185,5 +188,5 @@ export function Hero() {
       {/* Bottom gradient fade into next section */}
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-page to-transparent pointer-events-none z-20" />
     </section>
-  )
+  );
 }

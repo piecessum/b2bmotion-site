@@ -1,24 +1,30 @@
-"use client"
+"use client";
 
-import Image from "next/image"
+import Image from "next/image";
 
 const row1 = [
-  { src: "/for animation/1-1.png", alt: "Заказы" },
-  { src: "/for animation/1-2.png", alt: "Каталог товаров" },
-  { src: "/for animation/1-3.png", alt: "Главная страница" },
-  { src: "/for animation/1-4.png", alt: "Категории" },
-  { src: "/for animation/1-5.png", alt: "Аналитика" },
-]
+  { src: "/animations/1-1.png", alt: "Заказы" },
+  { src: "/animations/1-2.png", alt: "Каталог товаров" },
+  { src: "/animations/1-3.png", alt: "Главная страница" },
+  { src: "/animations/1-4.png", alt: "Категории" },
+  { src: "/animations/1-5.png", alt: "Аналитика" },
+];
 
 const row2 = [
-  { src: "/for animation/2-1.png", alt: "Корзина" },
-  { src: "/for animation/2-2.png", alt: "Карточка товара" },
-  { src: "/for animation/2-3.png", alt: "Складская программа" },
-  { src: "/for animation/2-4.png", alt: "Списки" },
-  { src: "/for animation/2-5.png", alt: "Документы" },
-]
+  { src: "/animations/2-1.png", alt: "Корзина" },
+  { src: "/animations/2-2.png", alt: "Карточка товара" },
+  { src: "/animations/2-3.png", alt: "Складская программа" },
+  { src: "/animations/2-4.png", alt: "Списки" },
+  { src: "/animations/2-5.png", alt: "Документы" },
+];
 
-function ImageSet({ images, prefix }: { images: { src: string; alt: string }[]; prefix: string }) {
+function ImageSet({
+  images,
+  prefix,
+}: {
+  images: { src: string; alt: string }[];
+  prefix: string;
+}) {
   return (
     <>
       {images.map((img, i) => (
@@ -32,15 +38,15 @@ function ImageSet({ images, prefix }: { images: { src: string; alt: string }[]; 
         />
       ))}
     </>
-  )
+  );
 }
 
 function MarqueeRow({
   images,
   direction,
 }: {
-  images: { src: string; alt: string }[]
-  direction: "left" | "right"
+  images: { src: string; alt: string }[];
+  direction: "left" | "right";
 }) {
   return (
     <div className="overflow-hidden">
@@ -52,7 +58,7 @@ function MarqueeRow({
         <ImageSet images={images} prefix={`${direction}-c`} />
       </div>
     </div>
-  )
+  );
 }
 
 export function ScrollShowcase() {
@@ -64,7 +70,8 @@ export function ScrollShowcase() {
           Интерфейс, в котором удобно работать
         </h2>
         <p className="text-base md:text-lg text-[var(--subtle-text)] max-w-2xl mx-auto">
-          Современный B2B-портал с&nbsp;каталогом, корзиной, заказами и&nbsp;личным кабинетом
+          Современный B2B-портал с&nbsp;каталогом, корзиной, заказами
+          и&nbsp;личным кабинетом
         </p>
       </div>
 
@@ -74,5 +81,5 @@ export function ScrollShowcase() {
         <MarqueeRow images={row2} direction="right" />
       </div>
     </section>
-  )
+  );
 }
