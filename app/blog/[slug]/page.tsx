@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { BackButton } from "@/components/back-button";
 
 export function generateStaticParams() {
   const posts = getAllPosts("blog");
@@ -59,13 +60,12 @@ export default async function BlogPostPage({
       <article className="pt-36 pb-28 px-6">
         <div className="max-w-3xl mx-auto">
           {/* Back */}
-          <Link
-            href="/blog"
+          <BackButton
+            fallback="/blog?filter=publications"
             className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors mb-10"
           >
-            <ArrowLeft className="w-4 h-4" />
-            Все статьи
-          </Link>
+            Назад
+          </BackButton>
 
           {/* Cover + Header */}
           {post.image && (
@@ -245,13 +245,12 @@ export default async function BlogPostPage({
           {/* Bottom divider */}
           <div className="section-divider mt-16 mb-10" />
 
-          <Link
-            href="/blog"
+          <BackButton
+            fallback="/blog?filter=publications"
             className="inline-flex items-center gap-2 text-sm font-medium text-[#60A5FA] hover:gap-3 transition-all duration-300"
           >
-            <ArrowLeft className="w-4 h-4" />
-            Все статьи
-          </Link>
+            Назад
+          </BackButton>
         </div>
       </article>
 
@@ -282,13 +281,12 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
       <article className="pt-36 pb-28 px-6">
         <div className="max-w-5xl mx-auto">
           {/* Back */}
-          <Link
-            href="/blog?filter=cases"
+          <BackButton
+            fallback="/blog?filter=cases"
             className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors mb-10"
           >
-            <ArrowLeft className="w-4 h-4" />
-            Все кейсы
-          </Link>
+            Назад
+          </BackButton>
 
           {/* Hero Header */}
           <header className="mb-10">
@@ -596,13 +594,12 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
           {/* Related Cases */}
           <RelatedCases cases={caseStudies} currentSlug={slug} />
 
-          <Link
-            href="/blog?filter=cases"
+          <BackButton
+            fallback="/blog?filter=cases"
             className="inline-flex items-center gap-2 text-sm font-medium text-[#60A5FA] hover:gap-3 transition-all duration-300 mt-10"
           >
-            <ArrowLeft className="w-4 h-4" />
-            Все кейсы
-          </Link>
+            Назад
+          </BackButton>
         </div>
       </article>
 
