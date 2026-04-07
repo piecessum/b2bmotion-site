@@ -10,16 +10,16 @@ export const metadata = {
 };
 
 interface BlogPageProps {
-  searchParams: Promise<{ filter?: string }>;
+  searchParams: Promise<{ tab?: string }>;
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const posts = getAllPosts("blog");
   const params = await searchParams;
   const initialFilter =
-    params.filter === "cases"
+    params.tab === "cases"
       ? "cases"
-      : params.filter === "publications"
+      : params.tab === "publications"
         ? "publications"
         : "all";
 

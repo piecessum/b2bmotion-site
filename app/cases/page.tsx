@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function CasesPage() {
-  redirect("/blog?filter=cases");
+  redirect("/blog?tab=cases");
 }

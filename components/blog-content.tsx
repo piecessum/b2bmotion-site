@@ -42,7 +42,7 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
     (newFilter: "all" | "publications" | "cases") => {
       setFilter(newFilter);
       setIndustryFilter(null);
-      const url = newFilter === "all" ? "/blog" : `/blog?filter=${newFilter}`;
+      const url = newFilter === "all" ? "/blog" : `/blog?tab=${newFilter}`;
       window.history.replaceState(null, "", url);
     },
     [],

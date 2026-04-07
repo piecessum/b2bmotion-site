@@ -61,7 +61,7 @@ export default async function BlogPostPage({
         <div className="max-w-3xl mx-auto">
           {/* Back */}
           <BackButton
-            fallback="/blog?filter=publications"
+            fallback="/blog?tab=publications"
             className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors mb-10"
           >
             Назад
@@ -246,7 +246,7 @@ export default async function BlogPostPage({
           <div className="section-divider mt-16 mb-10" />
 
           <BackButton
-            fallback="/blog?filter=publications"
+            fallback="/blog?tab=publications"
             className="inline-flex items-center gap-2 text-sm font-medium text-[#60A5FA] hover:gap-3 transition-all duration-300"
           >
             Назад
@@ -282,7 +282,7 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
         <div className="max-w-5xl mx-auto">
           {/* Back */}
           <BackButton
-            fallback="/blog?filter=cases"
+            fallback="/blog?tab=cases"
             className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors mb-10"
           >
             Назад
@@ -595,7 +595,7 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
           <RelatedCases cases={caseStudies} currentSlug={slug} />
 
           <BackButton
-            fallback="/blog?filter=cases"
+            fallback="/blog?tab=cases"
             className="inline-flex items-center gap-2 text-sm font-medium text-[#60A5FA] hover:gap-3 transition-all duration-300 mt-10"
           >
             Назад
