@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { ArrowRight, Calendar, Play, BarChart3 } from "lucide-react";
 
 interface Post {
@@ -33,17 +33,37 @@ const industries = [
 ];
 
 export function BlogContent({ posts, initialFilter }: BlogContentProps) {
+  const searchParams = useSearchParams();
+
   const [filter, setFilter] = useState<"all" | "publications" | "cases">(
     initialFilter,
   );
-  const [industryFilter, setIndustryFilter] = useState<string | null>(null);
+  const [industryFilter, setIndustryFilter] = useState<string | null>(
+    searchParams.get("industry") || null,
+  );
+
+  // Sync state ← URL (fires on back/forward navigation)
+  useEffect(() => {
+    const tab = searchParams.get("tab");
+    const newFilter =
+      tab === "cases" ? "cases" : tab === "publications" ? "publications" : "all";
+    setFilter(newFilter);
+    setIndustryFilter(searchParams.get("industry") || null);
+  }, [searchParams]);
+
+  // Sync URL ← state
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (filter !== "all") params.set("tab", filter);
+    if (industryFilter) params.set("industry", industryFilter);
+    const qs = params.toString();
+    window.history.replaceState(null, "", qs ? `/blog?${qs}` : "/blog");
+  }, [filter, industryFilter]);
 
   const updateFilter = useCallback(
     (newFilter: "all" | "publications" | "cases") => {
       setFilter(newFilter);
       setIndustryFilter(null);
-      const url = newFilter === "all" ? "/blog" : `/blog?tab=${newFilter}`;
-      window.history.replaceState(null, "", url);
     },
     [],
   );
