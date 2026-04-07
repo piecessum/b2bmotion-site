@@ -78,6 +78,11 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
     sessionStorage.setItem("blog_back_url", url);
   }, [filter, industryFilter]);
 
+  // Save scroll position before navigating to article
+  const saveScroll = () => {
+    sessionStorage.setItem("blog_scroll", String(window.scrollY));
+  };
+
   const updateFilter = useCallback(
     (newFilter: "all" | "publications" | "cases") => {
       setFilter(newFilter);
@@ -255,6 +260,7 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
+            onClick={saveScroll}
             className="group relative rounded-2xl glass-card overflow-hidden"
           >
             {post.image && (

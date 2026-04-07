@@ -123,6 +123,10 @@ function KnowledgePageInner() {
     sessionStorage.setItem("wiki_back_url", url);
   }, [activeTab, activeCategory]);
 
+  const saveScroll = () => {
+    sessionStorage.setItem("wiki_scroll", String(window.scrollY));
+  };
+
   const currentTab = tabs[activeTab];
 
   const filtered = useMemo(() => {
@@ -240,6 +244,7 @@ function KnowledgePageInner() {
                             : `/wiki/tech/${article.slug}`
                         : `/wiki`
                     }
+                    onClick={saveScroll}
                     className="group rounded-2xl glass-card overflow-hidden hover:border-[#3B82F6]/20 transition-all duration-300 cursor-pointer"
                   >
                     <div className="relative aspect-square overflow-hidden bg-surface-inner">
