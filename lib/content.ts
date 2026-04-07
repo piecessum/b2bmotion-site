@@ -10,6 +10,7 @@ export interface Post {
   author?: string;
   image?: string;
   tags?: string[];
+  audience?: string[];
   content: string;
   logo?: string;
   industry?: string;
@@ -62,6 +63,7 @@ export function getAllPosts(collection: "blog" | "news"): Post[] {
       author: data.author || undefined,
       image: data.image || undefined,
       tags: data.tags || undefined,
+      audience: data.audience || undefined,
       logo: data.logo || undefined,
       industry: data.industry || undefined,
       metrics: data.metrics || undefined,

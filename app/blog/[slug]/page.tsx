@@ -12,6 +12,7 @@ import {
   Package,
   BookOpen,
   ExternalLink,
+  Users,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -116,6 +117,26 @@ export default async function BlogPostPage({
           )}
 
           <p className="text-lg text-subtle mb-6">{post.description}</p>
+
+          {/* Audience */}
+          {post.audience && post.audience.length > 0 && (
+            <div className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-5 mb-8">
+              <div className="flex items-center gap-2.5 mb-3">
+                <Users className="w-4 h-4 text-[#60A5FA]" />
+                <span className="font-heading font-semibold text-sm text-heading">Для кого эта статья</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {post.audience.map((item, idx) => (
+                  <span
+                    key={idx}
+                    className="inline-flex items-center text-sm text-body bg-white dark:bg-white/[0.05] border border-gray-200 dark:border-white/[0.08] rounded-lg px-3.5 py-1.5"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Source note */}
           {(post as any).source && (
