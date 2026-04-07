@@ -5,7 +5,7 @@ date: "2025-09-18"
 author: "Команда B2B Движение"
 image: "/images/blog/keis-vesta.jpg"
 tags: ["кейс", "сантехника"]
-logo: "/vesta.svg"
+logo: "/logos/vesta.svg"
 ---
 
 Описание кейса скоро появится.

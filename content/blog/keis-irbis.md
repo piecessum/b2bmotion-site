@@ -5,7 +5,7 @@ date: "2025-06-20"
 author: "Команда B2B Движение"
 image: "/images/blog/keis-irbis.jpg"
 tags: ["кейс", "комплектующие для серверных"]
-logo: "/irbis.svg"
+logo: "/logos/irbis.svg"
 ---
 
 Описание кейса скоро появится.

@@ -5,7 +5,7 @@ date: "2023-03-15"
 author: "Команда B2B Движение"
 image: "/images/blog/keis-b2b-motion.jpg"
 tags: ["кейс", "электротехника"]
-logo: "/aventa.svg"
+logo: "/logos/aventa.svg"
 ---
 
 ## О компании и задаче

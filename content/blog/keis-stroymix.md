@@ -5,7 +5,7 @@ date: "2025-07-14"
 author: "Команда B2B Движение"
 image: "/images/blog/keis-stroymix.jpg"
 tags: ["кейс", "стройматериалы"]
-logo: "/stroymix.svg"
+logo: "/logos/stroymix.svg"
 ---
 
 Описание кейса скоро появится.

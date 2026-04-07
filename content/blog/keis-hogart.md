@@ -5,7 +5,7 @@ date: "2025-12-10"
 author: "Команда B2B Движение"
 image: "/images/blog/keis-hogart.jpg"
 tags: ["кейс", "сантехника"]
-logo: "/hogart.svg"
+logo: "/logos/hogart.svg"
 ---
 
 Описание кейса скоро появится.

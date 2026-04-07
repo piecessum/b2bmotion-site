@@ -19,7 +19,8 @@
       "Bash(rm *)",
       "Bash(npx *)",
       "Bash(mv *)",
-      "Bash(true)"
+      "Bash(true)",
+      "Bash(sed *)"
     ]
   },
   "$version": 3

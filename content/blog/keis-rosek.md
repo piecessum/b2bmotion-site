@@ -5,7 +5,7 @@ date: "2026-01-20"
 author: "Команда B2B Движение"
 image: "/images/blog/keis-rosek.jpg"
 tags: ["кейс", "электротехника"]
-logo: "/rosek.svg"
+logo: "/logos/rosek.svg"
 ---
 
 Описание кейса скоро появится.

@@ -5,7 +5,7 @@ date: "2026-02-15"
 author: "Команда B2B Движение"
 image: "/images/blog/keis-dreviz.jpg"
 tags: ["кейс", "мебель", "дистрибуция"]
-logo: "/dreviz.svg"
+logo: "/logos/dreviz.svg"
 industry: "Мебель"
 metrics:
   - label: "Брендов в портфеле"
