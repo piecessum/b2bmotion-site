@@ -95,14 +95,20 @@ function KnowledgePageInner() {
           : 0;
 
   const [activeTab, setActiveTab] = useState(initialTab);
-  const [activeCategory, setActiveCategory] = useState("Все");
+  const initialCategory = searchParams.get("category") || "Все";
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [search, setSearch] = useState("");
 
-  // Sync URL when tab changes
+  // Sync URL when tab or category changes
   useEffect(() => {
     const tabMap = ["function", "custom", "tech"];
-    router.replace(`?tab=${tabMap[activeTab]}`, { scroll: false });
-  }, [activeTab, router]);
+    const params = new URLSearchParams();
+    params.set("tab", tabMap[activeTab]);
+    if (activeCategory && activeCategory !== "Все") {
+      params.set("category", activeCategory);
+    }
+    router.replace(`?${params.toString()}`, { scroll: false });
+  }, [activeTab, activeCategory, router]);
 
   const currentTab = tabs[activeTab];
 
