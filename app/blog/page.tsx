@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getAllPosts } from "@/lib/content";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -43,7 +44,9 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             </p>
           </div>
 
-          <BlogContent posts={posts} initialFilter={initialFilter} />
+          <Suspense fallback={null}>
+            <BlogContent posts={posts} initialFilter={initialFilter} />
+          </Suspense>
         </div>
       </section>
 
