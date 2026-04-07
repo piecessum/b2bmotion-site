@@ -59,24 +59,14 @@ export default async function BlogPostPage({
 
       <article className="pt-36 pb-28 px-6">
         <div className="max-w-3xl mx-auto">
-          {/* Navigation */}
-          <div className="flex items-center gap-4 mb-10">
-            <BackButton
-              storageKey="home_back_url"
-              fallback="/"
-              className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors"
-            >
-              На главную
-            </BackButton>
-            <span className="w-1 h-1 rounded-full bg-dimmest" />
-            <BackButton
-              storageKey="blog_back_url"
-              fallback="/blog"
-              className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors"
-            >
-              Блог
-            </BackButton>
-          </div>
+          {/* Back to blog */}
+          <BackButton
+            storageKey="blog_back_url"
+            fallback="/blog"
+            className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors mb-10"
+          >
+            Блог
+          </BackButton>
 
           {/* Cover + Header */}
           {post.image && (
@@ -256,23 +246,13 @@ export default async function BlogPostPage({
           {/* Bottom divider */}
           <div className="section-divider mt-16 mb-10" />
 
-          <div className="flex items-center gap-4">
-            <BackButton
-              storageKey="home_back_url"
-              fallback="/"
-              className="inline-flex items-center gap-2 text-sm font-medium text-[#60A5FA] hover:gap-3 transition-all duration-300"
-            >
-              На главную
-            </BackButton>
-            <span className="w-1 h-1 rounded-full bg-dimmest" />
-            <BackButton
-              storageKey="blog_back_url"
-              fallback="/blog"
-              className="inline-flex items-center gap-2 text-sm font-medium text-[#60A5FA] hover:gap-3 transition-all duration-300"
-            >
-              Блог
-            </BackButton>
-          </div>
+          <BackButton
+            storageKey="blog_back_url"
+            fallback="/blog"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[#60A5FA] hover:gap-3 transition-all duration-300"
+          >
+            Блог
+          </BackButton>
         </div>
       </article>
 
@@ -302,24 +282,14 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
 
       <article className="pt-36 pb-28 px-6">
         <div className="max-w-5xl mx-auto">
-          {/* Navigation */}
-          <div className="flex items-center gap-4 mb-10">
-            <BackButton
-              storageKey="home_back_url"
-              fallback="/"
-              className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors"
-            >
-              На главную
-            </BackButton>
-            <span className="w-1 h-1 rounded-full bg-dimmest" />
-            <BackButton
-              storageKey="blog_back_url"
-              fallback="/blog"
-              className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors"
-            >
-              Блог
-            </BackButton>
-          </div>
+          {/* Back to blog */}
+          <BackButton
+            storageKey="blog_back_url"
+            fallback="/blog"
+            className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors mb-10"
+          >
+            Блог
+          </BackButton>
 
           {/* Hero Header */}
           <header className="mb-10">
@@ -627,23 +597,13 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
           {/* Related Cases */}
           <RelatedCases cases={caseStudies} currentSlug={slug} />
 
-          <div className="flex items-center gap-4 mt-10">
-            <BackButton
-              storageKey="home_back_url"
-              fallback="/"
-              className="inline-flex items-center gap-2 text-sm font-medium text-[#60A5FA] hover:gap-3 transition-all duration-300"
-            >
-              На главную
-            </BackButton>
-            <span className="w-1 h-1 rounded-full bg-dimmest" />
-            <BackButton
-              storageKey="blog_back_url"
-              fallback="/blog"
-              className="inline-flex items-center gap-2 text-sm font-medium text-[#60A5FA] hover:gap-3 transition-all duration-300"
-            >
-              Блог
-            </BackButton>
-          </div>
+          <BackButton
+            storageKey="blog_back_url"
+            fallback="/blog"
+            className="inline-flex items-center gap-2 text-sm font-medium text-[#60A5FA] hover:gap-3 transition-all duration-300 mt-10"
+          >
+            Блог
+          </BackButton>
         </div>
       </article>
 
