@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BookOpen, Search, Mail, Phone } from "lucide-react";
@@ -82,7 +82,6 @@ const tabs = [
 /* ── Inner component with useSearchParams ── */
 
 function KnowledgePageInner() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const tabFromUrl = searchParams.get("tab");
   const initialTab =
@@ -95,11 +94,21 @@ function KnowledgePageInner() {
           : 0;
 
   const [activeTab, setActiveTab] = useState(initialTab);
-  const initialCategory = searchParams.get("category") || "Все";
-  const [activeCategory, setActiveCategory] = useState(initialCategory);
+  const [activeCategory, setActiveCategory] = useState(
+    searchParams.get("category") || "Все",
+  );
   const [search, setSearch] = useState("");
 
-  // Sync URL when tab or category changes
+  // Sync state ← URL (fires on back/forward navigation)
+  useEffect(() => {
+    const tabParam = searchParams.get("tab");
+    const tabIdx =
+      tabParam === "custom" ? 1 : tabParam === "tech" ? 2 : 0;
+    setActiveTab(tabIdx);
+    setActiveCategory(searchParams.get("category") || "Все");
+  }, [searchParams]);
+
+  // Sync URL ← state (replaceState doesn't trigger searchParams update)
   useEffect(() => {
     const tabMap = ["function", "custom", "tech"];
     const params = new URLSearchParams();
@@ -107,8 +116,8 @@ function KnowledgePageInner() {
     if (activeCategory && activeCategory !== "Все") {
       params.set("category", activeCategory);
     }
-    router.replace(`?${params.toString()}`, { scroll: false });
-  }, [activeTab, activeCategory, router]);
+    window.history.replaceState(null, "", `?${params.toString()}`);
+  }, [activeTab, activeCategory]);
 
   const currentTab = tabs[activeTab];
 
