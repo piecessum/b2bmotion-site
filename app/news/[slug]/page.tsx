@@ -3,8 +3,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BackButton } from "@/components/back-button";
 import { notFound } from "next/navigation";
-import { Calendar, ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import { Calendar } from "lucide-react";
 
 export function generateStaticParams() {
   const posts = getAllPosts("news");
@@ -114,13 +113,13 @@ export default async function NewsPostPage({
 
           <div className="section-divider mt-16 mb-10" />
 
-          <Link
-            href="/news"
+          <BackButton
+            storageKey="news_back_url"
+            fallback="/news"
             className="inline-flex items-center gap-2 text-sm font-medium text-[#C084FC] hover:gap-3 transition-all duration-300"
           >
-            <ArrowLeft className="w-4 h-4" />
             Все новости
-          </Link>
+          </BackButton>
         </div>
       </article>
 
