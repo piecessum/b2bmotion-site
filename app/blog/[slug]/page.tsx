@@ -135,6 +135,31 @@ export default async function BlogPostPage({
             </div>
           )}
 
+          {/* Interviewee Card */}
+          {(post as any).intervieweeCard && (
+            <div className="mb-10 rounded-2xl bg-gradient-to-br from-[#3B82F6]/5 via-transparent to-[#8B5CF6]/5 border border-gray-200 dark:border-white/[0.06] p-6 md:p-8">
+              <div className="flex items-start gap-5">
+                <img
+                  src={(post as any).intervieweeCard.photo}
+                  alt={(post as any).intervieweeCard.name}
+                  className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover object-top border-2 border-[#3B82F6]/20 shrink-0"
+                />
+                <div className="min-w-0">
+                  <div className="text-[10px] uppercase tracking-[0.15em] text-[#60A5FA] mb-1">Интервьюируемый</div>
+                  <h4 className="font-heading font-bold text-lg text-heading mb-0.5">
+                    {(post as any).intervieweeCard.name}
+                  </h4>
+                  <p className="text-sm font-medium text-subtle mb-2">
+                    {(post as any).intervieweeCard.role}
+                  </p>
+                  <p className="text-sm text-dim leading-relaxed">
+                    {(post as any).intervieweeCard.bio}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Table of Contents */}
           {(() => {
             const headings = extractHeadings(post.content);
