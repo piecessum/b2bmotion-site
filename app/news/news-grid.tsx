@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Calendar } from "lucide-react";
 import type { Post } from "@/lib/content";
@@ -13,8 +13,49 @@ const TAG_LABELS: Record<string, string> = {
   mdm: "MDM",
 };
 
-export function NewsGrid({ posts }: { posts: Post[] }) {
-  const [activeTag, setActiveTag] = useState<string | null>(null);
+function readUrlState() {
+  const params = new URLSearchParams(window.location.search);
+  return { tag: params.get("tag") || null };
+}
+
+export function NewsGrid({
+  posts,
+  initialTag,
+}: {
+  posts: Post[];
+  initialTag: string | null;
+}) {
+  const [activeTag, setActiveTag] = useState<string | null>(initialTag);
+
+  // Read URL state on mount (overrides initialTag if URL has different value)
+  useEffect(() => {
+    const { tag } = readUrlState();
+    setActiveTag(tag);
+  }, []);
+
+  // Listen for back/forward navigation
+  useEffect(() => {
+    const onPopState = () => {
+      const { tag } = readUrlState();
+      setActiveTag(tag);
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  // Sync state back to URL + sessionStorage
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (activeTag) params.set("tag", activeTag);
+    const qs = params.toString();
+    const url = qs ? `/news?${qs}` : "/news";
+    window.history.replaceState(null, "", url);
+    sessionStorage.setItem("news_back_url", url);
+  }, [activeTag]);
+
+  const saveScroll = () => {
+    sessionStorage.setItem("news_scroll", String(window.scrollY));
+  };
 
   const tags = useMemo(() => {
     const set = new Set<string>();
@@ -65,6 +106,7 @@ export function NewsGrid({ posts }: { posts: Post[] }) {
           <Link
             key={post.slug}
             href={`/news/${post.slug}`}
+            onClick={saveScroll}
             className="group relative rounded-2xl glass-card overflow-hidden"
           >
             {post.image && (

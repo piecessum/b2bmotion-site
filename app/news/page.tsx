@@ -1,15 +1,21 @@
-import { getAllPosts } from "@/lib/content"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { NewsGrid } from "./news-grid"
+import { getAllPosts } from "@/lib/content";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { NewsGrid } from "./news-grid";
 
 export const metadata = {
   title: "Новости — B2B Движение",
   description: "Новости компании, обновления платформы и события отрасли.",
+};
+
+interface NewsPageProps {
+  searchParams: Promise<{ tag?: string }>;
 }
 
-export default function NewsPage() {
-  const posts = getAllPosts("news")
+export default async function NewsPage({ searchParams }: NewsPageProps) {
+  const posts = getAllPosts("news");
+  const params = await searchParams;
+  const initialTag = params.tag || null;
 
   return (
     <main className="relative min-h-screen bg-page noise-overlay">
@@ -30,7 +36,7 @@ export default function NewsPage() {
             </p>
           </div>
 
-          <NewsGrid posts={posts} />
+          <NewsGrid posts={posts} initialTag={initialTag} />
 
           {posts.length === 0 && (
             <p className="text-center text-dim py-20">
@@ -42,5 +48,5 @@ export default function NewsPage() {
 
       <Footer />
     </main>
-  )
+  );
 }

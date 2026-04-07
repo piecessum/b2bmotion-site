@@ -1,30 +1,39 @@
-import { getAllPosts, getPostBySlug } from "@/lib/content"
-import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
-import { notFound } from "next/navigation"
-import { Calendar, ArrowLeft } from "lucide-react"
-import Link from "next/link"
+import { getAllPosts, getPostBySlug } from "@/lib/content";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { BackButton } from "@/components/back-button";
+import { notFound } from "next/navigation";
+import { Calendar, ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 export function generateStaticParams() {
-  const posts = getAllPosts("news")
-  return posts.map((post) => ({ slug: post.slug }))
+  const posts = getAllPosts("news");
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const post = getPostBySlug("news", slug)
-  if (!post) return {}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = getPostBySlug("news", slug);
+  if (!post) return {};
   return {
     title: `${post.title} — B2B Движение`,
     description: post.description,
-  }
+  };
 }
 
-export default async function NewsPostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const post = getPostBySlug("news", slug)
+export default async function NewsPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = getPostBySlug("news", slug);
 
-  if (!post) notFound()
+  if (!post) notFound();
 
   return (
     <main className="relative min-h-screen bg-page noise-overlay">
@@ -33,13 +42,13 @@ export default async function NewsPostPage({ params }: { params: Promise<{ slug:
       <article className="pt-36 pb-28 px-6">
         <div className="max-w-3xl mx-auto">
           {/* Back */}
-          <Link
-            href="/news"
+          <BackButton
+            storageKey="news_back_url"
+            fallback="/news"
             className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors mb-10"
           >
-            <ArrowLeft className="w-4 h-4" />
             Все новости
-          </Link>
+          </BackButton>
 
           {/* Header */}
           <header className="mb-12">
@@ -66,8 +75,8 @@ export default async function NewsPostPage({ params }: { params: Promise<{ slug:
           {/* Content */}
           <div className="prose-custom">
             {post.content.split("\n").map((line, i) => {
-              const trimmed = line.trim()
-              if (!trimmed) return <br key={i} />
+              const trimmed = line.trim();
+              if (!trimmed) return <br key={i} />;
               if (trimmed.startsWith("## "))
                 return (
                   <h2
@@ -76,7 +85,7 @@ export default async function NewsPostPage({ params }: { params: Promise<{ slug:
                   >
                     {trimmed.replace("## ", "")}
                   </h2>
-                )
+                );
               if (trimmed.startsWith("### "))
                 return (
                   <h3
@@ -85,7 +94,7 @@ export default async function NewsPostPage({ params }: { params: Promise<{ slug:
                   >
                     {trimmed.replace("### ", "")}
                   </h3>
-                )
+                );
               if (trimmed.startsWith("- "))
                 return (
                   <li
@@ -94,12 +103,12 @@ export default async function NewsPostPage({ params }: { params: Promise<{ slug:
                   >
                     {renderInline(trimmed.replace("- ", ""))}
                   </li>
-                )
+                );
               return (
                 <p key={i} className="text-body leading-relaxed mb-4">
                   {renderInline(trimmed)}
                 </p>
-              )
+              );
             })}
           </div>
 
@@ -117,19 +126,19 @@ export default async function NewsPostPage({ params }: { params: Promise<{ slug:
 
       <Footer />
     </main>
-  )
+  );
 }
 
 function renderInline(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g)
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
         <strong key={i} className="text-subheading font-medium">
           {part.slice(2, -2)}
         </strong>
-      )
+      );
     }
-    return part
-  })
+    return part;
+  });
 }
