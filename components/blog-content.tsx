@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { ArrowRight, Calendar, Play, BarChart3 } from "lucide-react";
 
 interface Post {
@@ -32,24 +31,40 @@ const industries = [
   "Металлопрокат",
 ];
 
-export function BlogContent({ posts, initialFilter }: BlogContentProps) {
-  const searchParams = useSearchParams();
+function readUrlState() {
+  const params = new URLSearchParams(window.location.search);
+  const tab = params.get("tab");
+  return {
+    filter: (tab === "cases" || tab === "publications" ? tab : "all") as
+      | "all"
+      | "publications"
+      | "cases",
+    industry: params.get("industry") || null,
+  };
+}
 
+export function BlogContent({ posts, initialFilter }: BlogContentProps) {
   const [filter, setFilter] = useState<"all" | "publications" | "cases">(
     initialFilter,
   );
-  const [industryFilter, setIndustryFilter] = useState<string | null>(
-    searchParams.get("industry") || null,
-  );
+  const [industryFilter, setIndustryFilter] = useState<string | null>(null);
 
-  // Sync state ← URL (fires on back/forward navigation)
+  // Read industry from URL on mount
   useEffect(() => {
-    const tab = searchParams.get("tab");
-    const newFilter =
-      tab === "cases" ? "cases" : tab === "publications" ? "publications" : "all";
-    setFilter(newFilter);
-    setIndustryFilter(searchParams.get("industry") || null);
-  }, [searchParams]);
+    const { industry } = readUrlState();
+    if (industry) setIndustryFilter(industry);
+  }, []);
+
+  // Sync state ← URL on back/forward
+  useEffect(() => {
+    const onPopState = () => {
+      const { filter: f, industry } = readUrlState();
+      setFilter(f);
+      setIndustryFilter(industry);
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
 
   // Sync URL ← state
   useEffect(() => {
