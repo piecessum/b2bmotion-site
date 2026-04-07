@@ -143,7 +143,7 @@ export default async function BlogPostPage({
               <nav className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-6 mb-10">
                 <div className="flex items-center gap-2.5 mb-4">
                   <BookOpen className="w-4 h-4 text-[#60A5FA]" />
-                  <span className="font-heading font-semibold text-sm text-heading">Чеклист</span>
+                  <span className="font-heading font-semibold text-sm text-heading">Содержание</span>
                 </div>
                 <ul className="space-y-1.5">
                   {headings.map((h, idx) => (
@@ -920,6 +920,83 @@ function renderBlogContent(content: string) {
             </li>
           ))}
         </ul>,
+      );
+      continue;
+    }
+
+    // Blockquote / quote with person
+    if (trimmed.startsWith("> ")) {
+      const quoteLines: string[] = [];
+      while (i < lines.length && lines[i].trim().startsWith("> ")) {
+        quoteLines.push(lines[i].trim().replace(/^>\s*/, ""));
+        i++;
+      }
+
+      // Separate quote text and attribution
+      let quoteText = "";
+      let authorName = "";
+      let authorRole = "";
+      for (const ql of quoteLines) {
+        if (ql.startsWith("— ") || ql.startsWith("- ") || ql.startsWith("– ")) {
+          const attr = ql.replace(/^[—–-]\s*/, "").replace(/\*\*/g, "");
+          const commaIdx = attr.indexOf(",");
+          if (commaIdx !== -1) {
+            authorName = attr.slice(0, commaIdx).trim();
+            authorRole = attr.slice(commaIdx + 1).trim();
+          } else {
+            authorName = attr.trim();
+          }
+        } else {
+          const cleaned = ql
+            .replace(/^\*\*Цитата:\*\*\s*/, "")
+            .replace(/^«|»$/g, "");
+          quoteText += (quoteText ? " " : "") + cleaned;
+        }
+      }
+
+      // Strip surrounding quotes if present
+      quoteText = quoteText.replace(/^«\s*/, "").replace(/\s*»$/, "");
+
+      const personMap: Record<string, { photo: string; role: string }> = {
+        "Артём Старченко": { photo: "/Artem.png", role: "Основатель компании и директор" },
+        "Артем Старченко": { photo: "/Artem.png", role: "Основатель компании и директор" },
+        "Екатерина Масленникова": { photo: "/Kate.png", role: "Руководитель B2B-проектов" },
+        "Екатерина Масленикова": { photo: "/Kate.png", role: "Руководитель B2B-проектов" },
+        "Дмитрий Агеев": { photo: "/dmitriy.png", role: "Руководитель отдела продаж" },
+        "Елена Головина": { photo: "/Elena.png", role: "Автор, редактор" },
+      };
+
+      const person = personMap[authorName];
+
+      elements.push(
+        <div
+          key={`quote-${i}`}
+          className="my-8 rounded-2xl bg-gradient-to-br from-[#3B82F6]/5 via-transparent to-[#8B5CF6]/5 border border-gray-200 dark:border-white/[0.06] p-6 md:p-8"
+        >
+          <Quote className="w-8 h-8 text-[#3B82F6]/20 mb-4" />
+          <p className="text-base md:text-lg text-body leading-relaxed italic mb-5">
+            «{quoteText}»
+          </p>
+          {authorName && (
+            <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-white/[0.06]">
+              {person?.photo && (
+                <img
+                  src={person.photo}
+                  alt={authorName}
+                  className="w-12 h-12 rounded-full object-cover object-top border-2 border-[#3B82F6]/20 shrink-0"
+                />
+              )}
+              <div>
+                <div className="font-heading font-semibold text-sm text-heading">
+                  {authorName}
+                </div>
+                <div className="text-xs text-dim">
+                  {person?.role || authorRole}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>,
       );
       continue;
     }
