@@ -195,6 +195,7 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
           {/* Pinned video */}
           <Link
             href="/video"
+            onClick={saveScroll}
             className="group relative p-8 rounded-2xl glass-card overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[#3B82F6]/[0.06] via-[#8B5CF6]/[0.04] to-[#06B6D4]/[0.06]" />
@@ -225,6 +226,7 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
           {/* Pinned report */}
           <Link
             href="/blog/b2b-platforms-report"
+            onClick={saveScroll}
             className="group relative p-8 rounded-2xl glass-card overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[#06B6D4]/[0.06] via-[#3B82F6]/[0.04] to-[#8B5CF6]/[0.06]" />

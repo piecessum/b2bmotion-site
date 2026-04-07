@@ -1,7 +1,8 @@
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { ArrowRight, ArrowLeft } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import Link from "next/link"
+import { BackButton } from "@/components/back-button"
 
 export const metadata = {
   title: "В2В Движение — оптимальное решение для оптового бизнеса",
@@ -17,20 +18,21 @@ export default function VideoPage() {
         <div className="max-w-4xl mx-auto">
           {/* Navigation */}
           <div className="flex items-center gap-4 mb-10">
-            <Link
-              href="/"
+            <BackButton
+              storageKey="home_back_url"
+              fallback="/"
               className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors"
             >
-              <ArrowLeft className="w-4 h-4" />
               На главную
-            </Link>
+            </BackButton>
             <span className="w-1 h-1 rounded-full bg-dimmest" />
-            <Link
-              href="/blog"
+            <BackButton
+              storageKey="blog_back_url"
+              fallback="/blog"
               className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors"
             >
               Блог
-            </Link>
+            </BackButton>
           </div>
 
           {/* Header */}

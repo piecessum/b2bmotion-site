@@ -10,10 +10,12 @@ import { VideoBanner } from "@/components/video-banner"
 import { Pricing } from "@/components/pricing"
 import { CTASection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
+import { ScrollSaver } from "@/components/scroll-saver"
 
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-page noise-overlay">
+      <ScrollSaver storageKey="home_scroll" urlKey="home_back_url" />
       <Navbar />
       <Hero />
       <LogoCloud />
