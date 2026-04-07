@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState, useMemo, useEffect } from "react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BookOpen, Search, Mail, Phone } from "lucide-react";
@@ -81,34 +80,37 @@ const tabs = [
 
 /* ── Inner component with useSearchParams ── */
 
-function KnowledgePageInner() {
-  const searchParams = useSearchParams();
-  const tabFromUrl = searchParams.get("tab");
-  const initialTab =
-    tabFromUrl === "function"
-      ? 0
-      : tabFromUrl === "custom"
-        ? 1
-        : tabFromUrl === "tech"
-          ? 2
-          : 0;
+function readWikiUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const tab = params.get("tab");
+  const tabIdx = tab === "custom" ? 1 : tab === "tech" ? 2 : 0;
+  return { tabIdx, category: params.get("category") || "Все" };
+}
 
-  const [activeTab, setActiveTab] = useState(initialTab);
-  const [activeCategory, setActiveCategory] = useState(
-    searchParams.get("category") || "Все",
-  );
+function KnowledgePageInner() {
+  const [activeTab, setActiveTab] = useState(0);
+  const [activeCategory, setActiveCategory] = useState("Все");
   const [search, setSearch] = useState("");
 
-  // Sync state ← URL (fires on back/forward navigation)
+  // Read full state from URL on mount
   useEffect(() => {
-    const tabParam = searchParams.get("tab");
-    const tabIdx =
-      tabParam === "custom" ? 1 : tabParam === "tech" ? 2 : 0;
+    const { tabIdx, category } = readWikiUrl();
     setActiveTab(tabIdx);
-    setActiveCategory(searchParams.get("category") || "Все");
-  }, [searchParams]);
+    setActiveCategory(category);
+  }, []);
 
-  // Sync URL ← state (replaceState doesn't trigger searchParams update)
+  // Sync state ← URL on back/forward
+  useEffect(() => {
+    const onPopState = () => {
+      const { tabIdx, category } = readWikiUrl();
+      setActiveTab(tabIdx);
+      setActiveCategory(category);
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  // Sync URL ← state
   useEffect(() => {
     const tabMap = ["function", "custom", "tech"];
     const params = new URLSearchParams();
@@ -336,12 +338,4 @@ function KnowledgePageInner() {
   );
 }
 
-/* ── Default export with Suspense ── */
-
-export default function KnowledgePage() {
-  return (
-    <Suspense fallback={null}>
-      <KnowledgePageInner />
-    </Suspense>
-  );
-}
+export default KnowledgePageInner;
