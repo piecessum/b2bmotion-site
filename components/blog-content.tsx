@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight, Calendar, Play, BarChart3 } from "lucide-react";
 
 interface Post {
@@ -36,6 +37,16 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
     initialFilter,
   );
   const [industryFilter, setIndustryFilter] = useState<string | null>(null);
+
+  const updateFilter = useCallback(
+    (newFilter: "all" | "publications" | "cases") => {
+      setFilter(newFilter);
+      setIndustryFilter(null);
+      const url = newFilter === "all" ? "/blog" : `/blog?filter=${newFilter}`;
+      window.history.replaceState(null, "", url);
+    },
+    [],
+  );
 
   const isCaseStudy = (post: Post) =>
     post.tags?.includes("кейс") || post.slug.startsWith("keis-");
@@ -89,10 +100,7 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
             ].map((tab) => (
               <button
                 key={tab.key}
-                onClick={() => {
-                  setFilter(tab.key);
-                  setIndustryFilter(null);
-                }}
+                onClick={() => updateFilter(tab.key)}
                 className={`
                   px-5 py-2.5 text-sm font-medium whitespace-nowrap rounded-lg transition-all
                   ${
