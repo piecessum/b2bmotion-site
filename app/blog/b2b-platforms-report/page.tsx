@@ -2,8 +2,9 @@
 
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { ArrowLeft, ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import Link from "next/link"
+import { BackButton } from "@/components/back-button"
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   LineChart, Line, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
@@ -114,13 +115,13 @@ export default function B2BPlatformsReport() {
       <article className="pt-36 pb-16 px-6">
         <div className="max-w-5xl mx-auto">
           {/* Back */}
-          <Link
-            href="/blog"
+          <BackButton
+            storageKey="blog_back_url"
+            fallback="/blog"
             className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors mb-10"
           >
-            <ArrowLeft className="w-4 h-4" />
-            Все статьи
-          </Link>
+            Назад
+          </BackButton>
 
           {/* Hero */}
           <header className="mb-16">
@@ -549,13 +550,13 @@ export default function B2BPlatformsReport() {
           {/* Bottom nav */}
           <div className="section-divider mb-10" />
           <div className="flex items-center justify-between">
-            <Link
-              href="/blog"
+            <BackButton
+              storageKey="blog_back_url"
+              fallback="/blog"
               className="inline-flex items-center gap-2 text-sm font-medium text-[#60A5FA] hover:gap-3 transition-all duration-300"
             >
-              <ArrowLeft className="w-4 h-4" />
-              Все статьи
-            </Link>
+              Назад
+            </BackButton>
             <a
               href="mailto:hello@b2b-dvizhenie.ru"
               className="shimmer-btn inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white text-sm font-semibold rounded-xl hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] transition-all duration-300 hover:brightness-110"
