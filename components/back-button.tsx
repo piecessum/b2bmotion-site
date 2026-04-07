@@ -4,10 +4,12 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
 export function BackButton({
+  storageKey,
   fallback = "/blog",
   children,
   className,
 }: {
+  storageKey: string;
   fallback?: string;
   children: React.ReactNode;
   className?: string;
@@ -17,11 +19,8 @@ export function BackButton({
   return (
     <button
       onClick={() => {
-        if (window.history.length > 1) {
-          router.back();
-        } else {
-          router.push(fallback);
-        }
+        const saved = sessionStorage.getItem(storageKey);
+        router.push(saved || fallback);
       }}
       className={className}
     >

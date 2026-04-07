@@ -67,13 +67,15 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
 
-  // Sync URL ← state
+  // Sync URL ← state + save for back button
   useEffect(() => {
     const params = new URLSearchParams();
     if (filter !== "all") params.set("tab", filter);
     if (industryFilter) params.set("industry", industryFilter);
     const qs = params.toString();
-    window.history.replaceState(null, "", qs ? `/blog?${qs}` : "/blog");
+    const url = qs ? `/blog?${qs}` : "/blog";
+    window.history.replaceState(null, "", url);
+    sessionStorage.setItem("blog_back_url", url);
   }, [filter, industryFilter]);
 
   const updateFilter = useCallback(

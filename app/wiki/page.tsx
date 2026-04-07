@@ -110,7 +110,7 @@ function KnowledgePageInner() {
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
 
-  // Sync URL ← state
+  // Sync URL ← state + save for back button
   useEffect(() => {
     const tabMap = ["function", "custom", "tech"];
     const params = new URLSearchParams();
@@ -118,7 +118,9 @@ function KnowledgePageInner() {
     if (activeCategory && activeCategory !== "Все") {
       params.set("category", activeCategory);
     }
-    window.history.replaceState(null, "", `?${params.toString()}`);
+    const url = `/wiki?${params.toString()}`;
+    window.history.replaceState(null, "", url);
+    sessionStorage.setItem("wiki_back_url", url);
   }, [activeTab, activeCategory]);
 
   const currentTab = tabs[activeTab];

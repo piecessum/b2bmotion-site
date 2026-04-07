@@ -1,11 +1,12 @@
 import { notFound } from "next/navigation";
-import { ArrowLeft, BookOpen, Link2 } from "lucide-react";
+import { BookOpen, Link2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { wikiTechArticles } from "@/lib/wiki-tech-data";
 import { RichTextRenderer } from "@/components/wiki/rich-text-renderer";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { BackButton } from "@/components/back-button";
 
 interface WikiTechArticlePageProps {
   params: Promise<{ slug: string }>;
@@ -41,16 +42,16 @@ export default async function WikiTechArticlePage({
       <Navbar />
 
       <div className="max-w-4xl mx-auto px-6 pt-32 pb-20">
-        <Link
-          href="/wiki?tab=tech"
+        <BackButton
+          storageKey="wiki_back_url"
+          fallback="/wiki?tab=tech"
           className="inline-flex items-center gap-2 text-sm text-subtle hover:text-body transition-colors mb-8 group"
         >
-          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           <span className="flex items-center gap-2">
             <BookOpen className="w-3.5 h-3.5" />
-            База знаний
+            Назад
           </span>
-        </Link>
+        </BackButton>
 
         <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-[#60A5FA] mb-4 block">
           {article.category}
