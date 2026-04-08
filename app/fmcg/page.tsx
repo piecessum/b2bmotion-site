@@ -476,13 +476,15 @@ export default function FmcgPage() {
                 партнёр и трамплин для роста. Тандем — 100%.
               </p>
               <div className="flex items-center gap-4">
-                <Image
-                  src="/logos/raid21.svg"
-                  alt="Рэйд-21"
-                  width={180}
-                  height={60}
-                  className="h-14 w-auto object-contain"
-                />
+                <div className="rounded-xl border border-border-default bg-surface p-3 dark:border-emerald-500/30 dark:bg-surface-hover">
+                  <Image
+                    src="/logos/raid21.svg"
+                    alt="Рэйд-21"
+                    width={180}
+                    height={60}
+                    className="h-12 w-auto object-contain dark:invert"
+                  />
+                </div>
                 <div>
                   <p className="font-heading font-semibold text-heading">
                     Рэйд-21
