@@ -1,32 +1,94 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
-import { Navbar } from "@/components/navbar"
-import { CTASection } from "@/components/cta-section"
-import { Footer } from "@/components/footer"
+import { useEffect, useRef } from "react";
+import Image from "next/image";
+import { Navbar } from "@/components/navbar";
+import { CTASection } from "@/components/cta-section";
+import { Footer } from "@/components/footer";
 import {
-  ShoppingCart, Sparkles, Beer, Lightbulb,
-  RotateCcw, FileText, Clock, Box, Smartphone,
-  Zap, Users, Tag, ArrowRight, DollarSign, Warehouse, Quote
-} from "lucide-react"
+  ShoppingCart,
+  Sparkles,
+  Beer,
+  Lightbulb,
+  RotateCcw,
+  FileText,
+  Clock,
+  Box,
+  Smartphone,
+  Zap,
+  Users,
+  Tag,
+  ArrowRight,
+  DollarSign,
+  Warehouse,
+  Quote,
+} from "lucide-react";
 
 const categories = [
-  { icon: ShoppingCart, title: "Продукты питания и напитки", desc: "Сюда относят крупы, молочные продукты, овощи и фрукты, мясо, рыбу, безалкогольные напитки и другие продукты питания." },
-  { icon: Sparkles, title: "Бытовая химия и косметика", desc: "В эту группу входят всевозможные чистящие и моющие средства, товары личной гигиены, декоративная и уходовая косметика." },
-  { icon: Beer, title: "Алкоголь и табачные изделия", desc: "В отдельную категорию вошли алкогольные напитки, табак, сигары и сигареты, а также спички и зажигалки." },
-  { icon: Lightbulb, title: "Товары быстрого пользования", desc: "Лампочки, батарейки, пакеты, канцелярия и другие повседневные товары составляют отдельную группу FMCG-отрасли." },
-]
+  {
+    icon: ShoppingCart,
+    title: "Продукты питания и напитки",
+    desc: "Сюда относят крупы, молочные продукты, овощи и фрукты, мясо, рыбу, безалкогольные напитки и другие продукты питания.",
+  },
+  {
+    icon: Sparkles,
+    title: "Бытовая химия и косметика",
+    desc: "В эту группу входят всевозможные чистящие и моющие средства, товары личной гигиены, декоративная и уходовая косметика.",
+  },
+  {
+    icon: Beer,
+    title: "Алкоголь и табачные изделия",
+    desc: "В отдельную категорию вошли алкогольные напитки, табак, сигары и сигареты, а также спички и зажигалки.",
+  },
+  {
+    icon: Lightbulb,
+    title: "Товары быстрого пользования",
+    desc: "Лампочки, батарейки, пакеты, канцелярия и другие повседневные товары составляют отдельную группу FMCG-отрасли.",
+  },
+];
 
 const capabilities = [
-  { icon: Zap, title: "Автоматизация продаж", desc: "Клиенты сами оформляют заказы и выставляют счета — без звонков менеджеру" },
-  { icon: DollarSign, title: "Персональные цены", desc: "Индивидуальные скидки, кредитные лимиты и график платежей для каждого клиента" },
-  { icon: RotateCcw, title: "Повторный заказ в один клик", desc: "Регулярный ассортимент сохраняется в спецификации — повторная закупка мгновенно" },
-  { icon: FileText, title: "Документы в одном месте", desc: "Сертификаты, составы, счета-фактуры и накладные — всё прикреплено к товару и заказу" },
-  { icon: Clock, title: "Контроль сроков годности", desc: "Покупатель видит сроки партии. Товары с истекающим сроком — автоматически по спеццене" },
-  { icon: Box, title: "Кратность товара", desc: "Продажа упаковками с фиксированным количеством единиц" },
-  { icon: Warehouse, title: "Интеграция со складом", desc: "Остатки по всем складам в реальном времени, сроки поставок и реализации" },
-  { icon: Smartphone, title: "Мобильное приложение", desc: "Брендированное приложение с вашим логотипом — заказы из любой точки" },
-]
+  {
+    icon: Zap,
+    title: "Автоматизация продаж",
+    desc: "Клиенты сами оформляют заказы и выставляют счета — без звонков менеджеру",
+  },
+  {
+    icon: DollarSign,
+    title: "Персональные цены",
+    desc: "Индивидуальные скидки, кредитные лимиты и график платежей для каждого клиента",
+  },
+  {
+    icon: RotateCcw,
+    title: "Повторный заказ в один клик",
+    desc: "Регулярный ассортимент сохраняется в спецификации — повторная закупка мгновенно",
+  },
+  {
+    icon: FileText,
+    title: "Документы в одном месте",
+    desc: "Сертификаты, составы, счета-фактуры и накладные — всё прикреплено к товару и заказу",
+  },
+  {
+    icon: Clock,
+    title: "Контроль сроков годности",
+    desc: "Покупатель видит сроки партии. Товары с истекающим сроком — автоматически по спеццене",
+  },
+  {
+    icon: Box,
+    title: "Кратность товара",
+    desc: "Продажа упаковками с фиксированным количеством единиц",
+  },
+  {
+    icon: Warehouse,
+    title: "Интеграция со складом",
+    desc: "Остатки по всем складам в реальном времени, сроки поставок и реализации",
+  },
+  {
+    icon: Smartphone,
+    title: "Мобильное приложение",
+    desc: "Брендированное приложение с вашим логотипом — заказы из любой точки",
+  },
+];
 
 const advantages = [
   {
@@ -59,42 +121,71 @@ const advantages = [
       "Скидки на категорию, бренд или артикул",
     ],
   },
-]
+];
 
 function useReveal(ref: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("visible") }),
-      { threshold: 0.1 }
-    )
-    ref.current?.querySelectorAll(".reveal").forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
-  }, [ref])
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add("visible");
+        }),
+      { threshold: 0.1 },
+    );
+    ref.current
+      ?.querySelectorAll(".reveal")
+      .forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [ref]);
 }
 
 export default function FmcgPage() {
-  const mainRef = useRef<HTMLElement>(null)
-  useReveal(mainRef)
+  const mainRef = useRef<HTMLElement>(null);
+  useReveal(mainRef);
 
   return (
-    <main ref={mainRef} className="relative min-h-screen bg-page-alt noise-overlay">
+    <main
+      ref={mainRef}
+      className="relative min-h-screen bg-page-alt noise-overlay"
+    >
       <Navbar />
 
       {/* Hero */}
       <section className="relative pt-36 pb-20 px-6 overflow-hidden">
         {/* Background image */}
         <div className="absolute inset-0">
-          <img src="/for-bg/bg-fmcg-white.png" alt="" className="w-full h-full object-cover dark:hidden" />
-          <img src="/for-bg/bg-fmcg-dark.png" alt="" className="w-full h-full object-cover hidden dark:block" />
+          <img
+            src="/for-bg/bg-fmcg-white.png"
+            alt=""
+            className="w-full h-full object-cover dark:hidden"
+          />
+          <img
+            src="/for-bg/bg-fmcg-dark.png"
+            alt=""
+            className="w-full h-full object-cover hidden dark:block"
+          />
           <div className="absolute inset-0 bg-white/60 dark:bg-black/70" />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, var(--page-alt) 0%, color-mix(in srgb, var(--page-alt) 85%, transparent) 20%, color-mix(in srgb, var(--page-alt) 40%, transparent) 45%, transparent 75%)' }} />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to top, var(--page-alt) 0%, color-mix(in srgb, var(--page-alt) 85%, transparent) 20%, color-mix(in srgb, var(--page-alt) 40%, transparent) 45%, transparent 75%)",
+            }}
+          />
         </div>
         <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <span className="reveal inline-block px-4 py-1.5 mb-6 text-xs font-medium uppercase tracking-[0.15em] text-emerald-400 bg-emerald-400/10 rounded-full">FMCG</span>
+            <span className="reveal inline-block px-4 py-1.5 mb-6 text-xs font-medium uppercase tracking-[0.15em] text-emerald-400 bg-emerald-400/10 rounded-full">
+              FMCG
+            </span>
             <h1 className="reveal font-heading font-bold text-[clamp(32px,5vw,52px)] leading-[1.1] tracking-[-0.03em] mb-6">
-              <span className="text-heading">Оптовый B2B-портал для продажи</span><br />
-              <span className="gradient-text">товаров повседневного спроса</span>
+              <span className="text-heading">
+                Оптовый B2B-портал для продажи
+              </span>
+              <br />
+              <span className="gradient-text">
+                товаров повседневного спроса
+              </span>
             </h1>
             <ul className="reveal space-y-3 text-lg text-body mb-8 max-w-lg">
               <li className="flex items-start gap-3">
@@ -110,7 +201,12 @@ export default function FmcgPage() {
                 Лучшее решение для рынка массового спроса
               </li>
             </ul>
-            <a href="#cta" className="reveal inline-flex px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">Обсудить проект</a>
+            <a
+              href="#cta"
+              className="reveal inline-flex px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
+            >
+              Обсудить проект
+            </a>
           </div>
           <div className="reveal">
             <div className="bg-surface rounded-2xl border border-border-default p-5">
@@ -120,8 +216,12 @@ export default function FmcgPage() {
               </div>
               <div className="p-4 bg-page-alt rounded-xl mb-3">
                 <div className="flex justify-between items-center mb-3">
-                  <p className="text-sm font-medium text-heading">Повторный заказ #1247</p>
-                  <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-500 text-xs rounded-md">Готов к отправке</span>
+                  <p className="text-sm font-medium text-heading">
+                    Повторный заказ #1247
+                  </p>
+                  <span className="px-2 py-0.5 bg-emerald-500/10 text-emerald-500 text-xs rounded-md">
+                    Готов к отправке
+                  </span>
                 </div>
                 <div className="space-y-2">
                   {[
@@ -140,8 +240,12 @@ export default function FmcgPage() {
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex gap-2">
-                  <span className="px-2 py-1 bg-emerald-500/10 text-emerald-500 text-xs rounded-md">4 позиции</span>
-                  <span className="px-2 py-1 bg-[#3B82F6]/10 text-[#3B82F6] text-xs rounded-md">Спецификация</span>
+                  <span className="px-2 py-1 bg-emerald-500/10 text-emerald-500 text-xs rounded-md">
+                    4 позиции
+                  </span>
+                  <span className="px-2 py-1 bg-[#3B82F6]/10 text-[#3B82F6] text-xs rounded-md">
+                    Спецификация
+                  </span>
                 </div>
                 <p className="text-sm font-semibold text-heading">32 710 ₽</p>
               </div>
@@ -154,19 +258,28 @@ export default function FmcgPage() {
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-6">
-            <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-4">Какие товары входят в FMCG-отрасль</h2>
+            <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-4">
+              Какие товары входят в FMCG-отрасль
+            </h2>
           </div>
           <p className="reveal text-body max-w-3xl mx-auto text-center mb-16">
-            FMCG — это сектор товаров повседневного и массового спроса. Невысокая стоимость, регулярное приобретение, быстрая продажа и оборачиваемость запасов — основные характеристики этой отрасли.
+            FMCG — это сектор товаров повседневного и массового спроса.
+            Невысокая стоимость, регулярное приобретение, быстрая продажа и
+            оборачиваемость запасов — основные характеристики этой отрасли.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {categories.map((c, i) => (
-              <div key={i} className="reveal flex gap-4 p-6 bg-surface-hover rounded-2xl border border-border-default hover:border-emerald-500/30 transition-all duration-300">
+              <div
+                key={i}
+                className="reveal flex gap-4 p-6 bg-surface-hover rounded-2xl border border-border-default hover:border-emerald-500/30 transition-all duration-300"
+              >
                 <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
                   <c.icon className="w-6 h-6 text-emerald-500" />
                 </div>
                 <div>
-                  <h3 className="font-heading font-semibold text-lg text-heading mb-1">{c.title}</h3>
+                  <h3 className="font-heading font-semibold text-lg text-heading mb-1">
+                    {c.title}
+                  </h3>
                   <p className="text-sm text-body leading-relaxed">{c.desc}</p>
                 </div>
               </div>
@@ -185,7 +298,14 @@ export default function FmcgPage() {
             </div>
             <div className="relative z-10 p-10 md:p-16 max-w-3xl">
               <p className="text-lg md:text-xl text-body leading-relaxed">
-                Рынок FMCG считается одним из самых конкурентных и давно сформированных. <span className="text-heading font-medium">B2B-платформа продуктов питания и товаров FMCG</span> поможет компании перейти на новый уровень развития, предложить клиентам новый способ понятного и быстрого автозаказа в интернете и отстроиться от конкурентов.
+                Рынок FMCG считается одним из самых конкурентных и давно
+                сформированных.{" "}
+                <span className="text-heading font-medium">
+                  B2B-платформа продуктов питания и товаров FMCG
+                </span>{" "}
+                поможет компании перейти на новый уровень развития, предложить
+                клиентам новый способ понятного и быстрого автозаказа в
+                интернете и отстроиться от конкурентов.
               </p>
             </div>
           </div>
@@ -224,12 +344,30 @@ export default function FmcgPage() {
               <p className="text-xs text-subtle mb-3">Динамика заказов</p>
               <div className="flex gap-1.5 h-28">
                 {[
-                  { h: 35, d: "Пн" }, { h: 42, d: "Вт" }, { h: 28, d: "Ср" }, { h: 55, d: "Чт" }, { h: 47, d: "Пт" }, { h: 60, d: "Сб" }, { h: 38, d: "Вс" },
-                  { h: 72, d: "Пн" }, { h: 65, d: "Вт" }, { h: 80, d: "Ср" }, { h: 58, d: "Чт" }, { h: 47, d: "Пт" },
+                  { h: 35, d: "Пн" },
+                  { h: 42, d: "Вт" },
+                  { h: 28, d: "Ср" },
+                  { h: 55, d: "Чт" },
+                  { h: 47, d: "Пт" },
+                  { h: 60, d: "Сб" },
+                  { h: 38, d: "Вс" },
+                  { h: 72, d: "Пн" },
+                  { h: 65, d: "Вт" },
+                  { h: 80, d: "Ср" },
+                  { h: 58, d: "Чт" },
+                  { h: 47, d: "Пт" },
                 ].map((bar, i) => (
-                  <div key={i} className="flex-1 flex flex-col justify-end items-center">
-                    <div className="w-full bg-gradient-to-t from-emerald-500/30 to-emerald-500/80 rounded-t-sm" style={{ height: `${bar.h}%` }} />
-                    <span className="text-[9px] text-subtle leading-none mt-1.5 flex-shrink-0">{bar.d}</span>
+                  <div
+                    key={i}
+                    className="flex-1 flex flex-col justify-end items-center"
+                  >
+                    <div
+                      className="w-full bg-gradient-to-t from-emerald-500/30 to-emerald-500/80 rounded-t-sm"
+                      style={{ height: `${bar.h}%` }}
+                    />
+                    <span className="text-[9px] text-subtle leading-none mt-1.5 flex-shrink-0">
+                      {bar.d}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -249,7 +387,10 @@ export default function FmcgPage() {
                       <span className="text-heading font-medium">{pct}</span>
                     </div>
                     <div className="h-1 bg-page-alt rounded-full overflow-hidden">
-                      <div className="h-full bg-emerald-500/60 rounded-full" style={{ width: pct as string }} />
+                      <div
+                        className="h-full bg-emerald-500/60 rounded-full"
+                        style={{ width: pct as string }}
+                      />
                     </div>
                   </div>
                 ))}
@@ -258,12 +399,17 @@ export default function FmcgPage() {
 
             {/* Capabilities cards — integrated into the same grid */}
             {capabilities.map((c, i) => (
-              <div key={i} className="reveal md:col-span-2 p-6 bg-surface-hover rounded-2xl border border-border-default hover:border-emerald-500/40 transition-all duration-500 glow-card">
+              <div
+                key={i}
+                className="reveal md:col-span-2 p-6 bg-surface-hover rounded-2xl border border-border-default hover:border-emerald-500/40 transition-all duration-500 glow-card"
+              >
                 <div className="flex items-center gap-3 mb-2">
                   <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
                     <c.icon className="w-5 h-5 text-emerald-500" />
                   </div>
-                  <h3 className="font-heading font-semibold text-lg text-heading">{c.title}</h3>
+                  <h3 className="font-heading font-semibold text-lg text-heading">
+                    {c.title}
+                  </h3>
                 </div>
                 <p className="text-sm text-body leading-relaxed">{c.desc}</p>
               </div>
@@ -278,18 +424,30 @@ export default function FmcgPage() {
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-4">
             Важные преимущества B2B-платформы
           </h2>
-          <p className="reveal text-center gradient-text font-heading font-bold text-[clamp(24px,3vw,36px)] tracking-[-0.02em] mb-16">для FMCG-рынка</p>
+          <p className="reveal text-center gradient-text font-heading font-bold text-[clamp(24px,3vw,36px)] tracking-[-0.02em] mb-16">
+            для FMCG-рынка
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {advantages.map((a, i) => (
-              <div key={i} className="reveal p-7 bg-surface-hover rounded-2xl border border-border-default hover:border-emerald-500/40 transition-all duration-500 glow-card flex flex-col">
+              <div
+                key={i}
+                className="reveal p-7 bg-surface-hover rounded-2xl border border-border-default hover:border-emerald-500/40 transition-all duration-500 glow-card flex flex-col"
+              >
                 <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4">
                   <a.icon className="w-6 h-6 text-emerald-500" />
                 </div>
-                <h3 className="font-heading font-semibold text-xl text-heading mb-1">{a.title}</h3>
-                <p className="text-sm text-emerald-500 font-medium mb-5">{a.subtitle}</p>
+                <h3 className="font-heading font-semibold text-xl text-heading mb-1">
+                  {a.title}
+                </h3>
+                <p className="text-sm text-emerald-500 font-medium mb-5">
+                  {a.subtitle}
+                </p>
                 <ul className="space-y-3 mt-auto">
                   {a.points.map((p, j) => (
-                    <li key={j} className="flex items-start gap-2.5 text-sm text-body">
+                    <li
+                      key={j}
+                      className="flex items-start gap-2.5 text-sm text-body"
+                    >
                       <ArrowRight className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
                       {p}
                     </li>
@@ -311,15 +469,28 @@ export default function FmcgPage() {
             <Quote className="absolute top-6 left-6 w-10 h-10 text-emerald-500/20" />
             <div className="relative z-10">
               <p className="text-lg text-body leading-relaxed mb-8 italic">
-                Запуск прошёл быстро и без лишней бюрократии. Поддержка реагирует оперативно, внедрение проходит в диалоге: нас слушают и предлагают решения. Видно постоянное развитие сервиса — новые функции выходят регулярно. Для нас это надёжный технологический партнёр и трамплин для роста. Тандем — 100%.
+                Запуск прошёл быстро и без лишней бюрократии. Поддержка
+                реагирует оперативно, внедрение проходит в диалоге: нас слушают
+                и предлагают решения. Видно постоянное развитие сервиса — новые
+                функции выходят регулярно. Для нас это надёжный технологический
+                партнёр и трамплин для роста. Тандем — 100%.
               </p>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                  <span className="text-emerald-500 font-bold text-lg">P</span>
-                </div>
+                <Image
+                  src="/logos/raid21.svg"
+                  alt="Рэйд-21"
+                  width={180}
+                  height={60}
+                  className="h-14 w-auto object-contain"
+                />
                 <div>
-                  <p className="font-heading font-semibold text-heading">Рэйд-21</p>
-                  <p className="text-sm text-subtle">Крупнейший дистрибьютор продуктов питания в Республике Башкортостан</p>
+                  <p className="font-heading font-semibold text-heading">
+                    Рэйд-21
+                  </p>
+                  <p className="text-sm text-subtle">
+                    Крупнейший дистрибьютор продуктов питания в Республике
+                    Башкортостан
+                  </p>
                 </div>
               </div>
             </div>
@@ -330,5 +501,5 @@ export default function FmcgPage() {
       <CTASection />
       <Footer />
     </main>
-  )
+  );
 }
