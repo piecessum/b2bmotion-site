@@ -52,9 +52,11 @@ export function Stories() {
     }
     return new Set();
   });
+  const [paused, setPaused] = useState(false);
   const progressRef = useRef<number>(0);
   const animRef = useRef<number | null>(null);
   const startTimeRef = useRef<number>(0);
+  const pausedAtRef = useRef<number>(0);
 
   const markViewed = useCallback(
     (id: number) => {
@@ -73,6 +75,8 @@ export function Stories() {
       setActiveStory(index);
       setProgress(0);
       progressRef.current = 0;
+      pausedAtRef.current = 0;
+      setPaused(false);
       markViewed(stories[index].id);
     },
     [markViewed]
@@ -106,9 +110,11 @@ export function Stories() {
 
   // Progress animation
   useEffect(() => {
-    if (activeStory === null) return;
+    if (activeStory === null || paused) return;
 
-    startTimeRef.current = performance.now();
+    // Resume from where we paused, or start fresh
+    const elapsedBefore = pausedAtRef.current;
+    startTimeRef.current = performance.now() - elapsedBefore;
 
     const animate = (now: number) => {
       const elapsed = now - startTimeRef.current;
@@ -117,6 +123,7 @@ export function Stories() {
       setProgress(p);
 
       if (p >= 1) {
+        pausedAtRef.current = 0;
         goNext();
         return;
       }
@@ -127,7 +134,7 @@ export function Stories() {
     return () => {
       if (animRef.current) cancelAnimationFrame(animRef.current);
     };
-  }, [activeStory, goNext]);
+  }, [activeStory, paused, goNext]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -266,13 +273,23 @@ export function Stories() {
             {/* Bottom buttons */}
             <div className="flex items-center gap-3 px-4 py-4 z-20">
               <button
-                onClick={() => {
+                onClick={async () => {
+                  // Pause timer while sharing
+                  const elapsed = performance.now() - startTimeRef.current;
+                  pausedAtRef.current = elapsed;
+                  setPaused(true);
+
                   const url = `${window.location.origin}/blog?story=${stories[activeStory!].id}`;
-                  if (navigator.share) {
-                    navigator.share({ title: stories[activeStory!].title, url });
-                  } else {
-                    navigator.clipboard.writeText(url);
+                  try {
+                    if (navigator.share) {
+                      await navigator.share({ title: stories[activeStory!].title, url });
+                    } else {
+                      await navigator.clipboard.writeText(url);
+                    }
+                  } catch {
+                    // User cancelled share dialog
                   }
+                  setPaused(false);
                 }}
                 className="flex-shrink-0 w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors flex items-center justify-center"
                 aria-label="Поделиться"
