@@ -2,13 +2,15 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { X, ChevronLeft, ChevronRight, Share2 } from "lucide-react";
 
 interface Story {
   id: number;
   title: string;
   preview: string;
   image: string;
+  link: string;
 }
 
 const stories: Story[] = [
@@ -17,18 +19,21 @@ const stories: Story[] = [
     title: "B2B vs интернет-магазин",
     preview: "/stories/Story 1.png",
     image: "/stories/Story 1.png",
+    link: "/blog/b2b-platforma",
   },
   {
     id: 2,
     title: "Бот-ассистент",
     preview: "/stories/Story 2.png",
     image: "/stories/Story 2.png",
+    link: "/chatbots",
   },
   {
     id: 3,
     title: "Зачем собирать списки?",
     preview: "/stories/Story 3.png",
     image: "/stories/Story 3.png",
+    link: "/blog/spiski-tovarov",
   },
 ];
 
@@ -213,31 +218,58 @@ export function Stories() {
             <X className="w-6 h-6" />
           </button>
 
-          {/* Story image */}
+          {/* Story content */}
           <div
-            className="relative w-full h-full max-w-[420px] max-h-[90vh] mx-auto flex items-center justify-center"
+            className="relative w-full h-full max-w-[420px] max-h-[90vh] mx-auto flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <Image
-              src={stories[activeStory].image}
-              alt={stories[activeStory].title}
-              fill
-              className="object-contain"
-              sizes="420px"
-              priority
-            />
+            {/* Image area */}
+            <div className="relative flex-1 min-h-0">
+              <Image
+                src={stories[activeStory].image}
+                alt={stories[activeStory].title}
+                fill
+                className="object-contain"
+                sizes="420px"
+                priority
+              />
 
-            {/* Tap zones */}
-            <button
-              onClick={goPrev}
-              className="absolute left-0 top-0 w-1/3 h-full z-10"
-              aria-label="Previous story"
-            />
-            <button
-              onClick={goNext}
-              className="absolute right-0 top-0 w-2/3 h-full z-10"
-              aria-label="Next story"
-            />
+              {/* Tap zones */}
+              <button
+                onClick={goPrev}
+                className="absolute left-0 top-0 w-1/3 h-full z-10"
+                aria-label="Previous story"
+              />
+              <button
+                onClick={goNext}
+                className="absolute right-0 top-0 w-2/3 h-full z-10"
+                aria-label="Next story"
+              />
+            </div>
+
+            {/* Bottom buttons */}
+            <div className="flex items-center gap-3 px-4 py-4 z-20">
+              <button
+                onClick={() => {
+                  const url = window.location.origin + stories[activeStory!].link;
+                  if (navigator.share) {
+                    navigator.share({ title: stories[activeStory!].title, url });
+                  } else {
+                    navigator.clipboard.writeText(url);
+                  }
+                }}
+                className="flex-shrink-0 w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors flex items-center justify-center"
+                aria-label="Поделиться"
+              >
+                <Share2 className="w-5 h-5" />
+              </button>
+              <Link
+                href={stories[activeStory].link}
+                className="flex-1 h-12 rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#3B82F6] text-white font-medium text-sm flex items-center justify-center hover:opacity-90 transition-opacity"
+              >
+                Смотреть подробнее
+              </Link>
+            </div>
           </div>
 
           {/* Desktop navigation arrows */}
