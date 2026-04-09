@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { X, ChevronLeft, ChevronRight, Share2 } from "lucide-react";
@@ -40,7 +41,9 @@ const stories: Story[] = [
 const STORY_DURATION = 12000; // 12 seconds per story
 
 export function Stories() {
+  const searchParams = useSearchParams();
   const [activeStory, setActiveStory] = useState<number | null>(null);
+  const didAutoOpen = useRef(false);
   const [progress, setProgress] = useState(0);
   const [viewedStories, setViewedStories] = useState<Set<number>>(() => {
     if (typeof window !== "undefined") {
@@ -137,6 +140,19 @@ export function Stories() {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [activeStory, closeStory, goNext, goPrev]);
+
+  // Auto-open story from URL param ?story=1
+  useEffect(() => {
+    if (didAutoOpen.current) return;
+    const storyParam = searchParams.get("story");
+    if (storyParam) {
+      const idx = stories.findIndex((s) => s.id === Number(storyParam));
+      if (idx !== -1) {
+        didAutoOpen.current = true;
+        openStory(idx);
+      }
+    }
+  }, [searchParams, openStory]);
 
   // Lock body scroll when story is open
   useEffect(() => {
@@ -251,7 +267,7 @@ export function Stories() {
             <div className="flex items-center gap-3 px-4 py-4 z-20">
               <button
                 onClick={() => {
-                  const url = window.location.origin + stories[activeStory!].link;
+                  const url = `${window.location.origin}/blog?story=${stories[activeStory!].id}`;
                   if (navigator.share) {
                     navigator.share({ title: stories[activeStory!].title, url });
                   } else {
@@ -265,7 +281,7 @@ export function Stories() {
               </button>
               <Link
                 href={stories[activeStory].link}
-                className="flex-1 h-12 rounded-full bg-gradient-to-r from-[#8B5CF6] to-[#3B82F6] text-white font-medium text-sm flex items-center justify-center hover:opacity-90 transition-opacity"
+                className="flex-1 h-12 rounded-full bg-white/10 text-white font-medium text-sm flex items-center justify-center hover:bg-white/20 transition-colors"
               >
                 Смотреть подробнее
               </Link>
