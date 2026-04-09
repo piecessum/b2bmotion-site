@@ -20,7 +20,9 @@
       "Bash(npx *)",
       "Bash(mv *)",
       "Bash(true)",
-      "Bash(sed *)"
+      "Bash(sed *)",
+      "Read(//Users/Alex/Documents/gitlab/b2b/Клиенты/**)",
+      "Bash(xargs *)"
     ]
   },
   "$version": 3

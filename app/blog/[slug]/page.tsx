@@ -124,7 +124,9 @@ export default async function BlogPostPage({
             <div className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-5 mb-8">
               <div className="flex items-center gap-2.5 mb-3">
                 <Users className="w-4 h-4 text-[#60A5FA]" />
-                <span className="font-heading font-semibold text-sm text-heading">Для кого эта статья</span>
+                <span className="font-heading font-semibold text-sm text-heading">
+                  Для кого эта статья
+                </span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {post.audience.map((item, idx) => (
@@ -167,7 +169,9 @@ export default async function BlogPostPage({
                   className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover object-top border-2 border-[#3B82F6]/20 shrink-0"
                 />
                 <div className="min-w-0">
-                  <div className="text-[10px] uppercase tracking-[0.15em] text-[#60A5FA] mb-1">Интервьюируемый</div>
+                  <div className="text-[10px] uppercase tracking-[0.15em] text-[#60A5FA] mb-1">
+                    Интервьюируемый
+                  </div>
                   <h4 className="font-heading font-bold text-lg text-heading mb-0.5">
                     {(post as any).intervieweeCard.name}
                   </h4>
@@ -190,7 +194,9 @@ export default async function BlogPostPage({
               <nav className="rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-6 mb-10">
                 <div className="flex items-center gap-2.5 mb-4">
                   <BookOpen className="w-4 h-4 text-[#60A5FA]" />
-                  <span className="font-heading font-semibold text-sm text-heading">Содержание</span>
+                  <span className="font-heading font-semibold text-sm text-heading">
+                    Содержание
+                  </span>
                 </div>
                 <ul className="space-y-1.5">
                   {headings.map((h, idx) => (
@@ -225,7 +231,9 @@ export default async function BlogPostPage({
                   className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover object-top border-2 border-[#3B82F6]/20 shrink-0"
                 />
                 <div className="min-w-0">
-                  <div className="text-[10px] uppercase tracking-[0.15em] text-[#60A5FA] mb-1">Автор статьи</div>
+                  <div className="text-[10px] uppercase tracking-[0.15em] text-[#60A5FA] mb-1">
+                    Автор статьи
+                  </div>
                   <h4 className="font-heading font-bold text-lg text-heading mb-0.5">
                     {(post as any).authorCard.name}
                   </h4>
@@ -628,8 +636,14 @@ function extractHeadings(content: string) {
 
   for (const line of lines) {
     const trimmed = line.trim();
-    if (trimmed === "<!-- stats -->") { inStats = true; continue; }
-    if (trimmed === "<!-- /stats -->") { inStats = false; continue; }
+    if (trimmed === "<!-- stats -->") {
+      inStats = true;
+      continue;
+    }
+    if (trimmed === "<!-- /stats -->") {
+      inStats = false;
+      continue;
+    }
     if (inStats) continue;
 
     if (trimmed.startsWith("## ")) {
@@ -705,15 +719,26 @@ function renderBlogContent(content: string) {
     // Features block (functional analysis cards)
     if (trimmed === "<!-- features -->") {
       const groups: { type: string; title: string; items: string[] }[] = [];
-      let currentGroup: { type: string; title: string; items: string[] } | null = null;
+      let currentGroup: {
+        type: string;
+        title: string;
+        items: string[];
+      } | null = null;
       i++;
       while (i < lines.length) {
         const fl = lines[i].trim();
-        if (fl === "<!-- /features -->") { i++; break; }
+        if (fl === "<!-- /features -->") {
+          i++;
+          break;
+        }
         const groupMatch = fl.match(/^<!-- group:(\w+):(.+) -->$/);
         if (groupMatch) {
           if (currentGroup) groups.push(currentGroup);
-          currentGroup = { type: groupMatch[1], title: groupMatch[2], items: [] };
+          currentGroup = {
+            type: groupMatch[1],
+            title: groupMatch[2],
+            items: [],
+          };
           i++;
           continue;
         }
@@ -724,7 +749,16 @@ function renderBlogContent(content: string) {
       }
       if (currentGroup) groups.push(currentGroup);
 
-      const colorMap: Record<string, { border: string; bg: string; icon: string; badge: string; badgeText: string }> = {
+      const colorMap: Record<
+        string,
+        {
+          border: string;
+          bg: string;
+          icon: string;
+          badge: string;
+          badgeText: string;
+        }
+      > = {
         required: {
           border: "border-[#8B5CF6]/30",
           bg: "bg-[#8B5CF6]/5",
@@ -779,15 +813,24 @@ function renderBlogContent(content: string) {
                 className={`rounded-xl border ${c.border} ${c.bg} p-5`}
               >
                 <div className="flex items-center gap-2.5 mb-4">
-                  <span className={`inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full ${c.badge}`}>
+                  <span
+                    className={`inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] px-2.5 py-1 rounded-full ${c.badge}`}
+                  >
                     {c.badgeText}
                   </span>
                 </div>
-                <h4 className="font-heading font-semibold text-base text-heading mb-3">{g.title}</h4>
+                <h4 className="font-heading font-semibold text-base text-heading mb-3">
+                  {g.title}
+                </h4>
                 <ul className="space-y-2">
                   {g.items.map((item, ii) => (
-                    <li key={ii} className="flex items-start gap-2.5 text-sm text-body leading-relaxed">
-                      <CheckCircle2 className={`w-4 h-4 ${c.icon} shrink-0 mt-0.5`} />
+                    <li
+                      key={ii}
+                      className="flex items-start gap-2.5 text-sm text-body leading-relaxed"
+                    >
+                      <CheckCircle2
+                        className={`w-4 h-4 ${c.icon} shrink-0 mt-0.5`}
+                      />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -816,7 +859,11 @@ function renderBlogContent(content: string) {
     if (trimmed.startsWith("## ")) {
       const text = trimmed.replace("## ", "");
       elements.push(
-        <div key={i} id={slugify(text)} className="mt-14 mb-6 first:mt-0 scroll-mt-24">
+        <div
+          key={i}
+          id={slugify(text)}
+          className="mt-14 mb-6 first:mt-0 scroll-mt-24"
+        >
           <h2 className="font-heading font-bold text-2xl md:text-3xl text-heading tracking-[-0.02em]">
             {text}
           </h2>
@@ -834,7 +881,11 @@ function renderBlogContent(content: string) {
       if (numMatch) {
         const headingId = slugify(`${numMatch[1]}. ${numMatch[2]}`);
         elements.push(
-          <div key={i} id={headingId} className="flex items-start gap-4 mt-10 mb-4 scroll-mt-24">
+          <div
+            key={i}
+            id={headingId}
+            className="flex items-start gap-4 mt-10 mb-4 scroll-mt-24"
+          >
             <span className="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center text-white font-heading font-bold text-sm shadow-lg shadow-[#3B82F6]/20">
               {numMatch[1]}
             </span>
@@ -1005,11 +1056,26 @@ function renderBlogContent(content: string) {
       quoteText = quoteText.replace(/^«\s*/, "").replace(/\s*»$/, "");
 
       const personMap: Record<string, { photo: string; role: string }> = {
-        "Артём Старченко": { photo: "/team/Artem.png", role: "Основатель компании и директор" },
-        "Артем Старченко": { photo: "/team/Artem.png", role: "Основатель компании и директор" },
-        "Екатерина Масленникова": { photo: "/team/Kate.png", role: "Руководитель B2B-проектов" },
-        "Екатерина Масленикова": { photo: "/team/Kate.png", role: "Руководитель B2B-проектов" },
-        "Дмитрий Агеев": { photo: "/team/dmitriy.png", role: "Руководитель отдела продаж" },
+        "Артём Старченко": {
+          photo: "/team/Artem.png",
+          role: "Основатель компании и директор",
+        },
+        "Артем Старченко": {
+          photo: "/team/Artem.png",
+          role: "Основатель компании и директор",
+        },
+        "Екатерина Масленникова": {
+          photo: "/team/Kate.png",
+          role: "Руководитель B2B-проектов",
+        },
+        "Екатерина Масленикова": {
+          photo: "/team/Kate.png",
+          role: "Руководитель B2B-проектов",
+        },
+        "Дмитрий Агеев": {
+          photo: "/team/dmitriy.png",
+          role: "Руководитель отдела продаж",
+        },
         "Елена Головина": { photo: "/team/Elena.png", role: "Автор, редактор" },
         "Илья Долгов": { photo: "/team/Ilya.png", role: "Ведущий дизайнер" },
       };
@@ -1149,7 +1215,7 @@ function renderCaseContentBlocks(content: string) {
           {items.map((item) => (
             <li
               key={item.key}
-              className="text-sm text-body leading-relaxed list-disc marker:text-[#3B82F6]"
+              className="text-base text-body leading-relaxed list-disc marker:text-[#3B82F6]"
             >
               {renderInline(item.text)}
             </li>
@@ -1176,7 +1242,7 @@ function renderCaseContentBlocks(content: string) {
           {items.map((item) => (
             <li
               key={item.key}
-              className="text-sm text-body leading-relaxed list-decimal marker:text-[#3B82F6]"
+              className="text-base text-body leading-relaxed list-decimal marker:text-[#3B82F6]"
             >
               {renderInline(item.text)}
             </li>
@@ -1187,7 +1253,7 @@ function renderCaseContentBlocks(content: string) {
     }
 
     elements.push(
-      <p key={i} className="text-sm text-body leading-relaxed mb-3">
+      <p key={i} className="text-base text-body leading-relaxed mb-3">
         {renderInline(trimmed)}
       </p>,
     );

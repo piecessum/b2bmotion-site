@@ -9,11 +9,10 @@ const industries = [
   "Электротехника",
   "Сантехника",
   "FMCG",
-  "Видеонаблюдение",
+  "Безопасность",
   "Стройматериалы",
   "Мебель",
-  "Светотехника",
-  "Серверные",
+  "Сетевая инфраструктура",
   "Металлопрокат",
 ];
 
@@ -120,28 +119,8 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
       logo: "/logos/dreviz.svg",
       slug: "keis-dreviz",
     },
-    {
-      company: "Мегаплит",
-      description:
-        "Поставщик занимает лидирующие позиции в мебельной отрасли по поставкам мебельных комплектующих и строительных материалов.",
-      gradient: "from-violet-500/20 via-purple-500/10 to-indigo-500/20",
-      iconGradient: "from-violet-400/20 to-purple-400/20",
-      logo: "/logos/kristal.svg",
-      slug: "keis-megaplit",
-    },
   ],
-  Светотехника: [
-    {
-      company: "Электрические технологии",
-      description:
-        "Сеть магазинов электрооборудования, инженерной продукции и светотехники для профессионалов электромонтажа.",
-      gradient: "from-sky-500/20 via-blue-500/10 to-indigo-500/20",
-      iconGradient: "from-sky-400/20 to-blue-400/20",
-      logo: "/logos/elektricheskie-tekhnologii.svg",
-      slug: "keis-elektricheskie-tekhnologii",
-    },
-  ],
-  Серверные: [
+  "Сетевая инфраструктура": [
     {
       company: "Ирбис",
       description:
@@ -154,12 +133,13 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
   ],
   Металлопрокат: [
     {
-      company: "Ариэль Металл",
+      company: "Кристалл",
       description:
-        "Универсальный поставщик черного металлопроката и труб. Входит в состав Российского союза поставщиков металлопроката.",
+        "Универсальный поставщик чёрного металлопроката и труб. Поставка по стандартам ГОСТ/ТУ с точным сортаментом, марки стали и расчёт веса.",
       gradient: "from-zinc-500/20 via-neutral-500/10 to-slate-500/20",
       iconGradient: "from-zinc-400/20 to-neutral-400/20",
-      slug: "keis-ariel-metall",
+      logo: "/logos/kristal.svg",
+      slug: "keis-kristal",
     },
   ],
 };
