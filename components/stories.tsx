@@ -58,6 +58,7 @@ export function Stories() {
   const touchStartRef = useRef<number | null>(null);
   const isHoldingRef = useRef(false);
   const wasHoldingRef = useRef(false);
+  const holdTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const progressRef = useRef<number>(0);
   const animRef = useRef<number | null>(null);
   const startTimeRef = useRef<number>(0);
@@ -74,20 +75,28 @@ export function Stories() {
 
   const handleHoldStart = useCallback(() => {
     if (activeStory === null) return;
-    isHoldingRef.current = true;
-    setIsHolding(true);
-    const elapsed = performance.now() - startTimeRef.current;
-    pausedAtRef.current = elapsed;
-    setPaused(true);
+    // Start hold timer — only activate pause after 200ms
+    if (holdTimerRef.current) clearTimeout(holdTimerRef.current);
+    holdTimerRef.current = setTimeout(() => {
+      isHoldingRef.current = true;
+      setIsHolding(true);
+      const elapsed = performance.now() - startTimeRef.current;
+      pausedAtRef.current = elapsed;
+      setPaused(true);
+    }, 200);
   }, [activeStory]);
 
   const handleHoldEnd = useCallback(() => {
+    // Cancel hold timer if it hasn't fired yet (quick tap)
+    if (holdTimerRef.current) {
+      clearTimeout(holdTimerRef.current);
+      holdTimerRef.current = null;
+    }
     if (!isHoldingRef.current) return;
     isHoldingRef.current = false;
     setIsHolding(false);
     wasHoldingRef.current = true;
     setPaused(false);
-    // Reset after a short delay so next tap works
     setTimeout(() => {
       wasHoldingRef.current = false;
     }, 100);
