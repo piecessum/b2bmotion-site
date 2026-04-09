@@ -334,7 +334,7 @@ export function Stories() {
                 src={stories[activeStory].image}
                 alt={stories[activeStory].title}
                 fill
-                className="object-contain pointer-events-none"
+                className="object-contain"
                 sizes="420px"
                 priority
                 draggable={false}
