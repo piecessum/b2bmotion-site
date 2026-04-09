@@ -53,24 +53,39 @@ export function Stories() {
     return new Set();
   });
   const [paused, setPaused] = useState(false);
+  const [isHolding, setIsHolding] = useState(false);
   const [dragY, setDragY] = useState(0);
   const touchStartRef = useRef<number | null>(null);
+  const isHoldingRef = useRef(false);
   const progressRef = useRef<number>(0);
   const animRef = useRef<number | null>(null);
   const startTimeRef = useRef<number>(0);
   const pausedAtRef = useRef<number>(0);
 
-  const markViewed = useCallback(
-    (id: number) => {
-      setViewedStories((prev) => {
-        const next = new Set(prev);
-        next.add(id);
-        localStorage.setItem("viewed-stories", JSON.stringify([...next]));
-        return next;
-      });
-    },
-    []
-  );
+  const markViewed = useCallback((id: number) => {
+    setViewedStories((prev) => {
+      const next = new Set(prev);
+      next.add(id);
+      localStorage.setItem("viewed-stories", JSON.stringify([...next]));
+      return next;
+    });
+  }, []);
+
+  const handleHoldStart = useCallback(() => {
+    if (activeStory === null) return;
+    isHoldingRef.current = true;
+    setIsHolding(true);
+    const elapsed = performance.now() - startTimeRef.current;
+    pausedAtRef.current = elapsed;
+    setPaused(true);
+  }, [activeStory]);
+
+  const handleHoldEnd = useCallback(() => {
+    if (!isHoldingRef.current) return;
+    isHoldingRef.current = false;
+    setIsHolding(false);
+    setPaused(false);
+  }, []);
 
   const openStory = useCallback(
     (index: number) => {
@@ -81,7 +96,7 @@ export function Stories() {
       setPaused(false);
       markViewed(stories[index].id);
     },
-    [markViewed]
+    [markViewed],
   );
 
   const closeStory = useCallback(() => {
@@ -218,15 +233,21 @@ export function Stories() {
           onClick={closeStory}
           onTouchStart={(e) => {
             touchStartRef.current = e.touches[0].clientY;
+            handleHoldStart();
           }}
           onTouchMove={(e) => {
             if (touchStartRef.current === null) return;
             const dy = e.touches[0].clientY - touchStartRef.current;
-            if (dy > 0) setDragY(dy);
+            if (dy > 0) {
+              setDragY(dy);
+              handleHoldEnd();
+            }
           }}
           onTouchEnd={() => {
             if (dragY > 120) {
               closeStory();
+            } else {
+              handleHoldEnd();
             }
             setDragY(0);
             touchStartRef.current = null;
@@ -270,6 +291,26 @@ export function Stories() {
               transition: dragY === 0 ? "transform 0.2s ease-out" : "none",
             }}
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={(e) => {
+              if (e.touches.length === 1) {
+                handleHoldStart();
+              }
+            }}
+            onTouchEnd={() => {
+              handleHoldEnd();
+            }}
+            onTouchCancel={() => {
+              handleHoldEnd();
+            }}
+            onMouseDown={() => {
+              handleHoldStart();
+            }}
+            onMouseUp={() => {
+              handleHoldEnd();
+            }}
+            onMouseLeave={() => {
+              handleHoldEnd();
+            }}
           >
             {/* Image area */}
             <div className="relative flex-1 min-h-0">
@@ -307,7 +348,10 @@ export function Stories() {
                   const url = `${window.location.origin}/blog?story=${stories[activeStory!].id}`;
                   try {
                     if (navigator.share) {
-                      await navigator.share({ title: stories[activeStory!].title, url });
+                      await navigator.share({
+                        title: stories[activeStory!].title,
+                        url,
+                      });
                     } else {
                       await navigator.clipboard.writeText(url);
                     }
