@@ -156,7 +156,7 @@ export function Stories() {
             className="flex-shrink-0 group cursor-pointer flex flex-col items-center"
           >
             <div
-              className={`relative w-[100px] h-[140px] rounded-2xl overflow-hidden ring-[3px] ring-offset-2 ring-offset-[var(--color-page)] transition-all duration-200 group-hover:scale-105 ${
+              className={`relative w-[130px] h-[185px] rounded-2xl overflow-hidden ring-[3px] ring-offset-3 ring-offset-[var(--color-page)] transition-all duration-200 group-hover:scale-105 ${
                 viewedStories.has(story.id)
                   ? "ring-[var(--color-border)]"
                   : "ring-[#8B5CF6]"
@@ -170,7 +170,7 @@ export function Stories() {
                 sizes="100px"
               />
             </div>
-            <p className="mt-2 text-xs text-subtle text-center w-[100px] line-clamp-2 leading-tight h-[32px]">
+            <p className="mt-2 text-xs text-subtle text-center w-[130px] line-clamp-2 leading-tight h-[32px]">
               {story.title}
             </p>
           </button>
