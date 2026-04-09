@@ -329,16 +329,18 @@ export function Stories() {
             }}
           >
             {/* Image area */}
-            <div className="relative flex-1 min-h-0">
+            <div
+              className="relative flex-1 min-h-0 select-none"
+              style={{ WebkitTouchCallout: "none", WebkitUserSelect: "none" }}
+              onContextMenu={(e) => e.preventDefault()}
+            >
               <Image
                 src={stories[activeStory].image}
                 alt={stories[activeStory].title}
                 fill
-                className="object-contain"
+                className="object-contain select-none"
                 sizes="420px"
                 priority
-                draggable={false}
-                style={{ WebkitTouchCallout: "none", WebkitUserSelect: "none" }}
               />
 
               {/* Tap zones */}
