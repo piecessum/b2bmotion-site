@@ -53,6 +53,8 @@ export function Stories() {
     return new Set();
   });
   const [paused, setPaused] = useState(false);
+  const [dragY, setDragY] = useState(0);
+  const touchStartRef = useRef<number | null>(null);
   const progressRef = useRef<number>(0);
   const animRef = useRef<number | null>(null);
   const startTimeRef = useRef<number>(0);
@@ -85,6 +87,7 @@ export function Stories() {
   const closeStory = useCallback(() => {
     setActiveStory(null);
     setProgress(0);
+    setDragY(0);
     if (animRef.current) cancelAnimationFrame(animRef.current);
   }, []);
 
@@ -209,7 +212,25 @@ export function Stories() {
       {activeStory !== null && (
         <div
           className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center"
+          style={{
+            opacity: dragY > 0 ? Math.max(1 - dragY / 300, 0.3) : 1,
+          }}
           onClick={closeStory}
+          onTouchStart={(e) => {
+            touchStartRef.current = e.touches[0].clientY;
+          }}
+          onTouchMove={(e) => {
+            if (touchStartRef.current === null) return;
+            const dy = e.touches[0].clientY - touchStartRef.current;
+            if (dy > 0) setDragY(dy);
+          }}
+          onTouchEnd={() => {
+            if (dragY > 120) {
+              closeStory();
+            }
+            setDragY(0);
+            touchStartRef.current = null;
+          }}
         >
           {/* Progress bars */}
           <div className="absolute top-4 left-4 right-4 flex gap-1.5 z-10">
@@ -244,6 +265,10 @@ export function Stories() {
           {/* Story content */}
           <div
             className="relative w-full h-full max-w-[420px] max-h-[90vh] mx-auto flex flex-col"
+            style={{
+              transform: dragY > 0 ? `translateY(${dragY}px)` : undefined,
+              transition: dragY === 0 ? "transform 0.2s ease-out" : "none",
+            }}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Image area */}
