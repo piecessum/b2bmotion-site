@@ -234,10 +234,14 @@ export function Stories() {
       {/* Fullscreen Story Viewer */}
       {activeStory !== null && (
         <div
-          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center"
+          className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center select-none"
           style={{
             opacity: dragY > 0 ? Math.max(1 - dragY / 300, 0.3) : 1,
+            WebkitTouchCallout: "none",
+            WebkitUserSelect: "none",
+            userSelect: "none",
           }}
+          onContextMenu={(e) => e.preventDefault()}
           onClick={closeStory}
           onTouchStart={(e) => {
             touchStartRef.current = e.touches[0].clientY;
@@ -293,12 +297,16 @@ export function Stories() {
 
           {/* Story content */}
           <div
-            className="relative w-full h-full max-w-[420px] max-h-[90vh] mx-auto flex flex-col"
+            className="relative w-full h-full max-w-[420px] max-h-[90vh] mx-auto flex-col select-none"
             style={{
               transform: dragY > 0 ? `translateY(${dragY}px)` : undefined,
               transition: dragY === 0 ? "transform 0.2s ease-out" : "none",
+              WebkitTouchCallout: "none",
+              WebkitUserSelect: "none",
+              userSelect: "none",
             }}
             onClick={(e) => e.stopPropagation()}
+            onContextMenu={(e) => e.preventDefault()}
             onTouchStart={(e) => {
               if (e.touches.length === 1) {
                 handleHoldStart();
@@ -326,9 +334,11 @@ export function Stories() {
                 src={stories[activeStory].image}
                 alt={stories[activeStory].title}
                 fill
-                className="object-contain"
+                className="object-contain pointer-events-none"
                 sizes="420px"
                 priority
+                draggable={false}
+                style={{ WebkitTouchCallout: "none", WebkitUserSelect: "none" }}
               />
 
               {/* Tap zones */}
