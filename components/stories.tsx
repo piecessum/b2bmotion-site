@@ -236,7 +236,7 @@ export function Stories() {
           {/* Close button */}
           <button
             onClick={closeStory}
-            className="absolute top-10 right-4 z-10 p-2 text-white/70 hover:text-white transition-colors"
+            className="absolute top-8 right-2 z-10 p-4 text-white/70 hover:text-white transition-colors"
           >
             <X className="w-6 h-6" />
           </button>
