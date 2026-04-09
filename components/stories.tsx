@@ -297,7 +297,7 @@ export function Stories() {
 
           {/* Story content */}
           <div
-            className="relative w-full h-full max-w-[420px] max-h-[90vh] mx-auto flex-col select-none"
+            className="relative w-full h-full max-w-[420px] max-h-[90vh] mx-auto flex flex-col select-none"
             style={{
               transform: dragY > 0 ? `translateY(${dragY}px)` : undefined,
               transition: dragY === 0 ? "transform 0.2s ease-out" : "none",
