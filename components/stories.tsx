@@ -57,6 +57,7 @@ export function Stories() {
   const [dragY, setDragY] = useState(0);
   const touchStartRef = useRef<number | null>(null);
   const isHoldingRef = useRef(false);
+  const wasHoldingRef = useRef(false);
   const progressRef = useRef<number>(0);
   const animRef = useRef<number | null>(null);
   const startTimeRef = useRef<number>(0);
@@ -84,7 +85,12 @@ export function Stories() {
     if (!isHoldingRef.current) return;
     isHoldingRef.current = false;
     setIsHolding(false);
+    wasHoldingRef.current = true;
     setPaused(false);
+    // Reset after a short delay so next tap works
+    setTimeout(() => {
+      wasHoldingRef.current = false;
+    }, 100);
   }, []);
 
   const openStory = useCallback(
@@ -107,6 +113,7 @@ export function Stories() {
   }, []);
 
   const goNext = useCallback(() => {
+    if (wasHoldingRef.current) return;
     if (activeStory === null) return;
     if (activeStory < stories.length - 1) {
       openStory(activeStory + 1);
@@ -116,6 +123,7 @@ export function Stories() {
   }, [activeStory, openStory, closeStory]);
 
   const goPrev = useCallback(() => {
+    if (wasHoldingRef.current) return;
     if (activeStory === null) return;
     if (activeStory > 0) {
       openStory(activeStory - 1);
