@@ -2,6 +2,7 @@ import { getAllPosts } from "@/lib/content";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BlogContent } from "@/components/blog-content";
+import { Stories } from "@/components/stories";
 
 export const metadata = {
   title: "Блог — B2B Движение",
@@ -42,6 +43,8 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
               инструментами.
             </p>
           </div>
+
+          <Stories />
 
           <BlogContent posts={posts} initialFilter={initialFilter} />
         </div>
