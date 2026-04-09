@@ -3,7 +3,7 @@ title: "Кейс: Кристалл — Металлопрокат"
 description: "Универсальный поставщик чёрного металлопроката и труб. Поставка по стандартам ГОСТ/ТУ с точным сортаментом, марки стали и расчёт веса"
 date: "2025-02-18"
 author: "Команда B2B Движение"
-image: "/images/blog/keis-kristal.jpg"
+image: "/images/blog/keis-ariel-metall.jpg"
 tags: ["кейс", "металлопрокат"]
 logo: "/logos/kristal.svg"
 clientInfo:
