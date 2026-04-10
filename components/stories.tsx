@@ -348,7 +348,7 @@ export function Stories() {
                 src={stories[activeStory].image}
                 alt={stories[activeStory].title}
                 fill
-                className="object-cover md:object-contain select-none"
+                className="object-cover md:object-contain md:!rounded-[12px] select-none"
                 sizes="(max-width: 768px) 100vw, 420px"
                 priority
               />
