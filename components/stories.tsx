@@ -16,6 +16,13 @@ interface Story {
 
 const stories: Story[] = [
   {
+    id: 0,
+    title: "Россия vs Мировой рынок",
+    preview: "/stories/Story 0.png",
+    image: "/stories/Story 0.png",
+    link: "/blog/b2b-platforms-report",
+  },
+  {
     id: 1,
     title: "B2B vs интернет-магазин",
     preview: "/stories/Story 1.png",
@@ -35,6 +42,20 @@ const stories: Story[] = [
     preview: "/stories/Story 3.png",
     image: "/stories/Story 3.png",
     link: "/blog/spiski-tovarov",
+  },
+  {
+    id: 4,
+    title: "Поиск в B2B-системе",
+    preview: "/stories/Story 4.png",
+    image: "/stories/Story 4.png",
+    link: "/blog/poisk",
+  },
+  {
+    id: 5,
+    title: "Видео в блоге",
+    preview: "/stories/Story 5.png",
+    image: "/stories/Story 5.png",
+    link: "/video",
   },
 ];
 
