@@ -440,7 +440,7 @@ function PlatformPageInner() {
               <Map className="w-5 h-5 text-[#3B82F6]" />
             </div>
             <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading">
-              Дорожная карта развития
+              Дорожная карта <span className="gradient-text">развития</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

@@ -289,7 +289,7 @@ export default function ElectroPage() {
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
-            Возможности платформы
+            <span className="gradient-text">Возможности</span> платформы
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {capabilities.map((c, i) => (
@@ -317,7 +317,7 @@ export default function ElectroPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-4">
-              Готовая информация из базы РАЭК
+              Готовая информация из базы <span className="gradient-text">РАЭК</span>
             </h2>
             <p className="reveal text-body max-w-2xl mx-auto">
               Мы — технический партнёр базы РАЭК. Более 760 брендов и 1.7 млн
@@ -350,7 +350,7 @@ export default function ElectroPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-4">
-              Бренды в базе РАЭК
+              <span className="gradient-text">Бренды</span> в базе РАЭК
             </h2>
             <p className="reveal text-body max-w-2xl mx-auto">
               Более 760 производителей электротехнического оборудования — от
@@ -380,7 +380,7 @@ export default function ElectroPage() {
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
-            Электротехническую B2B-систему уже приобрели
+            Электротехническую B2B-систему уже <span className="gradient-text">приобрели</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {clients.map((c, i) => (

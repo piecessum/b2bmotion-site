@@ -224,7 +224,7 @@ export default function BuildingPage() {
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
-            Строительный B2B-портал — это
+            Строительный <span className="gradient-text">B2B-портал</span> — это
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {features.map((f, i) => (
@@ -249,7 +249,7 @@ export default function BuildingPage() {
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
-            Возможности B2B-платформы
+            <span className="gradient-text">Возможности</span> B2B-платформы
             <br />
             строительных материалов
           </h2>

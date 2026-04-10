@@ -264,7 +264,7 @@ export default function ChatbotsPage() {
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
-            Что умеют чат-боты
+            Что умеют <span className="gradient-text">чат-боты</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {botFeatures.map((f, i) => (
@@ -291,7 +291,7 @@ export default function ChatbotsPage() {
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
-            Какие B2B-задачи можно передать боту
+            Какие B2B-задачи можно <span className="gradient-text">передать боту</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {b2bTasks.map((t, i) => (
@@ -357,7 +357,7 @@ export default function ChatbotsPage() {
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
-            Этапы разработки
+            Этапы <span className="gradient-text">разработки</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {steps.map((s, i) => (

@@ -192,7 +192,7 @@ export default function ComputersPage() {
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-4">
-            B2B-платформа для продажи компьютерной техники — это
+            B2B-платформа для продажи <span className="gradient-text">компьютерной техники</span> — это
           </h2>
           <p className="reveal text-body text-center max-w-2xl mx-auto mb-16">
             Инструменты, которые упрощают оптовые продажи сложного IT-оборудования
@@ -232,7 +232,7 @@ export default function ComputersPage() {
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(28px,4vw,40px)] tracking-[-0.02em] text-heading text-center mb-16">
-            Главные возможности B2B-системы
+            Главные <span className="gradient-text">возможности</span> B2B-системы
             <br className="hidden sm:block" />
             компьютерных товаров и офисной техники
           </h2>
@@ -280,7 +280,7 @@ export default function ComputersPage() {
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
-            Что компании могут делать в платформе
+            Что компании могут делать в <span className="gradient-text">платформе</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {companyActions.map((action, i) => {

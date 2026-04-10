@@ -259,7 +259,7 @@ export default function FmcgPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-6">
             <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-4">
-              Какие товары входят в FMCG-отрасль
+              Какие товары входят в <span className="gradient-text">FMCG-отрасль</span>
             </h2>
           </div>
           <p className="reveal text-body max-w-3xl mx-auto text-center mb-16">
@@ -316,7 +316,7 @@ export default function FmcgPage() {
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
-            Возможности B2B Движение FMCG
+            <span className="gradient-text">Возможности</span> B2B Движение FMCG
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -463,7 +463,7 @@ export default function FmcgPage() {
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-4xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(28px,4vw,40px)] tracking-[-0.02em] text-heading text-center mb-16">
-            Отзыв о платформе FMCG-компании «Рэйд-21»
+            Отзыв о платформе FMCG-компании <span className="gradient-text">«Рэйд-21»</span>
           </h2>
           <div className="reveal relative p-8 md:p-12 bg-surface-hover rounded-3xl border border-border-default">
             <Quote className="absolute top-6 left-6 w-10 h-10 text-emerald-500/20" />

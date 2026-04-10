@@ -112,7 +112,8 @@ export default function MobileAppPage() {
             Мобильное приложение
           </span>
           <h1 className="reveal font-heading font-bold text-[clamp(32px,5vw,52px)] leading-[1.1] tracking-[-0.03em] mb-6">
-            <span className="text-heading">Мобильное приложение</span>
+            <span className="text-heading">Мобильное</span>{" "}
+            <span className="gradient-text">приложение</span>
           </h1>
           <p className="reveal text-xl text-body mb-10 max-w-2xl mx-auto">
             B2B-платформа всегда под рукой.
@@ -179,7 +180,7 @@ export default function MobileAppPage() {
           {/* Title + Steps — right */}
           <div className="md:w-7/12">
             <h2 className="reveal font-heading font-bold text-[clamp(28px,4vw,44px)] tracking-[-0.02em] text-heading mb-16">
-              Схема сборки мобильного приложения
+              Схема сборки <span className="gradient-text">мобильного приложения</span>
             </h2>
             <div className="relative">
               {/* Vertical line */}

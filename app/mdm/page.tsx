@@ -186,7 +186,7 @@ export default function MdmPage() {
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
-            B2B Motion MDM — это
+            B2B Motion <span className="gradient-text">MDM</span> — это
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {mdmFeatures.map((f, i) => (
@@ -211,7 +211,7 @@ export default function MdmPage() {
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
-            Для чего нужна MDM-система
+            Для чего нужна <span className="gradient-text">MDM-система</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {mdmBenefits.map((b, i) => (
@@ -236,7 +236,7 @@ export default function MdmPage() {
           <div className="reveal bg-surface rounded-2xl border border-border-default p-8 md:p-12">
             <div className="max-w-3xl mx-auto text-center mb-12">
               <h2 className="font-heading font-bold text-[clamp(28px,4vw,40px)] tracking-[-0.02em] text-heading mb-4">
-                Электротехнические товары в стандарте ETIM
+                Электротехнические товары в стандарте <span className="gradient-text">ETIM</span>
               </h2>
               <p className="text-body leading-relaxed">
                 ETIM — международный стандарт описания электротехнических товаров: светильников, розеток, лампочек, выключателей и т.д. Любой в цепи «производитель — покупатель» сможет получить безошибочную информацию о каждом товаре.
@@ -260,7 +260,7 @@ export default function MdmPage() {
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
-            Схема работы MDM-системы и API
+            Схема работы MDM-системы и <span className="gradient-text">API</span>
           </h2>
 
           <div className="reveal">
@@ -414,7 +414,7 @@ export default function MdmPage() {
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
-            2 варианта внедрения MDM-системы
+            2 варианта <span className="gradient-text">внедрения</span> MDM-системы
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Вариант 1 */}
@@ -457,7 +457,7 @@ export default function MdmPage() {
         <div className="absolute inset-0 dot-grid opacity-30" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,48px)] tracking-[-0.02em] text-heading mb-6">
-            MDM-система управления данными об электротехнических товарах
+            MDM-система <span className="gradient-text">управления данными</span> об электротехнических товарах
           </h2>
           <div className="reveal mb-12">
             <a
