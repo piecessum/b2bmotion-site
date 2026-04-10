@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from 'next'
+import type { Metadata } from 'next'
 import { Outfit, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
@@ -15,10 +15,6 @@ const dmSans = DM_Sans({
   variable: '--font-dm-sans',
   weight: ['400', '500', '600'],
 })
-
-export const viewport: Viewport = {
-  viewportFit: 'cover',
-}
 
 export const metadata: Metadata = {
   title: 'B2B Движение — Автоматизация оптовых продаж',
@@ -50,7 +46,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" suppressHydrationWarning>
-      <body className={`${outfit.variable} ${dmSans.variable} font-body antialiased bg-page text-heading pb-[env(safe-area-inset-bottom)]`}>
+      <body className={`${outfit.variable} ${dmSans.variable} font-body antialiased bg-page text-heading`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
