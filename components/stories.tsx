@@ -208,6 +208,28 @@ export function Stories() {
     };
   }, [activeStory]);
 
+  // Change theme-color to black when story is open (darkens Safari status/nav bars)
+  useEffect(() => {
+    if (activeStory === null) return;
+    let meta = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement | null;
+    let created = false;
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.name = "theme-color";
+      document.head.appendChild(meta);
+      created = true;
+    }
+    const originalColor = meta.getAttribute("content") || "";
+    meta.setAttribute("content", "#000000");
+    return () => {
+      if (created && meta) {
+        meta.remove();
+      } else if (meta) {
+        meta.setAttribute("content", originalColor);
+      }
+    };
+  }, [activeStory]);
+
   return (
     <>
       {/* Story Previews */}
