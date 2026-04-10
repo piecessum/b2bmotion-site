@@ -67,7 +67,7 @@ export function ScrollShowcase() {
       {/* Section heading */}
       <div className="relative z-10 text-center mb-12 md:mb-16 px-4">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--heading)] mb-4">
-          Интерфейс, в котором удобно работать
+          Интерфейс, в котором <span className="gradient-text">удобно работать</span>
         </h2>
         <p className="text-base md:text-lg text-[var(--subtle-text)] max-w-2xl mx-auto">
           Современный B2B-портал с&nbsp;каталогом, корзиной, заказами
