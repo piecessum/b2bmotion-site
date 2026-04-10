@@ -225,7 +225,7 @@ export default function ChatbotsPage() {
       </section>
 
       {/* Intro */}
-      <section className="py-24 px-6 border-t border-surface-hover">
+      <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-4">

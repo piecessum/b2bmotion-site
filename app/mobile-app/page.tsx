@@ -124,7 +124,7 @@ export default function MobileAppPage() {
       </section>
 
       {/* Stats */}
-      <section className="py-16 px-6 border-y border-surface-hover">
+      <section className="py-16 px-6">
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 text-center">
           <div className="reveal">
             <p className="font-heading font-bold text-4xl md:text-5xl gradient-text mb-3">1,65 млрд</p>
