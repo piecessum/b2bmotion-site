@@ -225,20 +225,12 @@ export default function ChatbotsPage() {
       </section>
 
       {/* Intro */}
-      <section className="py-24 px-6">
+      <section className="pt-10 pb-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-4">
-              Персональный чат-бот в Telegram
-            </h2>
-            <p className="reveal text-body max-w-2xl mx-auto">
-              Чат-боты для бизнеса уже используют 300 миллионов человек
-            </p>
-          </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div>
               <p className="reveal font-heading font-semibold text-xl text-heading mb-6">
-                Чат-боты помогают:
+                <span className="font-bold gradient-text">300 миллионов</span> человек используют ботов для бизнеса, потому что они помогают:
               </p>
               <div className="space-y-3">
                 {helpItems.map((item, i) => (
