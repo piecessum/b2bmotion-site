@@ -340,7 +340,7 @@ export function Stories() {
           >
             {/* Image area */}
             <div
-              className="relative flex-1 min-h-0 select-none"
+              className="relative flex-1 min-h-0 select-none md:rounded-[12px] md:overflow-hidden"
               style={{ WebkitTouchCallout: "none", WebkitUserSelect: "none" }}
               onContextMenu={(e) => e.preventDefault()}
             >
