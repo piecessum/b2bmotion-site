@@ -307,7 +307,7 @@ export function Stories() {
 
           {/* Story content */}
           <div
-            className="relative w-full h-full max-w-[100vw] md:max-w-[420px] max-h-[100vh] md:max-h-[90vh] mx-auto flex flex-col select-none"
+            className="relative w-full h-full md:max-w-[420px] md:max-h-[90vh] mx-auto flex flex-col select-none"
             style={{
               transform: dragY > 0 ? `translateY(${dragY}px)` : undefined,
               transition: dragY === 0 ? "transform 0.2s ease-out" : "none",
@@ -348,7 +348,7 @@ export function Stories() {
                 src={stories[activeStory].image}
                 alt={stories[activeStory].title}
                 fill
-                className="object-contain select-none"
+                className="object-cover md:object-contain select-none"
                 sizes="(max-width: 768px) 100vw, 420px"
                 priority
               />
@@ -367,7 +367,7 @@ export function Stories() {
             </div>
 
             {/* Bottom buttons */}
-            <div className="flex items-center gap-3 px-4 py-4 z-20">
+            <div className="absolute md:relative bottom-0 left-0 right-0 flex items-center gap-3 px-4 py-4 z-20">
               <button
                 onClick={async () => {
                   // Pause timer while sharing
