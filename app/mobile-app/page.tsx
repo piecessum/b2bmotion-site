@@ -167,26 +167,37 @@ export default function MobileAppPage() {
 
       {/* Assembly steps */}
       <section className="py-24 px-6 bg-page-alt">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="reveal font-heading font-bold text-[clamp(28px,4vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
-            Схема сборки мобильного приложения
-          </h2>
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-border-default" />
-            <div className="space-y-12">
-              {steps.map((s, i) => (
-                <div key={i} className="reveal relative flex gap-6 md:gap-8">
-                  <div className="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-[#3B82F6] to-[#7C3AED] flex items-center justify-center flex-shrink-0">
-                    <s.icon className="w-6 h-6 md:w-7 md:h-7 text-white" />
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 items-stretch">
+          {/* iPhone image — left */}
+          <div className="hidden md:flex md:w-5/12 items-center justify-center">
+            <img
+              src="/mockups/iPhone 17 Pro orange right.png"
+              alt="iPhone 17 Pro"
+              className="reveal h-full max-h-[700px] w-auto object-contain drop-shadow-2xl"
+            />
+          </div>
+          {/* Title + Steps — right */}
+          <div className="md:w-7/12">
+            <h2 className="reveal font-heading font-bold text-[clamp(28px,4vw,44px)] tracking-[-0.02em] text-heading mb-16">
+              Схема сборки мобильного приложения
+            </h2>
+            <div className="relative">
+              {/* Vertical line */}
+              <div className="absolute left-6 md:left-8 top-0 bottom-0 w-px bg-border-default" />
+              <div className="space-y-12">
+                {steps.map((s, i) => (
+                  <div key={i} className="reveal relative flex gap-6 md:gap-8">
+                    <div className="relative z-10 w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-[#3B82F6] to-[#7C3AED] flex items-center justify-center flex-shrink-0">
+                      <s.icon className="w-6 h-6 md:w-7 md:h-7 text-white" />
+                    </div>
+                    <div className="pt-2 md:pt-3">
+                      <p className="text-xs font-medium uppercase tracking-[0.15em] text-subtle mb-1">Этап {s.number}</p>
+                      <h3 className="font-heading font-semibold text-xl text-heading mb-2">{s.title}</h3>
+                      <p className="text-body leading-relaxed">{s.desc}</p>
+                    </div>
                   </div>
-                  <div className="pt-2 md:pt-3">
-                    <p className="text-xs font-medium uppercase tracking-[0.15em] text-subtle mb-1">Этап {s.number}</p>
-                    <h3 className="font-heading font-semibold text-xl text-heading mb-2">{s.title}</h3>
-                    <p className="text-body leading-relaxed">{s.desc}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
