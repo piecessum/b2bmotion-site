@@ -211,15 +211,15 @@ export function Stories() {
   return (
     <>
       {/* Story Previews */}
-      <div className="flex items-start gap-4 overflow-x-auto p-2 -m-2 scrollbar-hide mb-10 max-md:-mx-6 max-md:px-6">
+      <div className="flex items-start gap-4 overflow-x-auto p-2 -m-2 scrollbar-hide mb-10">
         {stories.map((story, index) => (
           <button
             key={story.id}
             onClick={() => openStory(index)}
-            className="flex-shrink-0 group cursor-pointer flex flex-col items-center max-md:w-[calc(100vw-80px)] md:w-auto"
+            className="flex-shrink-0 group cursor-pointer flex flex-col items-center"
           >
             <div
-              className={`relative w-full md:w-[100px] h-[56vw] md:h-[140px] rounded-2xl overflow-hidden ring-[3px] ring-offset-2 ring-offset-[var(--color-page)] transition-all duration-200 group-hover:brightness-110 ${
+              className={`relative w-[100px] h-[140px] rounded-2xl overflow-hidden ring-[3px] ring-offset-2 ring-offset-[var(--color-page)] transition-all duration-200 group-hover:brightness-110 ${
                 viewedStories.has(story.id)
                   ? "ring-[var(--color-border)]"
                   : "ring-[#8B5CF6]"
@@ -230,10 +230,10 @@ export function Stories() {
                 alt={story.title}
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) calc(100vw - 80px), 100px"
+                sizes="100px"
               />
             </div>
-            <p className="mt-2 text-xs text-subtle text-center w-full md:w-[100px] line-clamp-2 leading-tight h-[32px]">
+            <p className="mt-2 text-xs text-subtle text-center w-[100px] line-clamp-2 leading-tight h-[32px]">
               {story.title}
             </p>
           </button>
@@ -306,7 +306,7 @@ export function Stories() {
 
           {/* Story content */}
           <div
-            className="relative w-full h-full max-w-[420px] max-h-[90vh] mx-auto flex flex-col select-none"
+            className="relative w-full h-full max-w-[100vw] md:max-w-[420px] max-h-[100vh] md:max-h-[90vh] mx-auto flex flex-col select-none"
             style={{
               transform: dragY > 0 ? `translateY(${dragY}px)` : undefined,
               transition: dragY === 0 ? "transform 0.2s ease-out" : "none",
@@ -348,7 +348,7 @@ export function Stories() {
                 alt={stories[activeStory].title}
                 fill
                 className="object-contain select-none"
-                sizes="420px"
+                sizes="(max-width: 768px) 100vw, 420px"
                 priority
               />
 
