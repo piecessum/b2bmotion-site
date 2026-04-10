@@ -13,7 +13,6 @@ const industries = [
   "Стройматериалы",
   "Мебель",
   "Сетевая инфраструктура",
-  "Металлопрокат",
 ];
 
 interface CaseStudy {
@@ -54,6 +53,15 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
       iconGradient: "from-yellow-400/20 to-amber-400/20",
       logo: "/logos/Baza electro.svg",
       slug: "keis-50-gerts",
+    },
+    {
+      company: "Кристалл",
+      description:
+        "Поставщик электротехнического оборудования и кабельной продукции в Кировской области. Широкий ассортимент электрики для строительства и промышленности.",
+      gradient: "from-orange-500/20 via-yellow-500/10 to-amber-500/20",
+      iconGradient: "from-orange-400/20 to-yellow-400/20",
+      logo: "/logos/kristal.svg",
+      slug: "keis-kristal",
     },
   ],
   Сантехника: [
@@ -129,17 +137,6 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
       iconGradient: "from-teal-400/20 to-emerald-400/20",
       logo: "/logos/irbis.svg",
       slug: "keis-irbis",
-    },
-  ],
-  Металлопрокат: [
-    {
-      company: "Кристалл",
-      description:
-        "Универсальный поставщик чёрного металлопроката и труб. Поставка по стандартам ГОСТ/ТУ с точным сортаментом, марки стали и расчёт веса.",
-      gradient: "from-zinc-500/20 via-neutral-500/10 to-slate-500/20",
-      iconGradient: "from-zinc-400/20 to-neutral-400/20",
-      logo: "/logos/kristal.svg",
-      slug: "keis-kristal",
     },
   ],
 };

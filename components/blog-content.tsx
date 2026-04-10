@@ -27,7 +27,6 @@ const industries = [
   "Стройматериалы",
   "Мебель",
   "Сетевая инфраструктура",
-  "Металлопрокат",
 ];
 
 function readUrlState() {
@@ -107,7 +106,6 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
       "сетевая инфраструктура": "Сетевая инфраструктура",
       "кабельная продукция": "Сетевая инфраструктура",
       "комплектующие для серверных": "Сетевая инфраструктура",
-      металлопрокат: "Металлопрокат",
     };
     const tag = post.tags?.find((t) => t !== "кейс");
     return tag ? industryMap[tag.toLowerCase()] || tag : "";
