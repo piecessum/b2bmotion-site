@@ -211,15 +211,15 @@ export function Stories() {
   return (
     <>
       {/* Story Previews */}
-      <div className="flex items-start gap-4 overflow-x-auto p-2 -m-2 scrollbar-hide mb-10">
+      <div className="flex items-start gap-4 overflow-x-auto p-2 -m-2 scrollbar-hide mb-10 max-md:-mx-6 max-md:px-6">
         {stories.map((story, index) => (
           <button
             key={story.id}
             onClick={() => openStory(index)}
-            className="flex-shrink-0 group cursor-pointer flex flex-col items-center"
+            className="flex-shrink-0 group cursor-pointer flex flex-col items-center max-md:w-[calc(100vw-80px)] md:w-auto"
           >
             <div
-              className={`relative w-[100px] h-[140px] rounded-2xl overflow-hidden ring-[3px] ring-offset-2 ring-offset-[var(--color-page)] transition-all duration-200 group-hover:brightness-110 ${
+              className={`relative w-full md:w-[100px] h-[56vw] md:h-[140px] rounded-2xl overflow-hidden ring-[3px] ring-offset-2 ring-offset-[var(--color-page)] transition-all duration-200 group-hover:brightness-110 ${
                 viewedStories.has(story.id)
                   ? "ring-[var(--color-border)]"
                   : "ring-[#8B5CF6]"
@@ -230,10 +230,10 @@ export function Stories() {
                 alt={story.title}
                 fill
                 className="object-cover"
-                sizes="100px"
+                sizes="(max-width: 768px) calc(100vw - 80px), 100px"
               />
             </div>
-            <p className="mt-2 text-xs text-subtle text-center w-[100px] line-clamp-2 leading-tight h-[32px]">
+            <p className="mt-2 text-xs text-subtle text-center w-full md:w-[100px] line-clamp-2 leading-tight h-[32px]">
               {story.title}
             </p>
           </button>
