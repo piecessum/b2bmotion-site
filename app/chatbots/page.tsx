@@ -137,8 +137,25 @@ export default function ChatbotsPage() {
 
       {/* Hero */}
       <section className="relative pt-36 pb-20 px-6 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[700px] h-[700px] opacity-[0.06] pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-br from-violet-500 to-purple-500 rounded-full blur-[120px]" />
+        <div className="absolute inset-0">
+          <img
+            src="/for-bg/bg-aichat-white.png"
+            alt=""
+            className="w-full h-full object-cover dark:hidden"
+          />
+          <img
+            src="/for-bg/bg-aichat-dark.png"
+            alt=""
+            className="w-full h-full object-cover hidden dark:block"
+          />
+          <div className="absolute inset-0 bg-white/60 dark:bg-black/70" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to top, var(--page-alt) 0%, color-mix(in srgb, var(--page-alt) 85%, transparent) 20%, color-mix(in srgb, var(--page-alt) 40%, transparent) 45%, transparent 75%)",
+            }}
+          />
         </div>
         <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
