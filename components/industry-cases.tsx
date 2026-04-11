@@ -48,11 +48,11 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
     {
       company: "База Электроматериалов",
       description:
-        "Федеральный дистрибьютор электротехнического оборудования, одна из ведущих инжиниринговых компаний в области энергетики и климатики.",
+        "Дистрибьютор электротехнического оборудования и инжиниринговых решений в области энергетики и климатики. Комплексные поставки для монтажных организаций и проектных институтов.",
       gradient: "from-yellow-500/20 via-amber-500/10 to-orange-500/20",
       iconGradient: "from-yellow-400/20 to-amber-400/20",
       logo: "/logos/Baza electro.svg",
-      slug: "keis-50-gerts",
+      slug: "keis-baza-el",
     },
     {
       company: "Кристалл",
