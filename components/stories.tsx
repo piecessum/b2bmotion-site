@@ -297,7 +297,7 @@ export function Stories() {
           }}
         >
           {/* Progress bars */}
-          <div className="absolute top-4 left-4 right-4 flex gap-1.5 z-10">
+          <div className="absolute top-4 left-4 right-4 flex gap-1.5 z-30">
             {stories.map((_, i) => (
               <div
                 key={i}
@@ -321,7 +321,7 @@ export function Stories() {
           {/* Close button */}
           <button
             onClick={closeStory}
-            className="absolute top-8 right-2 z-10 p-4 text-white/70 hover:text-white transition-colors"
+            className="absolute top-8 right-2 z-30 p-4 text-white/70 hover:text-white transition-colors"
           >
             <X className="w-6 h-6" />
           </button>
