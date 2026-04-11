@@ -3,7 +3,7 @@ title: "Кейс: СТРОЙМИКС — Строительные материа
 description: "Продавец строительных и отделочных материалов в Центральном Черноземье. Официальные представители проверенных производителей"
 date: "2025-07-14"
 author: "Команда B2B Движение"
-image: "/images/blog/keis-stroymix.jpg"
+image: "/images/blog/keis-stroymix.png"
 tags: ["кейс", "строительные материалы"]
 logo: "/logos/stroymix.svg"
 clientInfo:

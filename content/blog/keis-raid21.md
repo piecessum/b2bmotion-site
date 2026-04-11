@@ -3,7 +3,7 @@ title: "Кейс: РЭЙД-21 — FMCG"
 description: "Крупнейшая дистрибьюторская компания в Республике Башкортостан. Более 5000 наименований продуктов питания и бытовой химии"
 date: "2025-11-05"
 author: "Команда B2B Движение"
-image: "/images/blog/keis-raid21.jpg"
+image: "/images/blog/keis-raid21.png"
 tags: ["кейс", "fmcg"]
 logo: "/logos/raid21.svg"
 industry: "FMCG"

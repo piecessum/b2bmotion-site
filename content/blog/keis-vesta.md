@@ -3,7 +3,7 @@ title: "Кейс: Веста — Сантехника"
 description: "Ведущий поставщик сантехники и оборудования для ванных комнат на российском рынке. Более 10 лет занимается оптовыми поставками"
 date: "2025-09-18"
 author: "Команда B2B Движение"
-image: "/images/blog/keis-vesta.jpg"
+image: "/images/blog/keis-vesta.png"
 tags: ["кейс", "сантехника"]
 logo: "/logos/vesta.svg"
 clientInfo:

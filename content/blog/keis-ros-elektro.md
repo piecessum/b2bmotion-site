@@ -3,7 +3,7 @@ title: "Кейс: РОС-Электро — Электротехника"
 description: "Крупная региональная сеть электрооборудования, кабельно-проводниковой и светотехнической продукции крупнейших производителей"
 date: "2025-05-12"
 author: "Команда B2B Движение"
-image: "/images/blog/keis-ros-elektro.jpg"
+image: "/images/blog/keis-ros-electro.png"
 tags: ["кейс", "электротехника"]
 logo: "/logos/roselektro.svg"
 industry: "Электротехника"

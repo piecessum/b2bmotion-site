@@ -3,7 +3,7 @@ title: "Кейс: Древиз — Мебельные материалы"
 description: "Крупнейший дистрибьютор мебельных материалов в ЦФО автоматизировал оптовые продажи и работу с дилерами с помощью b2bmotion"
 date: "2026-02-15"
 author: "Команда B2B Движение"
-image: "/images/blog/keis-dreviz.jpg"
+image: "/images/blog/keis-dreviz.png"
 tags: ["кейс", "мебель", "дистрибуция"]
 logo: "/logos/dreviz.svg"
 industry: "Мебель"

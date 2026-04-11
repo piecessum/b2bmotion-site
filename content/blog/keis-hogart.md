@@ -3,7 +3,7 @@ title: "Кейс: Хогарт — Сантехника и инженерное 
 description: "Поставщик инженерного оборудования, отопления, вентиляции и сантехники от ведущих мировых производителей. Более 200 брендов"
 date: "2025-12-10"
 author: "Команда B2B Движение"
-image: "/images/blog/keis-hogart.jpg"
+image: "/images/blog/keis-hogart.png"
 tags: ["кейс", "сантехника", "инженерное оборудование"]
 logo: "/logos/hogart.svg"
 clientInfo:

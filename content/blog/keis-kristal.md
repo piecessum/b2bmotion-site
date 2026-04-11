@@ -3,7 +3,7 @@ title: "Кейс: Кристалл — Электротехника"
 description: "Поставщик электротехнического оборудования и кабельной продукции в Кировской области. Широкий ассортимент электрики для строительства и промышленности"
 date: "2025-02-18"
 author: "Команда B2B Движение"
-image: "/images/blog/keis-ariel-metall.jpg"
+image: "/images/blog/keis-kristal.png"
 tags: ["кейс", "электротехника"]
 logo: "/logos/kristal.svg"
 clientInfo:

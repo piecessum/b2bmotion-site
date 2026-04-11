@@ -21,6 +21,7 @@ interface CaseStudy {
   gradient: string;
   iconGradient: string;
   logo?: string;
+  image?: string;
   slug: string;
   industry: string;
 }
@@ -34,6 +35,7 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
       gradient: "from-amber-500/20 via-orange-500/10 to-yellow-500/20",
       iconGradient: "from-amber-400/20 to-orange-400/20",
       logo: "/logos/rosek.svg",
+      image: "/images/blog/keis-rosek.png",
       slug: "keis-rosek",
     },
     {
@@ -43,6 +45,7 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
       gradient: "from-orange-500/20 via-red-500/10 to-amber-500/20",
       iconGradient: "from-orange-400/20 to-red-400/20",
       logo: "/logos/roselektro.svg",
+      image: "/images/blog/keis-ros-electro.png",
       slug: "keis-ros-elektro",
     },
     {
@@ -52,6 +55,7 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
       gradient: "from-yellow-500/20 via-amber-500/10 to-orange-500/20",
       iconGradient: "from-yellow-400/20 to-amber-400/20",
       logo: "/logos/Baza electro.svg",
+      image: "/images/blog/keis-baza-el.png",
       slug: "keis-baza-el",
     },
     {
@@ -61,6 +65,7 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
       gradient: "from-orange-500/20 via-yellow-500/10 to-amber-500/20",
       iconGradient: "from-orange-400/20 to-yellow-400/20",
       logo: "/logos/kristal.svg",
+      image: "/images/blog/keis-kristal.png",
       slug: "keis-kristal",
     },
   ],
@@ -72,6 +77,7 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
       gradient: "from-cyan-500/20 via-blue-500/10 to-teal-500/20",
       iconGradient: "from-cyan-400/20 to-blue-400/20",
       logo: "/logos/hogart.svg",
+      image: "/images/blog/keis-hogart.png",
       slug: "keis-hogart",
     },
     {
@@ -81,6 +87,7 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
       gradient: "from-blue-500/20 via-cyan-500/10 to-sky-500/20",
       iconGradient: "from-blue-400/20 to-sky-400/20",
       logo: "/logos/vesta.svg",
+      image: "/images/blog/keis-vesta.png",
       slug: "keis-vesta",
     },
   ],
@@ -92,6 +99,7 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
       gradient: "from-green-500/20 via-emerald-500/10 to-lime-500/20",
       iconGradient: "from-green-400/20 to-emerald-400/20",
       logo: "/logos/raid21.svg",
+      image: "/images/blog/keis-raid21.png",
       slug: "keis-raid21",
     },
   ],
@@ -103,6 +111,7 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
       gradient: "from-slate-500/20 via-zinc-500/10 to-gray-500/20",
       iconGradient: "from-slate-400/20 to-zinc-400/20",
       logo: "/logos/protek.svg",
+      image: "/images/blog/keis-protek.png",
       slug: "keis-protek",
     },
   ],
@@ -114,6 +123,7 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
       gradient: "from-rose-500/20 via-pink-500/10 to-red-500/20",
       iconGradient: "from-rose-400/20 to-pink-400/20",
       logo: "/logos/stroymix.svg",
+      image: "/images/blog/keis-stroymix.png",
       slug: "keis-stroymix",
     },
   ],
@@ -125,6 +135,7 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
       gradient: "from-violet-500/20 via-purple-500/10 to-indigo-500/20",
       iconGradient: "from-violet-400/20 to-purple-400/20",
       logo: "/logos/dreviz.svg",
+      image: "/images/blog/keis-dreviz.png",
       slug: "keis-dreviz",
     },
   ],
@@ -136,6 +147,7 @@ const casesByIndustry: Record<string, Omit<CaseStudy, "industry">[]> = {
       gradient: "from-teal-500/20 via-emerald-500/10 to-cyan-500/20",
       iconGradient: "from-teal-400/20 to-emerald-400/20",
       logo: "/logos/irbis.svg",
+      image: "/images/blog/keis-irbis.png",
       slug: "keis-irbis",
     },
   ],
@@ -265,31 +277,44 @@ export function IndustryCases() {
           >
             {/* Image area */}
             <div className="relative aspect-[16/10] overflow-hidden">
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${caseStudy.gradient}`}
-              />
-              <div className="absolute inset-0 bg-white/40 dark:bg-surface/40" />
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent dark:from-surface" />
-
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div
-                  className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${caseStudy.iconGradient} backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}
-                >
-                  {caseStudy.logo ? (
-                    <Image
-                      src={caseStudy.logo}
-                      alt={caseStudy.company}
-                      width={100}
-                      height={100}
-                      className="h-10 w-auto object-contain opacity-70 dark:invert"
-                    />
-                  ) : (
-                    <span className="text-3xl font-heading font-bold text-gray-700 dark:text-white/70">
-                      {caseStudy.company.charAt(0)}
-                    </span>
-                  )}
-                </div>
-              </div>
+              {caseStudy.image ? (
+                <>
+                  <Image
+                    src={caseStudy.image}
+                    alt={caseStudy.company}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-transparent dark:from-surface/60" />
+                </>
+              ) : (
+                <>
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${caseStudy.gradient}`}
+                  />
+                  <div className="absolute inset-0 bg-white/40 dark:bg-surface/40" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent dark:from-surface" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div
+                      className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${caseStudy.iconGradient} backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500`}
+                    >
+                      {caseStudy.logo ? (
+                        <Image
+                          src={caseStudy.logo}
+                          alt={caseStudy.company}
+                          width={100}
+                          height={100}
+                          className="h-10 w-auto object-contain opacity-70 dark:invert"
+                        />
+                      ) : (
+                        <span className="text-3xl font-heading font-bold text-gray-700 dark:text-white/70">
+                          {caseStudy.company.charAt(0)}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Content */}
