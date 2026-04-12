@@ -4,7 +4,7 @@ description: "Оптовый поставщик электрооборудова
 date: "2025-04-08"
 author: "Команда B2B Движение"
 image: "/images/blog/keis-elektricheskie-tekhnologii.png"
-tags: ["кейс", "светотехника"]
+tags: ["кейс", "электротехника"]
 logo: "/logos/elektricheskie-tekhnologii.svg"
 industry: "Электротехника"
 clientInfo:
