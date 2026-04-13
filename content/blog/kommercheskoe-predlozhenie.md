@@ -12,7 +12,7 @@ image: "/images/blog/kommercheskoe-predlozhenie.jpg"
 ---
 
 <!-- stats -->
-*   **2 минуты:** время чтения
+*   **9 минут:** время чтения
 *   **PDF-экспорт:** готовых предложений
 <!-- /stats -->
 
