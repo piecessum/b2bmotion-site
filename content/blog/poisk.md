@@ -8,7 +8,7 @@ authorCard:
   role: "Автор, редактор"
   bio: "Пишет о B2B e-commerce, цифровой трансформации оптовых продаж и автоматизации бизнес-процессов"
   photo: "/team/Elena.png"
-image: "/images/blog/poisk.jpg"
+image: "/images/blog/search.png"
 ---
 
 <!-- stats -->
