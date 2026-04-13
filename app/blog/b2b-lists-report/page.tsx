@@ -215,9 +215,9 @@ export default function B2BListsReport() {
                   <span className="font-heading font-black text-4xl leading-none">77%</span>
                   <span className="text-sm mt-2 opacity-90">повторный заказ того же товара</span>
                 </div>
-                <div className="flex flex-col justify-center px-7 bg-[#1a1f30] text-[var(--body-text)] border-l-2 border-dashed border-white/15 flex-1">
-                  <span className="font-heading font-black text-4xl leading-none">23%</span>
-                  <span className="text-sm mt-2 opacity-80">покупка сопутствующего товара</span>
+                <div className="flex flex-col justify-center px-7 bg-overlay-3 border-l-2 border-dashed border-glass-border flex-1">
+                  <span className="font-heading font-black text-4xl leading-none text-heading">23%</span>
+                  <span className="text-sm mt-2 text-subtle">покупка сопутствующего товара</span>
                 </div>
               </div>
 
@@ -228,7 +228,7 @@ export default function B2BListsReport() {
                   <div><strong className="text-heading">Повторный заказ</strong> — клиент возвращается и покупает ровно то же, что уже брал. Это главный сценарий B2B-удержания.</div>
                 </div>
                 <div className="flex gap-3 items-start text-sm text-subtle">
-                  <span className="w-3 h-3 rounded-full bg-[#2a3045] border border-glass-border mt-1 shrink-0" />
+                  <span className="w-3 h-3 rounded-full bg-overlay-3 border border-glass-border mt-1 shrink-0" />
                   <div><strong className="text-heading">Допродажа</strong> — клиент покупает связанный товар. Работает, но кратно реже.</div>
                 </div>
               </div>
