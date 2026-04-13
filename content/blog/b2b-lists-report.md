@@ -8,7 +8,7 @@ authorCard:
   role: "Автор, редактор"
   bio: "Пишет о B2B e-commerce, цифровой трансформации оптовых продаж и автоматизации бизнес-процессов"
   photo: "/team/Elena.png"
-image: "/images/blog/b2b-platforma.jpg"
+image: "/images/blog/lists-report.png"
 tags:
   - "аналитика"
   - "списки товаров"
