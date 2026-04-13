@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, Calendar, Play, BarChart3 } from "lucide-react";
+import { ArrowRight, Calendar, Play, BarChart3, ListChecks } from "lucide-react";
 
 interface Post {
   slug: string;
@@ -191,68 +191,89 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
 
       {/* Pinned (show on "all" and "publications") */}
       {showPinned && (
-        <div className="flex flex-col gap-5 mb-5">
+        <div className="flex flex-col gap-3 mb-5">
           {/* Pinned video */}
           <Link
             href="/video"
             onClick={saveScroll}
-            className="group relative p-8 rounded-2xl glass-card overflow-hidden"
+            className="group relative px-5 py-4 rounded-xl glass-card overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-[#3B82F6]/[0.06] via-[#8B5CF6]/[0.04] to-[#06B6D4]/[0.06]" />
-            <div className="relative z-10 flex items-center gap-6">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#7C3AED] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-[0_0_30px_rgba(59,130,246,0.25)]">
-                <Play className="w-6 h-6 text-white fill-white ml-0.5" />
+            <div className="relative z-10 flex items-center gap-4">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#3B82F6] to-[#7C3AED] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <Play className="w-4 h-4 text-white fill-white ml-0.5" />
               </div>
-              <div>
-                <div className="flex items-center gap-3 mb-1">
-                  <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-[#60A5FA] bg-[#3B82F6]/10 px-2 py-0.5 rounded-full">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className="text-[9px] font-medium uppercase tracking-[0.15em] text-[#60A5FA] bg-[#3B82F6]/10 px-1.5 py-0.5 rounded-full">
                     Видео
                   </span>
-                  <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-dim bg-overlay-3 px-2 py-0.5 rounded-full">
+                  <span className="text-[9px] font-medium uppercase tracking-[0.15em] text-dim bg-overlay-3 px-1.5 py-0.5 rounded-full">
                     Закреплено
                   </span>
                 </div>
-                <h2 className="font-heading font-semibold text-xl text-heading mb-1 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
+                <h2 className="font-heading font-semibold text-sm text-heading group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors truncate">
                   В2В Движение — оптимальное решение для оптового бизнеса
                 </h2>
-                <p className="text-subtle leading-relaxed text-sm">
-                  Практические подходы к организации B2B-взаимодействия и
-                  масштабированию оптовых продаж
-                </p>
               </div>
+              <ArrowRight className="w-4 h-4 text-dim group-hover:text-[#60A5FA] shrink-0 transition-colors hidden sm:block" />
             </div>
           </Link>
 
-          {/* Pinned report */}
-          <Link
-            href="/blog/b2b-platforms-report"
-            onClick={saveScroll}
-            className="group relative p-8 rounded-2xl glass-card overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-[#06B6D4]/[0.06] via-[#3B82F6]/[0.04] to-[#8B5CF6]/[0.06]" />
-            <div className="relative z-10 flex items-center gap-6">
-              <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#06B6D4] to-[#3B82F6] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-[0_0_30px_rgba(6,182,212,0.25)]">
-                <BarChart3 className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <div className="flex items-center gap-3 mb-1">
-                  <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-[#06B6D4] bg-[#06B6D4]/10 px-2 py-0.5 rounded-full">
-                    Отчёт
-                  </span>
-                  <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-dim bg-overlay-3 px-2 py-0.5 rounded-full">
-                    Закреплено
-                  </span>
+          {/* Pinned reports — 2 columns on desktop, stacked on mobile */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <Link
+              href="/blog/b2b-platforms-report"
+              onClick={saveScroll}
+              className="group relative px-5 py-4 rounded-xl glass-card overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#06B6D4]/[0.06] via-[#3B82F6]/[0.04] to-[#8B5CF6]/[0.06]" />
+              <div className="relative z-10 flex items-center gap-4">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#06B6D4] to-[#3B82F6] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                  <BarChart3 className="w-4 h-4 text-white" />
                 </div>
-                <h2 className="font-heading font-semibold text-xl text-heading mb-1 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
-                  B2B eCommerce Платформы: Россия vs Мировой рынок
-                </h2>
-                <p className="text-subtle leading-relaxed text-sm">
-                  Комплексный обзор 13 платформ — функциональность, дизайн
-                  лендингов, цены и рекомендации
-                </p>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <span className="text-[9px] font-medium uppercase tracking-[0.15em] text-[#06B6D4] bg-[#06B6D4]/10 px-1.5 py-0.5 rounded-full">
+                      Отчёт
+                    </span>
+                    <span className="text-[9px] font-medium uppercase tracking-[0.15em] text-dim bg-overlay-3 px-1.5 py-0.5 rounded-full">
+                      Закреплено
+                    </span>
+                  </div>
+                  <h2 className="font-heading font-semibold text-sm text-heading group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors leading-snug">
+                    B2B Платформы: Россия vs Мир
+                  </h2>
+                </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+
+            <Link
+              href="/blog/b2b-lists-report"
+              onClick={saveScroll}
+              className="group relative px-5 py-4 rounded-xl glass-card overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#38D9A9]/[0.06] via-[#3B82F6]/[0.04] to-[#F6B93B]/[0.06]" />
+              <div className="relative z-10 flex items-center gap-4">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#38D9A9] to-[#3B82F6] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
+                  <ListChecks className="w-4 h-4 text-white" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <span className="text-[9px] font-medium uppercase tracking-[0.15em] text-[#38D9A9] bg-[#38D9A9]/10 px-1.5 py-0.5 rounded-full">
+                      Отчёт
+                    </span>
+                    <span className="text-[9px] font-medium uppercase tracking-[0.15em] text-dim bg-overlay-3 px-1.5 py-0.5 rounded-full">
+                      Закреплено
+                    </span>
+                  </div>
+                  <h2 className="font-heading font-semibold text-sm text-heading group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors leading-snug">
+                    Списки товаров в B2B-маркетплейсах
+                  </h2>
+                </div>
+              </div>
+            </Link>
+          </div>
         </div>
       )}
 
