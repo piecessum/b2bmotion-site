@@ -209,8 +209,8 @@ export default function B2BListsReport() {
               <h3 className="font-heading font-bold text-lg text-heading mb-1">Из чего состоят повторные покупки</h3>
               <p className="text-xs text-dim mb-6">Анализ 7 454 сценариев вторых покупок по 156 000 клиентов</p>
 
-              {/* Bar */}
-              <div className="flex h-28 rounded-xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.2)] mb-6">
+              {/* Bar — vertical on mobile, horizontal on sm+ */}
+              <div className="hidden sm:flex h-28 rounded-xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.2)] mb-6">
                 <div className="flex flex-col justify-center px-7 bg-gradient-to-br from-[#4f8ef7] to-[#6ea8ff] text-white" style={{ width: "77%" }}>
                   <span className="font-heading font-black text-4xl leading-none">77%</span>
                   <span className="text-sm mt-2 opacity-90">повторный заказ того же товара</span>
@@ -218,6 +218,16 @@ export default function B2BListsReport() {
                 <div className="flex flex-col justify-center px-7 bg-overlay-3 border-l-2 border-dashed border-glass-border flex-1">
                   <span className="font-heading font-black text-4xl leading-none text-heading">23%</span>
                   <span className="text-sm mt-2 text-subtle">покупка сопутствующего товара</span>
+                </div>
+              </div>
+              <div className="flex sm:hidden flex-col rounded-xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.2)] mb-6">
+                <div className="flex flex-col justify-center px-5 py-6 bg-gradient-to-br from-[#4f8ef7] to-[#6ea8ff] text-white" style={{ flexBasis: "77%" }}>
+                  <span className="font-heading font-black text-4xl leading-none">77%</span>
+                  <span className="text-xs mt-2 opacity-90">повторный заказ того же товара</span>
+                </div>
+                <div className="flex flex-col justify-center px-5 py-3 bg-overlay-3 border-t-2 border-dashed border-glass-border" style={{ flexBasis: "23%" }}>
+                  <span className="font-heading font-black text-2xl leading-none text-heading">23%</span>
+                  <span className="text-xs mt-1 text-subtle">покупка сопутствующего товара</span>
                 </div>
               </div>
 
@@ -276,8 +286,8 @@ export default function B2BListsReport() {
             <h3 className="font-heading font-semibold text-base text-heading mb-5">Зачем списки нужны конечному пользователю — по ролям</h3>
             <div className="space-y-1">
               {roleMap.map((r, i) => (
-                <div key={i} className="flex gap-6 p-5 rounded-xl glass-card items-start">
-                  <span className="font-heading font-semibold text-sm shrink-0 w-44" style={{ color: GREEN }}>{r.role}</span>
+                <div key={i} className="flex flex-col sm:flex-row gap-2 sm:gap-6 p-5 rounded-xl glass-card items-start">
+                  <span className="font-heading font-semibold text-sm shrink-0 sm:w-44" style={{ color: GREEN }}>{r.role}</span>
                   <p className="text-sm text-subtle leading-relaxed">
                     <strong className="text-heading">{r.text}</strong> {r.detail}
                   </p>
@@ -370,9 +380,9 @@ export default function B2BListsReport() {
                   { label: "Экономия времени менеджеров (~30% рутины)", value: "экономия ФОТ" },
                   { label: "Снижение оттока за счёт «Моя компания» и шаринга", value: "+удержание" },
                 ].map((row, i) => (
-                  <div key={i} className="flex justify-between items-center py-4 border-b border-glass-border text-sm">
+                  <div key={i} className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-4 py-4 border-b border-glass-border text-sm">
                     <span className="text-body">{row.label}</span>
-                    <span className="font-heading font-semibold text-[#f6b93b] shrink-0 ml-4">{row.value}</span>
+                    <span className="font-heading font-semibold text-[#f6b93b] shrink-0">{row.value}</span>
                   </div>
                 ))}
               </div>
@@ -398,8 +408,8 @@ export default function B2BListsReport() {
 
             <div className="space-y-1">
               {conclusions.map((c, i) => (
-                <div key={i} className="flex gap-6 p-5 rounded-xl glass-card items-start">
-                  <span className="font-heading font-semibold text-sm shrink-0 w-48" style={{ color: GREEN }}>{c.role}</span>
+                <div key={i} className="flex flex-col sm:flex-row gap-2 sm:gap-6 p-5 rounded-xl glass-card items-start">
+                  <span className="font-heading font-semibold text-sm shrink-0 sm:w-48" style={{ color: GREEN }}>{c.role}</span>
                   <p className="text-sm text-body leading-relaxed">
                     <strong className="text-heading">{c.text.split(".")[0]}.</strong>{c.text.substring(c.text.indexOf(".") + 1)}
                   </p>
