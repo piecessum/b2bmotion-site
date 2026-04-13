@@ -41,7 +41,7 @@ const stories: Story[] = [
     title: "Зачем собирать списки?",
     preview: "/stories/Story 3.png",
     image: "/stories/Story 3.png",
-    link: "/blog/spiski-tovarov",
+    link: "/blog/b2b-lists-report",
   },
   {
     id: 4,
