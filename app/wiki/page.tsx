@@ -60,13 +60,14 @@ export default function WikiLandingPage() {
         <div className="flex items-center gap-2 mb-5">
           <GraduationCap className="w-5 h-5 text-[#3B82F6]" />
           <h2 className="font-heading font-semibold text-xl text-heading">
-            С чего начать новому сотруднику
+            С чего начать работу с платформой
           </h2>
         </div>
         <p className="text-sm text-subtle max-w-2xl mb-6">
-          Базовый маршрут обучения для новых сотрудников у клиента — пройдите
-          по шагам, чтобы получить общее представление о том, как устроена
-          B2B-платформа.
+          Базовый маршрут для клиентов, которые работают с B2B-маркетом —
+          пройдите по шагам, чтобы разобраться в основных возможностях
+          системы и понять, как с ней взаимодействовать. Полезно и новым
+          сотрудникам, которым предстоит работать с платформой.
         </p>
         <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {onboardingSteps.map((step) => (

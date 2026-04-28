@@ -77,12 +77,24 @@ function getPlainText(text: any[]): string {
     .join(" ");
 }
 
+const TRANSLIT_MAP: Record<string, string> = {
+  а: "a", б: "b", в: "v", г: "g", д: "d", е: "e", ё: "e", ж: "zh",
+  з: "z", и: "i", й: "y", к: "k", л: "l", м: "m", н: "n", о: "o",
+  п: "p", р: "r", с: "s", т: "t", у: "u", ф: "f", х: "h", ц: "ts",
+  ч: "ch", ш: "sh", щ: "sch", ъ: "", ы: "y", ь: "", э: "e", ю: "yu",
+  я: "ya",
+};
+
 function slugifyGroup(title: string): string {
-  return title
-    .toLowerCase()
-    .replace(/[«»"',.]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/[^a-zа-я0-9-]/gi, "");
+  const lower = title.toLowerCase();
+  let result = "";
+  for (const ch of lower) {
+    if (TRANSLIT_MAP[ch] !== undefined) result += TRANSLIT_MAP[ch];
+    else if (/[a-z0-9]/.test(ch)) result += ch;
+    else if (/\s|[-_/]/.test(ch)) result += "-";
+    // drop everything else (punctuation, quotes, etc.)
+  }
+  return result.replace(/-+/g, "-").replace(/^-|-$/g, "");
 }
 
 /* ── Group definitions per section ──
