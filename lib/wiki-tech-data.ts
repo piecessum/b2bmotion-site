@@ -8,7 +8,7 @@ export interface WikiTechArticle {
   slug: string
 }
 
-export const wikiTechCategories = ["1C","API","Общие сведения","РАЭК","Шлюзовые таблицы"]
+export const wikiTechCategories = ["1C","API","Общие сведения","РАЭК","Структура данных"]
 
 export const wikiTechArticles: WikiTechArticle[] = [
   {
@@ -420,7 +420,7 @@ export const wikiTechArticles: WikiTechArticle[] = [
   {
     "id": "nrhf6j2k11",
     "title": "Описание полей шлюзовых таблиц",
-    "category": "Шлюзовые таблицы",
+    "category": "Структура данных",
     "image": "https://static.tildacdn.com/tild3037-6264-4063-b035-356666613532/__.png",
     "slug": "opisanie-poley-shlyuzovykh-tablits",
     "text": [
@@ -1659,7 +1659,7 @@ export const wikiTechArticles: WikiTechArticle[] = [
   {
     "id": "67g1s7rmd1",
     "title": "Структура БД",
-    "category": "Шлюзовые таблицы",
+    "category": "Структура данных",
     "image": "https://static.tildacdn.com/tild3531-3236-4665-a237-643038356337/photo.png",
     "slug": "struktura-bd",
     "text": [
@@ -1679,7 +1679,7 @@ export const wikiTechArticles: WikiTechArticle[] = [
   {
     "id": "2ix5k1srr1",
     "title": "Список шлюзовых таблиц (ШТ)",
-    "category": "Шлюзовые таблицы",
+    "category": "Структура данных",
     "image": "https://static.tildacdn.com/tild3165-3132-4139-b839-323432663164/_.png",
     "slug": "spisok-shlyuzovykh-tablits-sht",
     "text": [

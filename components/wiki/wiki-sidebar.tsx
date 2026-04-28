@@ -297,22 +297,39 @@ function GroupNode({
 
       {open && (
         <ul className="mt-0.5 ml-4 pl-2 border-l border-glass-border space-y-0.5">
-          {group.categories.map((cat) => {
-            const catKey = `${section.id}:${group.id}:${cat.id}`;
-            const catOpen = !!openCategories[catKey];
-            return (
-              <CategoryNode
-                key={cat.id}
-                section={section}
-                category={cat}
-                open={catOpen}
-                onToggle={() => onToggleCategory(catKey)}
-                activeCategoryId={activeCategoryId}
-                activeArticleSlug={activeArticleSlug}
-                onNavigate={onNavigate}
-              />
-            );
-          })}
+          {(() => {
+            // Collapse the intermediate "category" level when a group has a
+            // single category whose title matches the group's title — render
+            // articles directly under the group instead of an extra layer.
+            const onlyCat =
+              group.categories.length === 1 ? group.categories[0] : null;
+            if (onlyCat && onlyCat.title === group.title) {
+              return onlyCat.articles.map((article) => (
+                <ArticleNode
+                  key={article.id}
+                  article={article}
+                  isActive={activeArticleSlug === article.slug}
+                  onNavigate={onNavigate}
+                />
+              ));
+            }
+            return group.categories.map((cat) => {
+              const catKey = `${section.id}:${group.id}:${cat.id}`;
+              const catOpen = !!openCategories[catKey];
+              return (
+                <CategoryNode
+                  key={cat.id}
+                  section={section}
+                  category={cat}
+                  open={catOpen}
+                  onToggle={() => onToggleCategory(catKey)}
+                  activeCategoryId={activeCategoryId}
+                  activeArticleSlug={activeArticleSlug}
+                  onNavigate={onNavigate}
+                />
+              );
+            });
+          })()}
         </ul>
       )}
     </li>

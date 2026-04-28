@@ -219,9 +219,14 @@ const TECH_GROUPS: GroupDef[] = [
     id: "data",
     title: "Структура данных",
     description: "Шлюзовые таблицы и БД",
-    categories: ["Шлюзовые таблицы"],
+    categories: ["Структура данных"],
   },
 ];
+
+/* Slugs that should appear first within their category. */
+const ARTICLE_PRIORITY: Record<string, number> = {
+  "struktura-bd": 0,
+};
 
 const SECTIONS_META: Record<
   SectionId,
@@ -296,7 +301,12 @@ function buildSection(
       usedCategories.add(catTitle);
       const list = articles
         .filter((a) => a.category === catTitle)
-        .map((a) => ({ ...a, groupId: g.id, groupTitle: g.title }));
+        .map((a) => ({ ...a, groupId: g.id, groupTitle: g.title }))
+        .sort((a, b) => {
+          const pa = ARTICLE_PRIORITY[a.slug] ?? 100;
+          const pb = ARTICLE_PRIORITY[b.slug] ?? 100;
+          return pa - pb;
+        });
       return {
         id: slugifyGroup(catTitle),
         title: catTitle,
