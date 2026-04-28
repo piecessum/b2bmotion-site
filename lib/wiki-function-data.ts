@@ -226,7 +226,7 @@ export const wikiFunctionArticles: WikiFunctionArticle[] = [
   {
     "id": "8142gpioj1",
     "title": "Статьи",
-    "category": "Без категории",
+    "category": "Личный кабинет продавца в B2B-системе",
     "image": "https://static.tildacdn.com/tild6437-3136-4461-a138-343532643832/photo.png",
     "slug": "stati",
     "text": [
@@ -298,7 +298,7 @@ export const wikiFunctionArticles: WikiFunctionArticle[] = [
   {
     "id": "vanmbay9e1",
     "title": "Избранные товары",
-    "category": "Без категории",
+    "category": "Каталог и товары",
     "image": "https://static.tildacdn.com/tild3366-3539-4035-b063-306465366235/photo.png",
     "slug": "izbrannye-tovary",
     "text": [
@@ -324,7 +324,7 @@ export const wikiFunctionArticles: WikiFunctionArticle[] = [
   {
     "id": "ljb12jacl1",
     "title": "Статус заказа",
-    "category": "Без категории",
+    "category": "Личный кабинет покупателя",
     "image": "https://static.tildacdn.com/tild3961-3766-4534-a634-323333373732/photo.png",
     "slug": "status-zakaza",
     "text": [
@@ -367,7 +367,7 @@ export const wikiFunctionArticles: WikiFunctionArticle[] = [
   {
     "id": "6zx7a005d1",
     "title": "Документы",
-    "category": "Без категории",
+    "category": "Модуль документооборота",
     "image": "https://static.tildacdn.com/tild3937-3162-4238-b336-666332343231/photo.png",
     "slug": "dokumenty",
     "text": [
@@ -1762,227 +1762,6 @@ export const wikiFunctionArticles: WikiFunctionArticle[] = [
       {
         "ty": "text",
         "te": "Возможность загружать цены цены в долларах, евро и юанях разработана и внедрена пока для компаний, у которых нет интеграции с 1с. <br />Такие компании загружают свою продукцию через шаблон в админке. В этом же шаблоне они указывают цены в любой из перечисленных выше валют, вводят актуальный курс так же в админке, а в каталоге пользователи видят цену уже в рублях. <br />Подробнее о компаниях, которые не интегрированы с 1с можно почитать <a href=\"https://b2bmotion.ru/b2b-bez-integratsii-s-1c\" target=\"_blank\" rel=\"noreferrer noopener\">здесь</a> "
-      }
-    ]
-  },
-  {
-    "id": "3beko6ruz1",
-    "title": "Основные инструменты для постов. Документация",
-    "category": "Без категории",
-    "image": "",
-    "slug": "osnovnye-instrumenty-dlya-postov-dokumentatsiya",
-    "text": [
-      {
-        "ty": "image",
-        "url": "https://static.tildacdn.com/tild6435-6631-4838-b863-646430616635/Slide_16_9_-_0.png",
-        "alt": "",
-        "caption": "",
-        "link": "",
-        "blank": "",
-        "w": "1680",
-        "h": "945",
-        "rh": null,
-        "rw": null,
-        "al": null
-      },
-      {
-        "ty": "heading",
-        "te": "Работа с текстом",
-        "le": 2
-      },
-      {
-        "ty": "preface",
-        "te": "Это обзор основных инструментов для оформления текстовой информации в статье на Тильде. <span style=\"color: rgba(0, 0, 0, 0.3);\">Сделано с помощью инструмента </span><u style=\"color: rgba(0, 0, 0, 0.3);\">Введение</u>"
-      },
-      {
-        "ty": "text",
-        "te": "<strong>Основной базовый текст.</strong>"
-      },
-      {
-        "ty": "image",
-        "url": "https://static.tildacdn.com/tild6535-3936-4166-b930-313131306566/Slide_16_9_-_1.png",
-        "alt": "",
-        "caption": "",
-        "link": "",
-        "blank": "",
-        "w": "1680",
-        "h": "945",
-        "rh": null,
-        "rw": null,
-        "al": null
-      },
-      {
-        "ty": "text",
-        "te": "Тут набираются все описательные части. С помощью редактора текста можно оформить списки.<br />Пронумерованный список выглядит так:<br /><ol><li>Первый.</li><li>Второй.</li><li>Третий.</li><li>Четвёртый.</li><li>Пятый.</li></ol><br />Ненумерованный список отличается, у него:<br /><ul><li>нет чисел в начале строчек;</li><li>стоят маркеры в начале.</li></ul><br />Также в редакторе текста можно менять стиль написания и жирность шрифта. Таким образом можно выделить <strong>основные моменты в тексте. </strong>Или показать, <span style=\"text-decoration: line-through;\">что мы используем старые технологии</span> что мы используем <a href=\"https://b2bmotion.ru\" target=\"_blank\" rel=\"noreferrer noopener\">новые технологии</a>, наглядно, с помощью функции зачёркнутого текста и вставки ссылки в текст (<a href=\"https://www.figma.com/file/ncbHRpII9QXC61qF44FjFL/%D0%9F%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D0%B8-%D0%91%D0%B0%D0%BD%D0%BD%D0%B5%D1%80%D1%8B-%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8?type=design&amp;node-id=3147%3A2068&amp;mode=design&amp;t=aUREPp7O0g1Wgjyt-1\">подробнее об оформлении ссылок</a>)."
-      },
-      {
-        "ty": "text",
-        "te": "<strong>Сообщения в тексте</strong>"
-      },
-      {
-        "ty": "image",
-        "url": "https://static.tildacdn.com/tild3332-6562-4263-b139-383462363435/Slide_16_9_-_2.png",
-        "alt": "",
-        "caption": "",
-        "link": "",
-        "blank": "",
-        "w": "1680",
-        "h": "945",
-        "rh": null,
-        "rw": null,
-        "al": null
-      },
-      {
-        "ty": "text",
-        "te": "Сообщения в тексте нужны для выведения важной информации, такие сообщения нужно дополнительно выделить цветом и шрифтом, отделив их от основного текста. Технически с помощью инструментов Тильды такие сообщения можно выделить инструментом<strong> </strong><u>Врезка</u>. Сообщения имеют три категории:<br /><ul><li>важное</li><li>позитивное</li><li>нейтральное</li></ul>"
-      },
-      {
-        "ty": "text",
-        "te": "Важное сообщение:"
-      },
-      {
-        "ty": "callout",
-        "te": "Важное сообщение несёт в себе информацию об ошибках или базовое понятие, принцип на которых строится дальнейшее объяснение.<br />Цвет иконки: <strong>#D30000</strong><br />Цвет фона: <strong>#F8F0F0</strong>",
-        "color": "#000000",
-        "bg": "#faf0f0",
-        "fs": "default",
-        "ic": "#d30000"
-      },
-      {
-        "ty": "text",
-        "te": "Позитивное сообщение:"
-      },
-      {
-        "ty": "callout",
-        "te": "Позитивное сообщение может рассказывать об удобном опыте использовании какого-то шаблона или функции. Или же может говорить о позитивном итоге вышеизложенного текста.<br />Цвет иконки: <strong>#4A9F2D</strong><br />Цвет фона: <strong>#F1F8F0</strong>",
-        "color": "#000000",
-        "bg": "#f1f8f0",
-        "fs": "default",
-        "ic": "#0ba300"
-      },
-      {
-        "ty": "text",
-        "te": "Нейтральное сообщение:"
-      },
-      {
-        "ty": "callout",
-        "te": "Нейтральное сообщение может содержать информацию о фактах, событиях или просто передавать информацию без каких-либо оценок.<br />Цвет иконки: <strong>#7B7B7B</strong><br />Цвет фона: <strong>#F1F1F1</strong>",
-        "color": "#000000",
-        "bg": "#f1f1f1",
-        "fs": "default",
-        "ic": "#7b7b7b"
-      },
-      {
-        "ty": "image",
-        "url": "https://static.tildacdn.com/tild3836-6136-4139-a633-376436383366/Frame_26.png",
-        "alt": "",
-        "caption": "",
-        "link": "",
-        "blank": "",
-        "w": "2436",
-        "h": "1077",
-        "rh": null,
-        "rw": null,
-        "al": null
-      },
-      {
-        "ty": "text",
-        "te": "<strong>Вставка элемента кода для копирования и просмотра</strong>"
-      },
-      {
-        "ty": "image",
-        "url": "https://static.tildacdn.com/tild3162-3862-4337-b463-393437353463/Slide_16_9_-_3.png",
-        "alt": "",
-        "caption": "",
-        "link": "",
-        "blank": "",
-        "w": "1680",
-        "h": "945",
-        "rh": null,
-        "rw": null,
-        "al": null
-      },
-      {
-        "ty": "text",
-        "te": "Чтобы вставить код в текст, используйте функцию <u>Highlight code</u>"
-      },
-      {
-        "ty": "code",
-        "co": "<html>\n<head>\n    <meta charset=\"utf-8\"/>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/>\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n    <!--metatextblock-->\n    <title>B2B Движение — B2B-платформа для автоматизации оптовых интернет-продаж</title>\n    <meta name=\"description\" content=\"B2B Движение — B2B-платформа для оптовых продаж в интернете. Успешная интеграция B2B-платформы с разными отраслями, более 50 готовых скриптов и инструкций для сотрудников, 14 встроенных аналитических отчетов. Проведем персональную skype-презентацию\"/>\n    <meta name=\"keywords\" content=\"b2b platform, b2b платформа, b2b торговля, b2b электронная коммерция, b2b e commerce, b2b платформа электронной коммерции, оптовый каталог товаров, интернет магазин b2b, сайт b2b продаж, оптовая платформа, интернет-платформа оптовой торговли\"/>\n    <meta property=\"og:url\" content=\"https://b2bmotion.ru\"/>\n    <meta property=\"og:title\" content=\"Экосистема B2B Движение — комплексные решения для автоматизации оптовых продаж в E-commerce\"/>\n    <meta property=\"og:description\" content=\"В2В платформа + бесплатные маркет и MDM. Подключите даже самую облегченную и недорогую версию B2B-системы и станьте участником отраслевого маркета и приведите данные в порядок бесплатно.\"/>\n    <meta property=\"og:type\" content=\"website\"/>\n    <meta property=\"og:image\" content=\"https://static.tildacdn.com/tild6539-3437-4133-b331-313366313164/photo.PNG\"/>\n    <link rel=\"canonical\" href=\"https://b2bmotion.ru\">\n    <!--/metatextblock-->\n    <meta name=\"format-detection\" content=\"telephone=no\"/>\n    <meta http-equiv=\"x-dns-prefetch-control\" content=\"on\">\n    <link rel=\"dns-prefetch\" href=\"https://ws.tildacdn.com\">\n    <link rel=\"dns-prefetch\" href=\"https://static.tildacdn.com\">\n    <link rel=\"shortcut icon\" href=\"https://static.tildacdn.com/tild3833-3938-4236-b962-636662366363/favicon.ico\" type=\"image/x-icon\"/>",
-        "la": "html"
-      },
-      {
-        "ty": "heading",
-        "te": "Работа с медиа",
-        "le": 2
-      },
-      {
-        "ty": "preface",
-        "te": "Это обзор основных инструментов для оформления фотографий и видео в статье на Тильде.<span style=\"color: rgba(0, 0, 0, 0.3);\"> Сделано с помощью инструмента </span><u style=\"color: rgba(0, 0, 0, 0.3);\">Введение</u>"
-      },
-      {
-        "ty": "text",
-        "te": "<strong>Вставка изображений</strong>"
-      },
-      {
-        "ty": "image",
-        "url": "https://static.tildacdn.com/tild3366-6335-4361-b336-326463346230/Slide_16_9_-_4.png",
-        "alt": "",
-        "caption": "",
-        "link": "",
-        "blank": "",
-        "w": "1680",
-        "h": "945",
-        "rh": null,
-        "rw": null,
-        "al": null
-      },
-      {
-        "ty": "text",
-        "te": "Чтобы вставить изображение, скриншот, фотографию, используйте функцию <u>Изображение</u>"
-      },
-      {
-        "ty": "text",
-        "te": "<strong>Вставка видео</strong>"
-      },
-      {
-        "ty": "image",
-        "url": "https://static.tildacdn.com/tild3165-3733-4962-b031-666535623339/Slide_16_9_-_5.png",
-        "alt": "",
-        "caption": "",
-        "link": "",
-        "blank": "",
-        "w": "1680",
-        "h": "945",
-        "rh": null,
-        "rw": null,
-        "al": null
-      },
-      {
-        "ty": "text",
-        "te": "Видео работает с YouTube, Vimeo, MP4"
-      },
-      {
-        "ty": "image",
-        "url": "https://static.tildacdn.com/tild3732-3836-4836-b663-633536303337/Slide_16_9_-_6.png",
-        "alt": "",
-        "caption": "",
-        "link": "",
-        "blank": "",
-        "w": "1680",
-        "h": "945",
-        "rh": null,
-        "rw": null,
-        "al": null
-      },
-      {
-        "ty": "text",
-        "te": "Пример того, как будет выглядеть видео в статье:"
-      },
-      {
-        "ty": "video",
-        "url": "https://www.youtube.com/embed/gCuyxO9eVCM",
-        "p": "youtube"
       }
     ]
   }
