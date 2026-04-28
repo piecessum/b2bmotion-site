@@ -27,6 +27,8 @@ import {
   Key,
   Link2,
   ArrowRight,
+  Maximize2,
+  Minimize2,
 } from "lucide-react";
 import {
   dbDomains,
@@ -196,12 +198,36 @@ function DbSchemaGraphInner() {
   const [query, setQuery] = useState("");
   const [activeDomain, setActiveDomain] = useState<DomainId | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const { fitView, setCenter, getNode } = useReactFlow();
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   const isDark = mounted ? resolvedTheme !== "light" : true;
   const colorMode: ColorMode = isDark ? "dark" : "light";
+
+  // Exit fullscreen on Escape; lock body scroll while fullscreen.
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsFullscreen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [isFullscreen]);
+
+  // Re-fit view after fullscreen toggle once layout settles.
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      fitView({ duration: 250, padding: 0.15 });
+    }, 80);
+    return () => window.clearTimeout(id);
+  }, [isFullscreen, fitView]);
 
   const q = query.trim().toLowerCase();
 
@@ -315,7 +341,13 @@ function DbSchemaGraphInner() {
     : null;
 
   return (
-    <div className="not-prose my-8 rounded-2xl bg-overlay-3 border border-glass-border overflow-hidden">
+    <div
+      className={
+        isFullscreen
+          ? "fixed inset-0 z-50 bg-page border-0 rounded-none flex flex-col not-prose"
+          : "not-prose my-8 rounded-2xl bg-overlay-3 border border-glass-border overflow-hidden"
+      }
+    >
       {/* Header */}
       <div className="flex flex-wrap items-center gap-3 px-5 py-4 border-b border-glass-border bg-overlay-4">
         <div className="flex items-center gap-2">
@@ -350,6 +382,21 @@ function DbSchemaGraphInner() {
             )}
           </div>
         </div>
+        <button
+          type="button"
+          onClick={() => setIsFullscreen((v) => !v)}
+          aria-label={
+            isFullscreen ? "Выйти из полноэкранного режима" : "Развернуть на весь экран"
+          }
+          title={isFullscreen ? "Свернуть (Esc)" : "Развернуть"}
+          className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-page border border-glass-border text-dim hover:text-body hover:border-[#3B82F6]/40 transition-colors"
+        >
+          {isFullscreen ? (
+            <Minimize2 className="w-3.5 h-3.5" />
+          ) : (
+            <Maximize2 className="w-3.5 h-3.5" />
+          )}
+        </button>
       </div>
 
       {/* Domain chips */}
@@ -398,7 +445,10 @@ function DbSchemaGraphInner() {
       </div>
 
       {/* Graph canvas */}
-      <div className="relative bg-page" style={{ height: "min(70vh, 720px)" }}>
+      <div
+        className={isFullscreen ? "relative bg-page flex-1 min-h-0" : "relative bg-page"}
+        style={isFullscreen ? undefined : { height: "min(70vh, 720px)" }}
+      >
         <ReactFlow
           nodes={nodes}
           edges={edges}
