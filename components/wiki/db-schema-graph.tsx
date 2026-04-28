@@ -330,10 +330,15 @@ function DbSchemaGraphInner() {
     );
   }, [selected, getNode, setCenter]);
 
+  const visibleDomains = useMemo(
+    () => dbDomains.filter((d) => dbTables.some((t) => t.domain === d.id)),
+    [],
+  );
+
   const totals = {
     tables: dbTables.length,
     relations: getAllRelations().length,
-    domains: dbDomains.length,
+    domains: visibleDomains.length,
   };
 
   const selectedTable = selected
@@ -413,7 +418,7 @@ function DbSchemaGraphInner() {
         >
           Все
         </button>
-        {dbDomains.map((d) => {
+        {visibleDomains.map((d) => {
           const active = activeDomain === d.id;
           return (
             <button
