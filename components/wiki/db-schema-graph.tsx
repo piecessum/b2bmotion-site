@@ -229,6 +229,17 @@ function DbSchemaGraphInner() {
     return () => window.clearTimeout(id);
   }, [isFullscreen, fitView]);
 
+  // Disable fullscreen on mobile widths (force-exit if viewport shrinks).
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 639px)");
+    const sync = () => {
+      if (mql.matches) setIsFullscreen(false);
+    };
+    sync();
+    mql.addEventListener("change", sync);
+    return () => mql.removeEventListener("change", sync);
+  }, []);
+
   const q = query.trim().toLowerCase();
 
   const visibleTables = useMemo(() => {
@@ -394,7 +405,7 @@ function DbSchemaGraphInner() {
             isFullscreen ? "Выйти из полноэкранного режима" : "Развернуть на весь экран"
           }
           title={isFullscreen ? "Свернуть (Esc)" : "Развернуть"}
-          className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-page border border-glass-border text-dim hover:text-body hover:border-[#3B82F6]/40 transition-colors"
+          className="hidden sm:inline-flex items-center justify-center w-8 h-8 rounded-lg bg-page border border-glass-border text-dim hover:text-body hover:border-[#3B82F6]/40 transition-colors"
         >
           {isFullscreen ? (
             <Minimize2 className="w-3.5 h-3.5" />
