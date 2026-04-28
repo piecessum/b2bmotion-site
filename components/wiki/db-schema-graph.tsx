@@ -444,37 +444,59 @@ function DbSchemaGraphInner() {
         })}
       </div>
 
-      {/* Graph canvas */}
+      {/* Graph + (in fullscreen) side panel */}
       <div
-        className={isFullscreen ? "relative bg-page flex-1 min-h-0" : "relative bg-page"}
-        style={isFullscreen ? undefined : { height: "min(70vh, 720px)" }}
+        className={
+          isFullscreen
+            ? "flex flex-1 min-h-0"
+            : undefined
+        }
       >
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          nodeTypes={nodeTypes}
-          onNodeClick={handleNodeClick}
-          onPaneClick={() => setSelected(null)}
-          fitView
-          fitViewOptions={{ padding: 0.15 }}
-          minZoom={0.2}
-          maxZoom={1.6}
-          colorMode={colorMode}
-          proOptions={{ hideAttribution: true }}
-          nodesConnectable={false}
-          nodesFocusable={false}
-          edgesFocusable={false}
+        <div
+          className={
+            isFullscreen
+              ? "relative bg-page flex-1 min-w-0"
+              : "relative bg-page"
+          }
+          style={isFullscreen ? undefined : { height: "min(70vh, 720px)" }}
         >
-          <Background
-            gap={20}
-            color={isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.08)"}
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            nodeTypes={nodeTypes}
+            onNodeClick={handleNodeClick}
+            onPaneClick={() => setSelected(null)}
+            fitView
+            fitViewOptions={{ padding: 0.15 }}
+            minZoom={0.2}
+            maxZoom={1.6}
+            colorMode={colorMode}
+            proOptions={{ hideAttribution: true }}
+            nodesConnectable={false}
+            nodesFocusable={false}
+            edgesFocusable={false}
+          >
+            <Background
+              gap={20}
+              color={isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.08)"}
+            />
+            <Controls showInteractive={false} />
+          </ReactFlow>
+        </div>
+
+        {/* Details — side panel in fullscreen */}
+        {isFullscreen && selectedTable && (
+          <DetailsPanel
+            table={selectedTable}
+            onClose={() => setSelected(null)}
+            onSelect={setSelected}
+            asSide
           />
-          <Controls showInteractive={false} />
-        </ReactFlow>
+        )}
       </div>
 
-      {/* Details */}
-      {selectedTable && (
+      {/* Details — bottom panel when not fullscreen */}
+      {!isFullscreen && selectedTable && (
         <DetailsPanel
           table={selectedTable}
           onClose={() => setSelected(null)}
@@ -494,10 +516,12 @@ function DetailsPanel({
   table,
   onClose,
   onSelect,
+  asSide = false,
 }: {
   table: DbTable;
   onClose: () => void;
   onSelect: (name: string) => void;
+  asSide?: boolean;
 }) {
   const domain = dbDomains.find((d) => d.id === table.domain)!;
   const { outgoing, incoming } = getRelationsFor(table.name);
@@ -505,7 +529,13 @@ function DetailsPanel({
   const outgoingExt = outgoing.filter((r) => !r.self);
 
   return (
-    <div className="px-5 pt-4 pb-5 border-t border-glass-border">
+    <div
+      className={
+        asSide
+          ? "w-[340px] shrink-0 border-l border-glass-border bg-overlay-3 overflow-y-auto p-4"
+          : "px-5 pt-4 pb-5 border-t border-glass-border"
+      }
+    >
       <div
         className="rounded-xl border bg-page p-4"
         style={{ borderColor: `${domain.accent}55` }}
@@ -539,7 +569,11 @@ function DetailsPanel({
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div
+          className={
+            asSide ? "grid grid-cols-1 gap-4" : "grid grid-cols-1 md:grid-cols-2 gap-4"
+          }
+        >
           <RelationList
             title="Ссылается на (outgoing)"
             empty="Нет исходящих FK."
