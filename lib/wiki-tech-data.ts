@@ -1665,20 +1665,14 @@ export const wikiTechArticles: WikiTechArticle[] = [
     "text": [
       {
         "ty": "text",
-        "te": "Структура отражает основные разделы. На самом деле она несколько больше. Подробное описание таблиц и полей к ним в разделе <a href=\"/tpost/nrhf6j2k11-opisanie-polei-shlyuzovih-tablits\" target=\"_blank\" rel=\"noreferrer noopener\">Описание полей шлюзовых таблиц</a>"
+        "te": "Шлюзовая база данных группирует таблицы по нескольким доменам. Используйте интерактивную схему ниже: можно искать таблицу по имени, фильтровать по домену и кликать на таблицу, чтобы подсветить её связи."
       },
       {
-        "ty": "image",
-        "url": "https://static.tildacdn.com/tild3161-6263-4663-a636-623630386232/B2B_gateway_EER_diag.png",
-        "alt": "",
-        "caption": "",
-        "link": "",
-        "blank": "",
-        "w": "1293",
-        "h": "1367",
-        "rh": null,
-        "rw": null,
-        "al": null
+        "ty": "db-schema"
+      },
+      {
+        "ty": "text",
+        "te": "Подробное описание полей каждой таблицы — в статье <a href=\"/wiki/tech/opisanie-poley-shlyuzovykh-tablits\">«Описание полей шлюзовых таблиц»</a>."
       }
     ]
   },

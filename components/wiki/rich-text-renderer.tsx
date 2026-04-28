@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { DbSchemaDiagram } from "@/components/wiki/db-schema-diagram";
 
 interface TextBlock {
   ty: string;
@@ -98,6 +99,48 @@ export function RichTextRenderer({ content }: RichTextRendererProps) {
                 dangerouslySetInnerHTML={renderHTML(block.te || "")}
               />
             );
+
+          case "heading": {
+            const level = (block.le as number) || 2;
+            const html = renderHTML(block.te || "");
+            if (level <= 2) {
+              return (
+                <h2
+                  key={index}
+                  className="font-heading font-semibold text-2xl text-heading mt-8 mb-3"
+                  dangerouslySetInnerHTML={html}
+                />
+              );
+            }
+            if (level === 3) {
+              return (
+                <h3
+                  key={index}
+                  className="font-heading font-semibold text-xl text-heading mt-6 mb-2"
+                  dangerouslySetInnerHTML={html}
+                />
+              );
+            }
+            return (
+              <h4
+                key={index}
+                className="font-heading font-semibold text-base text-heading mt-5 mb-2"
+                dangerouslySetInnerHTML={html}
+              />
+            );
+          }
+
+          case "preface":
+            return (
+              <p
+                key={index}
+                className="text-base text-subtle leading-relaxed italic"
+                dangerouslySetInnerHTML={renderHTML(block.te || "")}
+              />
+            );
+
+          case "db-schema":
+            return <DbSchemaDiagram key={index} />;
 
           default:
             return null;
