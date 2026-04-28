@@ -35,6 +35,7 @@ import {
   dbTables,
   getAllRelations,
   getRelationsFor,
+  getTableDescription,
   type DbField,
   type DbTable,
   type DomainId,
@@ -543,6 +544,7 @@ function DetailsPanel({
   const { outgoing, incoming } = getRelationsFor(table.name);
   const selfRefs = outgoing.filter((r) => r.self);
   const outgoingExt = outgoing.filter((r) => !r.self);
+  const description = getTableDescription(table.name);
 
   return (
     <div
@@ -584,6 +586,23 @@ function DetailsPanel({
             <X className="w-4 h-4" />
           </button>
         </div>
+
+        {description && (
+          <div className="mb-4 space-y-2">
+            <p className="text-[12.5px] text-body leading-relaxed">
+              {description.desc}
+            </p>
+            {description.notes?.map((note, i) => (
+              <p
+                key={i}
+                className="text-[11.5px] text-subtle leading-relaxed border-l-2 pl-3 py-0.5"
+                style={{ borderColor: `${domain.accent}66` }}
+              >
+                {note}
+              </p>
+            ))}
+          </div>
+        )}
 
         <div
           className={
