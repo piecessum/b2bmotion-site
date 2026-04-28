@@ -1,5 +1,19 @@
 import Image from "next/image";
 import { DbSchemaBlock } from "@/components/wiki/db-schema-block";
+import { DbFieldsTable } from "@/components/wiki/db-fields-table";
+import { getTable } from "@/lib/wiki-db-schema";
+
+/**
+ * Из заголовка вида «name - описание» / «name — описание» / «name» вытащить
+ * первый токен и проверить, что это известная шлюзовая таблица.
+ */
+function tableNameFromHeading(heading: string | undefined): string | null {
+  if (!heading) return null;
+  const stripped = heading.replace(/<[^>]+>/g, "").trim();
+  const first = stripped.split(/\s+[-—–]\s+|\s+/, 1)[0]?.trim();
+  if (!first) return null;
+  return getTable(first) ? first : null;
+}
 
 interface TextBlock {
   ty: string;
@@ -38,9 +52,16 @@ export function RichTextRenderer({ content }: RichTextRendererProps) {
     );
   }
 
+  // Запоминаем последний встретившийся заголовок, чтобы при image-блоке
+  // решить, не подменить ли скриншот таблицы на структурированную таблицу полей.
+  let lastHeadingText: string | undefined;
+
   return (
     <div className="space-y-6">
       {content.map((block, index) => {
+        if (block.ty === "heading" || block.ty === "header") {
+          lastHeadingText = block.te;
+        }
         switch (block.ty) {
           case "text":
             return (
@@ -66,8 +87,12 @@ export function RichTextRenderer({ content }: RichTextRendererProps) {
               </div>
             );
 
-          case "image":
+          case "image": {
             if (!block.url) return null;
+            const tableName = tableNameFromHeading(lastHeadingText);
+            if (tableName) {
+              return <DbFieldsTable key={index} name={tableName} />;
+            }
             return (
               <div key={index} className="my-6">
                 <div className="relative w-full overflow-hidden rounded-xl bg-surface-inner">
@@ -87,6 +112,7 @@ export function RichTextRenderer({ content }: RichTextRendererProps) {
                 )}
               </div>
             );
+          }
 
           case "br":
             return <div key={index} className="h-4" />;
