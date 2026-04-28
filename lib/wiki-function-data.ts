@@ -410,7 +410,7 @@ export const wikiFunctionArticles: WikiFunctionArticle[] = [
   {
     "id": "pz91ebtee1",
     "title": "Оплата",
-    "category": "Без категории",
+    "category": "Модуль оплаты",
     "image": "",
     "slug": "oplata",
     "text": []
