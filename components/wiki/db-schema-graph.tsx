@@ -391,6 +391,7 @@ function DbSchemaGraphInner() {
           fitViewOptions={{ padding: 0.15 }}
           minZoom={0.2}
           maxZoom={1.6}
+          colorMode="dark"
           proOptions={{ hideAttribution: true }}
           nodesConnectable={false}
           nodesFocusable={false}
