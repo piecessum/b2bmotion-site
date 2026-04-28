@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { DbSchemaDiagram } from "@/components/wiki/db-schema-diagram";
+import { DbSchemaBlock } from "@/components/wiki/db-schema-block";
 
 interface TextBlock {
   ty: string;
@@ -140,7 +140,7 @@ export function RichTextRenderer({ content }: RichTextRendererProps) {
             );
 
           case "db-schema":
-            return <DbSchemaDiagram key={index} />;
+            return <DbSchemaBlock key={index} />;
 
           default:
             return null;

@@ -1,25 +1,196 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { Search, X, Database, Filter, Key, Link2, ArrowRight } from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  ReactFlow,
+  Background,
+  Controls,
+  MarkerType,
+  type Edge,
+  type Node,
+  type NodeProps,
+  Handle,
+  Position,
+  ReactFlowProvider,
+  useReactFlow,
+} from "@xyflow/react";
+import dagre from "@dagrejs/dagre";
+import "@xyflow/react/dist/style.css";
+
+import { Search, X, Filter, Database, Key, Link2, ArrowRight } from "lucide-react";
 import {
   dbDomains,
   dbTables,
-  getRelationsFor,
   getAllRelations,
-  type DbTable,
+  getRelationsFor,
   type DbField,
+  type DbTable,
   type DomainId,
 } from "@/lib/wiki-db-schema";
 
-export function DbSchemaDiagram() {
+const NODE_WIDTH = 280;
+const FIELD_HEIGHT = 22;
+const HEADER_HEIGHT = 36;
+
+function nodeHeight(t: DbTable): number {
+  return HEADER_HEIGHT + t.fields.length * FIELD_HEIGHT + 6;
+}
+
+function buildLayout(tables: DbTable[]): {
+  nodes: Node<TableNodeData>[];
+  edges: Edge[];
+} {
+  const g = new dagre.graphlib.Graph();
+  g.setGraph({ rankdir: "LR", nodesep: 30, ranksep: 90 });
+  g.setDefaultEdgeLabel(() => ({}));
+
+  for (const t of tables) {
+    g.setNode(t.name, { width: NODE_WIDTH, height: nodeHeight(t) });
+  }
+
+  const visibleNames = new Set(tables.map((t) => t.name));
+  const allRels = getAllRelations().filter(
+    (r) => visibleNames.has(r.from) && visibleNames.has(r.to) && !r.self,
+  );
+
+  for (const r of allRels) {
+    g.setEdge(r.from, r.to, { id: `${r.from}-${r.via}-${r.to}` });
+  }
+
+  dagre.layout(g);
+
+  const nodes: Node<TableNodeData>[] = tables.map((t) => {
+    const pos = g.node(t.name);
+    return {
+      id: t.name,
+      type: "table",
+      position: {
+        x: pos.x - NODE_WIDTH / 2,
+        y: pos.y - nodeHeight(t) / 2,
+      },
+      data: { table: t },
+      width: NODE_WIDTH,
+      height: nodeHeight(t),
+      draggable: true,
+    };
+  });
+
+  const edges: Edge[] = allRels.map((r) => ({
+    id: `${r.from}-${r.via}-${r.to}`,
+    source: r.from,
+    target: r.to,
+    label: r.via,
+    type: "smoothstep",
+    animated: false,
+    markerEnd: { type: MarkerType.ArrowClosed, width: 14, height: 14 },
+    labelBgPadding: [4, 2],
+    labelBgBorderRadius: 4,
+    labelStyle: {
+      fontFamily:
+        "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+      fontSize: 10,
+    },
+    style: { strokeWidth: 1.2 },
+  }));
+
+  return { nodes, edges };
+}
+
+interface TableNodeData {
+  table: DbTable;
+  [key: string]: unknown;
+}
+
+function TableNode({ data, selected }: NodeProps<Node<TableNodeData>>) {
+  const t = data.table;
+  const domain = dbDomains.find((d) => d.id === t.domain)!;
+  return (
+    <div
+      className="rounded-lg overflow-hidden bg-page border shadow-sm"
+      style={{
+        width: NODE_WIDTH,
+        borderColor: selected ? domain.accent : "rgba(255,255,255,0.08)",
+        boxShadow: selected ? `0 0 0 2px ${domain.accent}` : undefined,
+      }}
+    >
+      <Handle
+        type="target"
+        position={Position.Left}
+        style={{ opacity: 0, pointerEvents: "none" }}
+      />
+      <Handle
+        type="source"
+        position={Position.Right}
+        style={{ opacity: 0, pointerEvents: "none" }}
+      />
+      <div
+        className="flex items-center gap-2 px-2.5 border-b border-glass-border"
+        style={{
+          backgroundColor: `${domain.accent}1c`,
+          height: HEADER_HEIGHT,
+        }}
+      >
+        <span
+          className="w-2 h-2 rounded-full shrink-0"
+          style={{ backgroundColor: domain.accent }}
+        />
+        <code className="font-mono font-semibold text-[12.5px] text-heading truncate">
+          {t.name}
+        </code>
+        {t.optional && (
+          <span className="ml-auto text-[9px] uppercase tracking-wider text-dim">
+            опц.
+          </span>
+        )}
+      </div>
+      <ul className="py-0.5">
+        {t.fields.map((f) => (
+          <li
+            key={f.name}
+            className="flex items-center gap-1.5 px-2.5"
+            style={{ height: FIELD_HEIGHT }}
+          >
+            <span className="w-3 shrink-0 flex items-center justify-center">
+              {f.kind === "PK" || f.kind === "PFK" ? (
+                <Key className="w-3 h-3 text-[#F59E0B]" />
+              ) : f.kind === "FK" ? (
+                <Link2 className="w-3 h-3 text-[#3B82F6]" />
+              ) : (
+                <span className="w-1 h-1 rounded-full bg-dim" />
+              )}
+            </span>
+            <code className="font-mono text-[10.5px] text-body flex-1 truncate">
+              {f.name}
+            </code>
+            <code className="font-mono text-[9.5px] text-dim shrink-0">
+              {f.type}
+            </code>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+const nodeTypes = { table: TableNode };
+
+export function DbSchemaGraph() {
+  return (
+    <ReactFlowProvider>
+      <DbSchemaGraphInner />
+    </ReactFlowProvider>
+  );
+}
+
+function DbSchemaGraphInner() {
   const [query, setQuery] = useState("");
   const [activeDomain, setActiveDomain] = useState<DomainId | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const { fitView, setCenter, getNode } = useReactFlow();
 
   const q = query.trim().toLowerCase();
 
-  const filtered = useMemo(() => {
+  const visibleTables = useMemo(() => {
     return dbTables.filter((t) => {
       if (activeDomain && t.domain !== activeDomain) return false;
       if (!q) return true;
@@ -27,6 +198,11 @@ export function DbSchemaDiagram() {
       return t.fields.some((f) => f.name.toLowerCase().includes(q));
     });
   }, [q, activeDomain]);
+
+  const { nodes: layoutNodes, edges: layoutEdges } = useMemo(
+    () => buildLayout(visibleTables),
+    [visibleTables],
+  );
 
   const relatedNames = useMemo(() => {
     if (!selected) return new Set<string>();
@@ -36,6 +212,79 @@ export function DbSchemaDiagram() {
     incoming.forEach((r) => names.add(r.from));
     return names;
   }, [selected]);
+
+  // Highlight selected and related: dim other nodes/edges via styles.
+  const nodes: Node<TableNodeData>[] = useMemo(() => {
+    return layoutNodes.map((n) => {
+      const isSelected = n.id === selected;
+      const isRelated = relatedNames.has(n.id);
+      const isDimmed = !!selected && !isSelected && !isRelated;
+      return {
+        ...n,
+        selected: isSelected,
+        style: {
+          ...(n.style || {}),
+          opacity: isDimmed ? 0.25 : 1,
+          transition: "opacity 0.2s",
+        },
+      };
+    });
+  }, [layoutNodes, selected, relatedNames]);
+
+  const edges: Edge[] = useMemo(() => {
+    return layoutEdges.map((e) => {
+      const involves = !!selected && (e.source === selected || e.target === selected);
+      const isDimmed = !!selected && !involves;
+      const accentSrc = dbTables.find((t) => t.name === e.source);
+      const accent = accentSrc
+        ? dbDomains.find((d) => d.id === accentSrc.domain)?.accent
+        : undefined;
+      return {
+        ...e,
+        style: {
+          ...(e.style || {}),
+          stroke: involves ? accent || "#3B82F6" : "var(--db-edge, #4b5563)",
+          strokeWidth: involves ? 1.8 : 1.1,
+          opacity: isDimmed ? 0.15 : 0.85,
+          transition: "opacity 0.2s, stroke 0.2s",
+        },
+        labelStyle: {
+          ...(e.labelStyle || {}),
+          fill: involves ? "#fff" : "rgba(255,255,255,0.7)",
+        },
+        labelBgStyle: {
+          fill: involves ? accent || "#3B82F6" : "rgba(0,0,0,0.55)",
+        },
+      };
+    });
+  }, [layoutEdges, selected]);
+
+  const handleNodeClick = useCallback(
+    (_: React.MouseEvent, node: Node) => {
+      setSelected((prev) => (prev === node.id ? null : node.id));
+    },
+    [],
+  );
+
+  // Re-fit view when filter changes
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      fitView({ duration: 250, padding: 0.15 });
+    }, 50);
+    return () => window.clearTimeout(id);
+  }, [visibleTables.length, fitView]);
+
+  // Center on selected node
+  useEffect(() => {
+    if (!selected) return;
+    const node = getNode(selected);
+    if (!node) return;
+    setCenter(
+      (node.position.x ?? 0) + NODE_WIDTH / 2,
+      (node.position.y ?? 0) + (node.height ?? 100) / 2,
+      { zoom: 1, duration: 350 },
+    );
+  }, [selected, getNode, setCenter]);
 
   const totals = {
     tables: dbTables.length,
@@ -82,7 +331,7 @@ export function DbSchemaDiagram() {
         </div>
       </div>
 
-      {/* Domain filter chips */}
+      {/* Domain chips */}
       <div className="flex flex-wrap items-center gap-1.5 px-5 py-3 border-b border-glass-border">
         <Filter className="w-3 h-3 text-dim mr-1" />
         <button
@@ -127,30 +376,32 @@ export function DbSchemaDiagram() {
         })}
       </div>
 
-      {/* Body */}
-      <div className="p-4 sm:p-5">
-        {filtered.length === 0 ? (
-          <p className="text-sm text-dim text-center py-8">
-            Ничего не нашлось.
-          </p>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-            {filtered.map((t) => (
-              <TableCard
-                key={t.name}
-                table={t}
-                selected={selected === t.name}
-                related={relatedNames.has(t.name)}
-                fieldQuery={q}
-                onSelect={(name) =>
-                  setSelected(selected === name ? null : name)
-                }
-              />
-            ))}
-          </div>
-        )}
+      {/* Graph canvas */}
+      <div
+        className="relative bg-page"
+        style={{ height: "min(70vh, 720px)" }}
+      >
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          nodeTypes={nodeTypes}
+          onNodeClick={handleNodeClick}
+          onPaneClick={() => setSelected(null)}
+          fitView
+          fitViewOptions={{ padding: 0.15 }}
+          minZoom={0.2}
+          maxZoom={1.6}
+          proOptions={{ hideAttribution: true }}
+          nodesConnectable={false}
+          nodesFocusable={false}
+          edgesFocusable={false}
+        >
+          <Background gap={20} color="rgba(255,255,255,0.06)" />
+          <Controls showInteractive={false} />
+        </ReactFlow>
       </div>
 
+      {/* Details */}
       {selectedTable && (
         <DetailsPanel
           table={selectedTable}
@@ -159,99 +410,11 @@ export function DbSchemaDiagram() {
         />
       )}
 
-      <p className="px-5 pb-4 text-[11px] text-dim leading-relaxed">
-        Кликните по таблице — будут подсвечены все таблицы, связанные с ней по FK.
-        В панели деталей видны связи с указанием ключа.
+      <p className="px-5 py-3 text-[11px] text-dim leading-relaxed border-t border-glass-border">
+        Прокрутка — масштаб, перетаскивание мышью — пан. Клик по таблице —
+        подсветить связанные. Клик в пустую область — сбросить.
       </p>
     </div>
-  );
-}
-
-function TableCard({
-  table,
-  selected,
-  related,
-  fieldQuery,
-  onSelect,
-}: {
-  table: DbTable;
-  selected: boolean;
-  related: boolean;
-  fieldQuery: string;
-  onSelect: (name: string) => void;
-}) {
-  const domain = dbDomains.find((d) => d.id === table.domain)!;
-  const ringStyle: React.CSSProperties = selected
-    ? { boxShadow: `0 0 0 2px ${domain.accent}` }
-    : related
-      ? { boxShadow: `0 0 0 1px ${domain.accent}88` }
-      : {};
-
-  return (
-    <button
-      type="button"
-      onClick={() => onSelect(table.name)}
-      className={`group text-left rounded-xl bg-page border border-glass-border overflow-hidden transition-all ${
-        selected ? "" : "hover:border-[#3B82F6]/30"
-      }`}
-      style={ringStyle}
-    >
-      <header
-        className="flex items-center justify-between gap-2 px-3 py-2 border-b border-glass-border"
-        style={{ backgroundColor: `${domain.accent}12` }}
-      >
-        <div className="flex items-center gap-2 min-w-0">
-          <span
-            className="w-2 h-2 rounded-full shrink-0"
-            style={{ backgroundColor: domain.accent }}
-          />
-          <code className="font-mono font-semibold text-[13px] text-heading truncate">
-            {table.name}
-          </code>
-        </div>
-        {table.optional && (
-          <span className="text-[9px] uppercase tracking-wider text-dim shrink-0">
-            опц.
-          </span>
-        )}
-      </header>
-      <ul className="divide-y divide-[var(--glass-border,rgba(255,255,255,0.05))]">
-        {table.fields.map((f) => (
-          <FieldRow key={f.name} field={f} highlight={fieldQuery} />
-        ))}
-      </ul>
-    </button>
-  );
-}
-
-function FieldRow({
-  field,
-  highlight,
-}: {
-  field: DbField;
-  highlight: string;
-}) {
-  const isMatch =
-    !!highlight && field.name.toLowerCase().includes(highlight.toLowerCase());
-
-  return (
-    <li
-      className={`flex items-center gap-2 px-3 py-1 text-[11.5px] ${
-        isMatch ? "bg-[#3B82F6]/[0.08]" : ""
-      }`}
-    >
-      <span className="w-3 shrink-0 flex items-center justify-center">
-        {field.kind === "PK" || field.kind === "PFK" ? (
-          <Key className="w-3 h-3 text-[#F59E0B]" aria-label="PK" />
-        ) : field.kind === "FK" ? (
-          <Link2 className="w-3 h-3 text-[#3B82F6]" aria-label="FK" />
-        ) : (
-          <span className="w-1 h-1 rounded-full bg-dim" />
-        )}
-      </span>
-      <code className="font-mono text-body flex-1 truncate">{field.name}</code>
-      <code className="font-mono text-[10.5px] text-dim shrink-0">{field.type}</code>
-    </li>
   );
 }
 
@@ -270,7 +433,7 @@ function DetailsPanel({
   const outgoingExt = outgoing.filter((r) => !r.self);
 
   return (
-    <div className="px-5 pb-5">
+    <div className="px-5 pt-4 pb-5 border-t border-glass-border">
       <div
         className="rounded-xl border bg-page p-4"
         style={{ borderColor: `${domain.accent}55` }}
@@ -312,7 +475,6 @@ function DetailsPanel({
               srcField: r.via,
               dst: r.to,
               dstField: "id",
-              direction: "out" as const,
             }))}
             onSelect={onSelect}
           />
@@ -324,7 +486,6 @@ function DetailsPanel({
               srcField: r.via,
               dst: table.name,
               dstField: "id",
-              direction: "in" as const,
             }))}
             onSelect={onSelect}
           />
@@ -356,13 +517,7 @@ function RelationList({
 }: {
   title: string;
   empty: string;
-  relations: Array<{
-    src: string;
-    srcField: string;
-    dst: string;
-    dstField: string;
-    direction: "in" | "out";
-  }>;
+  relations: Array<{ src: string; srcField: string; dst: string; dstField: string }>;
   onSelect: (name: string) => void;
 }) {
   return (
@@ -376,16 +531,16 @@ function RelationList({
       ) : (
         <ul className="space-y-1">
           {relations.map((r, i) => {
-            const targetTable = r.direction === "out" ? r.dst : r.src;
-            const targetDomain = (() => {
-              const t = dbTables.find((x) => x.name === targetTable);
-              return t ? dbDomains.find((d) => d.id === t.domain) : null;
-            })();
+            const t = dbTables.find((x) =>
+              x.name === (r.src === relations[0].src ? r.dst : r.src),
+            );
+            const targetDomain = t ? dbDomains.find((d) => d.id === t.domain) : null;
+            const targetName = t?.name || r.dst;
             return (
               <li key={i}>
                 <button
                   type="button"
-                  onClick={() => onSelect(targetTable)}
+                  onClick={() => onSelect(targetName)}
                   className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md bg-overlay-3 border border-glass-border hover:border-[#3B82F6]/30 hover:bg-overlay-4 transition-colors text-left"
                 >
                   {targetDomain && (
