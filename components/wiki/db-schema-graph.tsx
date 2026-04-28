@@ -1,11 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useTheme } from "next-themes";
 import {
   ReactFlow,
   Background,
   Controls,
   MarkerType,
+  type ColorMode,
   type Edge,
   type Node,
   type NodeProps,
@@ -17,7 +19,15 @@ import {
 import dagre from "@dagrejs/dagre";
 import "@xyflow/react/dist/style.css";
 
-import { Search, X, Filter, Database, Key, Link2, ArrowRight } from "lucide-react";
+import {
+  Search,
+  X,
+  Filter,
+  Database,
+  Key,
+  Link2,
+  ArrowRight,
+} from "lucide-react";
 import {
   dbDomains,
   dbTables,
@@ -109,7 +119,7 @@ function TableNode({ data, selected }: NodeProps<Node<TableNodeData>>) {
       className="rounded-lg overflow-hidden bg-page border shadow-sm"
       style={{
         width: NODE_WIDTH,
-        borderColor: selected ? domain.accent : "rgba(255,255,255,0.08)",
+        borderColor: selected ? domain.accent : "var(--glass-border)",
         boxShadow: selected ? `0 0 0 2px ${domain.accent}` : undefined,
       }}
     >
@@ -187,6 +197,11 @@ function DbSchemaGraphInner() {
   const [activeDomain, setActiveDomain] = useState<DomainId | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
   const { fitView, setCenter, getNode } = useReactFlow();
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const isDark = mounted ? resolvedTheme !== "light" : true;
+  const colorMode: ColorMode = isDark ? "dark" : "light";
 
   const q = query.trim().toLowerCase();
 
@@ -233,38 +248,41 @@ function DbSchemaGraphInner() {
 
   const edges: Edge[] = useMemo(() => {
     return layoutEdges.map((e) => {
-      const involves = !!selected && (e.source === selected || e.target === selected);
+      const involves =
+        !!selected && (e.source === selected || e.target === selected);
       const isDimmed = !!selected && !involves;
       const accentSrc = dbTables.find((t) => t.name === e.source);
       const accent = accentSrc
         ? dbDomains.find((d) => d.id === accentSrc.domain)?.accent
         : undefined;
+      const idleStroke = isDark ? "rgba(255,255,255,0.22)" : "rgba(0,0,0,0.22)";
+      const idleLabelFill = isDark
+        ? "rgba(255,255,255,0.78)"
+        : "rgba(255,255,255,0.95)";
+      const idleLabelBg = isDark ? "rgba(0,0,0,0.55)" : "rgba(15,23,42,0.7)";
       return {
         ...e,
         style: {
           ...(e.style || {}),
-          stroke: involves ? accent || "#3B82F6" : "var(--db-edge, #4b5563)",
+          stroke: involves ? accent || "#3B82F6" : idleStroke,
           strokeWidth: involves ? 1.8 : 1.1,
           opacity: isDimmed ? 0.15 : 0.85,
           transition: "opacity 0.2s, stroke 0.2s",
         },
         labelStyle: {
           ...(e.labelStyle || {}),
-          fill: involves ? "#fff" : "rgba(255,255,255,0.7)",
+          fill: involves ? "#fff" : idleLabelFill,
         },
         labelBgStyle: {
-          fill: involves ? accent || "#3B82F6" : "rgba(0,0,0,0.55)",
+          fill: involves ? accent || "#3B82F6" : idleLabelBg,
         },
       };
     });
-  }, [layoutEdges, selected]);
+  }, [layoutEdges, selected, isDark]);
 
-  const handleNodeClick = useCallback(
-    (_: React.MouseEvent, node: Node) => {
-      setSelected((prev) => (prev === node.id ? null : node.id));
-    },
-    [],
-  );
+  const handleNodeClick = useCallback((_: React.MouseEvent, node: Node) => {
+    setSelected((prev) => (prev === node.id ? null : node.id));
+  }, []);
 
   // Re-fit view when filter changes
   useEffect(() => {
@@ -292,7 +310,9 @@ function DbSchemaGraphInner() {
     domains: dbDomains.length,
   };
 
-  const selectedTable = selected ? dbTables.find((t) => t.name === selected) : null;
+  const selectedTable = selected
+    ? dbTables.find((t) => t.name === selected)
+    : null;
 
   return (
     <div className="not-prose my-8 rounded-2xl bg-overlay-3 border border-glass-border overflow-hidden">
@@ -305,7 +325,8 @@ function DbSchemaGraphInner() {
           </span>
         </div>
         <span className="text-[11px] text-dim">
-          {totals.tables} таблиц · {totals.relations} связей · {totals.domains} доменов
+          {totals.tables} таблиц · {totals.relations} связей · {totals.domains}{" "}
+          доменов
         </span>
         <div className="flex-1 min-w-[160px] sm:max-w-[280px] sm:ml-auto">
           <div className="relative">
@@ -377,10 +398,7 @@ function DbSchemaGraphInner() {
       </div>
 
       {/* Graph canvas */}
-      <div
-        className="relative bg-page"
-        style={{ height: "min(70vh, 720px)" }}
-      >
+      <div className="relative bg-page" style={{ height: "min(70vh, 720px)" }}>
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -391,13 +409,16 @@ function DbSchemaGraphInner() {
           fitViewOptions={{ padding: 0.15 }}
           minZoom={0.2}
           maxZoom={1.6}
-          colorMode="dark"
+          colorMode={colorMode}
           proOptions={{ hideAttribution: true }}
           nodesConnectable={false}
           nodesFocusable={false}
           edgesFocusable={false}
         >
-          <Background gap={20} color="rgba(255,255,255,0.06)" />
+          <Background
+            gap={20}
+            color={isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.08)"}
+          />
           <Controls showInteractive={false} />
         </ReactFlow>
       </div>
@@ -454,7 +475,8 @@ function DetailsPanel({
               {table.name}
             </code>
             <p className="text-[11px] text-dim mt-1 tabular-nums">
-              {table.fields.length} полей · {outgoing.length + incoming.length} связей
+              {table.fields.length} полей · {outgoing.length + incoming.length}{" "}
+              связей
             </p>
           </div>
           <button
@@ -518,7 +540,12 @@ function RelationList({
 }: {
   title: string;
   empty: string;
-  relations: Array<{ src: string; srcField: string; dst: string; dstField: string }>;
+  relations: Array<{
+    src: string;
+    srcField: string;
+    dst: string;
+    dstField: string;
+  }>;
   onSelect: (name: string) => void;
 }) {
   return (
@@ -532,10 +559,12 @@ function RelationList({
       ) : (
         <ul className="space-y-1">
           {relations.map((r, i) => {
-            const t = dbTables.find((x) =>
-              x.name === (r.src === relations[0].src ? r.dst : r.src),
+            const t = dbTables.find(
+              (x) => x.name === (r.src === relations[0].src ? r.dst : r.src),
             );
-            const targetDomain = t ? dbDomains.find((d) => d.id === t.domain) : null;
+            const targetDomain = t
+              ? dbDomains.find((d) => d.id === t.domain)
+              : null;
             const targetName = t?.name || r.dst;
             return (
               <li key={i}>
