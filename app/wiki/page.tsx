@@ -8,7 +8,6 @@ import {
   Phone,
 } from "lucide-react";
 import { WikiShell } from "@/components/wiki/wiki-shell";
-import { WikiSearch } from "@/components/wiki/wiki-search";
 import {
   wikiSections,
   onboardingSteps,
@@ -44,15 +43,13 @@ export default function WikiLandingPage() {
         <p className="mt-3 max-w-2xl text-base text-subtle">
           Руководства, инструкции и справочные материалы для команды клиента и
           новых сотрудников. {totalArticles} статей в {totalCategories}{" "}
-          категориях — пользуйтесь оглавлением слева или поиском.
+          категориях — пользуйтесь оглавлением слева или поиском в нём же
+          (доступен по{" "}
+          <kbd className="inline-flex items-center gap-0.5 px-1.5 py-0.5 mx-0.5 rounded text-[11px] font-medium bg-overlay-4 border border-glass-border text-body align-baseline">
+            ⌘K
+          </kbd>{" "}
+          с любой страницы).
         </p>
-
-        <div className="mt-6 max-w-xl">
-          <WikiSearch
-            variant="input"
-            placeholder="Поиск по всем разделам — заголовок, категория, текст…"
-          />
-        </div>
       </header>
 
       {/* "С чего начать" */}

@@ -1,11 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { WikiSidebar } from "@/components/wiki/wiki-sidebar";
-import { WikiSearch } from "@/components/wiki/wiki-search";
+import {
+  WikiSearchTrigger,
+  WikiSearchModal,
+} from "@/components/wiki/wiki-search";
 import type { SectionId } from "@/lib/wiki-tree";
 
 interface WikiShellProps {
@@ -22,6 +25,10 @@ export function WikiShell({
   activeArticleSlug,
 }: WikiShellProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  const openSearch = useCallback(() => setSearchOpen(true), []);
+  const closeSearch = useCallback(() => setSearchOpen(false), []);
 
   // Close drawer on escape
   useEffect(() => {
@@ -44,6 +51,18 @@ export function WikiShell({
     }
   }, [drawerOpen]);
 
+  // Single Cmd/Ctrl + K listener for the whole shell
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
   return (
     <main className="relative min-h-screen bg-page noise-overlay">
       <Navbar />
@@ -61,7 +80,7 @@ export function WikiShell({
             Оглавление
           </button>
           <div className="flex-1 min-w-0">
-            <WikiSearch variant="trigger" placeholder="Поиск…" />
+            <WikiSearchTrigger onOpen={openSearch} placeholder="Поиск…" />
           </div>
         </div>
 
@@ -70,7 +89,7 @@ export function WikiShell({
           <aside className="hidden lg:block w-[280px] shrink-0">
             <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-3 pb-10">
               <div className="mb-4">
-                <WikiSearch variant="trigger" placeholder="Поиск…" />
+                <WikiSearchTrigger onOpen={openSearch} placeholder="Поиск…" />
               </div>
               <WikiSidebar
                 activeSection={activeSection}
@@ -116,6 +135,9 @@ export function WikiShell({
           </aside>
         </div>
       )}
+
+      {/* Single global search modal */}
+      <WikiSearchModal open={searchOpen} onClose={closeSearch} />
 
       <Footer />
     </main>

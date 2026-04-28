@@ -15,34 +15,44 @@ import {
   type WikiSearchResult,
 } from "@/lib/wiki-tree";
 
-interface WikiSearchProps {
-  /** Compact trigger style (header bar), or full input (sidebar/landing) */
-  variant?: "trigger" | "input";
+/* ── Trigger button (stateless) ── */
+
+interface WikiSearchTriggerProps {
+  onOpen: () => void;
   className?: string;
   placeholder?: string;
 }
 
-export function WikiSearch({
-  variant = "input",
+export function WikiSearchTrigger({
+  onOpen,
   className,
   placeholder = "Поиск по базе знаний…",
-}: WikiSearchProps) {
-  const [open, setOpen] = useState(false);
+}: WikiSearchTriggerProps) {
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      className={`group flex items-center gap-2.5 w-full px-3.5 py-2 rounded-xl bg-overlay-3 border border-glass-border text-sm text-dim hover:text-body hover:border-[#3B82F6]/30 transition-colors ${className ?? ""}`}
+    >
+      <Search className="w-4 h-4 shrink-0" />
+      <span className="flex-1 text-left truncate">{placeholder}</span>
+      <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-medium bg-overlay-4 border border-glass-border text-dim">
+        <Command className="w-3 h-3" /> K
+      </kbd>
+    </button>
+  );
+}
+
+/* ── Modal (controlled) ── */
+
+interface WikiSearchModalProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+export function WikiSearchModal({ open, onClose }: WikiSearchModalProps) {
   const [query, setQuery] = useState("");
 
-  // Open via Cmd/Ctrl + K
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        setOpen(true);
-      }
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
-
-  // Lock body scroll when modal open
   useEffect(() => {
     if (open) {
       const orig = document.body.style.overflow;
@@ -53,48 +63,16 @@ export function WikiSearch({
     }
   }, [open]);
 
-  return (
-    <>
-      {variant === "trigger" ? (
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          className={`group flex items-center gap-2.5 w-full px-3.5 py-2 rounded-xl bg-overlay-3 border border-glass-border text-sm text-dim hover:text-body hover:border-[#3B82F6]/30 transition-colors ${className ?? ""}`}
-        >
-          <Search className="w-4 h-4 shrink-0" />
-          <span className="flex-1 text-left truncate">{placeholder}</span>
-          <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-medium bg-overlay-4 border border-glass-border text-dim">
-            <Command className="w-3 h-3" /> K
-          </kbd>
-        </button>
-      ) : (
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          className={`group relative w-full text-left ${className ?? ""}`}
-        >
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-dim" />
-          <span className="block w-full pl-11 pr-16 py-3 bg-overlay-3 rounded-xl border border-glass-border text-sm text-dim group-hover:border-[#3B82F6]/30 transition-colors">
-            {placeholder}
-          </span>
-          <kbd className="hidden sm:inline-flex absolute right-3 top-1/2 -translate-y-1/2 items-center gap-0.5 px-1.5 py-0.5 rounded text-[10px] font-medium bg-overlay-4 border border-glass-border text-dim">
-            <Command className="w-3 h-3" /> K
-          </kbd>
-        </button>
-      )}
+  // reset query whenever modal closes
+  useEffect(() => {
+    if (!open) setQuery("");
+  }, [open]);
 
-      {open && (
-        <SearchModal
-          query={query}
-          onQueryChange={setQuery}
-          onClose={() => setOpen(false)}
-        />
-      )}
-    </>
-  );
+  if (!open) return null;
+  return <ModalBody query={query} onQueryChange={setQuery} onClose={onClose} />;
 }
 
-function SearchModal({
+function ModalBody({
   query,
   onQueryChange,
   onClose,
