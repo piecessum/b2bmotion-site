@@ -5,3 +5,7 @@ out/
 .env.local
 .DS_Store
 *.tsbuildinfo
+
+# Удалённые превью новостей — больше не нужны
+/public/images/news/10-let-platforme.jpg
+/public/images/news/seo.jpg
