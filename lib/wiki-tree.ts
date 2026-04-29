@@ -159,7 +159,7 @@ const SECTIONS_META: Record<
   },
   tech: {
     title: "Технические сведения",
-    shortTitle: "Техника",
+    shortTitle: "Технические сведения",
     description:
       "Интеграции, API, шлюзовые таблицы и другие технические аспекты внедрения.",
     accent: "#10B981",
