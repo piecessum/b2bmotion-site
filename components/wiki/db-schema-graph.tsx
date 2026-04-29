@@ -322,6 +322,20 @@ function DbSchemaGraphInner() {
     setSelected((prev) => (prev === node.id ? null : node.id));
   }, []);
 
+  // При навигации по связям из боковой панели: если целевая таблица не
+  // попадает под текущий фильтр домена — сбрасываем фильтр, чтобы узел
+  // действительно появился в графе.
+  const selectAndNavigate = useCallback(
+    (name: string) => {
+      const target = dbTables.find((t) => t.name === name);
+      if (target && activeDomain && target.domain !== activeDomain) {
+        setActiveDomain(null);
+      }
+      setSelected(name);
+    },
+    [activeDomain],
+  );
+
   // Re-fit view when filter changes
   useEffect(() => {
     const id = window.setTimeout(() => {
@@ -506,7 +520,7 @@ function DbSchemaGraphInner() {
           <DetailsPanel
             table={selectedTable}
             onClose={() => setSelected(null)}
-            onSelect={setSelected}
+            onSelect={selectAndNavigate}
             asSide
           />
         )}
@@ -517,7 +531,7 @@ function DbSchemaGraphInner() {
         <DetailsPanel
           table={selectedTable}
           onClose={() => setSelected(null)}
-          onSelect={setSelected}
+          onSelect={selectAndNavigate}
         />
       )}
 
