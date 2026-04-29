@@ -328,7 +328,7 @@ export function Stories() {
 
           {/* Story content */}
           <div
-            className="relative w-full h-full md:max-w-[420px] md:max-h-[90vh] mx-auto flex flex-col select-none md:rounded-[12px] md:overflow-hidden"
+            className="relative w-full h-full md:w-auto md:h-[min(90vh,calc(min(90vw,420px)*16/9))] md:aspect-[9/16] mx-auto select-none md:rounded-[12px] md:overflow-hidden"
             style={{
               transform: dragY > 0 ? `translateY(${dragY}px)` : undefined,
               transition: dragY === 0 ? "transform 0.2s ease-out" : "none",
@@ -359,36 +359,30 @@ export function Stories() {
               handleHoldEnd();
             }}
           >
-            {/* Image area */}
-            <div
-              className="relative flex-1 min-h-0 select-none md:rounded-[12px] md:overflow-hidden"
+            <Image
+              src={stories[activeStory].image}
+              alt={stories[activeStory].title}
+              fill
+              className="object-cover select-none"
+              sizes="(max-width: 768px) 100vw, 420px"
+              priority
               style={{ WebkitTouchCallout: "none", WebkitUserSelect: "none" }}
-              onContextMenu={(e) => e.preventDefault()}
-            >
-              <Image
-                src={stories[activeStory].image}
-                alt={stories[activeStory].title}
-                fill
-                className="object-cover select-none"
-                sizes="(max-width: 768px) 100vw, 420px"
-                priority
-              />
+            />
 
-              {/* Tap zones */}
-              <button
-                onClick={goPrev}
-                className="absolute left-0 top-0 w-1/3 h-full z-10"
-                aria-label="Previous story"
-              />
-              <button
-                onClick={goNext}
-                className="absolute right-0 top-0 w-2/3 h-full z-10"
-                aria-label="Next story"
-              />
-            </div>
+            {/* Tap zones */}
+            <button
+              onClick={goPrev}
+              className="absolute left-0 top-0 w-1/3 h-full z-10"
+              aria-label="Previous story"
+            />
+            <button
+              onClick={goNext}
+              className="absolute right-0 top-0 w-2/3 h-full z-10"
+              aria-label="Next story"
+            />
 
             {/* Bottom buttons */}
-            <div className="absolute md:relative bottom-0 left-0 right-0 flex items-center gap-3 px-4 py-4 z-20">
+            <div className="absolute bottom-0 left-0 right-0 flex items-center gap-3 px-4 py-4 z-20">
               <button
                 onClick={async () => {
                   // Pause timer while sharing
