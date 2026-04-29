@@ -6,7 +6,18 @@ import {
   GraduationCap,
   Mail,
   Phone,
+  Briefcase,
+  Wrench,
+  Code2,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import type { SectionId } from "@/lib/wiki-tree";
+
+const SECTION_AUDIENCE_ICON: Record<SectionId, LucideIcon> = {
+  function: Briefcase,
+  custom: Wrench,
+  tech: Code2,
+};
 import { WikiShell } from "@/components/wiki/wiki-shell";
 import {
   wikiSections,
@@ -93,55 +104,73 @@ export default function WikiLandingPage() {
 
       {/* Sections */}
       <section className="mb-16">
-        <div className="flex items-center gap-2 mb-5">
+        <div className="flex items-center gap-2 mb-2">
           <Sparkles className="w-5 h-5 text-[#8B5CF6]" />
           <h2 className="font-heading font-semibold text-xl text-heading">
             Разделы базы знаний
           </h2>
         </div>
+        <p className="text-sm text-subtle max-w-2xl mb-6">
+          Каждый раздел рассчитан на свою аудиторию — выберите подходящий,
+          чтобы быстрее найти нужную информацию.
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {wikiSections.map((section) => (
-            <Link
-              key={section.id}
-              href={sectionUrl(section.id)}
-              className="group relative rounded-2xl glass-card p-6 hover:border-[#3B82F6]/30 transition-all duration-300 overflow-hidden"
-            >
-              <span
-                className="absolute inset-x-0 top-0 h-0.5"
-                style={{ backgroundColor: section.accent }}
-              />
-              <div className="flex items-baseline justify-between mb-2">
-                <h3 className="font-heading font-semibold text-lg text-heading group-hover:text-[#3B82F6] transition-colors">
-                  {section.title}
-                </h3>
-                <span className="text-[11px] text-dim tabular-nums">
-                  {section.articleCount} ст.
+          {wikiSections.map((section) => {
+            const AudienceIcon = SECTION_AUDIENCE_ICON[section.id];
+            return (
+              <Link
+                key={section.id}
+                href={sectionUrl(section.id)}
+                className="group relative rounded-2xl glass-card p-6 hover:border-[#3B82F6]/30 transition-all duration-300 overflow-hidden"
+              >
+                <span
+                  className="absolute inset-x-0 top-0 h-0.5"
+                  style={{ backgroundColor: section.accent }}
+                />
+                <div className="flex items-baseline justify-between mb-2">
+                  <h3 className="font-heading font-semibold text-lg text-heading group-hover:text-[#3B82F6] transition-colors">
+                    {section.title}
+                  </h3>
+                  <span className="text-[11px] text-dim tabular-nums">
+                    {section.articleCount} ст.
+                  </span>
+                </div>
+                <span
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 mb-3 rounded-full text-[11px] font-medium border"
+                  style={{
+                    color: section.accent,
+                    borderColor: `${section.accent}33`,
+                    backgroundColor: `${section.accent}14`,
+                  }}
+                >
+                  <AudienceIcon className="w-3 h-3" />
+                  {section.audience}
                 </span>
-              </div>
-              <p className="text-[13px] text-subtle leading-relaxed mb-4 line-clamp-3">
-                {section.description}
-              </p>
-              <ul className="text-[12px] text-dim space-y-1">
-                {section.categories.slice(0, 4).map((c) => (
-                  <li key={c.id} className="flex items-center justify-between">
-                    <span className="truncate">{c.title}</span>
-                    <span className="tabular-nums ml-2">
-                      {c.articles.length}
-                    </span>
-                  </li>
-                ))}
-                {section.categories.length > 4 && (
-                  <li className="text-dim">
-                    + ещё {section.categories.length - 4}
-                  </li>
-                )}
-              </ul>
-              <div className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-medium text-[#3B82F6] group-hover:gap-2 transition-all">
-                Открыть раздел
-                <ArrowRight className="w-3.5 h-3.5" />
-              </div>
-            </Link>
-          ))}
+                <p className="text-[13px] text-subtle leading-relaxed mb-4 line-clamp-3">
+                  {section.description}
+                </p>
+                <ul className="text-[12px] text-dim space-y-1">
+                  {section.categories.slice(0, 4).map((c) => (
+                    <li key={c.id} className="flex items-center justify-between">
+                      <span className="truncate">{c.title}</span>
+                      <span className="tabular-nums ml-2">
+                        {c.articles.length}
+                      </span>
+                    </li>
+                  ))}
+                  {section.categories.length > 4 && (
+                    <li className="text-dim">
+                      + ещё {section.categories.length - 4}
+                    </li>
+                  )}
+                </ul>
+                <div className="mt-4 inline-flex items-center gap-1.5 text-[12px] font-medium text-[#3B82F6] group-hover:gap-2 transition-all">
+                  Открыть раздел
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
 

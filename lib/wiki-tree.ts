@@ -40,6 +40,7 @@ export interface WikiSection {
   title: string;
   shortTitle: string;
   description: string;
+  audience: string;
   accent: string;
   categories: WikiCategory[];
   articleCount: number;
@@ -141,27 +142,36 @@ const ARTICLE_PRIORITY: Record<string, number> = {
 
 const SECTIONS_META: Record<
   SectionId,
-  { title: string; shortTitle: string; description: string; accent: string }
+  {
+    title: string;
+    shortTitle: string;
+    description: string;
+    audience: string;
+    accent: string;
+  }
 > = {
   function: {
     title: "Функционал системы",
     shortTitle: "Функционал",
     description:
-      "Базовый функционал платформы: что доступно покупателю и продавцу из коробки.",
+      "Обзор возможностей платформы — что доступно покупателю и продавцу из коробки. Скрины и общее описание без детальных настроек.",
+    audience: "Для ЛПР при выборе системы",
     accent: "#3B82F6",
   },
   custom: {
     title: "Кастомизация под клиента",
     shortTitle: "Кастомизация",
     description:
-      "Настройки и доработки, которые подключаются на стороне конкретного клиента.",
+      "Подробные инструкции по настройке системы под конкретного клиента: каталог, цены, оплата, документы, пользователи.",
+    audience: "Для администраторов системы",
     accent: "#8B5CF6",
   },
   tech: {
     title: "Технические сведения",
     shortTitle: "Технические сведения",
     description:
-      "Интеграции, API, шлюзовые таблицы и другие технические аспекты внедрения.",
+      "Интеграции, API, структура БД и шлюзовые таблицы — всё, что нужно для поддержки и развития системы на стороне заказчика.",
+    audience: "Для технических специалистов заказчика",
     accent: "#10B981",
   },
 };
@@ -235,6 +245,7 @@ function buildSection(
     title: meta.title,
     shortTitle: meta.shortTitle,
     description: meta.description,
+    audience: meta.audience,
     accent: meta.accent,
     categories,
     articleCount,
