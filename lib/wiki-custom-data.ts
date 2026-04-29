@@ -8,7 +8,7 @@ export interface WikiCustomArticle {
   slug: string
 }
 
-export const wikiCustomCategories = ["SEO","Блок «Помощь»","Главная страница","Каталог и товары","Компании","Мониторинг ШТ","Настройки","Онлайн-чат","Оплата и доставка","Поиск","Пользователи","Правовые документы","Регионы и склады","Реклама","Спецификации","Статистика","Уведомления","Юридические/бухгалтерские документы"]
+export const wikiCustomCategories = ["«Помощь» для клиента","SEO","Главная страница","Каталог и товары","Компании","Мониторинг шлюзовых таблиц (ШТ)","Настройки","Онлайн-чат","Оплата и доставка","Поиск","Пользователи","Правовые документы","Регионы и склады","Реклама","Спецификации","Статистика","Уведомления"]
 
 export const wikiCustomArticles: WikiCustomArticle[] = [
   {
@@ -599,7 +599,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
   {
     "id": "5mmobbij51",
     "title": "Все корзины",
-    "category": "Без категории",
+    "category": "Каталог и товары",
     "image": "https://static.tildacdn.com/tild6166-3964-4163-b934-393365663538/_.png",
     "slug": "vse-korziny",
     "text": [
@@ -693,7 +693,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
   {
     "id": "t86l5ij501",
     "title": "Список пользователей.",
-    "category": "Без категории",
+    "category": "Пользователи",
     "image": "https://static.tildacdn.com/tild3734-3531-4233-b633-623638393731/photo.png",
     "slug": "spisok-polzovateley",
     "text": [
@@ -753,7 +753,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
   {
     "id": "a57re1eft1",
     "title": "Заказы",
-    "category": "Без категории",
+    "category": "Каталог и товары",
     "image": "https://static.tildacdn.com/tild6431-6636-4431-b039-336566353330/photo.png",
     "slug": "zakazy",
     "text": [
@@ -873,7 +873,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
   {
     "id": "8u19cacgu1",
     "title": "Бухгалтерские/юридические документы",
-    "category": "Юридические/бухгалтерские документы",
+    "category": "Правовые документы",
     "image": "https://static.tildacdn.com/tild6330-3261-4230-b231-626561373164/_.png",
     "slug": "bukhgalterskieyuridicheskie-dokumenty",
     "text": [
@@ -1112,7 +1112,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
   {
     "id": "9urpmvspn1",
     "title": "Логи синхронизаций ШТ",
-    "category": "Мониторинг ШТ",
+    "category": "Мониторинг шлюзовых таблиц (ШТ)",
     "image": "https://static.tildacdn.com/tild6162-3162-4737-a535-333561333031/_.png",
     "slug": "logi-sinkhronizatsiy-sht",
     "text": [
@@ -1154,7 +1154,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
   {
     "id": "rzsdxjil81",
     "title": "Мониторинг шлюзовых таблиц (ШТ)",
-    "category": "Мониторинг ШТ",
+    "category": "Мониторинг шлюзовых таблиц (ШТ)",
     "image": "https://static.tildacdn.com/tild3232-3537-4437-b339-643636626535/photo.png",
     "slug": "monitoring-shlyuzovykh-tablits-sht",
     "text": [
@@ -1574,7 +1574,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
   {
     "id": "zxili1mmu1",
     "title": "Функционал «Подсказки»",
-    "category": "Блок «Помощь»",
+    "category": "«Помощь» для клиента",
     "image": "https://static.tildacdn.com/tild6531-3139-4066-a531-623934306134/photo.png",
     "slug": "funktsional-podskazki",
     "text": [
@@ -1623,7 +1623,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
   {
     "id": "b204zvmkz1",
     "title": "Настроить блок «Помощь» для клиента",
-    "category": "Блок «Помощь»",
+    "category": "«Помощь» для клиента",
     "image": "https://static.tildacdn.com/tild3934-3238-4063-b536-666364656466/photo.png",
     "slug": "nastroit-blok-pomoshch-dlya-klienta",
     "text": [
@@ -3223,7 +3223,7 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
   {
     "id": "k87v1pvgr1",
     "title": "Бухгалтерские документы для клиентов",
-    "category": "Пользователи;Юридические/бухгалтерские документы",
+    "category": "Пользователи",
     "image": "https://static.tildacdn.com/tild3234-6537-4339-b038-306664656132/photo.png",
     "slug": "bukhgalterskie-dokumenty-dlya-klientov",
     "text": [
@@ -4736,38 +4736,6 @@ export const wikiCustomArticles: WikiCustomArticle[] = [
       {
         "ty": "text",
         "te": "<em>Панель управления – настройки – основное</em>"
-      }
-    ]
-  },
-  {
-    "id": "90b55y0vm1",
-    "title": "Экспорт каталога (для Яндекс Маркет и Google Merchant Centre)",
-    "category": "Каталог и товары",
-    "image": "https://static.tildacdn.com/tild3363-6533-4235-a161-616234616338/photo.png",
-    "slug": "eksport-kataloga-dlya-yandeks-market-i-google-merchant-centre",
-    "text": [
-      {
-        "ty": "heading",
-        "te": "Экспорт товаров в формате, необходимом для загрузки в сервисы Яндекс Маркет и Google Merchant Centre",
-        "le": 4
-      },
-      {
-        "ty": "callout",
-        "te": "Данный функционал позволяет экспортировать товары в формате, необходимом для загрузки в сервисы Яндекс Маркет и Google Merchant Centre. ",
-        "color": "#000000",
-        "bg": "#f1f1f1",
-        "fs": "default",
-        "ic": "#7b7b7b"
-      },
-      {
-        "ty": "image",
-        "url": "https://static.tildacdn.com/tild3035-6261-4334-b238-376333643232/image2021-1-12_18-44.png",
-        "alt": "image2021-1-12_18-44-50.png",
-        "w": "1680",
-        "h": "795",
-        "rh": null,
-        "rw": null,
-        "al": null
       }
     ]
   },

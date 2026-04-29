@@ -10,9 +10,7 @@ interface PageProps {
 export function generateStaticParams() {
   const section = getSection("function");
   if (!section) return [];
-  return section.groups.flatMap((g) =>
-    g.categories.map((c) => ({ categoryId: c.id })),
-  );
+  return section.categories.map((c) => ({ categoryId: c.id }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
@@ -31,11 +29,7 @@ export default async function WikiFunctionCategoryPage({ params }: PageProps) {
   if (!ctx) notFound();
   return (
     <WikiShell activeSection="function" activeCategoryId={categoryId}>
-      <WikiCategoryView
-        section={ctx.section}
-        group={ctx.group}
-        category={ctx.category}
-      />
+      <WikiCategoryView section={ctx.section} category={ctx.category} />
     </WikiShell>
   );
 }

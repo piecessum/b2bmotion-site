@@ -8,13 +8,13 @@ export interface WikiTechArticle {
   slug: string
 }
 
-export const wikiTechCategories = ["1C","API","Общие сведения","РАЭК","Структура данных"]
+export const wikiTechCategories = ["Интеграция с 1С","Интеграция с БД РАЭК","Интеграция с шлюзовыми таблицами (ШТ)","Общие сведения B2B-системы","Подключение по API","Экспорт для Яндекс и Google"]
 
 export const wikiTechArticles: WikiTechArticle[] = [
   {
     "id": "eo85hzsx71",
     "title": "Эксплуатация  \"B2B Движение",
-    "category": "Общие сведения",
+    "category": "Общие сведения B2B-системы",
     "image": "https://static.tildacdn.com/tild6339-3136-4061-b539-626336613231/__2024-10-21__091225.png",
     "slug": "ekspluatatsiya-b2b-dvizhenie",
     "text": [
@@ -35,7 +35,7 @@ export const wikiTechArticles: WikiTechArticle[] = [
   {
     "id": "s3n5njgse1",
     "title": "Установка \"B2B Движение",
-    "category": "Общие сведения",
+    "category": "Общие сведения B2B-системы",
     "image": "https://static.tildacdn.com/tild3165-3334-4236-a633-633561636436/__2024-10-21__091207.png",
     "slug": "ustanovka-b2b-dvizhenie",
     "text": [
@@ -60,7 +60,7 @@ export const wikiTechArticles: WikiTechArticle[] = [
   {
     "id": "kp991jzlu1",
     "title": "Подключение по API (доступ к B2B-системе для ваших клиентов)",
-    "category": "API",
+    "category": "Подключение по API",
     "image": "https://static.tildacdn.com/tild3430-6432-4636-a436-373330633132/API.png",
     "slug": "podklyuchenie-po-api-dostup-k-b2b-sisteme-dlya-vashikh-klientov",
     "text": [
@@ -128,7 +128,7 @@ export const wikiTechArticles: WikiTechArticle[] = [
   {
     "id": "p5l6tkxmi1",
     "title": "Интеграция с РАЭК (для электротехнических компаний)",
-    "category": "РАЭК",
+    "category": "Интеграция с БД РАЭК",
     "image": "https://static.tildacdn.com/tild6638-3163-4636-b361-383030386337/__.png",
     "slug": "integratsiya-s-raek-dlya-elektrotekhnicheskikh-kompaniy",
     "text": [
@@ -149,7 +149,7 @@ export const wikiTechArticles: WikiTechArticle[] = [
   {
     "id": "57x609ymy1",
     "title": "Интеграция с 1С (или др. ERP-системами)",
-    "category": "1C",
+    "category": "Интеграция с 1С",
     "image": "https://static.tildacdn.com/tild6530-3232-4533-a562-656334633165/__1.png",
     "slug": "integratsiya-s-1s-ili-dr-erp-sistemami",
     "text": [
@@ -420,7 +420,7 @@ export const wikiTechArticles: WikiTechArticle[] = [
   {
     "id": "nrhf6j2k11",
     "title": "Описание полей шлюзовых таблиц",
-    "category": "Структура данных",
+    "category": "Интеграция с шлюзовыми таблицами (ШТ)",
     "image": "https://static.tildacdn.com/tild3037-6264-4063-b035-356666613532/__.png",
     "slug": "opisanie-poley-shlyuzovykh-tablits",
     "text": [
@@ -1659,7 +1659,7 @@ export const wikiTechArticles: WikiTechArticle[] = [
   {
     "id": "67g1s7rmd1",
     "title": "Структура БД",
-    "category": "Структура данных",
+    "category": "Интеграция с шлюзовыми таблицами (ШТ)",
     "image": "https://static.tildacdn.com/tild3531-3236-4665-a237-643038356337/photo.png",
     "slug": "struktura-bd",
     "text": [
@@ -1679,7 +1679,7 @@ export const wikiTechArticles: WikiTechArticle[] = [
   {
     "id": "2ix5k1srr1",
     "title": "Список шлюзовых таблиц (ШТ)",
-    "category": "Структура данных",
+    "category": "Интеграция с шлюзовыми таблицами (ШТ)",
     "image": "https://static.tildacdn.com/tild3165-3132-4139-b839-323432663164/_.png",
     "slug": "spisok-shlyuzovykh-tablits-sht",
     "text": [
@@ -1744,7 +1744,7 @@ export const wikiTechArticles: WikiTechArticle[] = [
   {
     "id": "b07srt08o1",
     "title": "Этапы технической интеграции",
-    "category": "Общие сведения",
+    "category": "Общие сведения B2B-системы",
     "image": "https://static.tildacdn.com/tild6162-3031-4362-b033-613863633464/__.png",
     "slug": "etapy-tekhnicheskoy-integratsii",
     "text": [
@@ -1761,7 +1761,7 @@ export const wikiTechArticles: WikiTechArticle[] = [
   {
     "id": "9tnr4h10f1",
     "title": "Общие сведения о B2B Enterprise",
-    "category": "Общие сведения",
+    "category": "Общие сведения B2B-системы",
     "image": "https://static.tildacdn.com/tild6236-6362-4562-a335-376136303062/_.png",
     "slug": "obshchie-svedeniya-o-b2b-enterprise",
     "text": [
@@ -1808,6 +1808,38 @@ export const wikiTechArticles: WikiTechArticle[] = [
         "bg": "#faf0f0",
         "fs": "default",
         "ic": "#d30000"
+      }
+    ]
+  },
+  {
+    "id": "90b55y0vm1",
+    "title": "Экспорт каталога (для Яндекс Маркет и Google Merchant Centre)",
+    "category": "Экспорт для Яндекс и Google",
+    "image": "https://static.tildacdn.com/tild3363-6533-4235-a161-616234616338/photo.png",
+    "slug": "eksport-kataloga-dlya-yandeks-market-i-google-merchant-centre",
+    "text": [
+      {
+        "ty": "heading",
+        "te": "Экспорт товаров в формате, необходимом для загрузки в сервисы Яндекс Маркет и Google Merchant Centre",
+        "le": 4
+      },
+      {
+        "ty": "callout",
+        "te": "Данный функционал позволяет экспортировать товары в формате, необходимом для загрузки в сервисы Яндекс Маркет и Google Merchant Centre. ",
+        "color": "#000000",
+        "bg": "#f1f1f1",
+        "fs": "default",
+        "ic": "#7b7b7b"
+      },
+      {
+        "ty": "image",
+        "url": "https://static.tildacdn.com/tild3035-6261-4334-b238-376333643232/image2021-1-12_18-44.png",
+        "alt": "image2021-1-12_18-44-50.png",
+        "w": "1680",
+        "h": "795",
+        "rh": null,
+        "rw": null,
+        "al": null
       }
     ]
   }

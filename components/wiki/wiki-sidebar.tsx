@@ -7,7 +7,6 @@ import {
   wikiSections,
   type SectionId,
   type WikiSection,
-  type WikiGroup,
   type WikiCategory,
   type WikiArticle,
   sectionUrl,
@@ -33,38 +32,23 @@ export function WikiSidebar({
 }: WikiSidebarProps) {
   const defaultExpanded = useMemo(() => {
     const sections: ExpandMap = {};
-    const groups: ExpandMap = {};
     const categories: ExpandMap = {};
     for (const s of wikiSections) {
       sections[s.id] = activeSection ? s.id === activeSection : true;
-      for (const g of s.groups) {
-        const groupKey = `${s.id}:${g.id}`;
-        const groupContainsActive =
-          (activeCategoryId &&
-            g.categories.some((c) => c.id === activeCategoryId)) ||
+      for (const c of s.categories) {
+        const catKey = `${s.id}:${c.id}`;
+        const catContainsActive =
+          (activeCategoryId && c.id === activeCategoryId) ||
           (activeArticleSlug &&
-            g.categories.some((c) =>
-              c.articles.some((a) => a.slug === activeArticleSlug),
-            ));
-        groups[groupKey] = !!groupContainsActive;
-        for (const c of g.categories) {
-          const catKey = `${s.id}:${g.id}:${c.id}`;
-          const catContainsActive =
-            (activeCategoryId && c.id === activeCategoryId) ||
-            (activeArticleSlug &&
-              c.articles.some((a) => a.slug === activeArticleSlug));
-          categories[catKey] = !!catContainsActive;
-        }
+            c.articles.some((a) => a.slug === activeArticleSlug));
+        categories[catKey] = !!catContainsActive;
       }
     }
-    return { sections, groups, categories };
+    return { sections, categories };
   }, [activeSection, activeCategoryId, activeArticleSlug]);
 
   const [openSections, setOpenSections] = useState<ExpandMap>(
     defaultExpanded.sections,
-  );
-  const [openGroups, setOpenGroups] = useState<ExpandMap>(
-    defaultExpanded.groups,
   );
   const [openCategories, setOpenCategories] = useState<ExpandMap>(
     defaultExpanded.categories,
@@ -72,38 +56,29 @@ export function WikiSidebar({
 
   useEffect(() => {
     setOpenSections(defaultExpanded.sections);
-    setOpenGroups(defaultExpanded.groups);
     setOpenCategories(defaultExpanded.categories);
   }, [defaultExpanded]);
 
   const toggleSection = (id: string) =>
     setOpenSections((prev) => ({ ...prev, [id]: !prev[id] }));
-  const toggleGroup = (id: string) =>
-    setOpenGroups((prev) => ({ ...prev, [id]: !prev[id] }));
   const toggleCategory = (id: string) =>
     setOpenCategories((prev) => ({ ...prev, [id]: !prev[id] }));
 
   const expandAll = () => {
     const sections: ExpandMap = {};
-    const groups: ExpandMap = {};
     const categories: ExpandMap = {};
     for (const s of wikiSections) {
       sections[s.id] = true;
-      for (const g of s.groups) {
-        groups[`${s.id}:${g.id}`] = true;
-        for (const c of g.categories) {
-          categories[`${s.id}:${g.id}:${c.id}`] = true;
-        }
+      for (const c of s.categories) {
+        categories[`${s.id}:${c.id}`] = true;
       }
     }
     setOpenSections(sections);
-    setOpenGroups(groups);
     setOpenCategories(categories);
   };
 
   const collapseAll = () => {
     setOpenSections({});
-    setOpenGroups({});
     setOpenCategories({});
   };
 
@@ -152,10 +127,8 @@ export function WikiSidebar({
             key={section.id}
             section={section}
             open={!!openSections[section.id]}
-            openGroups={openGroups}
             openCategories={openCategories}
             onToggleSection={() => toggleSection(section.id)}
-            onToggleGroup={toggleGroup}
             onToggleCategory={toggleCategory}
             activeSection={activeSection}
             activeCategoryId={activeCategoryId}
@@ -171,10 +144,8 @@ export function WikiSidebar({
 function SectionNode({
   section,
   open,
-  openGroups,
   openCategories,
   onToggleSection,
-  onToggleGroup,
   onToggleCategory,
   activeSection,
   activeCategoryId,
@@ -183,10 +154,8 @@ function SectionNode({
 }: {
   section: WikiSection;
   open: boolean;
-  openGroups: ExpandMap;
   openCategories: ExpandMap;
   onToggleSection: () => void;
-  onToggleGroup: (id: string) => void;
   onToggleCategory: (id: string) => void;
   activeSection?: SectionId;
   activeCategoryId?: string;
@@ -229,107 +198,22 @@ function SectionNode({
 
       {open && (
         <ul className="mt-1 ml-4 pl-2 border-l border-glass-border space-y-0.5">
-          {section.groups.map((group) => {
-            const groupKey = `${section.id}:${group.id}`;
-            const groupOpen = !!openGroups[groupKey];
+          {section.categories.map((cat) => {
+            const catKey = `${section.id}:${cat.id}`;
+            const catOpen = !!openCategories[catKey];
             return (
-              <GroupNode
-                key={groupKey}
+              <CategoryNode
+                key={cat.id}
                 section={section}
-                group={group}
-                open={groupOpen}
-                openCategories={openCategories}
-                onToggle={() => onToggleGroup(groupKey)}
-                onToggleCategory={onToggleCategory}
+                category={cat}
+                open={catOpen}
+                onToggle={() => onToggleCategory(catKey)}
                 activeCategoryId={activeCategoryId}
                 activeArticleSlug={activeArticleSlug}
                 onNavigate={onNavigate}
               />
             );
           })}
-        </ul>
-      )}
-    </li>
-  );
-}
-
-function GroupNode({
-  section,
-  group,
-  open,
-  openCategories,
-  onToggle,
-  onToggleCategory,
-  activeCategoryId,
-  activeArticleSlug,
-  onNavigate,
-}: {
-  section: WikiSection;
-  group: WikiGroup;
-  open: boolean;
-  openCategories: ExpandMap;
-  onToggle: () => void;
-  onToggleCategory: (id: string) => void;
-  activeCategoryId?: string;
-  activeArticleSlug?: string;
-  onNavigate?: () => void;
-}) {
-  return (
-    <li>
-      <button
-        type="button"
-        onClick={onToggle}
-        aria-expanded={open}
-        className="w-full flex items-center gap-2 px-2 py-1.5 min-h-[34px] rounded-md text-left text-subtle hover:text-body hover:bg-overlay-3 transition-colors"
-      >
-        <ChevronDown
-          className={`w-3 h-3 text-dim transition-transform shrink-0 ${
-            open ? "rotate-0" : "-rotate-90"
-          }`}
-        />
-        <span className="text-[13px] font-medium flex-1 truncate">
-          {group.title}
-        </span>
-        <span className="text-[10px] text-dim tabular-nums">
-          {group.articleCount}
-        </span>
-      </button>
-
-      {open && (
-        <ul className="mt-0.5 ml-4 pl-2 border-l border-glass-border space-y-0.5">
-          {(() => {
-            // Collapse the intermediate "category" level when a group has a
-            // single category whose title matches the group's title — render
-            // articles directly under the group instead of an extra layer.
-            const onlyCat =
-              group.categories.length === 1 ? group.categories[0] : null;
-            if (onlyCat && onlyCat.title === group.title) {
-              return onlyCat.articles.map((article) => (
-                <ArticleNode
-                  key={article.id}
-                  article={article}
-                  isActive={activeArticleSlug === article.slug}
-                  onNavigate={onNavigate}
-                />
-              ));
-            }
-            return group.categories.map((cat) => {
-              const catKey = `${section.id}:${group.id}:${cat.id}`;
-              const catOpen = !!openCategories[catKey];
-              return (
-                <CategoryNode
-                  key={cat.id}
-                  section={section}
-                  category={cat}
-                  open={catOpen}
-                  onToggle={() => onToggleCategory(catKey)}
-                  activeCategoryId={activeCategoryId}
-                  activeArticleSlug={activeArticleSlug}
-                  onNavigate={onNavigate}
-                />
-              );
-            });
-          })()}
         </ul>
       )}
     </li>

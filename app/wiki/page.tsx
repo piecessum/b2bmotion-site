@@ -24,7 +24,7 @@ export const metadata = {
 export default function WikiLandingPage() {
   const totalArticles = allWikiArticles.length;
   const totalCategories = wikiSections.reduce(
-    (n, s) => n + s.groups.reduce((m, g) => m + g.categories.length, 0),
+    (n, s) => n + s.categories.length,
     0,
   );
 
@@ -122,17 +122,17 @@ export default function WikiLandingPage() {
                 {section.description}
               </p>
               <ul className="text-[12px] text-dim space-y-1">
-                {section.groups.slice(0, 4).map((g) => (
-                  <li key={g.id} className="flex items-center justify-between">
-                    <span className="truncate">{g.title}</span>
+                {section.categories.slice(0, 4).map((c) => (
+                  <li key={c.id} className="flex items-center justify-between">
+                    <span className="truncate">{c.title}</span>
                     <span className="tabular-nums ml-2">
-                      {g.articleCount}
+                      {c.articles.length}
                     </span>
                   </li>
                 ))}
-                {section.groups.length > 4 && (
+                {section.categories.length > 4 && (
                   <li className="text-dim">
-                    + ещё {section.groups.length - 4}
+                    + ещё {section.categories.length - 4}
                   </li>
                 )}
               </ul>

@@ -245,7 +245,7 @@ function ModalBody({
                                 {r.article.title}
                               </span>
                               <span className="block text-[11px] text-dim truncate">
-                                {r.article.groupTitle} · {r.article.category}
+                                {r.article.category}
                               </span>
                             </span>
                             <ArrowRight

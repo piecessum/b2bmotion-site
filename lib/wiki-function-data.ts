@@ -8,7 +8,7 @@ export interface WikiFunctionArticle {
   slug: string
 }
 
-export const wikiFunctionCategories = ["Интеллектуальный поиск","Каталог и товары","Личный кабинет покупателя","Личный кабинет продавца в B2B-системе","Мобильное приложение","Модуль документооборота","Модуль доставки","Модуль коммерческих предложений","Модуль оплаты","Модуль рассылок","Модуль статистики","Прайсы, цены, скидки, валюты","Регистрация и авторизация"]
+export const wikiFunctionCategories = ["Интеллектуальный поиск","Каталог и товары","Личный кабинет покупателя","Личный кабинет продавца","Мобильное приложение","Модуль документооборота","Модуль доставки","Модуль коммерческих предложений (КП)","Модуль оплаты","Модуль рассылок","Модуль статистики","Прайсы, цены, скидки, валюты","Регистрация и авторизация"]
 
 export const wikiFunctionArticles: WikiFunctionArticle[] = [
   {
@@ -226,7 +226,7 @@ export const wikiFunctionArticles: WikiFunctionArticle[] = [
   {
     "id": "8142gpioj1",
     "title": "Статьи",
-    "category": "Личный кабинет продавца в B2B-системе",
+    "category": "Личный кабинет продавца",
     "image": "https://static.tildacdn.com/tild6437-3136-4461-a138-343532643832/photo.png",
     "slug": "stati",
     "text": [
@@ -427,7 +427,7 @@ export const wikiFunctionArticles: WikiFunctionArticle[] = [
   {
     "id": "ff9pj4cok1",
     "title": "Коммерческое предложение",
-    "category": "Модуль коммерческих предложений",
+    "category": "Модуль коммерческих предложений (КП)",
     "image": "https://static.tildacdn.com/tild6236-6639-4734-a264-613537643233/photo.png",
     "slug": "kommercheskoe-predlozhenie",
     "text": [
@@ -728,7 +728,7 @@ export const wikiFunctionArticles: WikiFunctionArticle[] = [
   {
     "id": "tyltsanfj1",
     "title": "Для компаний, работающих без интеграции с 1с",
-    "category": "Личный кабинет продавца в B2B-системе",
+    "category": "Личный кабинет продавца",
     "image": "https://static.tildacdn.com/tild6262-3434-4238-b033-616333643262/_1.png",
     "slug": "dlya-kompaniy-rabotayushchikh-bez-integratsii-s-1s",
     "text": [
@@ -910,7 +910,7 @@ export const wikiFunctionArticles: WikiFunctionArticle[] = [
   {
     "id": "0og1eg5h71",
     "title": "Личный кабинет Продавца в B2B-системе",
-    "category": "Личный кабинет продавца в B2B-системе",
+    "category": "Личный кабинет продавца",
     "image": "https://static.tildacdn.com/tild6634-6631-4536-a263-636265343839/_.png",
     "slug": "lichnyy-kabinet-prodavtsa-v-b2b-sisteme",
     "text": [

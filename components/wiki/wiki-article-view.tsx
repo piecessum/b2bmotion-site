@@ -28,10 +28,9 @@ export function WikiArticleView({
 }: WikiArticleViewProps) {
   const section = getSection(article.section)!;
 
-  // Find category id (slug-style) by matching title
-  const categoryCtx = section.groups
-    .flatMap((g) => g.categories.map((c) => ({ group: g, category: c })))
-    .find((x) => x.category.title === article.category);
+  const category = section.categories.find(
+    (c) => c.title === article.category,
+  );
 
   const related = allArticlesInSection
     .filter(
@@ -46,11 +45,11 @@ export function WikiArticleView({
 
   const breadcrumbs = [
     { label: section.title, href: `/wiki/${section.id}` },
-    ...(categoryCtx
+    ...(category
       ? [
           {
-            label: categoryCtx.category.title,
-            href: categoryUrl(section.id, categoryCtx.category.id),
+            label: category.title,
+            href: categoryUrl(section.id, category.id),
           },
         ]
       : []),

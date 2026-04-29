@@ -5,11 +5,10 @@ import { WikiBreadcrumbs } from "@/components/wiki/wiki-breadcrumbs";
 import {
   type WikiSection,
   type WikiCategory,
-  type WikiGroup,
   categoryUrl,
 } from "@/lib/wiki-tree";
 
-/* ── Section view: lists groups → categories → articles ── */
+/* ── Section view: lists categories → articles ── */
 
 export function WikiSectionView({ section }: { section: WikiSection }) {
   return (
@@ -31,45 +30,13 @@ export function WikiSectionView({ section }: { section: WikiSection }) {
           </span>
           <span>·</span>
           <span className="tabular-nums">
-            {section.groups.length} групп
+            {section.categories.length} категорий
           </span>
         </div>
       </header>
 
-      <div className="space-y-12">
-        {section.groups.map((group) => (
-          <GroupBlock key={group.id} section={section} group={group} />
-        ))}
-      </div>
-    </article>
-  );
-}
-
-function GroupBlock({
-  section,
-  group,
-}: {
-  section: WikiSection;
-  group: WikiGroup;
-}) {
-  return (
-    <section>
-      <div className="flex items-baseline justify-between gap-4 mb-5 pb-3 border-b border-glass-border">
-        <div>
-          <h2 className="font-heading font-semibold text-lg text-heading">
-            {group.title}
-          </h2>
-          {group.description && (
-            <p className="text-[13px] text-subtle mt-1">{group.description}</p>
-          )}
-        </div>
-        <span className="text-[11px] text-dim tabular-nums shrink-0">
-          {group.articleCount} ст.
-        </span>
-      </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {group.categories.map((cat) => (
+        {section.categories.map((cat) => (
           <Link
             key={cat.id}
             href={categoryUrl(section.id, cat.id)}
@@ -88,7 +55,7 @@ function GroupBlock({
           </Link>
         ))}
       </div>
-    </section>
+    </article>
   );
 }
 
@@ -96,11 +63,9 @@ function GroupBlock({
 
 export function WikiCategoryView({
   section,
-  group,
   category,
 }: {
   section: WikiSection;
-  group: WikiGroup;
   category: WikiCategory;
 }) {
   return (
@@ -114,7 +79,7 @@ export function WikiCategoryView({
 
       <header className="mb-8">
         <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-dim mb-2">
-          {group.title}
+          {section.shortTitle}
         </p>
         <h1 className="font-heading font-bold text-[clamp(24px,3vw,32px)] leading-[1.2] tracking-[-0.02em] text-heading">
           {category.title}

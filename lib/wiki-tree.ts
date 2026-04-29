@@ -24,8 +24,7 @@ export interface WikiArticle {
   section: SectionId;
   sectionTitle: string;
   category: string;
-  groupId: string;
-  groupTitle: string;
+  categoryId: string;
   url: string;
   raw: any[];
 }
@@ -36,21 +35,13 @@ export interface WikiCategory {
   articles: WikiArticle[];
 }
 
-export interface WikiGroup {
-  id: string;
-  title: string;
-  description?: string;
-  categories: WikiCategory[];
-  articleCount: number;
-}
-
 export interface WikiSection {
   id: SectionId;
   title: string;
   shortTitle: string;
   description: string;
   accent: string;
-  groups: WikiGroup[];
+  categories: WikiCategory[];
   articleCount: number;
 }
 
@@ -85,142 +76,62 @@ const TRANSLIT_MAP: Record<string, string> = {
   я: "ya",
 };
 
-function slugifyGroup(title: string): string {
+function slugifyCategory(title: string): string {
   const lower = title.toLowerCase();
   let result = "";
   for (const ch of lower) {
     if (TRANSLIT_MAP[ch] !== undefined) result += TRANSLIT_MAP[ch];
     else if (/[a-z0-9]/.test(ch)) result += ch;
     else if (/\s|[-_/]/.test(ch)) result += "-";
-    // drop everything else (punctuation, quotes, etc.)
   }
   return result.replace(/-+/g, "-").replace(/^-|-$/g, "");
 }
 
-/* ── Group definitions per section ──
- * Categories that are not listed here fall into "other" group.
- * "Без категории" is a special bucket.
- */
+/* ── Category ordering per section (target tree from product) ── */
 
-interface GroupDef {
-  id: string;
-  title: string;
-  description?: string;
-  categories: string[];
-}
-
-const FUNCTION_GROUPS: GroupDef[] = [
-  {
-    id: "start",
-    title: "Старт работы",
-    description: "Регистрация, личные кабинеты покупателя и продавца",
-    categories: [
-      "Регистрация и авторизация",
-      "Личный кабинет покупателя",
-      "Личный кабинет продавца в B2B-системе",
-    ],
-  },
-  {
-    id: "catalog",
-    title: "Товары и поиск",
-    description: "Каталог, поиск, цены и скидки",
-    categories: [
-      "Каталог и товары",
-      "Интеллектуальный поиск",
-      "Прайсы, цены, скидки, валюты",
-    ],
-  },
-  {
-    id: "modules",
-    title: "Модули",
-    description: "Документооборот, оплата, доставка, КП, рассылки, статистика",
-    categories: [
-      "Модуль документооборота",
-      "Модуль оплаты",
-      "Модуль доставки",
-      "Модуль коммерческих предложений",
-      "Модуль рассылок",
-      "Модуль статистики",
-    ],
-  },
-  {
-    id: "platforms",
-    title: "Платформы",
-    description: "Мобильное приложение",
-    categories: ["Мобильное приложение"],
-  },
+const FUNCTION_CATEGORY_ORDER: string[] = [
+  "Регистрация и авторизация",
+  "Интеллектуальный поиск",
+  "Личный кабинет покупателя",
+  "Личный кабинет продавца",
+  "Каталог и товары",
+  "Прайсы, цены, скидки, валюты",
+  "Модуль оплаты",
+  "Модуль доставки",
+  "Модуль документооборота",
+  "Модуль коммерческих предложений (КП)",
+  "Модуль рассылок",
+  "Модуль статистики",
+  "Мобильное приложение",
 ];
 
-const CUSTOM_GROUPS: GroupDef[] = [
-  {
-    id: "storefront",
-    title: "Витрина и контент",
-    description: "Главная страница, каталог, поиск, спецификации, SEO, реклама",
-    categories: [
-      "Главная страница",
-      "Каталог и товары",
-      "Поиск",
-      "Спецификации",
-      "SEO",
-      "Реклама",
-    ],
-  },
-  {
-    id: "clients",
-    title: "Клиенты и компании",
-    description: "Управление пользователями и компаниями",
-    categories: ["Компании", "Пользователи"],
-  },
-  {
-    id: "commerce",
-    title: "Коммерция",
-    description: "Оплата, доставка, регионы, склады, уведомления, статистика",
-    categories: [
-      "Оплата и доставка",
-      "Регионы и склады",
-      "Уведомления",
-      "Статистика",
-    ],
-  },
-  {
-    id: "support",
-    title: "Поддержка",
-    description: "Онлайн-чат и блок «Помощь»",
-    categories: ["Онлайн-чат", "Блок «Помощь»"],
-  },
-  {
-    id: "documents",
-    title: "Документы",
-    description: "Правовые и бухгалтерские документы",
-    categories: ["Правовые документы", "Юридические/бухгалтерские документы"],
-  },
-  {
-    id: "system",
-    title: "Системные",
-    description: "Настройки и мониторинг",
-    categories: ["Настройки", "Мониторинг ШТ"],
-  },
+const CUSTOM_CATEGORY_ORDER: string[] = [
+  "Каталог и товары",
+  "Регионы и склады",
+  "Оплата и доставка",
+  "Пользователи",
+  "Компании",
+  "Спецификации",
+  "Главная страница",
+  "Поиск",
+  "Настройки",
+  "Уведомления",
+  "Онлайн-чат",
+  "«Помощь» для клиента",
+  "Правовые документы",
+  "Реклама",
+  "Статистика",
+  "Мониторинг шлюзовых таблиц (ШТ)",
+  "SEO",
 ];
 
-const TECH_GROUPS: GroupDef[] = [
-  {
-    id: "intro",
-    title: "Введение",
-    description: "Общие сведения о B2B Enterprise",
-    categories: ["Общие сведения"],
-  },
-  {
-    id: "integrations",
-    title: "Интеграции",
-    description: "Подключение к внешним системам",
-    categories: ["1C", "API", "РАЭК"],
-  },
-  {
-    id: "data",
-    title: "Структура данных",
-    description: "Шлюзовые таблицы и БД",
-    categories: ["Структура данных"],
-  },
+const TECH_CATEGORY_ORDER: string[] = [
+  "Общие сведения B2B-системы",
+  "Интеграция с шлюзовыми таблицами (ШТ)",
+  "Интеграция с 1С",
+  "Интеграция с БД РАЭК",
+  "Подключение по API",
+  "Экспорт для Яндекс и Google",
 ];
 
 /* Slugs that should appear first within their category. */
@@ -247,7 +158,7 @@ const SECTIONS_META: Record<
     accent: "#8B5CF6",
   },
   tech: {
-    title: "Технические настройки",
+    title: "Технические сведения",
     shortTitle: "Техника",
     description:
       "Интеграции, API, шлюзовые таблицы и другие технические аспекты внедрения.",
@@ -263,14 +174,8 @@ function articlesToWikiArticles<
   return articles
     .filter((a) => a.text && a.text.length > 0)
     .map((a) => {
-      const baseUrl =
-        section === "function"
-          ? `/wiki/function/${a.slug}`
-          : section === "custom"
-            ? `/wiki/custom/${a.slug}`
-            : `/wiki/tech/${a.slug}`;
-      // Some articles in CSV have a category like "A;B" — take the first.
-      const rawCategory = (a.category || "").split(";")[0].trim();
+      const baseUrl = `/wiki/${section}/${a.slug}`;
+      const rawCategory = (a.category || "").split(";")[0].trim() || "Без категории";
       return {
         id: a.id,
         title: a.title,
@@ -279,9 +184,8 @@ function articlesToWikiArticles<
         slug: a.slug,
         section,
         sectionTitle: SECTIONS_META[section].title,
-        category: rawCategory || "Без категории",
-        groupId: "",
-        groupTitle: "",
+        category: rawCategory,
+        categoryId: slugifyCategory(rawCategory) || "bez-kategorii",
         url: baseUrl,
         raw: a.text,
       };
@@ -291,77 +195,40 @@ function articlesToWikiArticles<
 function buildSection(
   id: SectionId,
   articles: WikiArticle[],
-  groupDefs: GroupDef[],
+  order: string[],
 ): WikiSection {
   const meta = SECTIONS_META[id];
-  const usedCategories = new Set<string>();
 
-  const groups: WikiGroup[] = groupDefs.map((g) => {
-    const categories: WikiCategory[] = g.categories.map((catTitle) => {
-      usedCategories.add(catTitle);
-      const list = articles
-        .filter((a) => a.category === catTitle)
-        .map((a) => ({ ...a, groupId: g.id, groupTitle: g.title }))
-        .sort((a, b) => {
-          const pa = ARTICLE_PRIORITY[a.slug] ?? 100;
-          const pb = ARTICLE_PRIORITY[b.slug] ?? 100;
-          return pa - pb;
-        });
-      return {
-        id: slugifyGroup(catTitle),
-        title: catTitle,
-        articles: list,
-      };
-    });
-    const articleCount = categories.reduce((n, c) => n + c.articles.length, 0);
-    return {
-      id: g.id,
-      title: g.title,
-      description: g.description,
-      categories,
-      articleCount,
-    };
-  });
-
-  // Anything not assigned goes into "Прочее"
-  const orphanCategories = new Set<string>();
+  const byTitle = new Map<string, WikiArticle[]>();
   for (const a of articles) {
-    if (!usedCategories.has(a.category)) orphanCategories.add(a.category);
-  }
-  if (orphanCategories.size > 0) {
-    const cats: WikiCategory[] = Array.from(orphanCategories)
-      .sort()
-      .map((catTitle) => {
-        const list = articles
-          .filter((a) => a.category === catTitle)
-          .map((a) => ({ ...a, groupId: "other", groupTitle: "Прочее" }));
-        return {
-          id: slugifyGroup(catTitle) || "bez-kategorii",
-          title: catTitle,
-          articles: list,
-        };
-      });
-    const articleCount = cats.reduce((n, c) => n + c.articles.length, 0);
-    if (articleCount > 0) {
-      groups.push({
-        id: "other",
-        title: "Прочее",
-        description: "Статьи без основной категории",
-        categories: cats,
-        articleCount,
-      });
-    }
+    const list = byTitle.get(a.category) ?? [];
+    list.push(a);
+    byTitle.set(a.category, list);
   }
 
-  // Filter out empty categories/groups for cleaner UI
-  const cleanedGroups = groups
-    .map((g) => ({
-      ...g,
-      categories: g.categories.filter((c) => c.articles.length > 0),
-    }))
-    .filter((g) => g.categories.length > 0);
+  const orderedTitles: string[] = [];
+  for (const t of order) {
+    if (byTitle.has(t)) orderedTitles.push(t);
+  }
+  // append unknown categories (not listed in order) at the end
+  for (const t of byTitle.keys()) {
+    if (!orderedTitles.includes(t)) orderedTitles.push(t);
+  }
 
-  const totalCount = cleanedGroups.reduce((n, g) => n + g.articleCount, 0);
+  const categories: WikiCategory[] = orderedTitles.map((title) => {
+    const list = (byTitle.get(title) ?? []).slice().sort((a, b) => {
+      const pa = ARTICLE_PRIORITY[a.slug] ?? 100;
+      const pb = ARTICLE_PRIORITY[b.slug] ?? 100;
+      return pa - pb;
+    });
+    return {
+      id: slugifyCategory(title) || "bez-kategorii",
+      title,
+      articles: list,
+    };
+  }).filter((c) => c.articles.length > 0);
+
+  const articleCount = categories.reduce((n, c) => n + c.articles.length, 0);
 
   return {
     id,
@@ -369,8 +236,8 @@ function buildSection(
     shortTitle: meta.shortTitle,
     description: meta.description,
     accent: meta.accent,
-    groups: cleanedGroups,
-    articleCount: totalCount,
+    categories,
+    articleCount,
   };
 }
 
@@ -382,13 +249,13 @@ const CUSTOM_ARTICLES = articlesToWikiArticles(wikiCustomArticles, "custom");
 const TECH_ARTICLES = articlesToWikiArticles(wikiTechArticles, "tech");
 
 export const wikiSections: WikiSection[] = [
-  buildSection("function", FUNCTION_ARTICLES, FUNCTION_GROUPS),
-  buildSection("custom", CUSTOM_ARTICLES, CUSTOM_GROUPS),
-  buildSection("tech", TECH_ARTICLES, TECH_GROUPS),
+  buildSection("function", FUNCTION_ARTICLES, FUNCTION_CATEGORY_ORDER),
+  buildSection("custom", CUSTOM_ARTICLES, CUSTOM_CATEGORY_ORDER),
+  buildSection("tech", TECH_ARTICLES, TECH_CATEGORY_ORDER),
 ];
 
 export const allWikiArticles: WikiArticle[] = wikiSections.flatMap((s) =>
-  s.groups.flatMap((g) => g.categories.flatMap((c) => c.articles)),
+  s.categories.flatMap((c) => c.articles),
 );
 
 /* ── Lookups ── */
@@ -400,14 +267,12 @@ export function getSection(id: SectionId): WikiSection | undefined {
 export function getCategory(
   sectionId: SectionId,
   categoryId: string,
-): { section: WikiSection; group: WikiGroup; category: WikiCategory } | null {
+): { section: WikiSection; category: WikiCategory } | null {
   const section = getSection(sectionId);
   if (!section) return null;
-  for (const group of section.groups) {
-    const category = group.categories.find((c) => c.id === categoryId);
-    if (category) return { section, group, category };
-  }
-  return null;
+  const category = section.categories.find((c) => c.id === categoryId);
+  if (!category) return null;
+  return { section, category };
 }
 
 export function getArticleBySlug(
@@ -460,7 +325,6 @@ export function searchWiki(query: string, limit = 50): WikiSearchResult[] {
     }
 
     if (matchedAll && score > 0) {
-      // exact phrase boost
       if (title.includes(q)) score += 20;
       results.push({ article, score });
     }
