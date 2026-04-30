@@ -6,6 +6,9 @@ out/
 .DS_Store
 *.tsbuildinfo
 
+# Derived from content/wiki/**/*.md — пересобирается через `npm run build-wiki`
+/lib/wiki-articles.generated.ts
+
 # Удалённые превью новостей — больше не нужны
 /public/images/news/10-let-platforme.jpg
 /public/images/news/seo.jpg

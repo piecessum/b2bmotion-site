@@ -1,15 +1,11 @@
 import {
   wikiFunctionArticles,
-  type WikiFunctionArticle,
-} from "@/lib/wiki-function-data";
-import {
   wikiCustomArticles,
-  type WikiCustomArticle,
-} from "@/lib/wiki-custom-data";
-import {
   wikiTechArticles,
+  type WikiFunctionArticle,
+  type WikiCustomArticle,
   type WikiTechArticle,
-} from "@/lib/wiki-tech-data";
+} from "@/lib/wiki-content";
 
 /* ── Types ── */
 

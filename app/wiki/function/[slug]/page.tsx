@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { wikiFunctionArticles } from "@/lib/wiki-function-data";
+import { wikiFunctionArticles } from "@/lib/wiki-content";
 import { getArticleBySlug } from "@/lib/wiki-tree";
 import { WikiShell } from "@/components/wiki/wiki-shell";
 import { WikiArticleView } from "@/components/wiki/wiki-article-view";

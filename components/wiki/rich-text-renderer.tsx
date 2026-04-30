@@ -168,6 +168,25 @@ export function RichTextRenderer({ content }: RichTextRendererProps) {
           case "db-schema":
             return <DbSchemaBlock key={index} />;
 
+          case "video": {
+            if (!block.url) return null;
+            return (
+              <div
+                key={index}
+                className="my-6 relative w-full overflow-hidden rounded-xl bg-surface-inner aspect-video"
+              >
+                <iframe
+                  src={block.url}
+                  title={block.alt || "video"}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full border-0"
+                />
+              </div>
+            );
+          }
+
           default:
             return null;
         }
