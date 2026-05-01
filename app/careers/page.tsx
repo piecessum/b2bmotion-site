@@ -137,15 +137,15 @@ export default function CareersPage() {
       <Navbar />
 
       <section className="relative pt-36 pb-20 px-6">
-        <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <span className="inline-block text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA] mb-5">
+        <div className="relative z-10 max-w-3xl mx-auto">
+          <span className="inline-block text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA] mb-5 text-center w-full sm:text-left sm:w-auto">
             Карьера в 3DaVinci
           </span>
-          <h1 className="font-heading font-bold text-[clamp(36px,7vw,64px)] leading-[1.05] tracking-[-0.02em] mb-6">
+          <h1 className="font-heading font-bold text-[clamp(36px,7vw,64px)] leading-[1.05] tracking-[-0.02em] mb-6 text-center sm:text-left">
             <span className="text-heading">Здесь мы публикуем </span>
             <span className="gradient-text">вакансии</span>
           </h1>
-          <p className="text-lg sm:text-xl text-subtle max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl text-subtle max-w-2xl leading-relaxed text-left">
             Открытых позиций сейчас нет. Но если вы хотите работать у нас —
             расскажите о себе: чем занимаетесь, что умеете и чем сможете быть
             полезны проекту. Мы обязательно рассмотрим любую кандидатуру.
@@ -154,29 +154,33 @@ export default function CareersPage() {
       </section>
 
       <section className="relative pb-32 px-6">
-        <div className="relative z-10 max-w-3xl mx-auto">
-          <div className="rounded-3xl border border-glass-border bg-overlay-2 p-10 sm:p-14 flex flex-col items-center text-center">
-            <EmptyIllustration />
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <div className="rounded-3xl border border-glass-border bg-overlay-2 p-10 sm:p-14 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center">
+            <div className="flex flex-col items-center text-center md:items-start md:text-left order-2 md:order-1">
+              <h2 className="font-heading font-semibold text-2xl sm:text-3xl text-heading mb-3">
+                Актуальных вакансий пока нет
+              </h2>
+              <p className="text-base text-dim max-w-md leading-relaxed mb-8">
+                Напишите Дмитрию Агееву, руководителю продаж — он передаст
+                ваше письмо команде и директору компании.
+              </p>
 
-            <h2 className="font-heading font-semibold text-2xl sm:text-3xl text-heading mt-8 mb-3">
-              Актуальных вакансий пока нет
-            </h2>
-            <p className="text-base text-dim max-w-md leading-relaxed mb-8">
-              Напишите Дмитрию Агееву, руководителю продаж — он передаст ваше
-              письмо команде и директору компании.
-            </p>
+              <a
+                href={mailtoHref}
+                className="shimmer-btn inline-flex items-center gap-2.5 px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white text-base font-semibold rounded-2xl hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_50px_rgba(59,130,246,0.4)] transition-all duration-300 hover:brightness-110"
+              >
+                Предложить кандидатуру
+                <ArrowRight className="w-5 h-5" />
+              </a>
 
-            <a
-              href={mailtoHref}
-              className="shimmer-btn inline-flex items-center gap-2.5 px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white text-base font-semibold rounded-2xl hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_50px_rgba(59,130,246,0.4)] transition-all duration-300 hover:brightness-110"
-            >
-              Предложить кандидатуру
-              <ArrowRight className="w-5 h-5" />
-            </a>
+              <p className="text-xs text-dimmest mt-5">
+                Письмо откроется в вашем почтовом клиенте
+              </p>
+            </div>
 
-            <p className="text-xs text-dimmest mt-5">
-              Письмо откроется в вашем почтовом клиенте
-            </p>
+            <div className="flex justify-center md:justify-end order-1 md:order-2">
+              <EmptyIllustration />
+            </div>
           </div>
         </div>
       </section>
