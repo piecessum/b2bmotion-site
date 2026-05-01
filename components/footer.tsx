@@ -49,7 +49,7 @@ export function Footer() {
               {[
                 { label: "Клиенты", href: "/blog?tab=cases" },
                 { label: "О нас", href: "/about" },
-                { label: "Карьера", href: "#" },
+                { label: "Вакансии", href: "/careers" },
               ].map((link) => (
                 <li key={link.label}>
                   <a
