@@ -67,6 +67,12 @@ const team = [
     accent: "#3B82F6",
   },
   {
+    name: "Илья Долгов",
+    role: "Дизайнер, со-основатель",
+    note: "С 2014 года формирует визуальный язык продуктов компании. Отвечает за дизайн платформы.",
+    accent: "#EF4444",
+  },
+  {
     name: "Дмитрий Агеев",
     role: "Руководитель продаж",
     note: "Первая точка контакта для новых клиентов. Помогает определить, подходит ли вам B2B Движение.",
@@ -89,24 +95,6 @@ const team = [
     role: "Главный бэкенд-разработчик",
     note: "Архитектура B2B-системы: PHP 8 / Yii2, MySQL, ElasticSearch, интеграции с 1С и шлюзовыми таблицами.",
     accent: "#F59E0B",
-  },
-  {
-    name: "Илья Долгов",
-    role: "Дизайнер, со-основатель",
-    note: "С 2014 года формирует визуальный язык продуктов компании. Отвечает за дизайн платформы.",
-    accent: "#EF4444",
-  },
-  {
-    name: "Алексей Масюта",
-    role: "Дизайнер сайта",
-    note: "Дизайн и фронтенд b2bmotion.ru — структура, иллюстрации, темы оформления.",
-    accent: "#8B5CF6",
-  },
-  {
-    name: "Мария Ишкова",
-    role: "Маркетолог",
-    note: "Контент-стратегия, блог, выставки, материалы для дистрибьюторов и партнёров.",
-    accent: "#14B8A6",
   },
 ];
 
@@ -354,29 +342,31 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {team.map((person) => (
               <div
                 key={person.name}
-                className="p-6 rounded-2xl bg-overlay-2 border border-glass-border hover:border-[#3B82F6]/20 transition-colors"
+                className="flex gap-5 p-6 rounded-2xl bg-overlay-2 border border-glass-border hover:border-[#3B82F6]/20 transition-colors"
               >
                 <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center font-heading font-bold text-lg text-white mb-4"
+                  className="w-16 h-16 rounded-2xl flex items-center justify-center font-heading font-bold text-xl text-white flex-shrink-0"
                   style={{
                     background: `linear-gradient(135deg, ${person.accent}, ${person.accent}99)`,
                   }}
                 >
                   {initials(person.name)}
                 </div>
-                <h3 className="font-heading font-semibold text-base text-heading">
-                  {person.name}
-                </h3>
-                <div className="text-[11px] uppercase tracking-[0.12em] text-[#60A5FA] mt-1 mb-3">
-                  {person.role}
+                <div className="min-w-0">
+                  <h3 className="font-heading font-semibold text-base text-heading">
+                    {person.name}
+                  </h3>
+                  <div className="text-[11px] uppercase tracking-[0.12em] text-[#60A5FA] mt-1 mb-2">
+                    {person.role}
+                  </div>
+                  <p className="text-xs text-body leading-relaxed">
+                    {person.note}
+                  </p>
                 </div>
-                <p className="text-xs text-body leading-relaxed">
-                  {person.note}
-                </p>
               </div>
             ))}
           </div>
