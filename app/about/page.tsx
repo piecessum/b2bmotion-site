@@ -200,12 +200,7 @@ export default function AboutPage() {
       <Navbar />
 
       {/* HERO */}
-      <section className="relative pt-36 pb-20 px-6 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] opacity-[0.07] pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-violet-500 rounded-full blur-[120px]" />
-        </div>
-        <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
-
+      <section className="relative pt-36 pb-20 px-6">
         <div className="relative z-10 max-w-5xl mx-auto">
           <div className="text-center">
             <span className="inline-block text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA] mb-5">
@@ -319,7 +314,7 @@ export default function AboutPage() {
               </a>
             </div>
 
-            <div className="p-8 rounded-2xl bg-gradient-to-br from-[#3B82F6]/10 via-[#7C3AED]/8 to-transparent border border-[#3B82F6]/20">
+            <div className="p-8 rounded-2xl bg-overlay-2 border border-glass-border">
               <div className="text-[11px] uppercase tracking-[0.18em] text-[#60A5FA] mb-3">
                 Продукт
               </div>

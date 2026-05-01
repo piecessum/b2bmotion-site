@@ -3,255 +3,294 @@
 import { useEffect, useState } from "react";
 
 /**
- * Стилизованный глобус с подсвеченными городами команды.
- * Орфографическая проекция с центром около 55°N / 55°E — Воронеж, Санкт-Петербург,
- * Бийск и Батуми оказываются в видимом полушарии. Координаты пересчитаны
- * заранее в проценты внутри SVG viewBox 200×200, чтобы не тащить трансформации.
+ * Каркасный глобус с ортографической проекцией. Реальные географические
+ * координаты городов команды; меридианы и параллели пересчитываются на каждом
+ * кадре, центральная долгота плавно качается, чтобы все города оставались
+ * видимыми и при этом «Земля» казалась живой.
  */
 
 interface City {
   name: string;
-  /** Доля от диаметра, [0..1] от левого края диска. */
-  cx: number;
-  /** Доля от диаметра, [0..1] от верхнего края диска. */
-  cy: number;
-  /** Задержка пульсации (сек) — чтобы маркеры не моргали в унисон. */
-  delay: number;
+  lat: number;
+  lon: number;
 }
 
 const cities: City[] = [
-  { name: "Санкт-Петербург", cx: 0.42, cy: 0.28, delay: 0 },
-  { name: "Воронеж", cx: 0.46, cy: 0.4, delay: 0.6 },
-  { name: "Батуми", cx: 0.5, cy: 0.55, delay: 1.2 },
-  { name: "Бийск", cx: 0.74, cy: 0.4, delay: 1.8 },
+  { name: "Санкт-Петербург", lat: 59.93, lon: 30.36 },
+  { name: "Воронеж", lat: 51.66, lon: 39.2 },
+  { name: "Батуми", lat: 41.62, lon: 41.64 },
+  { name: "Бийск", lat: 52.54, lon: 85.21 },
 ];
 
-export function TeamGlobe() {
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+const VB = 600;
+const C = VB / 2;
+const R = 188;
+const RAD = Math.PI / 180;
 
-  // Лёгкое колебание глобуса — имитирует медленное вращение.
+interface Projected {
+  x: number;
+  y: number;
+  visible: boolean;
+  cosc: number;
+}
+
+function project(
+  lat: number,
+  lon: number,
+  lat0: number,
+  lon0: number,
+): Projected {
+  const phi = lat * RAD;
+  const phi0 = lat0 * RAD;
+  const dl = (lon - lon0) * RAD;
+  const cosc =
+    Math.sin(phi0) * Math.sin(phi) +
+    Math.cos(phi0) * Math.cos(phi) * Math.cos(dl);
+  const x = R * Math.cos(phi) * Math.sin(dl);
+  const y =
+    R *
+    (Math.cos(phi0) * Math.sin(phi) -
+      Math.sin(phi0) * Math.cos(phi) * Math.cos(dl));
+  return { x: C + x, y: C - y, visible: cosc > 0, cosc };
+}
+
+function projectPath(
+  points: Array<[number, number]>,
+  lat0: number,
+  lon0: number,
+): string {
+  let d = "";
+  let pen = false;
+  for (const [lat, lon] of points) {
+    const p = project(lat, lon, lat0, lon0);
+    if (p.visible) {
+      d += `${pen ? "L" : "M"}${p.x.toFixed(1)} ${p.y.toFixed(1)} `;
+      pen = true;
+    } else {
+      pen = false;
+    }
+  }
+  return d.trim();
+}
+
+const PARALLELS: Array<Array<[number, number]>> = [-60, -30, 0, 30, 60].map(
+  (lat) => {
+    const pts: Array<[number, number]> = [];
+    for (let lon = -180; lon <= 180; lon += 4) pts.push([lat, lon]);
+    return pts;
+  },
+);
+
+const MERIDIANS: Array<Array<[number, number]>> = [];
+for (let lon = -180; lon < 180; lon += 30) {
+  const pts: Array<[number, number]> = [];
+  for (let lat = -88; lat <= 88; lat += 4) pts.push([lat, lon]);
+  MERIDIANS.push(pts);
+}
+
+export function TeamGlobe() {
   const [phase, setPhase] = useState(0);
+  const [hover, setHover] = useState<number | null>(null);
+
   useEffect(() => {
     let raf = 0;
     const start = performance.now();
     const tick = (t: number) => {
-      setPhase(((t - start) / 12000) % 1);
+      setPhase((((t - start) / 24000) % 1) * Math.PI * 2);
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  const meridianShift = Math.sin(phase * Math.PI * 2) * 6; // px
+  // Центр проекции качается по долготе (≈от 33° до 77° E), широта почти
+  // фиксирована — так все четыре города всегда остаются в видимом полушарии.
+  const lon0 = 55 + 22 * Math.sin(phase);
+  const lat0 = 48 + 4 * Math.sin(phase * 0.5);
+
+  const parallelPaths = PARALLELS.map((p) => projectPath(p, lat0, lon0));
+  const meridianPaths = MERIDIANS.map((m) => projectPath(m, lat0, lon0));
+
+  const cityProj = cities.map((c) => ({
+    ...c,
+    ...project(c.lat, c.lon, lat0, lon0),
+  }));
 
   return (
-    <div className="relative mx-auto w-full max-w-md aspect-square">
+    <div className="relative mx-auto w-full max-w-xl aspect-square">
       {/* Внешнее свечение */}
       <div
         className="absolute inset-0 rounded-full pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle at 35% 30%, rgba(59,130,246,0.25), transparent 60%)",
+            "radial-gradient(circle at 35% 30%, rgba(59,130,246,0.28), transparent 62%)",
           filter: "blur(40px)",
         }}
       />
 
       <svg
-        viewBox="0 0 200 200"
+        viewBox={`0 0 ${VB} ${VB}`}
         className="relative w-full h-full"
-        aria-label="Карта городов команды"
+        aria-label="Глобус с городами команды"
       >
         <defs>
           <radialGradient id="globe-fill" cx="35%" cy="30%" r="80%">
-            <stop offset="0%" stopColor="#1e3a8a" stopOpacity="0.4" />
-            <stop offset="55%" stopColor="#0b1230" stopOpacity="0.85" />
-            <stop offset="100%" stopColor="#000" stopOpacity="0.95" />
+            <stop offset="0%" stopColor="#1e3a8a" stopOpacity="0.55" />
+            <stop offset="55%" stopColor="#0b1230" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#000" stopOpacity="0.96" />
           </radialGradient>
-
           <radialGradient id="globe-rim" cx="50%" cy="50%" r="50%">
             <stop offset="92%" stopColor="transparent" />
-            <stop offset="100%" stopColor="rgba(96,165,250,0.6)" />
+            <stop offset="100%" stopColor="rgba(96,165,250,0.55)" />
           </radialGradient>
-
           <radialGradient id="city-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="rgba(96,165,250,0.9)" />
-            <stop offset="60%" stopColor="rgba(96,165,250,0.15)" />
+            <stop offset="0%" stopColor="rgba(96,165,250,0.95)" />
+            <stop offset="55%" stopColor="rgba(96,165,250,0.18)" />
             <stop offset="100%" stopColor="transparent" />
           </radialGradient>
+          <clipPath id="globe-clip">
+            <circle cx={C} cy={C} r={R} />
+          </clipPath>
         </defs>
 
         {/* Тело глобуса */}
-        <circle cx="100" cy="100" r="92" fill="url(#globe-fill)" />
+        <circle cx={C} cy={C} r={R} fill="url(#globe-fill)" />
 
-        {/* Сетка широт — горизонтальные эллипсы */}
-        <g
-          stroke="rgba(96,165,250,0.18)"
-          strokeWidth="0.6"
-          fill="none"
-          style={{ pointerEvents: "none" }}
-        >
-          <ellipse cx="100" cy="100" rx="90" ry="20" />
-          <ellipse cx="100" cy="100" rx="90" ry="45" />
-          <ellipse cx="100" cy="100" rx="90" ry="70" />
-          <ellipse cx="100" cy="100" rx="90" ry="86" />
-        </g>
-
-        {/* Сетка долгот — слегка анимированная "вращением" */}
-        <g
-          stroke="rgba(96,165,250,0.18)"
-          strokeWidth="0.6"
-          fill="none"
-          style={{ pointerEvents: "none" }}
-        >
-          <ellipse
-            cx="100"
-            cy="100"
-            rx={20 + meridianShift}
-            ry="90"
-            opacity="0.7"
-          />
-          <ellipse
-            cx="100"
-            cy="100"
-            rx={45 + meridianShift}
-            ry="90"
-            opacity="0.6"
-          />
-          <ellipse
-            cx="100"
-            cy="100"
-            rx={70 + meridianShift}
-            ry="90"
-            opacity="0.5"
-          />
-          <ellipse cx="100" cy="100" rx="86" ry="90" opacity="0.4" />
-        </g>
-
-        {/* Размытые "континенты" — абстрактные пятна суши */}
-        <g
-          fill="rgba(96,165,250,0.18)"
-          style={{ pointerEvents: "none", filter: "blur(1.5px)" }}
-        >
-          <path d="M 60 60 Q 80 50 100 65 Q 120 55 140 70 Q 145 90 130 95 Q 100 80 80 90 Q 65 80 60 60 Z" />
-          <path d="M 70 110 Q 90 105 115 115 Q 130 130 110 140 Q 90 135 75 125 Z" />
-          <path d="M 130 105 Q 150 100 165 115 Q 160 130 140 130 Q 130 120 130 105 Z" />
+        {/* Сетка — обрезана по диску, чтобы пограничные сегменты не торчали */}
+        <g clipPath="url(#globe-clip)">
+          <g
+            stroke="rgba(96,165,250,0.16)"
+            strokeWidth="0.9"
+            fill="none"
+            style={{ pointerEvents: "none" }}
+          >
+            {parallelPaths.map((d, i) => (
+              <path key={`p-${i}`} d={d} />
+            ))}
+          </g>
+          <g
+            stroke="rgba(96,165,250,0.16)"
+            strokeWidth="0.9"
+            fill="none"
+            style={{ pointerEvents: "none" }}
+          >
+            {meridianPaths.map((d, i) => (
+              <path key={`m-${i}`} d={d} />
+            ))}
+          </g>
         </g>
 
         {/* Тонкий блик по краю диска */}
         <circle
-          cx="100"
-          cy="100"
-          r="92"
+          cx={C}
+          cy={C}
+          r={R}
           fill="url(#globe-rim)"
           style={{ pointerEvents: "none" }}
         />
 
         {/* Точки городов */}
-        {cities.map((c, i) => {
-          const cx = c.cx * 200;
-          const cy = c.cy * 200;
-          const active = hoverIndex === i;
+        {cityProj.map((c, i) => {
+          if (!c.visible) return null;
+          const opacity = Math.min(1, c.cosc * 3);
+          const active = hover === i;
           return (
             <g
               key={c.name}
-              onMouseEnter={() => setHoverIndex(i)}
-              onMouseLeave={() => setHoverIndex(null)}
-              style={{ cursor: "pointer" }}
+              style={{ opacity, transition: "opacity 0.3s" }}
+              onMouseEnter={() => setHover(i)}
+              onMouseLeave={() => setHover(null)}
             >
-              {/* Большое свечение */}
               <circle
-                cx={cx}
-                cy={cy}
-                r={active ? 16 : 12}
+                cx={c.x}
+                cy={c.y}
+                r={active ? 26 : 20}
                 fill="url(#city-glow)"
-                style={{
-                  transition: "r 0.3s ease",
-                  animation: `pulse-glow 3s ease-in-out ${c.delay}s infinite`,
-                  transformOrigin: `${cx}px ${cy}px`,
-                }}
+                style={{ transition: "r 0.3s" }}
               />
-              {/* Кольцо-волна */}
               <circle
-                cx={cx}
-                cy={cy}
-                r="3"
+                cx={c.x}
+                cy={c.y}
+                r="5"
                 fill="none"
-                stroke="rgba(96,165,250,0.6)"
-                strokeWidth="0.8"
+                stroke="rgba(96,165,250,0.55)"
+                strokeWidth="1"
                 style={{
-                  animation: `pulse-ring 3s ease-out ${c.delay}s infinite`,
-                  transformOrigin: `${cx}px ${cy}px`,
+                  animation: `team-globe-ring 3s ease-out ${i * 0.6}s infinite`,
+                  transformOrigin: `${c.x}px ${c.y}px`,
                 }}
               />
-              {/* Сама точка */}
               <circle
-                cx={cx}
-                cy={cy}
-                r={active ? 3.5 : 2.5}
+                cx={c.x}
+                cy={c.y}
+                r={active ? 5.5 : 4}
                 fill="#60A5FA"
-                style={{ transition: "r 0.3s ease" }}
+                style={{ transition: "r 0.3s" }}
               />
             </g>
           );
         })}
       </svg>
 
-      {/* Легенда — внешние подписи с линиями к точкам */}
+      {/* HTML-подписи с выносками: позиционирование в процентах от viewBox,
+          аспект 1:1 → проценты по обеим осям совпадают с SVG-координатами. */}
       <ul className="absolute inset-0 pointer-events-none">
-        {cities.map((c, i) => {
-          const isLeft = c.cx < 0.5;
-          const top = `${c.cy * 100}%`;
+        {cityProj.map((c, i) => {
+          if (!c.visible) return null;
+          const opacity = Math.min(1, c.cosc * 3);
+          const xPct = (c.x / VB) * 100;
+          const yPct = (c.y / VB) * 100;
+          const isLeft = c.x < C;
+          const active = hover === i;
           return (
             <li
               key={c.name}
               className="absolute pointer-events-auto"
               style={{
-                top,
-                [isLeft ? "right" : "left"]: `${(1 - Math.abs(c.cx - 0.5) - 0.5) * 100 + 50}%`,
-                transform: "translateY(-50%)",
+                left: `${xPct}%`,
+                top: `${yPct}%`,
+                opacity,
+                transition: "opacity 0.3s",
               }}
-              onMouseEnter={() => setHoverIndex(i)}
-              onMouseLeave={() => setHoverIndex(null)}
+              onMouseEnter={() => setHover(i)}
+              onMouseLeave={() => setHover(null)}
             >
-              <span
-                className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border transition-all ${
-                  hoverIndex === i
-                    ? "bg-[#3B82F6]/20 border-[#3B82F6]/40 text-heading"
-                    : "bg-overlay-3 border-glass-border text-body"
-                }`}
+              <div
+                style={{
+                  transform: `translate(${isLeft ? "calc(-100% - 14px)" : "14px"}, -50%)`,
+                }}
               >
                 <span
-                  className="w-1.5 h-1.5 rounded-full bg-[#60A5FA]"
-                  style={{
-                    boxShadow:
-                      hoverIndex === i
+                  className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap transition-all ${
+                    active
+                      ? "bg-[#3B82F6]/20 border-[#3B82F6]/40 text-heading"
+                      : "bg-overlay-3 border-glass-border text-body"
+                  }`}
+                >
+                  <span
+                    className="w-1.5 h-1.5 rounded-full bg-[#60A5FA]"
+                    style={{
+                      boxShadow: active
                         ? "0 0 8px rgba(96,165,250,0.9)"
                         : "0 0 4px rgba(96,165,250,0.5)",
-                  }}
-                />
-                {c.name}
-              </span>
+                    }}
+                  />
+                  {c.name}
+                </span>
+              </div>
             </li>
           );
         })}
       </ul>
 
       <style jsx>{`
-        @keyframes pulse-glow {
-          0%, 100% {
-            opacity: 0.55;
-          }
-          50% {
-            opacity: 1;
-          }
-        }
-        @keyframes pulse-ring {
+        @keyframes team-globe-ring {
           0% {
-            r: 3;
-            opacity: 0.9;
+            r: 5;
+            opacity: 0.85;
           }
           100% {
-            r: 18;
+            r: 26;
             opacity: 0;
           }
         }
