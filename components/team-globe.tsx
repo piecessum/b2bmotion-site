@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 
 /**
  * Каркасный глобус с ортографической проекцией. Реальные географические
- * координаты городов команды; меридианы и параллели пересчитываются на каждом
- * кадре, центральная долгота плавно качается, чтобы все города оставались
- * видимыми и при этом «Земля» казалась живой.
+ * координаты городов команды; меридианы, параллели и контуры суши
+ * (Natural Earth 110m, public/data/world-land-110m.geojson) проецируются
+ * на каждом кадре. Палитра меняется под тёмную/светлую тему.
  */
 
 interface City {
@@ -54,7 +55,7 @@ function project(
   return { x: C + x, y: C - y, visible: cosc > 0, cosc };
 }
 
-function projectPath(
+function projectLatLonPath(
   points: Array<[number, number]>,
   lat0: number,
   lon0: number,
@@ -63,6 +64,27 @@ function projectPath(
   let pen = false;
   for (const [lat, lon] of points) {
     const p = project(lat, lon, lat0, lon0);
+    if (p.visible) {
+      d += `${pen ? "L" : "M"}${p.x.toFixed(1)} ${p.y.toFixed(1)} `;
+      pen = true;
+    } else {
+      pen = false;
+    }
+  }
+  return d.trim();
+}
+
+// GeoJSON-кольцо: массив [lon, lat]. Возвращает path с разрывами по линии
+// терминатора — точки за горизонтом просто пропускаются.
+function projectGeoRing(
+  ring: number[][],
+  lat0: number,
+  lon0: number,
+): string {
+  let d = "";
+  let pen = false;
+  for (const pt of ring) {
+    const p = project(pt[1], pt[0], lat0, lon0);
     if (p.visible) {
       d += `${pen ? "L" : "M"}${p.x.toFixed(1)} ${p.y.toFixed(1)} `;
       pen = true;
@@ -88,9 +110,101 @@ for (let lon = -180; lon < 180; lon += 30) {
   MERIDIANS.push(pts);
 }
 
+interface LandFeature {
+  geometry: {
+    type: "Polygon" | "MultiPolygon";
+    coordinates: number[][][] | number[][][][];
+  };
+}
+
+interface LandGeoJson {
+  features: LandFeature[];
+}
+
+// Все кольца суши, плоско. Для Polygon берём только внешнее кольцо
+// (островные дыры на 110m практически не заметны и можно ими пренебречь).
+function flattenLandRings(geo: LandGeoJson): number[][][] {
+  const rings: number[][][] = [];
+  for (const f of geo.features) {
+    const g = f.geometry;
+    if (g.type === "Polygon") {
+      const polygon = g.coordinates as number[][][];
+      if (polygon[0]) rings.push(polygon[0]);
+    } else if (g.type === "MultiPolygon") {
+      const multi = g.coordinates as number[][][][];
+      for (const polygon of multi) {
+        if (polygon[0]) rings.push(polygon[0]);
+      }
+    }
+  }
+  return rings;
+}
+
+interface Palette {
+  fill0: string;
+  fill1: string;
+  fill2: string;
+  rim: string;
+  grid: string;
+  land: string;
+  cityGlow0: string;
+  cityGlow1: string;
+  cityRing: string;
+  cityDot: string;
+  outerGlow: string;
+}
+
+const PALETTE_DARK: Palette = {
+  fill0: "#1e3a8a",
+  fill1: "#0b1230",
+  fill2: "#000000",
+  rim: "rgba(96,165,250,0.55)",
+  grid: "rgba(96,165,250,0.16)",
+  land: "rgba(96,165,250,0.45)",
+  cityGlow0: "rgba(96,165,250,0.95)",
+  cityGlow1: "rgba(96,165,250,0.18)",
+  cityRing: "rgba(96,165,250,0.55)",
+  cityDot: "#60A5FA",
+  outerGlow: "rgba(59,130,246,0.28)",
+};
+
+const PALETTE_LIGHT: Palette = {
+  fill0: "#FFFFFF",
+  fill1: "#F1F5FB",
+  fill2: "#DCE5F2",
+  rim: "rgba(59,130,246,0.35)",
+  grid: "rgba(37,99,235,0.18)",
+  land: "rgba(37,99,235,0.55)",
+  cityGlow0: "rgba(37,99,235,0.55)",
+  cityGlow1: "rgba(37,99,235,0.10)",
+  cityRing: "rgba(37,99,235,0.55)",
+  cityDot: "#2563EB",
+  outerGlow: "rgba(59,130,246,0.18)",
+};
+
 export function TeamGlobe() {
   const [phase, setPhase] = useState(0);
   const [hover, setHover] = useState<number | null>(null);
+  const [landRings, setLandRings] = useState<number[][][] | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
+
+  useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/data/world-land-110m.geojson")
+      .then((r) => r.json())
+      .then((g: LandGeoJson) => {
+        if (!cancelled) setLandRings(flattenLandRings(g));
+      })
+      .catch(() => {
+        // нет данных — глобус всё равно отрендерится с одной только сеткой
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     let raf = 0;
@@ -103,13 +217,21 @@ export function TeamGlobe() {
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  // Центр проекции качается по долготе (≈от 33° до 77° E), широта почти
-  // фиксирована — так все четыре города всегда остаются в видимом полушарии.
   const lon0 = 55 + 22 * Math.sin(phase);
   const lat0 = 48 + 4 * Math.sin(phase * 0.5);
 
-  const parallelPaths = PARALLELS.map((p) => projectPath(p, lat0, lon0));
-  const meridianPaths = MERIDIANS.map((m) => projectPath(m, lat0, lon0));
+  const isLight = mounted && resolvedTheme === "light";
+  const p = isLight ? PALETTE_LIGHT : PALETTE_DARK;
+
+  const parallelPaths = PARALLELS.map((pts) =>
+    projectLatLonPath(pts, lat0, lon0),
+  );
+  const meridianPaths = MERIDIANS.map((pts) =>
+    projectLatLonPath(pts, lat0, lon0),
+  );
+  const landPaths = landRings
+    ? landRings.map((ring) => projectGeoRing(ring, lat0, lon0))
+    : [];
 
   const cityProj = cities.map((c) => ({
     ...c,
@@ -118,12 +240,10 @@ export function TeamGlobe() {
 
   return (
     <div className="relative mx-auto w-full max-w-xl aspect-square">
-      {/* Внешнее свечение */}
       <div
         className="absolute inset-0 rounded-full pointer-events-none"
         style={{
-          background:
-            "radial-gradient(circle at 35% 30%, rgba(59,130,246,0.28), transparent 62%)",
+          background: `radial-gradient(circle at 35% 30%, ${p.outerGlow}, transparent 62%)`,
           filter: "blur(40px)",
         }}
       />
@@ -135,17 +255,29 @@ export function TeamGlobe() {
       >
         <defs>
           <radialGradient id="globe-fill" cx="35%" cy="30%" r="80%">
-            <stop offset="0%" stopColor="#1e3a8a" stopOpacity="0.55" />
-            <stop offset="55%" stopColor="#0b1230" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#000" stopOpacity="0.96" />
+            <stop
+              offset="0%"
+              stopColor={p.fill0}
+              stopOpacity={isLight ? 1 : 0.55}
+            />
+            <stop
+              offset="55%"
+              stopColor={p.fill1}
+              stopOpacity={isLight ? 1 : 0.9}
+            />
+            <stop
+              offset="100%"
+              stopColor={p.fill2}
+              stopOpacity={isLight ? 1 : 0.96}
+            />
           </radialGradient>
           <radialGradient id="globe-rim" cx="50%" cy="50%" r="50%">
             <stop offset="92%" stopColor="transparent" />
-            <stop offset="100%" stopColor="rgba(96,165,250,0.55)" />
+            <stop offset="100%" stopColor={p.rim} />
           </radialGradient>
           <radialGradient id="city-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="rgba(96,165,250,0.95)" />
-            <stop offset="55%" stopColor="rgba(96,165,250,0.18)" />
+            <stop offset="0%" stopColor={p.cityGlow0} />
+            <stop offset="55%" stopColor={p.cityGlow1} />
             <stop offset="100%" stopColor="transparent" />
           </radialGradient>
           <clipPath id="globe-clip">
@@ -153,13 +285,25 @@ export function TeamGlobe() {
           </clipPath>
         </defs>
 
-        {/* Тело глобуса */}
         <circle cx={C} cy={C} r={R} fill="url(#globe-fill)" />
 
-        {/* Сетка — обрезана по диску, чтобы пограничные сегменты не торчали */}
         <g clipPath="url(#globe-clip)">
+          {/* контуры суши */}
           <g
-            stroke="rgba(96,165,250,0.16)"
+            stroke={p.land}
+            strokeWidth="1"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            fill="none"
+            style={{ pointerEvents: "none" }}
+          >
+            {landPaths.map((d, i) =>
+              d ? <path key={`l-${i}`} d={d} /> : null,
+            )}
+          </g>
+          {/* меридианы и параллели */}
+          <g
+            stroke={p.grid}
             strokeWidth="0.9"
             fill="none"
             style={{ pointerEvents: "none" }}
@@ -169,7 +313,7 @@ export function TeamGlobe() {
             ))}
           </g>
           <g
-            stroke="rgba(96,165,250,0.16)"
+            stroke={p.grid}
             strokeWidth="0.9"
             fill="none"
             style={{ pointerEvents: "none" }}
@@ -180,7 +324,6 @@ export function TeamGlobe() {
           </g>
         </g>
 
-        {/* Тонкий блик по краю диска */}
         <circle
           cx={C}
           cy={C}
@@ -189,7 +332,6 @@ export function TeamGlobe() {
           style={{ pointerEvents: "none" }}
         />
 
-        {/* Точки городов */}
         {cityProj.map((c, i) => {
           if (!c.visible) return null;
           const opacity = Math.min(1, c.cosc * 3);
@@ -213,7 +355,7 @@ export function TeamGlobe() {
                 cy={c.y}
                 r="5"
                 fill="none"
-                stroke="rgba(96,165,250,0.55)"
+                stroke={p.cityRing}
                 strokeWidth="1"
                 style={{
                   animation: `team-globe-ring 3s ease-out ${i * 0.6}s infinite`,
@@ -224,7 +366,7 @@ export function TeamGlobe() {
                 cx={c.x}
                 cy={c.y}
                 r={active ? 5.5 : 4}
-                fill="#60A5FA"
+                fill={p.cityDot}
                 style={{ transition: "r 0.3s" }}
               />
             </g>
@@ -232,8 +374,6 @@ export function TeamGlobe() {
         })}
       </svg>
 
-      {/* HTML-подписи с выносками: позиционирование в процентах от viewBox,
-          аспект 1:1 → проценты по обеим осям совпадают с SVG-координатами. */}
       <ul className="absolute inset-0 pointer-events-none">
         {cityProj.map((c, i) => {
           if (!c.visible) return null;
@@ -268,11 +408,12 @@ export function TeamGlobe() {
                   }`}
                 >
                   <span
-                    className="w-1.5 h-1.5 rounded-full bg-[#60A5FA]"
+                    className="w-1.5 h-1.5 rounded-full"
                     style={{
+                      backgroundColor: p.cityDot,
                       boxShadow: active
-                        ? "0 0 8px rgba(96,165,250,0.9)"
-                        : "0 0 4px rgba(96,165,250,0.5)",
+                        ? `0 0 8px ${p.cityGlow0}`
+                        : `0 0 4px ${p.cityRing}`,
                     }}
                   />
                   {c.name}
