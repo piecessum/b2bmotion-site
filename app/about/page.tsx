@@ -3,12 +3,12 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { LogoCloud } from "@/components/logo-cloud";
 import { CTASection } from "@/components/cta-section";
+import { TeamGlobe } from "@/components/team-globe";
 import {
   ArrowRight,
   Building2,
   Code2,
   Database,
-  Globe,
   Sparkles,
   Users,
 } from "lucide-react";
@@ -139,8 +139,6 @@ const teamBreakdown = [
   },
 ];
 
-const cities = ["Воронеж", "Санкт-Петербург", "Бийск", "Батуми"];
-
 const techStack = [
   {
     title: "Бэкенд",
@@ -251,7 +249,7 @@ export default function AboutPage() {
       </section>
 
       {/* TIMELINE */}
-      <section className="relative py-24 px-6 bg-page-alt">
+      <section className="relative py-24 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="mb-14 text-center">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
@@ -265,7 +263,7 @@ export default function AboutPage() {
           <ol className="relative border-l border-glass-border ml-3 space-y-10">
             {timeline.map((item) => (
               <li key={item.year} className="pl-8 relative">
-                <span className="absolute -left-[7px] top-1.5 w-3.5 h-3.5 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#7C3AED] ring-4 ring-page-alt" />
+                <span className="absolute -left-[7px] top-1.5 w-3.5 h-3.5 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#7C3AED] ring-4 ring-page" />
                 <div className="font-heading font-bold text-2xl text-heading">
                   {item.year}
                 </div>
@@ -345,7 +343,7 @@ export default function AboutPage() {
       </section>
 
       {/* TEAM */}
-      <section className="relative py-24 px-6 bg-page-alt">
+      <section className="relative py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="mb-14 text-center">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
@@ -417,19 +415,21 @@ export default function AboutPage() {
               ))}
             </div>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Globe className="w-4 h-4 text-dim" />
-              <span className="text-xs text-dim uppercase tracking-wider">
-                География:
-              </span>
-              {cities.map((c) => (
-                <span
-                  key={c}
-                  className="px-3 py-1 rounded-full text-xs text-body bg-overlay-3 border border-glass-border"
-                >
-                  {c}
+            <div className="mt-16">
+              <div className="text-center mb-10">
+                <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
+                  География
                 </span>
-              ))}
+                <h3 className="font-heading font-semibold text-xl text-heading mt-3">
+                  Команда распределённая — четыре города, одна работа
+                </h3>
+                <p className="text-sm text-subtle mt-3 max-w-xl mx-auto">
+                  Воронеж — основной офис. Остальные ребята — в Санкт-Петербурге,
+                  Бийске и Батуми. Работаем синхронно по будням, разница часовых
+                  поясов учитывается в графике созвонов.
+                </p>
+              </div>
+              <TeamGlobe />
             </div>
           </div>
         </div>
@@ -497,7 +497,7 @@ export default function AboutPage() {
       <LogoCloud />
 
       {/* FEATURED CASES */}
-      <section className="relative py-24 px-6 bg-page-alt">
+      <section className="relative py-24 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="mb-12 text-center">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
@@ -570,7 +570,7 @@ export default function AboutPage() {
       </section>
 
       {/* LEGAL */}
-      <section className="relative py-16 px-6 bg-page-alt">
+      <section className="relative py-16 px-6">
         <div className="max-w-3xl mx-auto p-8 rounded-2xl bg-overlay-2 border border-glass-border">
           <div className="text-[11px] uppercase tracking-[0.18em] text-dim mb-3">
             Юридическое лицо
