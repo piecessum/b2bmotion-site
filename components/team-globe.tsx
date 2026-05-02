@@ -14,6 +14,7 @@ export interface City {
   name: string;
   lat: number;
   lon: number;
+  description?: string;
 }
 
 const TEAM_CITIES: City[] = [
@@ -186,12 +187,14 @@ interface TeamGlobeProps {
   cities?: City[];
   ariaLabel?: string;
   className?: string;
+  labelsOnHover?: boolean;
 }
 
 export function TeamGlobe({
   cities = TEAM_CITIES,
   ariaLabel = "Глобус с городами команды",
   className = "max-w-xl",
+  labelsOnHover = false,
 }: TeamGlobeProps = {}) {
   const [phase, setPhase] = useState(0);
   const [hover, setHover] = useState<number | null>(null);
@@ -389,11 +392,12 @@ export function TeamGlobe({
       <ul className="absolute inset-0 pointer-events-none">
         {cityProj.map((c, i) => {
           if (!c.visible) return null;
+          const active = hover === i;
+          if (labelsOnHover && !active) return null;
           const opacity = Math.min(1, c.cosc * 3);
           const xPct = (c.x / VB) * 100;
           const yPct = (c.y / VB) * 100;
           const isLeft = c.x < C;
-          const active = hover === i;
           return (
             <li
               key={c.name}
@@ -413,14 +417,14 @@ export function TeamGlobe({
                 }}
               >
                 <span
-                  className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap transition-all ${
+                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-2xl text-xs font-medium border whitespace-nowrap transition-all ${
                     active
                       ? "bg-[#3B82F6]/20 border-[#3B82F6]/40 text-heading"
                       : "bg-overlay-3 border-glass-border text-body"
                   }`}
                 >
                   <span
-                    className="w-1.5 h-1.5 rounded-full"
+                    className="w-1.5 h-1.5 rounded-full shrink-0"
                     style={{
                       backgroundColor: p.cityDot,
                       boxShadow: active
@@ -428,7 +432,16 @@ export function TeamGlobe({
                         : `0 0 4px ${p.cityRing}`,
                     }}
                   />
-                  {c.name}
+                  <span className="flex flex-col leading-tight">
+                    <span className="font-heading font-semibold text-heading">
+                      {c.name}
+                    </span>
+                    {c.description ? (
+                      <span className="text-[11px] text-dim">
+                        {c.description}
+                      </span>
+                    ) : null}
+                  </span>
                 </span>
               </div>
             </li>
