@@ -188,6 +188,7 @@ interface TeamGlobeProps {
   ariaLabel?: string;
   className?: string;
   labelsOnHover?: boolean;
+  glowIntensity?: number;
 }
 
 export function TeamGlobe({
@@ -195,6 +196,7 @@ export function TeamGlobe({
   ariaLabel = "Глобус с городами команды",
   className = "max-w-xl",
   labelsOnHover = false,
+  glowIntensity = 1,
 }: TeamGlobeProps = {}) {
   const [phase, setPhase] = useState(0);
   const [hover, setHover] = useState<number | null>(null);
@@ -260,6 +262,7 @@ export function TeamGlobe({
         style={{
           background: `radial-gradient(circle at 35% 30%, ${p.outerGlow}, transparent 62%)`,
           filter: "blur(40px)",
+          opacity: glowIntensity,
         }}
       />
 
@@ -368,10 +371,10 @@ export function TeamGlobe({
               <circle
                 cx={c.x}
                 cy={c.y}
-                r="5"
+                r="2.5"
                 fill="none"
                 stroke={p.cityRing}
-                strokeWidth="1"
+                strokeWidth="0.8"
                 style={{
                   animation: `team-globe-ring 3s ease-out ${i * 0.6}s infinite`,
                   transformOrigin: `${c.x}px ${c.y}px`,
@@ -380,7 +383,7 @@ export function TeamGlobe({
               <circle
                 cx={c.x}
                 cy={c.y}
-                r={active ? 5.5 : 4}
+                r={active ? 2.75 : 2}
                 fill={p.cityDot}
                 style={{ transition: "r 0.3s" }}
               />
@@ -452,11 +455,11 @@ export function TeamGlobe({
       <style jsx>{`
         @keyframes team-globe-ring {
           0% {
-            r: 5;
+            r: 2.5;
             opacity: 0.85;
           }
           100% {
-            r: 26;
+            r: 18;
             opacity: 0;
           }
         }

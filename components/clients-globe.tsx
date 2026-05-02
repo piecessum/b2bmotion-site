@@ -39,9 +39,9 @@ const CLIENT_CITIES: City[] = [
 
 export function ClientsGlobe() {
   return (
-    <section className="relative py-24 px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-14 text-center">
+    <section className="relative py-16 sm:py-20 px-6 overflow-hidden">
+      <div className="max-w-6xl mx-auto relative">
+        <div className="relative z-10 text-center pb-2 sm:pb-4">
           <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
             География клиентов
           </span>
@@ -62,8 +62,9 @@ export function ClientsGlobe() {
         <TeamGlobe
           cities={CLIENT_CITIES}
           ariaLabel="Глобус с городами клиентов B2B Движения"
-          className="max-w-3xl"
+          className="max-w-4xl -mt-12 sm:-mt-24 lg:-mt-32"
           labelsOnHover
+          glowIntensity={0.45}
         />
       </div>
     </section>
