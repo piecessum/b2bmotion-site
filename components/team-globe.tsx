@@ -185,11 +185,13 @@ const PALETTE_LIGHT: Palette = {
 interface TeamGlobeProps {
   cities?: City[];
   ariaLabel?: string;
+  className?: string;
 }
 
 export function TeamGlobe({
   cities = TEAM_CITIES,
   ariaLabel = "Глобус с городами команды",
+  className = "max-w-xl",
 }: TeamGlobeProps = {}) {
   const [phase, setPhase] = useState(0);
   const [hover, setHover] = useState<number | null>(null);
@@ -247,7 +249,9 @@ export function TeamGlobe({
   }));
 
   return (
-    <div className="relative mx-auto w-full max-w-xl aspect-square">
+    <div
+      className={`relative mx-auto w-full aspect-square ${className}`}
+    >
       <div
         className="absolute inset-0 rounded-full pointer-events-none"
         style={{
