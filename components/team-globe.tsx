@@ -10,13 +10,13 @@ import { useTheme } from "next-themes";
  * на каждом кадре. Палитра меняется под тёмную/светлую тему.
  */
 
-interface City {
+export interface City {
   name: string;
   lat: number;
   lon: number;
 }
 
-const cities: City[] = [
+const TEAM_CITIES: City[] = [
   { name: "Санкт-Петербург", lat: 59.93, lon: 30.36 },
   { name: "Воронеж", lat: 51.66, lon: 39.2 },
   { name: "Батуми", lat: 41.62, lon: 41.64 },
@@ -182,7 +182,15 @@ const PALETTE_LIGHT: Palette = {
   outerGlow: "rgba(59,130,246,0.18)",
 };
 
-export function TeamGlobe() {
+interface TeamGlobeProps {
+  cities?: City[];
+  ariaLabel?: string;
+}
+
+export function TeamGlobe({
+  cities = TEAM_CITIES,
+  ariaLabel = "Глобус с городами команды",
+}: TeamGlobeProps = {}) {
   const [phase, setPhase] = useState(0);
   const [hover, setHover] = useState<number | null>(null);
   const [landRings, setLandRings] = useState<number[][][] | null>(null);
@@ -251,7 +259,7 @@ export function TeamGlobe() {
       <svg
         viewBox={`0 0 ${VB} ${VB}`}
         className="relative w-full h-full"
-        aria-label="Глобус с городами команды"
+        aria-label={ariaLabel}
       >
         <defs>
           <radialGradient id="globe-fill" cx="35%" cy="30%" r="80%">

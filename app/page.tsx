@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
 import { LogoCloud } from "@/components/logo-cloud";
+import { ClientsGlobe } from "@/components/clients-globe";
 import { FeaturesBento } from "@/components/features-bento";
 import { HowItWorks } from "@/components/how-it-works";
 import { ScrollShowcase } from "@/components/scroll-showcase";
@@ -19,6 +20,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <LogoCloud />
+      <ClientsGlobe />
       <FeaturesBento />
       <HowItWorks />
       <ScrollShowcase />
