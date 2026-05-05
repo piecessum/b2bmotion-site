@@ -1,14 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import {
-  ArrowLeft,
-  ArrowRight,
-  CheckCircle2,
-  Loader2,
-  X,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, Loader2, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { DEMO_FORM_EVENT } from "@/lib/demo-form";
 
@@ -185,9 +180,18 @@ export function DemoFormDialog() {
           </Dialog.Close>
 
           {submitted ? (
-            <div className="py-6 text-center">
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-r from-[#3B82F6]/15 to-[#7C3AED]/15 mb-5">
-                <CheckCircle2 className="w-8 h-8 text-[#3B82F6]" />
+            <div className="relative py-6 text-center">
+              <Confetti />
+              <div className="relative inline-flex items-center justify-center w-32 h-32 mb-5">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#3B82F6]/15 via-[#8B5CF6]/15 to-[#06B6D4]/15 blur-xl" />
+                <Image
+                  src="/ok.svg"
+                  alt="Заявка отправлена"
+                  width={120}
+                  height={101}
+                  className="relative w-28 h-auto drop-shadow-[0_8px_24px_rgba(59,130,246,0.25)]"
+                  priority
+                />
               </div>
               <Dialog.Title className="font-heading font-bold text-2xl text-heading mb-2">
                 Спасибо! Заявка отправлена
@@ -523,6 +527,57 @@ function RadioColumn<T extends string>({
           </button>
         );
       })}
+    </div>
+  );
+}
+
+const CONFETTI_COLORS = [
+  "#3B82F6",
+  "#7C3AED",
+  "#06B6D4",
+  "#8B5CF6",
+  "#60A5FA",
+  "#A78BFA",
+];
+
+function Confetti() {
+  const pieces = useMemo(() => {
+    return Array.from({ length: 28 }).map((_, i) => {
+      const angle = (Math.random() - 0.5) * Math.PI * 0.9;
+      const distance = 140 + Math.random() * 160;
+      const x = Math.sin(angle) * distance;
+      const y = 80 + Math.cos(angle) * distance;
+      const rot = (Math.random() - 0.5) * 720;
+      const duration = 1500 + Math.random() * 900;
+      const delay = Math.random() * 180;
+      const color = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+      const w = 6 + Math.random() * 4;
+      const h = 8 + Math.random() * 6;
+      return {
+        key: i,
+        style: {
+          backgroundColor: color,
+          width: `${w}px`,
+          height: `${h}px`,
+          marginLeft: `${(Math.random() - 0.5) * 30}px`,
+          ["--confetti-x" as string]: `${x}px`,
+          ["--confetti-y" as string]: `${y}px`,
+          ["--confetti-rot" as string]: `${rot}deg`,
+          ["--confetti-dur" as string]: `${duration}ms`,
+          ["--confetti-delay" as string]: `${delay}ms`,
+        } as React.CSSProperties,
+      };
+    });
+  }, []);
+
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-x-0 top-2 h-0 overflow-visible"
+    >
+      {pieces.map((p) => (
+        <span key={p.key} className="confetti-piece" style={p.style} />
+      ))}
     </div>
   );
 }

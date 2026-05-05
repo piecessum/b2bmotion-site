@@ -1,0 +1,14 @@
+<svg width="369" height="311" viewBox="0 0 369 311" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="okGrad" x1="0" y1="0" x2="369" y2="311" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#3B82F6"/>
+<stop offset="1" stop-color="#7C3AED"/>
+</linearGradient>
+</defs>
+<circle opacity="0.95" cx="327.5" cy="283.5" r="27.5" fill="url(#okGrad)"/>
+<circle opacity="0.95" cx="274" cy="230" r="18" fill="#06B6D4"/>
+<path d="M291.896 131.953L167.451 213.059L101.81 255.817L6.78387 68.453L40.0277 46.7834L101.81 168.559L134.173 147.47L167.451 125.8L258.618 66.3634L260.683 70.4265L291.896 131.953Z" fill="white" stroke="url(#okGrad)" stroke-width="7"/>
+<path d="M359.602 93.2569L291.896 131.953L260.683 70.4265L258.618 66.3634L326.325 27.668L359.602 93.2569Z" fill="white" stroke="url(#okGrad)" stroke-width="7"/>
+<path d="M359.602 93.2568L169.516 217.122L101.809 255.817L167.451 213.059L291.895 131.952L359.602 93.2568Z" fill="white" stroke="url(#okGrad)" stroke-width="7"/>
+<path d="M167.451 125.8L134.173 147.469L101.809 168.559L40.027 46.7833L107.733 8.08765L167.451 125.8Z" fill="white" stroke="url(#okGrad)" stroke-width="7"/>
+</svg>
