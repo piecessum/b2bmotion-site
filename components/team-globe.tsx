@@ -26,7 +26,7 @@ const TEAM_CITIES: City[] = [
 
 const VB = 600;
 const C = VB / 2;
-const R = 188;
+const R = 290;
 const RAD = Math.PI / 180;
 
 interface Projected {
@@ -452,10 +452,10 @@ export function TeamGlobe({
             >
               <div
                 style={{
-                  transform: `translate(${isLeft ? "calc(-100% - 14px)" : "14px"}, -50%)`,
+                  transform: `translate(${isLeft ? "14px" : "calc(-100% - 14px)"}, -50%)`,
                 }}
               >
-                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-2xl text-xs font-medium border whitespace-nowrap bg-[#3B82F6]/20 border-[#3B82F6]/40 text-heading">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-2xl text-xs font-medium border whitespace-nowrap bg-[#0B1230]/90 border-[#60A5FA]/60 backdrop-blur-md shadow-lg shadow-black/40 ring-1 ring-white/5">
                   <span
                     className="w-1.5 h-1.5 rounded-full shrink-0"
                     style={{
@@ -464,11 +464,11 @@ export function TeamGlobe({
                     }}
                   />
                   <span className="flex flex-col leading-tight">
-                    <span className="font-heading font-semibold text-heading">
+                    <span className="font-heading font-semibold text-white">
                       {c.name}
                     </span>
                     {c.description ? (
-                      <span className="text-[11px] text-dim">
+                      <span className="text-[11px] text-white/80">
                         {c.description}
                       </span>
                     ) : null}
