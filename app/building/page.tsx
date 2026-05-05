@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { Navbar } from "@/components/navbar";
 import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
+import { CtaButton } from "@/components/cta-button";
 import Image from "next/image";
 import {
   ShoppingCart,
@@ -370,12 +371,11 @@ export default function BuildingPage() {
                 Покупка ваших строительных и отделочных материалов прямо на
                 строительном объекте или на встрече с клиентом
               </p>
-              <a
-                href="#cta"
+              <CtaButton
                 className="inline-flex px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
               >
                 Оставить заявку
-              </a>
+              </CtaButton>
             </div>
             {/* Phone mockup */}
             <div className="relative z-10 flex justify-center md:hidden -mt-4">

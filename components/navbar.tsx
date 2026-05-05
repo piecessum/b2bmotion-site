@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { CtaButton } from "@/components/cta-button";
 import Link from "next/link";
 
 const platformPages = [
@@ -197,12 +198,11 @@ export function Navbar() {
             {/* Theme toggle + CTA */}
             <div className="hidden lg:flex items-center ml-auto gap-2">
               <ThemeToggle />
-              <a
-                href="/contacts"
+              <CtaButton
                 className="flex items-center px-5 h-9 my-1.5 text-sm font-medium rounded-xl transition-all duration-300 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white hover:shadow-[0_0_24px_rgba(59,130,246,0.4)] hover:brightness-110 whitespace-nowrap"
               >
                 Оставить заявку
-              </a>
+              </CtaButton>
             </div>
 
             {/* Mobile menu button */}
@@ -321,13 +321,12 @@ export function Navbar() {
                 </div>
               </div>
 
-              <a
-                href="/contacts"
+              <CtaButton
                 className="mt-1 px-4 py-3 text-sm font-medium text-center rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white"
                 onClick={() => setMobileOpen(false)}
               >
                 Оставить заявку
-              </a>
+              </CtaButton>
             </div>
           </div>
         )}

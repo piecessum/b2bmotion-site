@@ -3,6 +3,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BlogBanner } from "@/components/blog-banner";
 import { RelatedCases } from "@/components/related-cases";
+import { CtaButton } from "@/components/cta-button";
 import { notFound } from "next/navigation";
 import {
   Calendar,
@@ -587,18 +588,12 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
               3 месяца и готовый продукт, который будет работать 24/7
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="/demo"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#8B5CF6] text-white font-medium hover:opacity-90 transition-opacity shadow-[0_0_30px_rgba(59,130,246,0.3)]"
-              >
+              <CtaButton className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#8B5CF6] text-white font-medium hover:opacity-90 transition-opacity shadow-[0_0_30px_rgba(59,130,246,0.3)]">
                 Автоматизировать
-              </Link>
-              <Link
-                href="/audit"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-body font-medium hover:bg-white/10 transition-colors"
-              >
+              </CtaButton>
+              <CtaButton className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-body font-medium hover:bg-white/10 transition-colors">
                 Запросить демо
-              </Link>
+              </CtaButton>
             </div>
           </section>
 

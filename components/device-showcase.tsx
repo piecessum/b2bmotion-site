@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CtaButton } from "@/components/cta-button";
 
 export function DeviceShowcase() {
   return (
@@ -77,12 +78,11 @@ export function DeviceShowcase() {
           <p className="text-xl md:text-2xl text-body mb-10">
             и у вас готовый к использованию магазин
           </p>
-          <a
-            href="#cta"
+          <CtaButton
             className="inline-flex items-center gap-2 px-8 py-4 border border-overlay-8 text-subheading text-base font-medium rounded-2xl hover:bg-overlay-4 hover:border-border-default transition-all duration-300"
           >
             Оставить заявку
-          </a>
+          </CtaButton>
         </div>
       </div>
     </section>

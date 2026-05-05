@@ -3,6 +3,7 @@ import { Footer } from "@/components/footer"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { BackButton } from "@/components/back-button"
+import { CtaButton } from "@/components/cta-button"
 
 export const metadata = {
   title: "В2В Движение — оптимальное решение для оптового бизнеса",
@@ -113,13 +114,12 @@ export default function VideoPage() {
               <p className="text-subtle mb-8 max-w-md mx-auto">
                 Оставьте заявку — покажем платформу и обсудим ваш проект
               </p>
-              <a
-                href="mailto:hello@b2b-dvizhenie.ru"
+              <CtaButton
                 className="shimmer-btn inline-flex items-center gap-2.5 px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white text-base font-semibold rounded-2xl hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_50px_rgba(59,130,246,0.4)] transition-all duration-300 hover:brightness-110"
               >
                 Запросить демо
                 <ArrowRight className="w-5 h-5" />
-              </a>
+              </CtaButton>
             </div>
           </div>
         </div>

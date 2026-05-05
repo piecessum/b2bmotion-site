@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { Navbar } from "@/components/navbar";
 import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
+import { CtaButton } from "@/components/cta-button";
 import Image from "next/image";
 import {
   MessageCircle,
@@ -173,12 +174,11 @@ export default function ChatbotsPage() {
               Персональный Telegram-бот для B2B: обработка заказов, складской
               учёт, аналитика и коммуникация с клиентами
             </p>
-            <a
-              href="#cta"
+            <CtaButton
               className="reveal inline-flex px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
             >
               Оставить заявку
-            </a>
+            </CtaButton>
           </div>
           <div className="reveal">
             <div className="bg-surface rounded-2xl border border-border-default p-5">

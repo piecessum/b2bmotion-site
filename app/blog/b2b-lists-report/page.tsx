@@ -4,6 +4,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { ArrowRight } from "lucide-react"
 import { BackButton } from "@/components/back-button"
+import { CtaButton } from "@/components/cta-button"
 
 /* ── COLORS ── */
 const BLUE = "#4f8ef7"
@@ -466,13 +467,12 @@ export default function B2BListsReport() {
             >
               Блог
             </BackButton>
-            <a
-              href="mailto:hello@b2b-dvizhenie.ru"
+            <CtaButton
               className="shimmer-btn inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white text-sm font-semibold rounded-xl hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] transition-all duration-300 hover:brightness-110"
             >
               Запросить демо
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </CtaButton>
           </div>
         </div>
       </article>

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { CtaButton } from "@/components/cta-button"
 import {
   Database,
   CheckCircle2,
@@ -136,12 +137,11 @@ export default function MdmPage() {
             <p className="reveal text-lg text-body mb-8 max-w-lg">
               Производители могут предоставить доступы к этой информации третьим лицам для использования на других ресурсах.
             </p>
-            <a
-              href="#cta"
+            <CtaButton
               className="reveal inline-flex px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
             >
               Оставить заявку
-            </a>
+            </CtaButton>
           </div>
 
           {/* Hero visual — MDM dashboard mockup */}
@@ -460,13 +460,12 @@ export default function MdmPage() {
             MDM-система <span className="gradient-text">управления данными</span> об электротехнических товарах
           </h2>
           <div className="reveal mb-12">
-            <a
-              href="mailto:hello@b2b-dvizhenie.ru"
+            <CtaButton
               className="shimmer-btn inline-flex items-center gap-2.5 px-10 py-5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white text-lg font-semibold rounded-2xl hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_50px_rgba(59,130,246,0.4)] transition-all duration-300 hover:brightness-110"
             >
               Оставить заявку
               <ArrowRight className="w-5 h-5" />
-            </a>
+            </CtaButton>
           </div>
           <div className="reveal flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-dim">
             <a href="tel:+74993503436" className="hover:text-body transition-colors duration-300">

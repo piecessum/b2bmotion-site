@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
+import { CtaButton } from "@/components/cta-button";
 
 export function CTASection() {
   return (
@@ -30,13 +31,12 @@ export function CTASection() {
         </p>
 
         <div className="reveal mb-12">
-          <a
-            href="mailto:hello@b2b-dvizhenie.ru"
+          <CtaButton
             className="shimmer-btn inline-flex items-center gap-2.5 px-10 py-5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white text-lg font-semibold rounded-2xl hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_50px_rgba(59,130,246,0.4)] transition-all duration-300 hover:brightness-110"
           >
             Запросить демо
             <ArrowRight className="w-5 h-5" />
-          </a>
+          </CtaButton>
         </div>
 
         <div className="reveal flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-dim">

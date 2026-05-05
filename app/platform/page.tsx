@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Navbar } from "@/components/navbar";
 import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
+import { CtaButton } from "@/components/cta-button";
 import {
   FileText,
   Search,
@@ -330,12 +331,11 @@ function PlatformPageInner() {
             с интеграцией в вашу 1С
           </p>
           <div className="reveal flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a
-              href="#cta"
+            <CtaButton
               className="px-7 py-3.5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
             >
               Запросить демо
-            </a>
+            </CtaButton>
             <a
               href="/#pricing"
               className="px-7 py-3.5 border-2 border-heading/30 text-heading font-semibold rounded-full hover:bg-overlay-4 transition-all duration-300"

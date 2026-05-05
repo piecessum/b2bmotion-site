@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { CtaButton } from "@/components/cta-button";
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -86,12 +87,11 @@ export function Hero() {
 
         {/* CTA Button */}
         <div className="reveal reveal-delay-3 mb-14">
-          <a
-            href="#cta"
+          <CtaButton
             className="shimmer-btn inline-flex items-center gap-2.5 px-8 py-3.5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white text-base font-semibold rounded-2xl whitespace-nowrap hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_50px_rgba(59,130,246,0.45)] transition-all duration-300 hover:brightness-110"
           >
             Автоматизировать продажи
-          </a>
+          </CtaButton>
         </div>
 
         {/* Stats row */}
