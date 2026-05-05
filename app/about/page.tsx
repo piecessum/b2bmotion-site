@@ -4,7 +4,6 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { LogoCloud } from "@/components/logo-cloud";
 import { CTASection } from "@/components/cta-section";
-import { TeamGlobe } from "@/components/team-globe";
 import {
   ArrowRight,
   Building2,
@@ -401,23 +400,6 @@ export default function AboutPage() {
                   </div>
                 </div>
               ))}
-            </div>
-
-            <div className="mt-16">
-              <div className="text-center mb-10">
-                <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
-                  География
-                </span>
-                <h3 className="font-heading font-semibold text-xl text-heading mt-3">
-                  Команда распределённая — четыре города, одна работа
-                </h3>
-                <p className="text-sm text-subtle mt-3 max-w-xl mx-auto">
-                  Воронеж — основной офис. Остальные ребята — в Санкт-Петербурге,
-                  Бийске и Батуми. Работаем синхронно по будням, разница часовых
-                  поясов учитывается в графике созвонов.
-                </p>
-              </div>
-              <TeamGlobe />
             </div>
           </div>
         </div>
