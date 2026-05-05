@@ -23,9 +23,9 @@ export function Footer() {
             </h4>
             <ul className="space-y-3">
               {[
-                { label: "Возможности", href: "#platform" },
-                { label: "Цены", href: "#pricing" },
-                { label: "Интеграции", href: "#solutions" },
+                { label: "Возможности", href: "/#platform" },
+                { label: "Цены", href: "/#pricing" },
+                { label: "Интеграции", href: "/integrations" },
                 { label: "База знаний", href: "/wiki" },
               ].map((link) => (
                 <li key={link.label}>
