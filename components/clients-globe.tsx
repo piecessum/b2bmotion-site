@@ -59,7 +59,7 @@ export function ClientsGlobe() {
         <TeamGlobe
           cities={CLIENT_CITIES}
           ariaLabel="Глобус с городами клиентов B2B Движения"
-          className="max-w-4xl -mt-12 sm:-mt-24 lg:-mt-32"
+          className="max-w-4xl mt-4 sm:mt-6"
           autoLabel
           glowIntensity={0.45}
         />
