@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -65,46 +66,44 @@ const team = [
     role: "Основатель и директор",
     note: "Запустил 3DaVinci в 2014. Отвечает за продукт, стратегию и ключевых клиентов.",
     accent: "#3B82F6",
+    photo: "/team/Artem.png",
   },
   {
     name: "Илья Долгов",
     role: "Дизайнер, со-основатель",
     note: "С 2014 года формирует визуальный язык продуктов компании. Отвечает за дизайн платформы.",
     accent: "#EF4444",
+    photo: "/team/Ilya.png",
   },
   {
     name: "Дмитрий Агеев",
     role: "Руководитель продаж",
     note: "Первая точка контакта для новых клиентов. Помогает определить, подходит ли вам B2B Движение.",
     accent: "#7C3AED",
+    photo: "/team/dmitriy.png",
   },
   {
     name: "Катерина Масленникова",
     role: "Руководитель администрации",
     note: "Главный менеджер: контролирует ход внедрений и сопровождение действующих клиентов.",
     accent: "#06B6D4",
+    photo: "/team/Kate.png",
   },
   {
     name: "Михаил Фурутин",
     role: "Главный фронтенд-разработчик",
     note: "Отвечает за интерфейс B2B-платформы и мобильного приложения. React, TypeScript, Redux.",
     accent: "#10B981",
+    photo: "/team/Mihail Furutin.png",
   },
   {
     name: "Аслангери Мокаев",
     role: "Главный бэкенд-разработчик",
     note: "Архитектура B2B-системы: PHP 8 / Yii2, MySQL, ElasticSearch, интеграции с 1С и шлюзовыми таблицами.",
     accent: "#F59E0B",
+    photo: "/team/Aslangeri Mokaev.png",
   },
 ];
-
-function initials(name: string) {
-  return name
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((s) => s[0]?.toUpperCase() ?? "")
-    .join("");
-}
 
 const teamBreakdown = [
   {
@@ -349,12 +348,16 @@ export default function AboutPage() {
                 className="flex gap-5 p-6 rounded-2xl bg-overlay-2 border border-glass-border hover:border-[#3B82F6]/20 transition-colors"
               >
                 <div
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center font-heading font-bold text-xl text-white flex-shrink-0"
-                  style={{
-                    background: `linear-gradient(135deg, ${person.accent}, ${person.accent}99)`,
-                  }}
+                  className="relative w-16 h-16 rounded-2xl overflow-hidden flex-shrink-0"
+                  style={{ boxShadow: `inset 0 0 0 2px ${person.accent}55` }}
                 >
-                  {initials(person.name)}
+                  <Image
+                    src={person.photo}
+                    alt={person.name}
+                    fill
+                    sizes="64px"
+                    className="object-cover"
+                  />
                 </div>
                 <div className="min-w-0">
                   <h3 className="font-heading font-semibold text-base text-heading">
