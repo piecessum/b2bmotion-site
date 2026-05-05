@@ -39,7 +39,7 @@ const CLIENT_CITIES: City[] = [
 
 export function ClientsGlobe() {
   return (
-    <section className="relative py-16 sm:py-20 px-6 overflow-hidden">
+    <section className="relative py-16 sm:py-20 px-4 sm:px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto relative">
         <div className="relative z-10 text-center pb-2 sm:pb-4">
           <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
@@ -54,16 +54,13 @@ export function ClientsGlobe() {
             продажи в&nbsp;{CLIENT_CITIES.length} городах России: от
             центральных регионов до Сибири, Урала и&nbsp;Дальнего Востока.
           </p>
-          <p className="text-sm text-dimmer mt-3">
-            Наведите на точку, чтобы увидеть город и компании
-          </p>
         </div>
 
         <TeamGlobe
           cities={CLIENT_CITIES}
           ariaLabel="Глобус с городами клиентов B2B Движения"
           className="max-w-4xl -mt-12 sm:-mt-24 lg:-mt-32"
-          labelsOnHover
+          autoLabel
           glowIntensity={0.45}
         />
       </div>

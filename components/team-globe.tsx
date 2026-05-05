@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 
 /**
@@ -187,7 +187,8 @@ interface TeamGlobeProps {
   cities?: City[];
   ariaLabel?: string;
   className?: string;
-  labelsOnHover?: boolean;
+  autoLabel?: boolean;
+  autoLabelInterval?: number;
   glowIntensity?: number;
 }
 
@@ -195,13 +196,15 @@ export function TeamGlobe({
   cities = TEAM_CITIES,
   ariaLabel = "Глобус с городами команды",
   className = "max-w-xl",
-  labelsOnHover = false,
+  autoLabel = false,
+  autoLabelInterval = 3000,
   glowIntensity = 1,
 }: TeamGlobeProps = {}) {
   const [phase, setPhase] = useState(0);
-  const [hover, setHover] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [landRings, setLandRings] = useState<number[][][] | null>(null);
   const [mounted, setMounted] = useState(false);
+  const visibilityRef = useRef<boolean[]>([]);
   const { resolvedTheme } = useTheme();
 
   useEffect(() => setMounted(true), []);
@@ -232,6 +235,23 @@ export function TeamGlobe({
     return () => cancelAnimationFrame(raf);
   }, []);
 
+  useEffect(() => {
+    if (!autoLabel || cities.length === 0) return;
+    const id = setInterval(() => {
+      setActiveIndex((prev) => {
+        const vis = visibilityRef.current;
+        let next = (prev + 1) % cities.length;
+        let attempts = 0;
+        while (vis.length && !vis[next] && attempts < cities.length) {
+          next = (next + 1) % cities.length;
+          attempts++;
+        }
+        return next;
+      });
+    }, autoLabelInterval);
+    return () => clearInterval(id);
+  }, [autoLabel, autoLabelInterval, cities.length]);
+
   const lon0 = 55 + 22 * Math.sin(phase);
   const lat0 = 48 + 4 * Math.sin(phase * 0.5);
 
@@ -252,6 +272,9 @@ export function TeamGlobe({
     ...c,
     ...project(c.lat, c.lon, lat0, lon0),
   }));
+  visibilityRef.current = cityProj.map((c) => c.visible);
+  const activeVisible =
+    autoLabel && cityProj[activeIndex]?.visible ? activeIndex : -1;
 
   return (
     <div
@@ -353,20 +376,21 @@ export function TeamGlobe({
         {cityProj.map((c, i) => {
           if (!c.visible) return null;
           const opacity = Math.min(1, c.cosc * 3);
-          const active = hover === i;
+          const active = activeVisible === i;
           return (
             <g
               key={c.name}
               style={{ opacity, transition: "opacity 0.3s" }}
-              onMouseEnter={() => setHover(i)}
-              onMouseLeave={() => setHover(null)}
             >
               <circle
                 cx={c.x}
                 cy={c.y}
-                r={active ? 26 : 20}
+                r={active ? 36 : 10}
                 fill="url(#city-glow)"
-                style={{ transition: "r 0.3s" }}
+                style={{
+                  transition: "r 0.4s, opacity 0.4s",
+                  opacity: active ? 1 : 0.55,
+                }}
               />
               <circle
                 cx={c.x}
@@ -380,12 +404,26 @@ export function TeamGlobe({
                   transformOrigin: `${c.x}px ${c.y}px`,
                 }}
               />
+              {active ? (
+                <circle
+                  cx={c.x}
+                  cy={c.y}
+                  r="6"
+                  fill="none"
+                  stroke={p.cityDot}
+                  strokeWidth="1.4"
+                  style={{
+                    animation: `team-globe-pulse 2.4s ease-in-out infinite`,
+                    transformOrigin: `${c.x}px ${c.y}px`,
+                  }}
+                />
+              ) : null}
               <circle
                 cx={c.x}
                 cy={c.y}
-                r={active ? 2.75 : 2}
+                r={active ? 4 : 1.6}
                 fill={p.cityDot}
-                style={{ transition: "r 0.3s" }}
+                style={{ transition: "r 0.4s" }}
               />
             </g>
           );
@@ -395,8 +433,8 @@ export function TeamGlobe({
       <ul className="absolute inset-0 pointer-events-none">
         {cityProj.map((c, i) => {
           if (!c.visible) return null;
-          const active = hover === i;
-          if (labelsOnHover && !active) return null;
+          const active = activeVisible === i;
+          if (autoLabel && !active) return null;
           const opacity = Math.min(1, c.cosc * 3);
           const xPct = (c.x / VB) * 100;
           const yPct = (c.y / VB) * 100;
@@ -404,35 +442,25 @@ export function TeamGlobe({
           return (
             <li
               key={c.name}
-              className="absolute pointer-events-auto"
+              className="absolute"
               style={{
                 left: `${xPct}%`,
                 top: `${yPct}%`,
                 opacity,
-                transition: "opacity 0.3s",
+                animation: "team-globe-label-in 0.35s ease-out",
               }}
-              onMouseEnter={() => setHover(i)}
-              onMouseLeave={() => setHover(null)}
             >
               <div
                 style={{
                   transform: `translate(${isLeft ? "calc(-100% - 14px)" : "14px"}, -50%)`,
                 }}
               >
-                <span
-                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-2xl text-xs font-medium border whitespace-nowrap transition-all ${
-                    active
-                      ? "bg-[#3B82F6]/20 border-[#3B82F6]/40 text-heading"
-                      : "bg-overlay-3 border-glass-border text-body"
-                  }`}
-                >
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-2xl text-xs font-medium border whitespace-nowrap bg-[#3B82F6]/20 border-[#3B82F6]/40 text-heading">
                   <span
                     className="w-1.5 h-1.5 rounded-full shrink-0"
                     style={{
                       backgroundColor: p.cityDot,
-                      boxShadow: active
-                        ? `0 0 8px ${p.cityGlow0}`
-                        : `0 0 4px ${p.cityRing}`,
+                      boxShadow: `0 0 8px ${p.cityGlow0}`,
                     }}
                   />
                   <span className="flex flex-col leading-tight">
@@ -461,6 +489,27 @@ export function TeamGlobe({
           100% {
             r: 18;
             opacity: 0;
+          }
+        }
+        @keyframes team-globe-pulse {
+          0%,
+          100% {
+            r: 6;
+            opacity: 0.9;
+          }
+          50% {
+            r: 9;
+            opacity: 0.4;
+          }
+        }
+        @keyframes team-globe-label-in {
+          from {
+            opacity: 0;
+            transform: scale(0.92);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
           }
         }
       `}</style>
