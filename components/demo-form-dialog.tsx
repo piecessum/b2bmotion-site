@@ -182,14 +182,13 @@ export function DemoFormDialog() {
           {submitted ? (
             <div className="relative py-6 text-center">
               <Confetti />
-              <div className="relative inline-flex items-center justify-center w-32 h-32 mb-5">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#3B82F6]/15 via-[#8B5CF6]/15 to-[#06B6D4]/15 blur-xl" />
+              <div className="mb-5 flex justify-center">
                 <Image
                   src="/ok.svg"
                   alt="Заявка отправлена"
-                  width={120}
-                  height={101}
-                  className="relative w-28 h-auto drop-shadow-[0_8px_24px_rgba(59,130,246,0.25)]"
+                  width={140}
+                  height={118}
+                  className="w-32 h-auto drop-shadow-[0_10px_28px_rgba(124,58,237,0.35)]"
                   priority
                 />
               </div>
