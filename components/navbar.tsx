@@ -129,7 +129,7 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-[1100px]">
+      <nav className="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl">
         <div
           className={`rounded-2xl transition-all duration-500 ${
             scrolled
