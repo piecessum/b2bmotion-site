@@ -401,7 +401,7 @@ function HorizontalScroll({ cards }: { cards: ScrollCard[] }) {
           return (
             <div
               key={i}
-              className="ts-reveal group relative flex-shrink-0 w-[340px] sm:w-[360px] rounded-2xl bg-surface border border-border-default hover:border-[#3B82F6]/30 hover:shadow-[0_8px_40px_-12px_rgba(59,130,246,0.15),0_0_80px_-20px_rgba(139,92,246,0.1)] transition-all duration-500 p-7 flex flex-col"
+              className="ts-reveal group relative flex-shrink-0 w-[80vw] max-w-[340px] sm:w-[360px] sm:max-w-none rounded-2xl bg-surface border border-border-default hover:border-[#3B82F6]/30 hover:shadow-[0_8px_40px_-12px_rgba(59,130,246,0.15),0_0_80px_-20px_rgba(139,92,246,0.1)] transition-all duration-500 p-7 flex flex-col"
               style={{ scrollSnapAlign: "start" }}
             >
               <div className="flex items-start gap-4 mb-5">
