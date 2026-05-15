@@ -674,9 +674,9 @@ export default function TechStackPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div className="ts-reveal relative overflow-hidden p-8 sm:p-10 rounded-3xl bg-surface border border-border-default hover:border-[#3B82F6]/30 transition-colors group">
-              <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-[#3B82F6]/10 blur-3xl group-hover:bg-[#3B82F6]/15 transition-colors duration-700" />
-              <div className="relative">
+            <div className="ts-reveal relative overflow-hidden rounded-3xl bg-surface border border-border-default hover:border-[#3B82F6]/30 transition-colors group flex flex-col">
+              <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-[#3B82F6]/10 blur-3xl group-hover:bg-[#3B82F6]/15 transition-colors duration-700 pointer-events-none" />
+              <div className="relative p-8 sm:p-10 pb-6">
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#3B82F6]/20 to-[#06B6D4]/20 flex items-center justify-center mb-6">
                   <ShoppingBag className="w-7 h-7 text-[#60A5FA]" />
                 </div>
@@ -690,11 +690,27 @@ export default function TechStackPage() {
                   Публичный веб-интерфейс для оформления заказов
                 </p>
               </div>
+              <div className="relative mx-8 sm:mx-10 mb-8 sm:mb-10 mt-auto">
+                <div className="relative rounded-xl overflow-hidden border border-border-default bg-page-alt shadow-[0_8px_30px_-12px_rgba(59,130,246,0.18)] group-hover:shadow-[0_12px_40px_-12px_rgba(59,130,246,0.28)] transition-shadow duration-500">
+                  <div className="flex items-center gap-1.5 px-3 py-2 bg-page-alt border-b border-border-subtle">
+                    <span className="w-2 h-2 rounded-full bg-[#FF5F57]/70" />
+                    <span className="w-2 h-2 rounded-full bg-[#FEBC2E]/70" />
+                    <span className="w-2 h-2 rounded-full bg-[#28C840]/70" />
+                  </div>
+                  <Image
+                    src="/images/tech/Main.png"
+                    alt="Клиентская витрина — публичный веб-интерфейс"
+                    width={1440}
+                    height={868}
+                    className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.02]"
+                  />
+                </div>
+              </div>
             </div>
 
-            <div className="ts-reveal relative overflow-hidden p-8 sm:p-10 rounded-3xl bg-surface border border-border-default hover:border-[#7C3AED]/30 transition-colors group">
-              <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-[#7C3AED]/10 blur-3xl group-hover:bg-[#7C3AED]/15 transition-colors duration-700" />
-              <div className="relative">
+            <div className="ts-reveal relative overflow-hidden rounded-3xl bg-surface border border-border-default hover:border-[#7C3AED]/30 transition-colors group flex flex-col">
+              <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-[#7C3AED]/10 blur-3xl group-hover:bg-[#7C3AED]/15 transition-colors duration-700 pointer-events-none" />
+              <div className="relative p-8 sm:p-10 pb-6">
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#7C3AED]/20 to-[#8B5CF6]/20 flex items-center justify-center mb-6">
                   <Settings2 className="w-7 h-7 text-[#A78BFA]" />
                 </div>
@@ -708,6 +724,22 @@ export default function TechStackPage() {
                   Защищённый административный раздел для менеджеров и
                   руководителей
                 </p>
+              </div>
+              <div className="relative mx-8 sm:mx-10 mb-8 sm:mb-10 mt-auto">
+                <div className="relative rounded-xl overflow-hidden border border-border-default bg-page-alt shadow-[0_8px_30px_-12px_rgba(124,58,237,0.18)] group-hover:shadow-[0_12px_40px_-12px_rgba(124,58,237,0.28)] transition-shadow duration-500">
+                  <div className="flex items-center gap-1.5 px-3 py-2 bg-page-alt border-b border-border-subtle">
+                    <span className="w-2 h-2 rounded-full bg-[#FF5F57]/70" />
+                    <span className="w-2 h-2 rounded-full bg-[#FEBC2E]/70" />
+                    <span className="w-2 h-2 rounded-full bg-[#28C840]/70" />
+                  </div>
+                  <Image
+                    src="/images/tech/Adminka.png"
+                    alt="Панель управления — административный раздел для менеджеров"
+                    width={1440}
+                    height={868}
+                    className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.02]"
+                  />
+                </div>
               </div>
             </div>
           </div>
