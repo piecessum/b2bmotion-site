@@ -1050,6 +1050,14 @@ export default function TechStackPage() {
           opacity: 1;
           transform: translateY(0);
         }
+        @media (max-width: 767px) {
+          .ts-reveal {
+            opacity: 1;
+            transform: none;
+            transition: none;
+            will-change: auto;
+          }
+        }
         @media (prefers-reduced-motion: reduce) {
           .ts-reveal {
             opacity: 1;
