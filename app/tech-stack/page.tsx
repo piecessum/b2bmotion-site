@@ -515,7 +515,8 @@ export default function TechStackPage() {
 
         <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <span className="ts-reveal inline-block px-4 py-1.5 mb-6 text-xs font-medium uppercase tracking-[0.15em] text-[#60A5FA] bg-[#3B82F6]/10 rounded-full">
+            <span className="ts-reveal inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-xs font-semibold uppercase tracking-[0.15em] text-[#2563EB] dark:text-[#93C5FD] bg-[#3B82F6]/15 dark:bg-[#3B82F6]/20 border border-[#3B82F6]/40 dark:border-[#3B82F6]/45 rounded-full backdrop-blur-md shadow-[0_2px_10px_rgba(59,130,246,0.18)] dark:shadow-[0_0_18px_rgba(59,130,246,0.25)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] dark:bg-[#60A5FA] shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
               Технологический стек
             </span>
             <h1 className="ts-reveal font-heading font-bold text-[clamp(32px,5vw,52px)] leading-[1.1] tracking-[-0.03em] mb-6">
