@@ -478,7 +478,7 @@ function HorizontalScroll({ cards }: { cards: ScrollCard[] }) {
 
 /* ── Page ── */
 
-export default function TechStackPage() {
+export default function TechStackClient() {
   const mainRef = useRef<HTMLElement>(null);
   useReveal(mainRef);
 
