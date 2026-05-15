@@ -1020,14 +1020,19 @@ export default function TechStackPage() {
             })}
           </div>
 
-          <div className="mt-10 text-center">
+          <div className="mt-10 flex justify-center">
             <Link
               href="/wiki/tech"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#60A5FA] hover:gap-2 transition-all"
+              className="group inline-flex items-center gap-2 px-5 py-3 rounded-full bg-overlay-2 border border-glass-border text-sm font-medium text-body hover:text-heading hover:border-[#3B82F6]/30 hover:bg-overlay-3 transition-all max-w-full"
             >
-              <BookOpen className="w-4 h-4" />
-              Полные технические материалы в базе знаний
-              <ArrowRight className="w-4 h-4" />
+              <BookOpen className="w-4 h-4 text-[#60A5FA] flex-shrink-0" />
+              <span className="text-center">
+                <span className="sm:hidden">Материалы в базе знаний</span>
+                <span className="hidden sm:inline">
+                  Полные технические материалы в базе знаний
+                </span>
+              </span>
+              <ArrowRight className="w-4 h-4 text-[#60A5FA] flex-shrink-0 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
         </div>
