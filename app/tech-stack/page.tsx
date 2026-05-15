@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { CTASection } from "@/components/cta-section";
@@ -484,49 +485,119 @@ export default function TechStackPage() {
   return (
     <main
       ref={mainRef}
-      className="relative min-h-screen bg-page noise-overlay overflow-x-hidden"
+      className="relative min-h-screen bg-page-alt noise-overlay overflow-x-hidden"
     >
       <Navbar />
 
       {/* HERO */}
-      <section className="relative pt-36 pb-24 px-6 overflow-hidden">
-        <div className="aurora-bg">
-          <div className="aurora-orb aurora-orb-1" />
-          <div className="aurora-orb aurora-orb-2" />
-          <div className="aurora-orb aurora-orb-3" />
+      <section className="relative pt-36 pb-20 px-6 overflow-hidden">
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <img
+            src="/for-bg/bg-techsteck-white.png"
+            alt=""
+            className="w-full h-full object-cover dark:hidden"
+          />
+          <img
+            src="/for-bg/bg-techsteck-dark.png"
+            alt=""
+            className="w-full h-full object-cover hidden dark:block"
+          />
+          <div className="absolute inset-0 bg-white/60 dark:bg-black/70" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to top, var(--page-alt) 0%, color-mix(in srgb, var(--page-alt) 85%, transparent) 20%, color-mix(in srgb, var(--page-alt) 40%, transparent) 45%, transparent 75%)",
+            }}
+          />
         </div>
-        <div className="absolute inset-0 dot-grid opacity-30 pointer-events-none" />
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <span className="ts-reveal inline-block px-4 py-1.5 mb-6 text-xs font-medium uppercase tracking-[0.18em] text-[#60A5FA] bg-[#3B82F6]/10 rounded-full border border-[#3B82F6]/20">
-            Технологический стек
-          </span>
-          <h1 className="ts-reveal font-heading font-bold text-[clamp(36px,6.5vw,64px)] leading-[1.05] tracking-[-0.03em] mb-6">
-            <span className="text-heading">Система </span>
-            <span className="gradient-text-animated">B2B Движение</span>
-            <br />
-            <span className="text-heading">технологический </span>
-            <span className="gradient-text">стек</span>
-          </h1>
-          <p className="ts-reveal text-base sm:text-lg text-subtle max-w-2xl mx-auto leading-relaxed">
-            Промышленные технологии для оптового бизнеса: проверенный backend,
-            современный frontend и российская инфраструктура — всё, что нужно
-            для быстрой и устойчивой B2B-платформы.
-          </p>
-          <div className="ts-reveal mt-10 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="#architecture"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white text-sm font-semibold hover:brightness-110 hover:shadow-[0_0_24px_rgba(59,130,246,0.3)] transition-all"
-            >
-              Изучить архитектуру
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <a
-              href="#pricing"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-overlay-2 border border-glass-border text-sm font-medium text-body hover:text-heading transition-colors"
-            >
-              Варианты размещения
-            </a>
+        <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <span className="ts-reveal inline-block px-4 py-1.5 mb-6 text-xs font-medium uppercase tracking-[0.15em] text-[#60A5FA] bg-[#3B82F6]/10 rounded-full">
+              Технологический стек
+            </span>
+            <h1 className="ts-reveal font-heading font-bold text-[clamp(32px,5vw,52px)] leading-[1.1] tracking-[-0.03em] mb-6">
+              <span className="text-heading">Система </span>
+              <span className="gradient-text-animated">B2B Движение</span>
+              <br />
+              <span className="text-heading">технологический </span>
+              <span className="gradient-text">стек</span>
+            </h1>
+            <p className="ts-reveal text-lg text-body mb-8 max-w-lg">
+              Промышленные технологии для оптового бизнеса: проверенный backend,
+              современный frontend и российская инфраструктура.
+            </p>
+            <div className="ts-reveal flex flex-wrap items-center gap-3">
+              <a
+                href="#architecture"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
+              >
+                Изучить архитектуру
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              <a
+                href="#pricing"
+                className="inline-flex items-center gap-2 px-7 py-4 rounded-full border-2 border-heading/20 text-heading font-semibold hover:bg-overlay-4 transition-all duration-300"
+              >
+                Варианты размещения
+              </a>
+            </div>
+          </div>
+
+          <div className="ts-reveal">
+            <div className="bg-surface rounded-2xl border border-border-default p-5">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#3B82F6]/30" />
+                  <span className="text-xs text-subtle">
+                    Технологический стек
+                  </span>
+                </div>
+                <span className="text-[10px] uppercase tracking-[0.12em] text-[#60A5FA]">
+                  Production
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 mb-3">
+                {[
+                  { tag: "PHP 8.2", desc: "Yii2", color: "#777BB4" },
+                  { tag: "MySQL", desc: "Шлюзовые таблицы", color: "#4479A1" },
+                  { tag: "NGINX", desc: "Веб-сервер", color: "#1FA34A" },
+                  { tag: "REDIS", desc: "Кэш", color: "#DC382D" },
+                  { tag: "ELASTIC", desc: "Поиск", color: "#F09C20" },
+                  { tag: "REMIX", desc: "React SSR", color: "#8B5CF6" },
+                ].map((t) => (
+                  <div
+                    key={t.tag}
+                    className="p-3 bg-page-alt rounded-xl border border-border-subtle"
+                  >
+                    <div
+                      className="text-[10px] font-bold uppercase tracking-[0.1em] mb-1"
+                      style={{ color: t.color }}
+                    >
+                      {t.tag}
+                    </div>
+                    <div className="text-xs text-subtle leading-tight">
+                      {t.desc}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex gap-2 flex-wrap">
+                <span className="px-2 py-1 bg-emerald-500/10 text-emerald-500 text-xs rounded-md">
+                  Tier III · Selectel
+                </span>
+                <span className="px-2 py-1 bg-[#3B82F6]/10 text-[#3B82F6] text-xs rounded-md">
+                  Реестр ПО РФ
+                </span>
+                <span className="px-2 py-1 bg-[#8B5CF6]/10 text-[#8B5CF6] text-xs rounded-md">
+                  ФЗ-152
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -713,33 +784,32 @@ export default function TechStackPage() {
       <section className="relative py-20 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="ts-reveal relative overflow-hidden p-8 sm:p-12 rounded-3xl bg-surface border border-border-default">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#FF3D32]/[0.04] via-transparent to-[#3B82F6]/[0.04] pointer-events-none" />
-            <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[#FF3D32]/8 blur-[120px] pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[#e83a50]/[0.04] via-transparent to-[#3B82F6]/[0.05] pointer-events-none" />
+            <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[#e83a50]/8 blur-[120px] pointer-events-none" />
 
             <div className="relative grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-8 lg:gap-12 items-start">
-              <div className="flex flex-col items-center lg:items-start gap-3">
+              <div className="flex flex-col items-center lg:items-start gap-4">
                 <a
                   href="https://selectel.ru/services/dedicated/russian-servers/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex flex-col items-center lg:items-start gap-2.5 transition-all"
+                  className="group inline-flex flex-col items-center lg:items-start gap-3 transition-all"
                 >
-                  <div className="flex items-baseline gap-0.5">
-                    <span className="font-heading font-bold text-4xl sm:text-5xl text-[#FF3D32] tracking-tight">
-                      Sele
-                    </span>
-                    <span className="font-heading font-bold text-4xl sm:text-5xl text-heading tracking-tight">
-                      ctel
-                    </span>
-                  </div>
+                  <Image
+                    src="/logos/logo.svg"
+                    alt="Selectel"
+                    width={220}
+                    height={44}
+                    className="h-10 sm:h-11 w-auto dark:brightness-0 dark:invert transition-all"
+                  />
                   <span className="inline-flex items-center gap-1 text-xs text-dim group-hover:text-[#60A5FA] transition-colors">
                     selectel.ru
                     <ArrowUpRight className="w-3 h-3" />
                   </span>
                 </a>
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF3D32]/10 border border-[#FF3D32]/20">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF3D32]" />
-                  <span className="text-[10px] uppercase tracking-[0.15em] font-medium text-[#FF3D32]">
+                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#e83a50]/10 border border-[#e83a50]/25">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#e83a50]" />
+                  <span className="text-[10px] uppercase tracking-[0.15em] font-medium text-[#e83a50]">
                     Tier III
                   </span>
                 </div>
