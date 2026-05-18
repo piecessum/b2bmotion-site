@@ -53,6 +53,8 @@ audience:
 **image:** /images/tech/Main.png
 <!-- /showcase -->
 
+<!-- raw-image: /images/blog/1.png -->
+
 ## Внедрение готового B2B-портала сокращает издержки оптового бизнеса до 30–40%
 
 <!-- benefits -->

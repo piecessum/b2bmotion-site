@@ -1196,6 +1196,21 @@ function renderBlogContent(content: string) {
       continue;
     }
 
+    // Raw image — full-width <img> without figure wrapper, border or rounded corners
+    const rawImgMatch = trimmed.match(/^<!--\s*raw-image:\s*(.+?)\s*-->$/);
+    if (rawImgMatch) {
+      elements.push(
+        <img
+          key={i}
+          src={rawImgMatch[1]}
+          alt=""
+          className="block w-full my-8"
+        />,
+      );
+      i++;
+      continue;
+    }
+
     // Empty line
     if (!trimmed) {
       i++;
