@@ -14,6 +14,13 @@ import {
   BookOpen,
   ExternalLink,
   Users,
+  Sparkles,
+  Zap,
+  Truck,
+  TrendingUp,
+  Eye,
+  BarChart3,
+  ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -833,6 +840,357 @@ function renderBlogContent(content: string) {
               </div>
             );
           })}
+        </div>,
+      );
+      continue;
+    }
+
+    // Callout block — info plashka with gradient bg and italic text
+    if (trimmed === "<!-- callout -->") {
+      const calloutLines: string[] = [];
+      i++;
+      while (i < lines.length) {
+        const cl = lines[i].trim();
+        if (cl === "<!-- /callout -->") {
+          i++;
+          break;
+        }
+        calloutLines.push(lines[i]);
+        i++;
+      }
+      const paragraphs: string[] = [];
+      let buf = "";
+      for (const cl of calloutLines) {
+        if (!cl.trim()) {
+          if (buf) {
+            paragraphs.push(buf.trim());
+            buf = "";
+          }
+        } else {
+          buf += (buf ? " " : "") + cl.trim();
+        }
+      }
+      if (buf) paragraphs.push(buf.trim());
+
+      elements.push(
+        <div
+          key={`callout-${i}`}
+          className="my-8 relative rounded-2xl bg-gradient-to-br from-[#3B82F6]/8 via-[#8B5CF6]/6 to-[#06B6D4]/8 border border-[#3B82F6]/15 p-6 md:p-7 overflow-hidden"
+        >
+          <div className="absolute -top-16 -right-16 w-40 h-40 bg-[#3B82F6]/10 rounded-full blur-3xl" />
+          <div className="absolute -bottom-16 -left-16 w-40 h-40 bg-[#8B5CF6]/10 rounded-full blur-3xl" />
+          <div className="relative flex items-start gap-4">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#3B82F6]/20 to-[#8B5CF6]/20 border border-[#3B82F6]/20 flex items-center justify-center shrink-0">
+              <Sparkles className="w-4 h-4 text-[#60A5FA]" />
+            </div>
+            <div className="space-y-3 text-base md:text-[17px] text-body leading-relaxed">
+              {paragraphs.map((p, pi) => (
+                <p key={pi} className="italic">
+                  {renderInline(p)}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>,
+      );
+      continue;
+    }
+
+    // Benefits block — 3x2 grid of icon cards (title | subtitle)
+    if (trimmed === "<!-- benefits -->") {
+      const items: { title: string; subtitle: string }[] = [];
+      i++;
+      while (i < lines.length) {
+        const bl = lines[i].trim();
+        if (bl === "<!-- /benefits -->") {
+          i++;
+          break;
+        }
+        const match = bl.match(/^[*-]\s+\*\*([^*]+)\*\*\s*\|\s*(.+)$/);
+        if (match) {
+          items.push({ title: match[1].trim(), subtitle: match[2].trim() });
+        }
+        i++;
+      }
+
+      const icons = [Zap, Truck, Users, TrendingUp, Eye, BarChart3];
+      elements.push(
+        <div
+          key={`benefits-${i}`}
+          className="grid gap-4 my-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {items.map((item, idx) => {
+            const Icon = icons[idx % icons.length];
+            return (
+              <div
+                key={idx}
+                className="group rounded-2xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-5 hover:border-[#3B82F6]/30 hover:-translate-y-0.5 transition-all duration-300"
+              >
+                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#3B82F6]/15 to-[#8B5CF6]/15 border border-[#3B82F6]/15 flex items-center justify-center mb-4 group-hover:from-[#3B82F6]/25 group-hover:to-[#8B5CF6]/25 transition-colors">
+                  <Icon className="w-5 h-5 text-[#60A5FA]" />
+                </div>
+                <h4 className="font-heading font-semibold text-[15px] text-heading mb-2 leading-snug">
+                  {item.title}
+                </h4>
+                <p className="text-sm text-dim leading-relaxed">
+                  {item.subtitle}
+                </p>
+              </div>
+            );
+          })}
+        </div>,
+      );
+      continue;
+    }
+
+    // Showcase block — large gradient hero with title/subtitle + image
+    if (trimmed === "<!-- showcase -->") {
+      let title = "";
+      let subtitle = "";
+      let image = "";
+      i++;
+      while (i < lines.length) {
+        const sl = lines[i].trim();
+        if (sl === "<!-- /showcase -->") {
+          i++;
+          break;
+        }
+        const tm = sl.match(/^\*\*title:\*\*\s*(.+)$/);
+        const stm = sl.match(/^\*\*subtitle:\*\*\s*(.+)$/);
+        const im = sl.match(/^\*\*image:\*\*\s*(.+)$/);
+        if (tm) title = tm[1].trim();
+        else if (stm) subtitle = stm[1].trim();
+        else if (im) image = im[1].trim();
+        i++;
+      }
+
+      elements.push(
+        <div
+          key={`showcase-${i}`}
+          className="my-12 relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#312E81] via-[#581C87] to-[#1E1B4B] border border-white/10 p-8 md:p-12"
+        >
+          <div className="absolute inset-0 opacity-40 pointer-events-none">
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#3B82F6]/40 rounded-full blur-3xl" />
+            <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#8B5CF6]/30 rounded-full blur-3xl" />
+          </div>
+          <div className="relative">
+            <h3 className="font-heading font-bold text-2xl md:text-4xl text-white leading-tight mb-3 tracking-[-0.02em]">
+              {title}
+            </h3>
+            {subtitle && (
+              <p className="text-base md:text-xl text-white/80 leading-relaxed max-w-2xl">
+                {subtitle}
+              </p>
+            )}
+            {image && (
+              <img
+                src={image}
+                alt={title}
+                className="mt-8 w-full rounded-xl border border-white/10 shadow-2xl"
+              />
+            )}
+          </div>
+        </div>,
+      );
+      continue;
+    }
+
+    // Banner block — CTA banner with title, two action buttons and image
+    if (trimmed === "<!-- banner -->") {
+      let title = "";
+      let btn1Text = "";
+      let btn1Url = "";
+      let btn2Text = "";
+      let btn2Url = "";
+      let image = "";
+      i++;
+      while (i < lines.length) {
+        const bl = lines[i].trim();
+        if (bl === "<!-- /banner -->") {
+          i++;
+          break;
+        }
+        const tm = bl.match(/^\*\*title:\*\*\s*(.+)$/);
+        const b1 = bl.match(/^\*\*button1:\*\*\s*(.+?)\s*\|\s*(.+)$/);
+        const b2 = bl.match(/^\*\*button2:\*\*\s*(.+?)\s*\|\s*(.+)$/);
+        const im = bl.match(/^\*\*image:\*\*\s*(.+)$/);
+        if (tm) title = tm[1].trim();
+        else if (b1) {
+          btn1Text = b1[1].trim();
+          btn1Url = b1[2].trim();
+        } else if (b2) {
+          btn2Text = b2[1].trim();
+          btn2Url = b2[2].trim();
+        } else if (im) image = im[1].trim();
+        i++;
+      }
+
+      elements.push(
+        <div
+          key={`banner-${i}`}
+          className="my-12 relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#1E3A8A] via-[#5B21B6] to-[#0E7490] border border-white/10 p-8 md:p-10"
+        >
+          <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#3B82F6]/30 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#8B5CF6]/25 rounded-full blur-3xl animate-pulse delay-700" />
+          <div className="relative grid md:grid-cols-[1fr_auto] gap-8 items-center">
+            <div>
+              <h3 className="font-heading font-bold text-2xl md:text-[28px] text-white leading-tight mb-6 max-w-xl">
+                {title}
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {btn1Text && (
+                  <Link
+                    href={btn1Url}
+                    className="group inline-flex items-center gap-2 px-5 py-3 bg-white text-[#1E3A8A] font-medium text-sm rounded-xl hover:shadow-[0_0_24px_rgba(255,255,255,0.3)] hover:scale-[1.02] transition-all duration-300"
+                  >
+                    {btn1Text}
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                )}
+                {btn2Text && (
+                  <Link
+                    href={btn2Url}
+                    className="inline-flex items-center gap-2 px-5 py-3 bg-white/10 text-white font-medium text-sm rounded-xl border border-white/20 hover:bg-white/15 hover:border-white/30 transition-colors"
+                  >
+                    {btn2Text}
+                  </Link>
+                )}
+              </div>
+            </div>
+            {image && (
+              <div className="relative hidden md:block">
+                <img
+                  src={image}
+                  alt={title}
+                  className="w-full max-w-[280px] h-auto object-contain"
+                />
+              </div>
+            )}
+          </div>
+        </div>,
+      );
+      continue;
+    }
+
+    // Highlight block — large emphasized stat with growth-style visual
+    if (trimmed === "<!-- highlight -->") {
+      const buf: string[] = [];
+      i++;
+      while (i < lines.length) {
+        const hl = lines[i].trim();
+        if (hl === "<!-- /highlight -->") {
+          i++;
+          break;
+        }
+        if (hl) buf.push(hl);
+        i++;
+      }
+      const text = buf.join(" ");
+      const numMatch = text.match(/^\*\*([^*]+)\*\*\s*(.*)/);
+      const bigNum = numMatch ? numMatch[1] : "";
+      const rest = numMatch ? numMatch[2] : text;
+
+      elements.push(
+        <div
+          key={`highlight-${i}`}
+          className="my-12 relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#3B82F6]/8 via-[#8B5CF6]/6 to-[#06B6D4]/8 border border-[#3B82F6]/20 p-6 md:p-8"
+        >
+          <div className="absolute -top-16 -right-16 w-56 h-56 bg-[#3B82F6]/15 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute -bottom-16 -left-16 w-56 h-56 bg-[#8B5CF6]/15 rounded-full blur-3xl animate-pulse delay-700" />
+          <div className="relative grid md:grid-cols-[auto_1fr] gap-6 md:gap-8 items-center">
+            {bigNum && (
+              <div className="relative shrink-0">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#3B82F6]/40 to-[#8B5CF6]/40 rounded-3xl blur-2xl animate-pulse" />
+                <div className="relative w-28 h-28 md:w-36 md:h-36 rounded-3xl bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex flex-col items-center justify-center shadow-xl shadow-[#3B82F6]/30">
+                  <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-white/80 mb-1" />
+                  <div className="font-heading font-bold text-3xl md:text-5xl text-white tracking-tight">
+                    {bigNum}
+                  </div>
+                </div>
+              </div>
+            )}
+            <p className="font-heading font-semibold text-lg md:text-2xl text-heading leading-tight tracking-[-0.01em]">
+              {renderInline(rest)}
+            </p>
+          </div>
+        </div>,
+      );
+      continue;
+    }
+
+    // Testimonials block — client reviews (mirrors the home page)
+    if (trimmed === "<!-- testimonials -->") {
+      i++;
+      while (i < lines.length && lines[i].trim() !== "<!-- /testimonials -->") {
+        i++;
+      }
+      if (i < lines.length) i++;
+
+      const blogTestimonials = [
+        {
+          quote:
+            "Запуск прошёл быстро и без бюрократии. Поддержка реагирует оперативно. Надёжный технологический партнёр.",
+          company: "РЭЙД-21",
+          industry: "FMCG",
+          logo: "/logos/raid-fav.svg",
+        },
+        {
+          quote:
+            "По удобству интерфейса мы не уступаем маркетплейсам, а в ряде сценариев превосходим их.",
+          company: "ХОГАРТ",
+          industry: "Сантехника",
+          logo: "/logos/hogart-fav.svg",
+        },
+        {
+          quote:
+            "Платформа стала обязательным инструментом продаж. Поддержка доводит задачи до результата.",
+          company: "ПРОТЭК",
+          industry: "Безопасность",
+          logo: "/logos/protek-fav.svg",
+        },
+        {
+          quote:
+            "Гибко управляем ассортиментом: акции, контент, обновление наличия — всё оперативно.",
+          company: "Древиз",
+          industry: "Мебель",
+          logo: "/logos/dreviz-fav.svg",
+        },
+      ];
+
+      elements.push(
+        <div
+          key={`testimonials-${i}`}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 my-8"
+        >
+          {blogTestimonials.map((t, idx) => (
+            <div
+              key={idx}
+              className="group relative rounded-2xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-6 overflow-hidden hover:border-[#3B82F6]/25 transition-colors"
+            >
+              <div className="absolute left-0 top-6 bottom-6 w-[2px] bg-gradient-to-b from-[#3B82F6] via-[#8B5CF6] to-[#06B6D4] opacity-70 group-hover:opacity-100 transition-opacity" />
+              <Quote className="absolute top-4 right-4 w-8 h-8 text-[#3B82F6]/10 group-hover:text-[#3B82F6]/15 transition-colors" />
+              <blockquote className="relative pl-3">
+                <p className="text-sm md:text-base text-body leading-relaxed mb-5 italic">
+                  «{t.quote}»
+                </p>
+                <footer className="flex items-center gap-3 pt-4 border-t border-gray-200 dark:border-white/[0.06]">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#3B82F6]/10 to-[#8B5CF6]/10 border border-gray-200 dark:border-white/10 flex items-center justify-center p-1.5 shrink-0">
+                    <img
+                      src={t.logo}
+                      alt={t.company}
+                      className="w-full h-full object-contain dark:invert opacity-70"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="font-heading font-semibold text-sm text-heading">
+                      {t.company}
+                    </div>
+                    <div className="text-xs text-dim">{t.industry}</div>
+                  </div>
+                </footer>
+              </blockquote>
+            </div>
+          ))}
         </div>,
       );
       continue;

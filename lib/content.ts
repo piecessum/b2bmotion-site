@@ -104,6 +104,7 @@ export function getPostBySlug(
     author: data.author || undefined,
     image: data.image || undefined,
     tags: data.tags || undefined,
+    audience: data.audience || undefined,
     logo: data.logo || undefined,
     industry: data.industry || undefined,
     metrics: data.metrics || undefined,
