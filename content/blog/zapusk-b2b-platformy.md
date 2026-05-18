@@ -8,7 +8,7 @@ authorCard:
   role: "Руководитель отдела продаж"
   bio: "Помогает оптовым компаниям выстраивать процессы цифровых продаж, готовит к запуску B2B-систему и сопровождает её внедрение"
   photo: "/team/Portret%20Dmitriy.png"
-image: "/images/blog/zapusk-b2b-platformy.jpg"
+image: "/images/blog/rost.png"
 audience:
   - "Собственнику бизнеса"
   - "Коммерческому директору"
