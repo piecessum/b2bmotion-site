@@ -1028,20 +1028,20 @@ function renderBlogContent(content: string) {
       elements.push(
         <div
           key={`banner-${i}`}
-          className="my-12 relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#1E3A8A] via-[#5B21B6] to-[#0E7490] border border-white/10 p-8 md:p-10"
+          className="my-12 relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#3B82F6]/20 via-[#8B5CF6]/15 to-[#06B6D4]/20 border border-glass-border p-8 md:p-10"
         >
           <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#3B82F6]/30 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#8B5CF6]/25 rounded-full blur-3xl animate-pulse delay-700" />
+          <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#8B5CF6]/20 rounded-full blur-3xl animate-pulse delay-700" />
           <div className="relative grid md:grid-cols-[1fr_auto] gap-8 items-center">
             <div>
-              <h3 className="font-heading font-bold text-2xl md:text-[28px] text-white leading-tight mb-6 max-w-xl">
+              <h3 className="font-heading font-bold text-2xl md:text-[28px] text-heading leading-tight mb-6 max-w-xl">
                 {title}
               </h3>
               <div className="flex flex-wrap gap-3">
                 {btn1Text && (
                   <Link
                     href={btn1Url}
-                    className="group inline-flex items-center gap-2 px-5 py-3 bg-white text-[#1E3A8A] font-medium text-sm rounded-xl hover:shadow-[0_0_24px_rgba(255,255,255,0.3)] hover:scale-[1.02] transition-all duration-300"
+                    className="group inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-[#3B82F6] to-[#2563EB] text-white font-medium text-sm rounded-xl hover:shadow-[0_0_24px_rgba(59,130,246,0.4)] hover:scale-[1.02] transition-all duration-300"
                   >
                     {btn1Text}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -1050,7 +1050,7 @@ function renderBlogContent(content: string) {
                 {btn2Text && (
                   <Link
                     href={btn2Url}
-                    className="inline-flex items-center gap-2 px-5 py-3 bg-white/10 text-white font-medium text-sm rounded-xl border border-white/20 hover:bg-white/15 hover:border-white/30 transition-colors"
+                    className="inline-flex items-center gap-2 px-5 py-3 bg-black/10 dark:bg-white/10 text-body dark:text-white font-medium text-sm rounded-xl border border-black/20 dark:border-white/20 hover:bg-black/15 dark:hover:bg-white/15 hover:border-black/30 dark:hover:border-white/30 transition-colors"
                   >
                     {btn2Text}
                   </Link>
@@ -1062,7 +1062,7 @@ function renderBlogContent(content: string) {
                 <img
                   src={image}
                   alt={title}
-                  className="w-full max-w-[280px] h-auto object-contain"
+                  className="w-full max-w-[280px] h-auto object-contain drop-shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
                 />
               </div>
             )}
