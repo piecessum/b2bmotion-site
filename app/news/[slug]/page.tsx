@@ -94,6 +94,22 @@ export default async function NewsPostPage({
                     {trimmed.replace("### ", "")}
                   </h3>
                 );
+              const imgMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+              if (imgMatch)
+                return (
+                  <figure key={i} className="my-8">
+                    <img
+                      src={imgMatch[2]}
+                      alt={imgMatch[1]}
+                      className="w-full rounded-xl border border-border-subtle"
+                    />
+                    {imgMatch[1] && (
+                      <figcaption className="text-xs text-dim mt-2 text-center">
+                        {imgMatch[1]}
+                      </figcaption>
+                    )}
+                  </figure>
+                );
               if (trimmed.startsWith("- "))
                 return (
                   <li
