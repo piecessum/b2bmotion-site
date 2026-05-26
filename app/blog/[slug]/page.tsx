@@ -1514,7 +1514,7 @@ function renderInline(text: string) {
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={i} className="text-subheading font-medium">
+        <strong key={i} className="text-subheading font-semibold">
           {part.slice(2, -2)}
         </strong>
       );
