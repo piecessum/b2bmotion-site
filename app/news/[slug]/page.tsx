@@ -145,13 +145,30 @@ export default async function NewsPostPage({
 }
 
 function renderInline(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
         <strong key={i} className="text-subheading font-semibold">
           {part.slice(2, -2)}
         </strong>
+      );
+    }
+    const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (linkMatch) {
+      const href = linkMatch[2];
+      const isInternal = href.startsWith("/") || href.startsWith("#");
+      return (
+        <a
+          key={i}
+          href={href}
+          {...(isInternal
+            ? {}
+            : { target: "_blank", rel: "noopener noreferrer" })}
+          className="text-[#60A5FA] hover:text-[#93C5FD] underline underline-offset-2 decoration-[#3B82F6]/30 hover:decoration-[#3B82F6]/60 transition-colors"
+        >
+          {linkMatch[1]}
+        </a>
       );
     }
     return part;
