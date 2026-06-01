@@ -49,7 +49,7 @@ const authorFallbacks: Record<string, { role: string; bio: string; photo?: strin
   "Команда B2B Движение": {
     role: "Команда проекта",
     bio: "Делимся опытом внедрения B2B-платформ и историями успеха наших клиентов",
-    photo: "/logo.svg",
+    photo: "/icons/B2BMotionSign.png",
   },
 };
 
