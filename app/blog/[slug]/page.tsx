@@ -1,4 +1,5 @@
 import { getAllPosts, getPostBySlug } from "@/lib/content";
+import { authorSlug } from "@/lib/authors";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BlogBanner } from "@/components/blog-banner";
@@ -231,7 +232,10 @@ export default async function BlogPostPage({
 
           {/* Author Card */}
           {(post as any).authorCard && (
-            <div className="mt-14 mb-10 rounded-2xl bg-gradient-to-br from-[#3B82F6]/5 via-transparent to-[#8B5CF6]/5 border border-gray-200 dark:border-white/[0.06] p-6 md:p-8">
+            <Link
+              href={`/blog/author/${authorSlug((post as any).authorCard.name)}`}
+              className="group block mt-14 mb-10 rounded-2xl bg-gradient-to-br from-[#3B82F6]/5 via-transparent to-[#8B5CF6]/5 border border-gray-200 dark:border-white/[0.06] p-6 md:p-8 transition-colors hover:border-[#3B82F6]/30"
+            >
               <div className="flex items-start gap-5">
                 <img
                   src={(post as any).authorCard.photo}
@@ -242,7 +246,7 @@ export default async function BlogPostPage({
                   <div className="text-[10px] uppercase tracking-[0.15em] text-[#60A5FA] mb-1">
                     Автор статьи
                   </div>
-                  <h4 className="font-heading font-bold text-lg text-heading mb-0.5">
+                  <h4 className="font-heading font-bold text-lg text-heading mb-0.5 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
                     {(post as any).authorCard.name}
                   </h4>
                   <p className="text-sm font-medium text-subtle mb-2">
@@ -251,9 +255,13 @@ export default async function BlogPostPage({
                   <p className="text-sm text-dim leading-relaxed">
                     {(post as any).authorCard.bio}
                   </p>
+                  <span className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-[#60A5FA] group-hover:gap-3 transition-all duration-300">
+                    Все статьи автора
+                    <ArrowRight className="w-4 h-4" />
+                  </span>
                 </div>
               </div>
-            </div>
+            </Link>
           )}
 
           {/* Blog Banner */}
