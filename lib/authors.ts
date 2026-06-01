@@ -9,6 +9,16 @@ export interface Author {
   postCount: number;
 }
 
+// Карточка материала в сетке автора (статья, кейс, отчёт или видео)
+export interface AuthorEntry {
+  title: string;
+  description: string;
+  date: string;
+  image?: string;
+  href: string;
+  kind: "Публикация" | "История успеха" | "Отчёт" | "Видео";
+}
+
 // Транслитерация кириллицы в URL-безопасный slug
 const translitMap: Record<string, string> = {
   а: "a", б: "b", в: "v", г: "g", д: "d", е: "e", ё: "e", ж: "zh",
@@ -43,11 +53,35 @@ const authorFallbacks: Record<string, { role: string; bio: string; photo?: strin
   },
 };
 
+// Материалы автора, которых нет среди md-статей (видео, отчёты на отдельных
+// страницах). Привязываются к автору вручную и показываются в его сетке.
+const extraEntries: Record<string, AuthorEntry[]> = {
+  "Команда B2B Движение": [
+    {
+      title: "B2B eCommerce Платформы: Россия vs Мировой рынок",
+      description:
+        "Комплексный обзор 13 платформ — функциональность, дизайн лендингов, цены и рекомендации по выбору.",
+      date: "2026-03-15",
+      href: "/blog/b2b-platforms-report",
+      kind: "Отчёт",
+    },
+    {
+      title: "В2В Движение — оптимальное решение для оптового бизнеса",
+      description:
+        "Как выстроить эффективную систему оптового бизнеса и увеличить его управляемость. Практические подходы к организации B2B-взаимодействия.",
+      date: "2026-02-01",
+      href: "/video",
+      kind: "Видео",
+    },
+  ],
+};
+
 // Собирает данные об авторе из его статей (берёт authorCard, если он есть)
 function buildAuthor(name: string, posts: Post[]): Author {
   const cardPost = posts.find((p) => p.authorCard?.name === name);
   const card = cardPost?.authorCard;
   const fallback = authorFallbacks[name];
+  const extras = extraEntries[name]?.length || 0;
 
   return {
     slug: authorSlug(name),
@@ -55,7 +89,20 @@ function buildAuthor(name: string, posts: Post[]): Author {
     role: card?.role || fallback?.role || "Автор",
     bio: card?.bio || fallback?.bio || "",
     photo: card?.photo || fallback?.photo,
-    postCount: posts.length,
+    postCount: posts.length + extras,
+  };
+}
+
+function postToEntry(post: Post): AuthorEntry {
+  const isCase = post.tags?.includes("кейс") || post.slug.startsWith("keis-");
+  const isReport = post.slug.endsWith("-report");
+  return {
+    title: post.title,
+    description: post.description,
+    date: post.date,
+    image: post.image,
+    href: `/blog/${post.slug}`,
+    kind: isCase ? "История успеха" : isReport ? "Отчёт" : "Публикация",
   };
 }
 
@@ -77,11 +124,12 @@ export function getAllAuthors(collection: "blog" | "news"): Author[] {
     .sort((a, b) => b.postCount - a.postCount);
 }
 
-// Автор по slug + его статьи (отсортированы по дате, новые сверху)
+// Автор по slug + все его материалы (статьи + видео/отчёты),
+// отсортированы по дате, новые сверху
 export function getAuthorBySlug(
   collection: "blog" | "news",
   slug: string,
-): { author: Author; posts: Post[] } | null {
+): { author: Author; entries: AuthorEntry[] } | null {
   const posts = getAllPosts(collection).filter((p) => {
     const name = displayAuthor(p);
     return name && authorSlug(name) === slug;
@@ -90,5 +138,10 @@ export function getAuthorBySlug(
   if (posts.length === 0) return null;
 
   const name = displayAuthor(posts[0])!;
-  return { author: buildAuthor(name, posts), posts };
+  const entries = [
+    ...posts.map(postToEntry),
+    ...(extraEntries[name] || []),
+  ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  return { author: buildAuthor(name, posts), entries };
 }
