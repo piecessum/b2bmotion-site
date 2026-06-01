@@ -373,7 +373,7 @@ function FunctionalView({ switcher }: { switcher: React.ReactNode }) {
   return (
     <>
       {/* Hero */}
-      <section className="relative flex flex-col pt-36 pb-20 px-6 overflow-hidden lg:min-h-[700px]">
+      <section className="relative flex flex-col pt-36 pb-20 px-6 overflow-hidden lg:min-h-[620px]">
         <div className="absolute inset-0">
           <img
             src="/backgrounds/3d_white_bg.png"
@@ -399,8 +399,8 @@ function FunctionalView({ switcher }: { switcher: React.ReactNode }) {
               <span className="gradient-text">оптовых продаж</span>
             </h1>
             <p className="text-lg text-body mb-8 max-w-lg">
-              Управление каталогом, заказами, ценами и клиентами — в одном
-              решении с интеграцией в вашу 1С
+              Управление каталогом, заказами, ценами и клиентами — с 1С в одном
+              решении
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <CtaButton className="px-7 py-3.5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">

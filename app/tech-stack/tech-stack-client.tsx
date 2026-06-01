@@ -486,7 +486,7 @@ export function TechStackSections({
   return (
     <>
       {/* HERO */}
-      <section className="relative flex flex-col pt-36 pb-20 px-6 overflow-hidden lg:min-h-[700px]">
+      <section className="relative flex flex-col pt-36 pb-20 px-6 overflow-hidden lg:min-h-[620px]">
         {/* Background image */}
         <div className="absolute inset-0">
           <img
@@ -515,8 +515,8 @@ export function TechStackSections({
           </div>
         )}
 
-        <div className="relative z-10 max-w-6xl mx-auto w-full flex-1 content-center grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
+        <div className="relative z-10 max-w-6xl mx-auto w-full flex-1 flex items-center">
+          <div className="max-w-2xl">
             {!switcher && (
               <span className="ts-reveal inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-xs font-semibold uppercase tracking-[0.15em] text-[#2563EB] dark:text-[#93C5FD] bg-[#3B82F6]/15 dark:bg-[#3B82F6]/20 border border-[#3B82F6]/40 dark:border-[#3B82F6]/45 rounded-full backdrop-blur-md shadow-[0_2px_10px_rgba(59,130,246,0.18)] dark:shadow-[0_0_18px_rgba(59,130,246,0.25)]">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] dark:bg-[#60A5FA] shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
@@ -524,15 +524,16 @@ export function TechStackSections({
               </span>
             )}
             <h1 className="ts-reveal font-heading font-bold text-[clamp(32px,5vw,52px)] leading-[1.1] tracking-[-0.03em] mb-6">
-              <span className="text-heading">Система </span>
-              <span className="gradient-text-animated">B2B Движение</span>
+              <span className="text-heading">Система B2B </span>
+              <span className="gradient-text-animated">«Движение»</span>
+              <span className="text-heading">:</span>
               <br />
               <span className="text-heading">технологический </span>
               <span className="gradient-text">стек</span>
             </h1>
             <p className="ts-reveal text-lg text-body mb-8 max-w-lg">
-              Промышленные технологии для оптового бизнеса: проверенный backend,
-              современный frontend и российская инфраструктура.
+              Проверенный backend, современный frontend, российская
+              инфраструктура для B2B
             </p>
             <div className="ts-reveal flex flex-wrap items-center gap-3">
               <a
@@ -548,60 +549,6 @@ export function TechStackSections({
               >
                 Варианты размещения
               </a>
-            </div>
-          </div>
-
-          <div className="ts-reveal">
-            <div className="bg-surface rounded-2xl border border-border-default p-5">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-[#3B82F6]/30" />
-                  <span className="text-xs text-subtle">
-                    Технологический стек
-                  </span>
-                </div>
-                <span className="text-[10px] uppercase tracking-[0.12em] text-[#60A5FA]">
-                  Production
-                </span>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2 mb-3">
-                {[
-                  { tag: "PHP 8.2", desc: "Yii2", color: "#777BB4" },
-                  { tag: "MySQL", desc: "Шлюзовые таблицы", color: "#4479A1" },
-                  { tag: "NGINX", desc: "Веб-сервер", color: "#1FA34A" },
-                  { tag: "REDIS", desc: "Кэш", color: "#DC382D" },
-                  { tag: "ELASTIC", desc: "Поиск", color: "#F09C20" },
-                  { tag: "REMIX", desc: "React SSR", color: "#8B5CF6" },
-                ].map((t) => (
-                  <div
-                    key={t.tag}
-                    className="p-3 bg-page-alt rounded-xl border border-border-subtle"
-                  >
-                    <div
-                      className="text-[10px] font-bold uppercase tracking-[0.1em] mb-1"
-                      style={{ color: t.color }}
-                    >
-                      {t.tag}
-                    </div>
-                    <div className="text-xs text-subtle leading-tight">
-                      {t.desc}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex gap-2 flex-wrap">
-                <span className="px-2 py-1 bg-emerald-500/10 text-emerald-500 text-xs rounded-md">
-                  Tier III · Selectel
-                </span>
-                <span className="px-2 py-1 bg-[#3B82F6]/10 text-[#3B82F6] text-xs rounded-md">
-                  Реестр ПО РФ
-                </span>
-                <span className="px-2 py-1 bg-[#8B5CF6]/10 text-[#8B5CF6] text-xs rounded-md">
-                  ФЗ-152
-                </span>
-              </div>
             </div>
           </div>
         </div>
