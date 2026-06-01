@@ -462,52 +462,84 @@ function FunctionalView({ switcher }: { switcher: React.ReactNode }) {
           </aside>
 
           {/* Content */}
-          <div className="space-y-16">
-            {functionalSections.map((section, idx) => {
-              const Icon = section.icon;
-              const reversed = idx % 2 !== 0;
-              return (
-                <div key={section.id} id={section.id} className="scroll-mt-28">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                      style={{ backgroundColor: `${section.color}15` }}
-                    >
-                      <Icon className="w-5 h-5" style={{ color: section.color }} />
-                    </div>
-                    <h2 className="font-heading font-bold text-[clamp(22px,3vw,30px)] tracking-[-0.02em] text-heading">
-                      {section.title}
+          <div className="space-y-20">
+            {(() => {
+              let globalIdx = -1;
+              return sidebarGroups.map((group) => (
+                <div key={group.title}>
+                  {/* Group heading */}
+                  <div className="mb-10 pb-5 border-b border-border-default flex items-center gap-3">
+                    <span
+                      className="w-1.5 h-9 rounded-full shrink-0"
+                      style={{ backgroundColor: group.color }}
+                    />
+                    <h2 className="font-heading font-bold text-[clamp(26px,4vw,40px)] tracking-[-0.02em] text-heading">
+                      {group.title}
                     </h2>
                   </div>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                    <div className={reversed ? "lg:order-2" : ""}>
-                      <div className="relative w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#3B82F6]/[0.04] via-[#8B5CF6]/[0.03] to-[#06B6D4]/[0.04] border border-border-default">
-                        <Image
-                          src={`/${section.image}`}
-                          alt={section.title}
-                          width={600}
-                          height={400}
-                          className="w-full h-auto object-contain p-4"
-                          priority={idx < 2}
-                        />
-                      </div>
-                    </div>
+                  <div className="space-y-16">
+                    {group.ids.map((id) => {
+                      globalIdx++;
+                      const idx = globalIdx;
+                      const section = sectionById[id];
+                      const Icon = section.icon;
+                      const reversed = idx % 2 !== 0;
+                      return (
+                        <div
+                          key={section.id}
+                          id={section.id}
+                          className="scroll-mt-28"
+                        >
+                          <div className="flex items-center gap-3 mb-6">
+                            <div
+                              className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                              style={{ backgroundColor: `${section.color}15` }}
+                            >
+                              <Icon
+                                className="w-5 h-5"
+                                style={{ color: section.color }}
+                              />
+                            </div>
+                            <h3 className="font-heading font-bold text-[clamp(20px,2.6vw,26px)] tracking-[-0.02em] text-heading">
+                              {section.title}
+                            </h3>
+                          </div>
 
-                    <ul className={`space-y-3 ${reversed ? "lg:order-1" : ""}`}>
-                      {section.features.map((feature, i) => (
-                        <li key={i} className="flex gap-3 items-start">
-                          <Check className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
-                          <span className="text-sm text-body leading-relaxed">
-                            {feature}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
+                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                            <div className={reversed ? "lg:order-2" : ""}>
+                              <div className="relative w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#3B82F6]/[0.04] via-[#8B5CF6]/[0.03] to-[#06B6D4]/[0.04] border border-border-default">
+                                <Image
+                                  src={`/${section.image}`}
+                                  alt={section.title}
+                                  width={600}
+                                  height={400}
+                                  className="w-full h-auto object-contain p-4"
+                                  priority={idx < 2}
+                                />
+                              </div>
+                            </div>
+
+                            <ul
+                              className={`space-y-3 ${reversed ? "lg:order-1" : ""}`}
+                            >
+                              {section.features.map((feature, i) => (
+                                <li key={i} className="flex gap-3 items-start">
+                                  <Check className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
+                                  <span className="text-sm text-body leading-relaxed">
+                                    {feature}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
-              );
-            })}
+              ));
+            })()}
           </div>
         </div>
       </section>
@@ -578,7 +610,7 @@ function PlatformPageInner() {
   return (
     <main
       ref={mainRef}
-      className={`relative min-h-screen noise-overlay overflow-x-hidden ${
+      className={`relative min-h-screen noise-overlay overflow-x-clip ${
         view === "tech" ? "bg-page-alt" : "bg-page"
       }`}
     >
