@@ -6,6 +6,15 @@ import { Calendar, ArrowRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
+function pluralizeMaterials(n: number): string {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod10 === 1 && mod100 !== 11) return "материал";
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20))
+    return "материала";
+  return "материалов";
+}
+
 export function generateStaticParams() {
   return getAllAuthors("blog").map((author) => ({ slug: author.slug }));
 }
@@ -46,6 +55,10 @@ export default async function AuthorPage({
   const { author, posts } = data;
   const isCaseStudy = (post: (typeof posts)[number]) =>
     post.tags?.includes("кейс") || post.slug.startsWith("keis-");
+
+  const otherAuthors = getAllAuthors("blog").filter(
+    (a) => a.slug !== author.slug,
+  );
 
   return (
     <main className="relative min-h-screen bg-page noise-overlay">
@@ -144,6 +157,42 @@ export default async function AuthorPage({
               </Link>
             ))}
           </div>
+
+          {/* Other authors */}
+          {otherAuthors.length > 0 && (
+            <div className="mt-20">
+              <h2 className="font-heading font-bold text-xl text-heading mb-6">
+                Другие авторы
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {otherAuthors.map((a) => (
+                  <Link
+                    key={a.slug}
+                    href={`/blog/author/${a.slug}`}
+                    className="group relative flex items-center gap-4 rounded-2xl glass-card p-5 transition-colors hover:border-[#3B82F6]/30"
+                  >
+                    {a.photo && (
+                      <img
+                        src={a.photo}
+                        alt={a.name}
+                        className="w-14 h-14 rounded-full object-cover object-top border-2 border-[#3B82F6]/20 shrink-0"
+                      />
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-heading font-semibold text-base text-heading group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors truncate">
+                        {a.name}
+                      </h3>
+                      <p className="text-xs text-subtle truncate">{a.role}</p>
+                      <p className="mt-1 text-[11px] text-dim">
+                        {a.postCount} {pluralizeMaterials(a.postCount)}
+                      </p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 text-dim group-hover:text-[#60A5FA] shrink-0 transition-colors" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
