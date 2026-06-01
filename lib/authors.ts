@@ -62,6 +62,7 @@ const extraEntries: Record<string, AuthorEntry[]> = {
       description:
         "Комплексный обзор 13 платформ — функциональность, дизайн лендингов, цены и рекомендации по выбору.",
       date: "2026-03-15",
+      image: "/images/blog/analitics.png",
       href: "/blog/b2b-platforms-report",
       kind: "Отчёт",
     },
@@ -70,6 +71,7 @@ const extraEntries: Record<string, AuthorEntry[]> = {
       description:
         "Как выстроить эффективную систему оптового бизнеса и увеличить его управляемость. Практические подходы к организации B2B-взаимодействия.",
       date: "2026-02-01",
+      image: "/images/blog/for_video.png",
       href: "/video",
       kind: "Видео",
     },

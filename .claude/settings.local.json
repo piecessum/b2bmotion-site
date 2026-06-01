@@ -225,7 +225,8 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/platform)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:3000/platform?view=tech\")",
       "Bash(curl -s http://localhost:3000/platform)",
-      "Bash(pkill -f \"next-server\")"
+      "Bash(pkill -f \"next-server\")",
+      "WebFetch(domain:b2bmotion-site.vercel.app)"
     ]
   }
 }
