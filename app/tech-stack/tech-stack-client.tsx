@@ -478,17 +478,13 @@ function HorizontalScroll({ cards }: { cards: ScrollCard[] }) {
 
 /* ── Page ── */
 
-export default function TechStackClient() {
-  const mainRef = useRef<HTMLElement>(null);
-  useReveal(mainRef);
-
+export function TechStackSections({
+  switcher,
+}: {
+  switcher?: React.ReactNode;
+}) {
   return (
-    <main
-      ref={mainRef}
-      className="relative min-h-screen bg-page-alt noise-overlay overflow-x-hidden"
-    >
-      <Navbar />
-
+    <>
       {/* HERO */}
       <section className="relative pt-36 pb-20 px-6 overflow-hidden">
         {/* Background image */}
@@ -512,6 +508,12 @@ export default function TechStackClient() {
             }}
           />
         </div>
+
+        {switcher && (
+          <div className="relative z-10 flex justify-center mb-12">
+            {switcher}
+          </div>
+        )}
 
         <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
@@ -1036,9 +1038,6 @@ export default function TechStackClient() {
         </div>
       </section>
 
-      <CTASection />
-      <Footer />
-
       {/* Reveal animation styles */}
       <style jsx global>{`
         .ts-reveal {
@@ -1069,6 +1068,23 @@ export default function TechStackClient() {
           }
         }
       `}</style>
+    </>
+  );
+}
+
+export default function TechStackClient() {
+  const mainRef = useRef<HTMLElement>(null);
+  useReveal(mainRef);
+
+  return (
+    <main
+      ref={mainRef}
+      className="relative min-h-screen bg-page-alt noise-overlay overflow-x-hidden"
+    >
+      <Navbar />
+      <TechStackSections />
+      <CTASection />
+      <Footer />
     </main>
   );
 }

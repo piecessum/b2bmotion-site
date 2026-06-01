@@ -6,6 +6,7 @@ import { Navbar } from "@/components/navbar";
 import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 import { CtaButton } from "@/components/cta-button";
+import { TechStackSections } from "../tech-stack/tech-stack-client";
 import {
   FileText,
   Search,
@@ -25,13 +26,30 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-/* ── Data: Товары и заказы ── */
+/* ── Functional sections (flat, in display order) ── */
 
-const productsSections = [
+type FuncSection = {
+  id: string;
+  navLabel: string;
+  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
+  title: string;
+  image: string;
+  color: string;
+  features: string[];
+};
+
+const productsColor = "#3B82F6";
+const cabinetColor = "#8B5CF6";
+const marketingColor = "#06B6D4";
+
+const functionalSections: FuncSection[] = [
   {
+    id: "data-product",
+    navLabel: "Данные о товаре",
     icon: FileText,
     title: "Данные о товаре",
     image: "ui-screenshots/product.png",
+    color: productsColor,
     features: [
       "Заполнение описания, свойств, бренда, серии, артикулов и штрихкодов к товару",
       "Галерея фото, видео, сертификатов, гарантий и других необходимых документов",
@@ -46,9 +64,12 @@ const productsSections = [
     ],
   },
   {
+    id: "catalog",
+    navLabel: "Каталог и поиск",
     icon: Search,
     title: "Каталог и поиск",
     image: "ui-screenshots/catalog-searc.png",
+    color: productsColor,
     features: [
       "Распределение товаров по дереву каталога компании",
       "Интеллектуальный поиск по любым совпадениям: код товара, название, свойства и т.п.",
@@ -59,9 +80,12 @@ const productsSections = [
     ],
   },
   {
+    id: "pricing",
+    navLabel: "Ценообразование",
     icon: DollarSign,
     title: "Ценообразование",
     image: "ui-screenshots/pricing.png",
+    color: productsColor,
     features: [
       "Тарифы — настраиваемые типы цен + настройка базового тарифа для новых пользователей",
       "Сегментирование компаний-контрагентов и настройка индивидуальных скидок",
@@ -71,9 +95,12 @@ const productsSections = [
     ],
   },
   {
+    id: "orders",
+    navLabel: "Заказы",
     icon: ShoppingCart,
     title: "Заказы",
     image: "ui-screenshots/orders.png",
+    color: productsColor,
     features: [
       "Бесшовная передача заказов клиентов сразу в 1С или другую ERP-систему без дополнительной обработки менеджером",
       "Отслеживание текущего состояния заказа клиентом — статуса заказа и отдельных позиций внутри заказа",
@@ -83,9 +110,12 @@ const productsSections = [
     ],
   },
   {
+    id: "payment",
+    navLabel: "Оплата и доставка",
     icon: CreditCard,
     title: "Оплата и доставка",
     image: "ui-screenshots/payment-delivery.png",
+    color: productsColor,
     features: [
       "Оплата через выставление счёта контрагенту",
       "Эквайринг — оплата картой",
@@ -96,24 +126,25 @@ const productsSections = [
     ],
   },
   {
+    id: "documents",
+    navLabel: "Документооборот",
     icon: FileCheck2,
     title: "Документооборот",
     image: "ui-screenshots/documents.png",
+    color: productsColor,
     features: [
       "Передача документов к заказу из 1С с факсимильными подписью и печатью: счёт, накладная, счёт-фактура",
       "Неоднократное перевыставление счёта, если произошла корректировка заказа",
       "Возможность контрагента запросить акт сверки",
     ],
   },
-];
-
-/* ── Data: Личный кабинет ── */
-
-const cabinetSections = [
   {
+    id: "personal-offers",
+    navLabel: "Персональные предложения",
     icon: Gift,
     title: "Персональные предложения",
     image: "ui-screenshots/personal-offers.png",
+    color: cabinetColor,
     features: [
       "Индивидуальные скидки для конкретного клиента",
       "Рекомендованные спецификации от менеджера с предложением лучших условий",
@@ -122,9 +153,12 @@ const cabinetSections = [
     ],
   },
   {
+    id: "buyer-data",
+    navLabel: "Данные о покупателе",
     icon: Building2,
     title: "Данные о компании покупателя",
     image: "ui-screenshots/company-data.png",
+    color: cabinetColor,
     features: [
       "Мультикомпании — возможность работать от лица нескольких компаний и переключаться между ними",
       "Отображение кредитного лимита, дебиторской задолженности и дней просрочки",
@@ -133,15 +167,13 @@ const cabinetSections = [
       "Контакты персонального менеджера",
     ],
   },
-];
-
-/* ── Data: Маркетинг и аналитика ── */
-
-const marketingSections = [
   {
+    id: "avg-check",
+    navLabel: "Увеличение среднего чека",
     icon: TrendingUp,
     title: "Увеличение среднего чека",
     image: "ui-screenshots/avg-check.png",
+    color: marketingColor,
     features: [
       "Предложение комплектов товаров, например, расходников и аксессуаров",
       "Распродажа уценённых товаров — можно указать степень дефектов",
@@ -149,9 +181,12 @@ const marketingSections = [
     ],
   },
   {
+    id: "promotions",
+    navLabel: "Акции и предложения",
     icon: Tag,
     title: "Акции и предложения",
     image: "ui-screenshots/promotions.png",
+    color: marketingColor,
     features: [
       "Спецпредложения и хиты продаж на главной странице",
       "Маркировка акционных товаров визуальными элементами в каталоге",
@@ -159,18 +194,24 @@ const marketingSections = [
     ],
   },
   {
+    id: "abandoned-carts",
+    navLabel: "Работа с брошенными корзинами",
     icon: ShoppingBag,
     title: "Работа с брошенными корзинами",
     image: "ui-screenshots/abandoned-carts.png",
+    color: marketingColor,
     features: [
       "Сегментация собранных, но неоформленных корзин по среднему чеку",
       "Отправка уведомлений менеджерам о самых крупных брошенных корзинах клиентов",
     ],
   },
   {
+    id: "marketing-promo",
+    navLabel: "Продвижение и маркетинг",
     icon: Globe,
     title: "Продвижение и маркетинг",
     image: "ui-screenshots/marketing.png",
+    color: marketingColor,
     features: [
       "Настройка главной страницы",
       "Проценка сторонних смет и предложений от конкурентов при загрузке списком или готовым Excel-документом",
@@ -179,9 +220,12 @@ const marketingSections = [
     ],
   },
   {
+    id: "statistics",
+    navLabel: "Статистика",
     icon: BarChart3,
     title: "Статистика",
     image: "ui-screenshots/statistics.png",
+    color: marketingColor,
     features: [
       "Отчёты продаж по менеджерам и эффективности их работы",
       "Отчёты по заказам, отгрузкам, среднему чеку",
@@ -191,28 +235,29 @@ const marketingSections = [
   },
 ];
 
-/* ── Tabs config ── */
+/* ── Sidebar groups ── */
 
-const tabs = [
+const sidebarGroups = [
   {
-    id: "products",
     title: "Товары и заказы",
-    sections: productsSections,
-    color: "#3B82F6",
+    color: productsColor,
+    ids: ["data-product", "catalog", "pricing", "orders", "payment", "documents"],
   },
   {
-    id: "cabinet",
     title: "Личный кабинет",
-    sections: cabinetSections,
-    color: "#8B5CF6",
+    color: cabinetColor,
+    ids: ["personal-offers", "buyer-data"],
   },
   {
-    id: "marketing",
     title: "Маркетинг и аналитика",
-    sections: marketingSections,
-    color: "#06B6D4",
+    color: marketingColor,
+    ids: ["avg-check", "promotions", "abandoned-carts", "marketing-promo", "statistics"],
   },
 ];
+
+const sectionById = Object.fromEntries(
+  functionalSections.map((s) => [s.id, s]),
+);
 
 /* ── Roadmap ── */
 
@@ -249,60 +294,86 @@ const roadmap = [
   },
 ];
 
-/* ── Helpers ── */
+/* ── ts-reveal observer (covers tech-stack view too) ── */
 
-function useReveal(ref: React.RefObject<HTMLElement | null>) {
+function useReveal(ref: React.RefObject<HTMLElement | null>, dep: unknown) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) =>
         entries.forEach((e) => {
-          if (e.isIntersecting) e.target.classList.add("visible");
+          if (e.isIntersecting) {
+            e.target.classList.add("ts-reveal-in");
+            observer.unobserve(e.target);
+          }
         }),
-      { threshold: 0.1 },
+      { threshold: 0.12 },
     );
     ref.current
-      ?.querySelectorAll(".reveal")
+      ?.querySelectorAll(".ts-reveal")
       .forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, [ref]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ref, dep]);
 }
 
-/* ── Inner component ── */
+/* ── View switcher pill ── */
 
-function PlatformPageInner() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const tabFromUrl = searchParams.get("tab");
-  const initialTab =
-    tabFromUrl === "products"
-      ? 0
-      : tabFromUrl === "cabinet"
-        ? 1
-        : tabFromUrl === "marketing"
-          ? 2
-          : 0;
+function ViewSwitcher({
+  view,
+  onChange,
+}: {
+  view: "functional" | "tech";
+  onChange: (v: "functional" | "tech") => void;
+}) {
+  const items: { id: "functional" | "tech"; label: string }[] = [
+    { id: "functional", label: "Функционал" },
+    { id: "tech", label: "Технологический стек" },
+  ];
+  return (
+    <div className="inline-flex p-1 rounded-full bg-overlay-4 border border-glass-border backdrop-blur-md shadow-sm gap-1">
+      {items.map((item) => (
+        <button
+          key={item.id}
+          onClick={() => onChange(item.id)}
+          className={`px-5 sm:px-6 py-2.5 text-sm font-medium whitespace-nowrap rounded-full transition-all duration-300 ${
+            view === item.id
+              ? "bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white shadow-[0_4px_16px_rgba(59,130,246,0.35)]"
+              : "text-dim hover:text-body"
+          }`}
+        >
+          {item.label}
+        </button>
+      ))}
+    </div>
+  );
+}
 
-  const [activeTab, setActiveTab] = useState(initialTab);
-  const mainRef = useRef<HTMLElement>(null);
-  useReveal(mainRef);
+/* ── Functional view ── */
+
+function FunctionalView({ switcher }: { switcher: React.ReactNode }) {
+  const [activeId, setActiveId] = useState(functionalSections[0].id);
 
   useEffect(() => {
-    const tabMap = ["products", "cabinet", "marketing"];
-    router.replace(`?tab=${tabMap[activeTab]}`, { scroll: false });
-  }, [activeTab, router]);
-
-  const currentTab = tabs[activeTab];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]) setActiveId(visible[0].target.id);
+      },
+      { rootMargin: "-30% 0px -60% 0px", threshold: 0 },
+    );
+    functionalSections.forEach((s) => {
+      const el = document.getElementById(s.id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <main
-      ref={mainRef}
-      className="relative min-h-screen bg-page noise-overlay overflow-x-hidden"
-    >
-      <Navbar />
-
-      {/* Hero — compact */}
+    <>
+      {/* Hero */}
       <section className="relative pt-36 pb-14 px-6 overflow-hidden">
-        {/* Background image */}
         <div className="absolute inset-0">
           <img
             src="/backgrounds/3d_white_bg.png"
@@ -317,23 +388,24 @@ function PlatformPageInner() {
           <div className="absolute inset-0 bg-white/30 dark:bg-black/50" />
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--page)] to-transparent" />
         </div>
+
+        <div className="relative z-10 flex justify-center mb-10">{switcher}</div>
+
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <span className="reveal inline-block px-4 py-1.5 mb-5 text-xs font-medium uppercase tracking-[0.15em] text-[#3B82F6] bg-[#3B82F6]/10 rounded-full">
+          <span className="inline-block px-4 py-1.5 mb-5 text-xs font-medium uppercase tracking-[0.15em] text-[#3B82F6] bg-[#3B82F6]/10 rounded-full">
             Платформа
           </span>
-          <h1 className="reveal font-heading font-bold text-[clamp(32px,5vw,48px)] leading-[1.1] tracking-[-0.03em] mb-4">
+          <h1 className="font-heading font-bold text-[clamp(32px,5vw,48px)] leading-[1.1] tracking-[-0.03em] mb-4">
             <span className="text-heading">Всё для автоматизации</span>
             <br />
             <span className="gradient-text">оптовых продаж</span>
           </h1>
-          <p className="reveal text-base text-black dark:text-white max-w-xl mx-auto mb-8">
+          <p className="text-base text-black dark:text-white max-w-xl mx-auto mb-8">
             Управление каталогом, заказами, ценами и клиентами — в одном решении
             с интеграцией в вашу 1С
           </p>
-          <div className="reveal flex flex-col sm:flex-row items-center justify-center gap-3">
-            <CtaButton
-              className="px-7 py-3.5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
-            >
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <CtaButton className="px-7 py-3.5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">
               Запросить демо
             </CtaButton>
             <a
@@ -346,100 +418,108 @@ function PlatformPageInner() {
         </div>
       </section>
 
-      {/* Tabs */}
-      <section className="pb-6">
-        <div
-          className="overflow-x-auto scrollbar-hide"
-          style={{ scrollbarWidth: "none" }}
-        >
-          <div className="flex justify-center px-6 min-w-min">
-            <nav className="inline-flex p-1 rounded-xl bg-overlay-4 border border-glass-border gap-1">
-              {tabs.map((tab, i) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(i)}
-                  className={`
-                    px-5 py-2.5 text-sm font-medium whitespace-nowrap rounded-lg transition-all
-                    ${
-                      activeTab === i
-                        ? "bg-white text-heading shadow-sm border border-black/10 dark:bg-white/[0.10] dark:border-white/[0.15]"
-                        : "text-dim hover:text-body border border-transparent"
-                    }
-                  `}
-                >
-                  {tab.title}
-                </button>
+      {/* Sidebar + content */}
+      <section className="px-6 pb-12">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-10 items-start">
+          {/* Sidebar */}
+          <aside className="hidden lg:block lg:sticky lg:top-28 self-start">
+            <nav className="space-y-6 rounded-2xl bg-surface border border-border-default p-5">
+              {sidebarGroups.map((group) => (
+                <div key={group.title}>
+                  <div
+                    className="text-xs font-bold uppercase tracking-[0.12em] mb-3"
+                    style={{ color: group.color }}
+                  >
+                    {group.title}
+                  </div>
+                  <ul className="space-y-1">
+                    {group.ids.map((id) => {
+                      const isActive = activeId === id;
+                      return (
+                        <li key={id}>
+                          <a
+                            href={`#${id}`}
+                            className={`block pl-3 py-1.5 text-sm rounded-md border-l-2 transition-all duration-200 ${
+                              isActive
+                                ? "text-heading font-medium bg-overlay-4"
+                                : "text-dim hover:text-body border-transparent"
+                            }`}
+                            style={
+                              isActive
+                                ? { borderColor: group.color }
+                                : undefined
+                            }
+                          >
+                            {sectionById[id].navLabel}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
               ))}
             </nav>
+          </aside>
+
+          {/* Content */}
+          <div className="space-y-16">
+            {functionalSections.map((section, idx) => {
+              const Icon = section.icon;
+              const reversed = idx % 2 !== 0;
+              return (
+                <div key={section.id} id={section.id} className="scroll-mt-28">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div
+                      className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                      style={{ backgroundColor: `${section.color}15` }}
+                    >
+                      <Icon className="w-5 h-5" style={{ color: section.color }} />
+                    </div>
+                    <h2 className="font-heading font-bold text-[clamp(22px,3vw,30px)] tracking-[-0.02em] text-heading">
+                      {section.title}
+                    </h2>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div className={reversed ? "lg:order-2" : ""}>
+                      <div className="relative w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#3B82F6]/[0.04] via-[#8B5CF6]/[0.03] to-[#06B6D4]/[0.04] border border-border-default">
+                        <Image
+                          src={`/${section.image}`}
+                          alt={section.title}
+                          width={600}
+                          height={400}
+                          className="w-full h-auto object-contain p-4"
+                          priority={idx < 2}
+                        />
+                      </div>
+                    </div>
+
+                    <ul className={`space-y-3 ${reversed ? "lg:order-1" : ""}`}>
+                      {section.features.map((feature, i) => (
+                        <li key={i} className="flex gap-3 items-start">
+                          <Check className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
+                          <span className="text-sm text-body leading-relaxed">
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Tab content — sections */}
-      {currentTab.sections.map((section, idx) => {
-        const Icon = section.icon;
-        const reversed = idx % 2 !== 0;
-        const color = currentTab.color;
-
-        return (
-          <section
-            key={`${currentTab.id}-${section.title}`}
-            className="py-16 px-6"
-          >
-            <div className="max-w-6xl mx-auto">
-              <div className="flex items-center gap-3 mb-8">
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ backgroundColor: `${color}15` }}
-                >
-                  <Icon className="w-5 h-5" style={{ color }} />
-                </div>
-                <h2 className="font-heading font-bold text-[clamp(24px,3.5vw,32px)] tracking-[-0.02em] text-heading">
-                  {section.title}
-                </h2>
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-                <div className={`${reversed ? "lg:order-2" : ""}`}>
-                  <div className="relative w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#3B82F6]/[0.04] via-[#8B5CF6]/[0.03] to-[#06B6D4]/[0.04] border border-border-default">
-                    <Image
-                      src={`/${section.image}`}
-                      alt={section.title}
-                      width={600}
-                      height={400}
-                      className="w-full h-auto object-contain p-4"
-                      priority={idx < 2}
-                    />
-                  </div>
-                </div>
-
-                <div className={`space-y-3 ${reversed ? "lg:order-1" : ""}`}>
-                  {section.features.map((feature, i) => (
-                    <div
-                      key={i}
-                      className="flex gap-3 items-start p-4 rounded-xl bg-surface border border-border-default"
-                    >
-                      <Check className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5" />
-                      <span className="text-sm text-body leading-relaxed">
-                        {feature}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-        );
-      })}
-
-      {/* Roadmap */}
+      {/* Roadmap — full width */}
       <section id="roadmap" className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3 mb-16 justify-center">
             <div className="w-10 h-10 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center">
               <Map className="w-5 h-5 text-[#3B82F6]" />
             </div>
-            <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading">
+            <h2 className="font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading">
               Дорожная карта <span className="gradient-text">развития</span>
             </h2>
           </div>
@@ -447,7 +527,7 @@ function PlatformPageInner() {
             {roadmap.map((item, i) => (
               <div
                 key={i}
-                className="reveal p-6 bg-surface-hover rounded-2xl border border-border-default hover:border-[#3B82F6]/30 transition-all duration-500"
+                className="p-6 bg-surface-hover rounded-2xl border border-border-default hover:border-[#3B82F6]/30 transition-all duration-500"
               >
                 <span
                   className={`inline-flex px-3 py-1 rounded-full text-xs font-medium mb-4 ${
@@ -473,6 +553,42 @@ function PlatformPageInner() {
           </div>
         </div>
       </section>
+    </>
+  );
+}
+
+/* ── Inner component ── */
+
+function PlatformPageInner() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const viewFromUrl = searchParams.get("view");
+  const [view, setView] = useState<"functional" | "tech">(
+    viewFromUrl === "tech" ? "tech" : "functional",
+  );
+  const mainRef = useRef<HTMLElement>(null);
+  useReveal(mainRef, view);
+
+  useEffect(() => {
+    router.replace(`?view=${view}`, { scroll: false });
+  }, [view, router]);
+
+  const switcher = <ViewSwitcher view={view} onChange={setView} />;
+
+  return (
+    <main
+      ref={mainRef}
+      className={`relative min-h-screen noise-overlay overflow-x-hidden ${
+        view === "tech" ? "bg-page-alt" : "bg-page"
+      }`}
+    >
+      <Navbar />
+
+      {view === "tech" ? (
+        <TechStackSections switcher={switcher} />
+      ) : (
+        <FunctionalView switcher={switcher} />
+      )}
 
       <CTASection />
       <Footer />

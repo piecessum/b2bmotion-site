@@ -221,7 +221,11 @@
       "Bash(curl -sI http://localhost:3000)",
       "Bash(curl -s http://localhost:3000/blog/zapusk-b2b-platformy)",
       "Bash(grep -oE 'class=\"my-12 relative rounded-2xl[^\"]+\"' /tmp/post2.html | head -1 *)",
-      "Read(//private/tmp/**)"
+      "Read(//private/tmp/**)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/platform)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:3000/platform?view=tech\")",
+      "Bash(curl -s http://localhost:3000/platform)",
+      "Bash(pkill -f \"next-server\")"
     ]
   }
 }

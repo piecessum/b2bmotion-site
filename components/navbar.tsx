@@ -146,7 +146,7 @@ export function Navbar() {
             {/* Desktop links */}
             <div className="hidden lg:flex items-center ml-2">
               <a href="/platform" className={navLinkClass(isPlatformActive)}>
-                Функционал
+                Архитектура
               </a>
 
               <Dropdown
@@ -258,7 +258,7 @@ export function Navbar() {
             <div className="flex flex-col">
               <div className="flex flex-wrap gap-1 mb-2">
                 {[
-                  { label: "Функционал", href: "/platform" },
+                  { label: "Архитектура", href: "/platform" },
                   { label: "Новости", href: "/news" },
                   { label: "Блог", href: "/blog" },
                   { label: "Контакты", href: "/contacts" },
