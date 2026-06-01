@@ -373,7 +373,7 @@ function FunctionalView({ switcher }: { switcher: React.ReactNode }) {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-36 pb-14 px-6 overflow-hidden">
+      <section className="relative flex flex-col pt-36 pb-20 px-6 overflow-hidden lg:min-h-[700px]">
         <div className="absolute inset-0">
           <img
             src="/backgrounds/3d_white_bg.png"
@@ -389,31 +389,30 @@ function FunctionalView({ switcher }: { switcher: React.ReactNode }) {
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--page)] to-transparent" />
         </div>
 
-        <div className="relative z-10 flex justify-center mb-10">{switcher}</div>
+        <div className="relative z-10 flex justify-center mb-12">{switcher}</div>
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <span className="inline-block px-4 py-1.5 mb-5 text-xs font-medium uppercase tracking-[0.15em] text-[#3B82F6] bg-[#3B82F6]/10 rounded-full">
-            Платформа
-          </span>
-          <h1 className="font-heading font-bold text-[clamp(32px,5vw,48px)] leading-[1.1] tracking-[-0.03em] mb-4">
-            <span className="text-heading">Всё для автоматизации</span>
-            <br />
-            <span className="gradient-text">оптовых продаж</span>
-          </h1>
-          <p className="text-base text-black dark:text-white max-w-xl mx-auto mb-8">
-            Управление каталогом, заказами, ценами и клиентами — в одном решении
-            с интеграцией в вашу 1С
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <CtaButton className="px-7 py-3.5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">
-              Запросить демо
-            </CtaButton>
-            <a
-              href="/#pricing"
-              className="px-7 py-3.5 border-2 border-heading/30 text-heading font-semibold rounded-full hover:bg-overlay-4 transition-all duration-300"
-            >
-              Смотреть цены
-            </a>
+        <div className="relative z-10 max-w-6xl mx-auto w-full flex-1 flex items-center">
+          <div className="max-w-2xl">
+            <h1 className="font-heading font-bold text-[clamp(32px,5vw,52px)] leading-[1.1] tracking-[-0.03em] mb-6">
+              <span className="text-heading">Всё для автоматизации</span>
+              <br />
+              <span className="gradient-text">оптовых продаж</span>
+            </h1>
+            <p className="text-lg text-body mb-8 max-w-lg">
+              Управление каталогом, заказами, ценами и клиентами — в одном
+              решении с интеграцией в вашу 1С
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <CtaButton className="px-7 py-3.5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">
+                Запросить демо
+              </CtaButton>
+              <a
+                href="/#pricing"
+                className="px-7 py-3.5 border-2 border-heading/30 text-heading font-semibold rounded-full hover:bg-overlay-4 transition-all duration-300"
+              >
+                Смотреть цены
+              </a>
+            </div>
           </div>
         </div>
       </section>
