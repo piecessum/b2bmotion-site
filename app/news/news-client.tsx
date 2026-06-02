@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { ExternalLink, Newspaper } from "lucide-react";
+import { Newspaper } from "lucide-react";
 import type { NewsItem } from "@/lib/b2b-news";
 import type { Rates } from "@/lib/rates";
 import { NewsSidebar } from "./news-sidebar";
@@ -56,7 +56,6 @@ function NewsRow({ item }: { item: NewsItem }) {
         <div className="mt-auto pt-2.5">
           <time className="block text-xs text-dim">{formatDate(item.date)}</time>
           <span className="mt-1 inline-flex items-center gap-1.5 text-xs font-medium text-[#C084FC]">
-            {item.external && <ExternalLink className="h-3 w-3" />}
             {item.source}
           </span>
         </div>
@@ -64,18 +63,11 @@ function NewsRow({ item }: { item: NewsItem }) {
     </>
   );
 
-  const className =
-    "group flex gap-4 rounded-2xl glass-card p-4 sm:gap-5 sm:p-5";
-
-  if (item.external) {
-    return (
-      <a href={item.href} target="_blank" rel="noopener noreferrer" className={className}>
-        {inner}
-      </a>
-    );
-  }
   return (
-    <Link href={item.href} className={className}>
+    <Link
+      href={item.href}
+      className="group flex gap-4 rounded-2xl glass-card p-4 sm:gap-5 sm:p-5"
+    >
       {inner}
     </Link>
   );

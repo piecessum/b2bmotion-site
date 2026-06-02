@@ -7,9 +7,12 @@ export interface NewsItem {
   date: string; // ISO
   image?: string;
   source: string;
-  href: string;
+  href: string; // куда ведёт карточка (внутренний маршрут)
   external: boolean;
   tags?: string[];
+  id?: string; // стабильный идентификатор внешней новости
+  summary?: string; // краткий пересказ (анонс из ленты)
+  sourceUrl?: string; // ссылка на оригинал
 }
 
 // Ленты-источники. Добавляйте/убирайте здесь.
@@ -33,9 +36,13 @@ const FEEDS: { source: string; url: string }[] = [
   { source: "ComNews", url: "https://www.comnews.ru/rss" },
 ];
 
-// Ключевые слова релевантности B2B-рынку РФ (в нижнем регистре).
-// Достаточно совпадения в заголовке ИЛИ описании.
+// Ключевые слова релевантности (в нижнем регистре). Достаточно совпадения
+// в заголовке ИЛИ описании. Список сфокусирован строго на B2B-торговле,
+// маркетплейсах, интернет-торговле и связанной с ними технологии.
+// Намеренно НЕ включаем обобщённые слова (поставки, снабжение, закупки,
+// тендер, дилер) — они притягивают военные/энергетические/госзакупочные темы.
 const KEYWORDS = [
+  // B2B и опт
   "b2b",
   "оптов",
   "оптом",
@@ -44,17 +51,38 @@ const KEYWORDS = [
   "дистрибьютор",
   "дистрибутор",
   "дистрибьюшн",
-  "поставщик",
-  "поставк",
-  "закуп",
-  "снабжен",
-  "тендер",
+  // Маркетплейсы и площадки
   "маркетплейс",
-  "e-commerce",
-  "e-com",
+  "wildberries",
+  "вайлдберриз",
+  "вайлдберис",
+  "ozon",
+  "озон",
+  "яндекс маркет",
+  "яндекс.маркет",
+  "мегамаркет",
+  "aliexpress",
+  "алиэкспресс",
+  "селлер",
+  "фулфилмент",
+  "fulfillment",
+  // Интернет-торговля и e-commerce
+  "интернет-магазин",
+  "интернет-торговл",
+  "онлайн-торговл",
+  "онлайн-продаж",
+  "онлайн-ритейл",
   "электронная коммерц",
   "электронной коммерц",
-  "дилер",
+  "электронную коммерц",
+  "электронной торговл",
+  "e-commerce",
+  "ecommerce",
+  "e-com ",
+  // Ритейл и e-grocery
+  "ритейл",
+  "e-grocery",
+  "товарооборот",
 ];
 
 const REVALIDATE_SECONDS = 3600; // обновлять ленту раз в час
@@ -97,11 +125,17 @@ function getTag(block: string, tag: string): string {
   return match ? match[1] : "";
 }
 
-// Убираем хвост вида " | New Retail" из заголовков.
+// Убираем хвост-источник из заголовков (" | New-Retail.ru", " — РБК" и т.п.).
 function cleanTitle(title: string): string {
-  return title.replace(/\s*[|—–-]\s*[^|—–-]{0,30}$/u, (m) =>
-    /retail|oborot|tadviser|\.ru/i.test(m) ? "" : m,
-  ).trim() || title.trim();
+  // Всё после последней вертикальной черты — почти всегда название источника.
+  let t = title.replace(/\s*\|\s*[^|]{1,40}$/u, "").trim();
+  // Подстраховка для тире-разделителей: режем только если хвост похож на источник.
+  t = t
+    .replace(/\s*[—–-]\s*[^—–-]{0,30}$/u, (m) =>
+      /retail|oborot|tadviser|forbes|rbc|рбк|\.ru/i.test(m) ? "" : m,
+    )
+    .trim();
+  return t || title.trim();
 }
 
 function extractImage(block: string): string | undefined {
@@ -164,7 +198,19 @@ function toIso(pubDate: string): string {
     : parsed.toISOString();
 }
 
-export async function fetchB2BNews(): Promise<NewsItem[]> {
+// Стабильный короткий идентификатор по URL (djb2-хэш в base36).
+function idFromUrl(url: string): string {
+  let hash = 5381;
+  for (let i = 0; i < url.length; i++) {
+    hash = ((hash << 5) + hash + url.charCodeAt(i)) >>> 0;
+  }
+  return hash.toString(36);
+}
+
+// Полный пул релевантных новостей со всех лент: отфильтрован, без дублей,
+// отсортирован по дате. Без среза и лимита на источник — используется и для
+// списка (после ограничений), и для поиска по id (по всему пулу).
+async function fetchAllRelevant(): Promise<NewsItem[]> {
   const results = await Promise.allSettled(
     FEEDS.map(async (feed) => {
       const res = await fetch(feed.url, {
@@ -192,17 +238,26 @@ export async function fetchB2BNews(): Promise<NewsItem[]> {
     const key = raw.link.split("?")[0];
     if (seen.has(key)) continue;
     seen.add(key);
+    const id = idFromUrl(key);
     items.push({
       title: cleanTitle(raw.title),
       date: toIso(raw.pubDate),
       image: raw.image,
       source: raw.source,
-      href: raw.link,
+      href: `/news/b2b/${id}`,
       external: true,
+      id,
+      summary: raw.description,
+      sourceUrl: raw.link,
     });
   }
 
   items.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return items;
+}
+
+export async function fetchB2BNews(): Promise<NewsItem[]> {
+  const items = await fetchAllRelevant();
 
   // Ограничиваем вклад каждого источника, чтобы высокочастотные
   // общеновостные ленты не вытесняли профильные.
@@ -215,4 +270,12 @@ export async function fetchB2BNews(): Promise<NewsItem[]> {
   });
 
   return balanced.slice(0, MAX_ITEMS);
+}
+
+// Находит одну внешнюю новость по идентификатору (для страницы-пересказа).
+// Ищем по всему пулу, а не по урезанному списку, — чтобы ссылка работала
+// даже если новость не попала в top-N из-за лимита на источник.
+export async function getB2BNewsItem(id: string): Promise<NewsItem | null> {
+  const items = await fetchAllRelevant();
+  return items.find((item) => item.id === id) ?? null;
 }
