@@ -986,37 +986,6 @@ export function TechStackSections({
           </div>
         </div>
       </section>
-
-      {/* Reveal animation styles */}
-      <style jsx global>{`
-        .ts-reveal {
-          opacity: 0;
-          transform: translateY(16px);
-          transition:
-            opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-            transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-          will-change: opacity, transform;
-        }
-        .ts-reveal-in {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        @media (max-width: 767px) {
-          .ts-reveal {
-            opacity: 1;
-            transform: none;
-            transition: none;
-            will-change: auto;
-          }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .ts-reveal {
-            opacity: 1;
-            transform: none;
-            transition: none;
-          }
-        }
-      `}</style>
     </>
   );
 }
