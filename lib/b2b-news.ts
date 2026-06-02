@@ -283,10 +283,10 @@ function idFromUrl(url: string): string {
   return hash.toString(36);
 }
 
-// Полный пул релевантных новостей со всех лент: отфильтрован, без дублей,
-// отсортирован по дате. Без среза и лимита на источник — используется и для
-// списка (после ограничений), и для поиска по id (по всему пулу).
-async function fetchAllRelevant(): Promise<NewsItem[]> {
+// Все релевантные новости со всех лент: отфильтрованы, без URL-дублей,
+// отсортированы по дате. БЕЗ similarity-дедупа — каждая новость присутствует
+// под своим id. Используется для поиска по id (ссылки списка всегда находятся).
+async function collectRelevant(): Promise<NewsItem[]> {
   const results = await Promise.allSettled(
     FEEDS.map(async (feed) => {
       const res = await fetch(feed.url, {
@@ -329,9 +329,12 @@ async function fetchAllRelevant(): Promise<NewsItem[]> {
   }
 
   items.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return items;
+}
 
-  // Схлопываем дубли одного события из разных источников.
-  return dedupeSimilar(items);
+// Пул для списка и дайджеста: с дедупом похожих событий из разных источников.
+async function fetchAllRelevant(): Promise<NewsItem[]> {
+  return dedupeSimilar(await collectRelevant());
 }
 
 export async function fetchB2BNews(): Promise<NewsItem[]> {
@@ -351,10 +354,10 @@ export async function fetchB2BNews(): Promise<NewsItem[]> {
 }
 
 // Находит одну внешнюю новость по идентификатору (для страницы-пересказа).
-// Ищем по всему пулу, а не по урезанному списку, — чтобы ссылка работала
-// даже если новость не попала в top-N из-за лимита на источник.
+// Ищем по ПОЛНОМУ пулу (до similarity-дедупа): любая ссылка из списка —
+// будь то представитель кластера или схлопнутая новость — всегда находится.
 export async function getB2BNewsItem(id: string): Promise<NewsItem | null> {
-  const items = await fetchAllRelevant();
+  const items = await collectRelevant();
   return items.find((item) => item.id === id) ?? null;
 }
 
