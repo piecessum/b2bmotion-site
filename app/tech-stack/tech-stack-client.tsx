@@ -510,7 +510,7 @@ export function TechStackSections({
         </div>
 
         {switcher && (
-          <div className="relative z-10 flex justify-center mb-12">
+          <div className="relative z-10 max-w-6xl mx-auto w-full mb-12">
             {switcher}
           </div>
         )}
@@ -538,14 +538,14 @@ export function TechStackSections({
             <div className="ts-reveal flex flex-wrap items-center gap-3">
               <a
                 href="#architecture"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 border-2 border-transparent bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300"
               >
                 Изучить архитектуру
                 <ArrowRight className="w-4 h-4" />
               </a>
               <a
                 href="#pricing"
-                className="inline-flex items-center gap-2 px-7 py-4 rounded-full border-2 border-heading/20 text-heading font-semibold hover:bg-overlay-4 transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full border-2 border-heading/20 text-heading font-semibold hover:bg-overlay-4 transition-all duration-300"
               >
                 Варианты размещения
               </a>

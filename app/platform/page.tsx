@@ -7,6 +7,7 @@ import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 import { CtaButton } from "@/components/cta-button";
 import { TechStackSections } from "../tech-stack/tech-stack-client";
+import { IntegrationsSections } from "../integrations/integrations-client";
 import {
   FileText,
   Search,
@@ -318,16 +319,19 @@ function useReveal(ref: React.RefObject<HTMLElement | null>, dep: unknown) {
 
 /* ── View switcher pill ── */
 
+type View = "functional" | "tech" | "integrations";
+
 function ViewSwitcher({
   view,
   onChange,
 }: {
-  view: "functional" | "tech";
-  onChange: (v: "functional" | "tech") => void;
+  view: View;
+  onChange: (v: View) => void;
 }) {
-  const items: { id: "functional" | "tech"; label: string }[] = [
+  const items: { id: View; label: string }[] = [
     { id: "functional", label: "Функционал" },
     { id: "tech", label: "Технологический стек" },
+    { id: "integrations", label: "Интеграции" },
   ];
   return (
     <div className="inline-flex p-1 rounded-full bg-overlay-4 border border-glass-border backdrop-blur-md shadow-sm gap-1">
@@ -337,7 +341,7 @@ function ViewSwitcher({
           onClick={() => onChange(item.id)}
           className={`px-5 sm:px-6 py-2.5 text-sm font-medium whitespace-nowrap rounded-full transition-all duration-300 ${
             view === item.id
-              ? "bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white shadow-[0_4px_16px_rgba(59,130,246,0.35)]"
+              ? "bg-overlay-8 text-heading"
               : "text-dim hover:text-body"
           }`}
         >
@@ -389,7 +393,9 @@ function FunctionalView({ switcher }: { switcher: React.ReactNode }) {
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--page)] to-transparent" />
         </div>
 
-        <div className="relative z-10 flex justify-center mb-12">{switcher}</div>
+        <div className="relative z-10 max-w-6xl mx-auto w-full mb-12">
+          {switcher}
+        </div>
 
         <div className="relative z-10 max-w-6xl mx-auto w-full flex-1 flex items-center">
           <div className="max-w-2xl">
@@ -403,12 +409,12 @@ function FunctionalView({ switcher }: { switcher: React.ReactNode }) {
               решении
             </p>
             <div className="flex flex-wrap items-center gap-3">
-              <CtaButton className="px-7 py-3.5 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">
+              <CtaButton className="inline-flex items-center justify-center px-7 py-3.5 border-2 border-transparent bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">
                 Запросить демо
               </CtaButton>
               <a
                 href="/#pricing"
-                className="px-7 py-3.5 border-2 border-heading/30 text-heading font-semibold rounded-full hover:bg-overlay-4 transition-all duration-300"
+                className="inline-flex items-center justify-center px-7 py-3.5 border-2 border-heading/30 text-heading font-semibold rounded-full hover:bg-overlay-4 transition-all duration-300"
               >
                 Смотреть цены
               </a>
@@ -594,8 +600,12 @@ function PlatformPageInner() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const viewFromUrl = searchParams.get("view");
-  const [view, setView] = useState<"functional" | "tech">(
-    viewFromUrl === "tech" ? "tech" : "functional",
+  const [view, setView] = useState<View>(
+    viewFromUrl === "tech"
+      ? "tech"
+      : viewFromUrl === "integrations"
+        ? "integrations"
+        : "functional",
   );
   const mainRef = useRef<HTMLElement>(null);
   useReveal(mainRef, view);
@@ -610,13 +620,15 @@ function PlatformPageInner() {
     <main
       ref={mainRef}
       className={`relative min-h-screen noise-overlay overflow-x-clip ${
-        view === "tech" ? "bg-page-alt" : "bg-page"
+        view === "functional" ? "bg-page" : "bg-page-alt"
       }`}
     >
       <Navbar />
 
       {view === "tech" ? (
         <TechStackSections switcher={switcher} />
+      ) : view === "integrations" ? (
+        <IntegrationsSections switcher={switcher} />
       ) : (
         <FunctionalView switcher={switcher} />
       )}
