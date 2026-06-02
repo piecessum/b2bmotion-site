@@ -1,14 +1,19 @@
 import { getAllPosts } from "@/lib/content";
-import { fetchB2BNews, type NewsItem } from "@/lib/b2b-news";
+import {
+  fetchB2BNews,
+  getWeeklyDigest,
+  type NewsItem,
+} from "@/lib/b2b-news";
 import { fetchRates } from "@/lib/rates";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { NewsClient } from "./news-client";
 
 export const metadata = {
-  title: "Новости — B2B Движение",
+  title: "Новости B2B-рынка и маркетплейсов — B2B Движение",
   description:
-    "Новости B2B-рынка РФ со всех площадок и обновления платформы B2B Движение — в одном месте.",
+    "Агрегатор новостей B2B-рынка РФ, маркетплейсов и интернет-торговли с ведущих площадок плюс обновления платформы B2B Движение. Дайджест главных событий недели.",
+  alternates: { canonical: "/news" },
 };
 
 // Лента внешних новостей и курсы кешируются на час (ISR).
@@ -22,7 +27,11 @@ function moscowToday(): { y: number; m: number; d: number } {
 }
 
 export default async function NewsPage() {
-  const [b2bItems, rates] = await Promise.all([fetchB2BNews(), fetchRates()]);
+  const [b2bItems, digest, rates] = await Promise.all([
+    fetchB2BNews(),
+    getWeeklyDigest(),
+    fetchRates(),
+  ]);
 
   // Новости платформы — из локальных markdown-файлов, приводим к единому виду.
   const platformItems: NewsItem[] = getAllPosts("news").map((post) => ({
@@ -44,6 +53,7 @@ export default async function NewsPage() {
           <NewsClient
             b2bItems={b2bItems}
             platformItems={platformItems}
+            digest={digest}
             rates={rates}
             today={moscowToday()}
           />

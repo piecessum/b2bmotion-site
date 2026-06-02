@@ -15,9 +15,19 @@ export async function generateMetadata({
   const { id } = await params;
   const item = await getB2BNewsItem(id);
   if (!item) return {};
+  const desc = (item.summary || item.title).slice(0, 160);
   return {
-    title: `${item.title} — Новости B2B`,
-    description: item.summary || item.title,
+    title: `${item.title} — обзор | B2B Движение`,
+    description: desc,
+    // Канонический адрес — оригинал на источнике: защищает от штрафов
+    // за неуникальный контент, отдаёт авторство первоисточнику.
+    alternates: item.sourceUrl ? { canonical: item.sourceUrl } : undefined,
+    openGraph: {
+      title: item.title,
+      description: desc,
+      type: "article",
+      ...(item.image ? { images: [item.image] } : {}),
+    },
   };
 }
 

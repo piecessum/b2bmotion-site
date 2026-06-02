@@ -18,6 +18,7 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://b2bmotion-site.vercel.app'),
   title: 'B2B Движение — Автоматизация оптовых продаж',
   description: 'B2B-платформа с интеграцией 1С для дистрибьюторов и производителей. Каталог, заказы, цены, аналитика — запуск за 3 месяца.',
   generator: 'v0.app',

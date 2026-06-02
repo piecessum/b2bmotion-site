@@ -13,6 +13,7 @@ export interface NewsItem {
   id?: string; // стабильный идентификатор внешней новости
   summary?: string; // краткий пересказ (анонс из ленты)
   sourceUrl?: string; // ссылка на оригинал
+  coverage?: number; // сколько источников осветили эту новость
 }
 
 // Ленты-источники. Добавляйте/убирайте здесь.
@@ -198,6 +199,81 @@ function toIso(pubDate: string): string {
     : parsed.toISOString();
 }
 
+// ── Дедупликация похожих новостей из разных источников ──
+// Одно и то же событие («Шлюнкин возглавил Яндекс Маркет») приходит из 4-5
+// лент разными словами. Кластеризуем по пересечению значимых слов заголовка.
+
+const STOPWORDS = new Set([
+  "и", "в", "во", "на", "с", "со", "о", "об", "от", "до", "для", "по", "за",
+  "из", "к", "у", "не", "что", "как", "это", "его", "ее", "её", "их", "or",
+  "the", "of", "и", "стал", "стала", "стало", "может", "будет", "был", "была",
+  "года", "году", "год", "рф", "россии", "россия", "при", "над", "под", "про",
+  "уже", "ещё", "еще", "его", "млн", "млрд", "руб",
+]);
+
+// Нормализуем слово: только буквы/цифры, грубое усечение окончаний до 6 символов.
+function normWord(raw: string): string {
+  const cleaned = raw.toLowerCase().replace(/[^a-zа-яё0-9]/gi, "");
+  return cleaned.length > 6 ? cleaned.slice(0, 6) : cleaned;
+}
+
+function titleTokens(title: string): Set<string> {
+  const set = new Set<string>();
+  for (const part of title.split(/\s+/)) {
+    const bare = part.toLowerCase().replace(/[^a-zа-яё0-9]/gi, "");
+    if (bare.length < 4 || STOPWORDS.has(bare)) continue;
+    set.add(normWord(part));
+  }
+  return set;
+}
+
+const OVERLAP_THRESHOLD = 0.5; // коэффициент перекрытия Шимкевича–Симпсона
+const MIN_SHARED = 3; // минимум общих значимых слов (главная защита от ложных склеек)
+
+// Из группы новостей про одно событие оставляем одну (с самым длинным анонсом),
+// проставляя ей coverage = число осветивших источников.
+function dedupeSimilar(items: NewsItem[]): NewsItem[] {
+  const clusters: {
+    rep: NewsItem;
+    tokens: Set<string>;
+    sources: Set<string>;
+  }[] = [];
+
+  for (const item of items) {
+    const tokens = titleTokens(item.title);
+    let placed = false;
+
+    for (const cluster of clusters) {
+      let inter = 0;
+      for (const t of tokens) if (cluster.tokens.has(t)) inter++;
+      const minSize = Math.min(tokens.size, cluster.tokens.size) || 1;
+      const overlap = inter / minSize;
+
+      if (overlap >= OVERLAP_THRESHOLD && inter >= MIN_SHARED) {
+        cluster.sources.add(item.source);
+        // представитель — с самым информативным (длинным) анонсом
+        if ((item.summary?.length ?? 0) > (cluster.rep.summary?.length ?? 0)) {
+          cluster.rep = item;
+        }
+        placed = true;
+        break;
+      }
+    }
+
+    if (!placed) {
+      clusters.push({
+        rep: item,
+        tokens,
+        sources: new Set([item.source]),
+      });
+    }
+  }
+
+  return clusters
+    .map((c) => ({ ...c.rep, coverage: c.sources.size }))
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
 // Стабильный короткий идентификатор по URL (djb2-хэш в base36).
 function idFromUrl(url: string): string {
   let hash = 5381;
@@ -253,7 +329,9 @@ async function fetchAllRelevant(): Promise<NewsItem[]> {
   }
 
   items.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  return items;
+
+  // Схлопываем дубли одного события из разных источников.
+  return dedupeSimilar(items);
 }
 
 export async function fetchB2BNews(): Promise<NewsItem[]> {
@@ -278,4 +356,21 @@ export async function fetchB2BNews(): Promise<NewsItem[]> {
 export async function getB2BNewsItem(id: string): Promise<NewsItem | null> {
   const items = await fetchAllRelevant();
   return items.find((item) => item.id === id) ?? null;
+}
+
+// Недельный дайджест: самые освещаемые события за 7 дней (covered by 2+ лент).
+export async function getWeeklyDigest(limit = 5): Promise<NewsItem[]> {
+  const items = await fetchAllRelevant();
+  const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  return items
+    .filter(
+      (i) =>
+        new Date(i.date).getTime() >= weekAgo && (i.coverage ?? 1) >= 2,
+    )
+    .sort(
+      (a, b) =>
+        (b.coverage ?? 1) - (a.coverage ?? 1) ||
+        new Date(b.date).getTime() - new Date(a.date).getTime(),
+    )
+    .slice(0, limit);
 }

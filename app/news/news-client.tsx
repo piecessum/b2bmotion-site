@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { Newspaper } from "lucide-react";
+import { Newspaper, Flame } from "lucide-react";
 import type { NewsItem } from "@/lib/b2b-news";
 import type { Rates } from "@/lib/rates";
 import { NewsSidebar } from "./news-sidebar";
@@ -55,8 +55,14 @@ function NewsRow({ item }: { item: NewsItem }) {
         </h3>
         <div className="mt-auto pt-2.5">
           <time className="block text-xs text-dim">{formatDate(item.date)}</time>
-          <span className="mt-1 inline-flex items-center gap-1.5 text-xs font-medium text-[#C084FC]">
+          <span className="mt-1 inline-flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-medium text-[#C084FC]">
             {item.source}
+            {(item.coverage ?? 1) >= 2 && (
+              <span className="rounded-full bg-[#8B5CF6]/10 px-2 py-0.5 text-[11px] text-[#C084FC]">
+                + ещё {item.coverage! - 1}{" "}
+                {item.coverage! - 1 === 1 ? "источник" : "источников"}
+              </span>
+            )}
           </span>
         </div>
       </div>
@@ -70,6 +76,44 @@ function NewsRow({ item }: { item: NewsItem }) {
     >
       {inner}
     </Link>
+  );
+}
+
+function WeeklyDigest({ items }: { items: NewsItem[] }) {
+  if (items.length === 0) return null;
+  return (
+    <div className="mb-8 rounded-2xl border border-[#8B5CF6]/20 bg-[#8B5CF6]/[0.05] p-5 sm:p-6">
+      <div className="mb-4 flex items-center gap-2">
+        <Flame className="h-4 w-4 text-[#C084FC]" />
+        <h2 className="font-heading text-sm font-semibold uppercase tracking-[0.18em] text-[#C084FC]">
+          Главное за неделю
+        </h2>
+      </div>
+      <ol className="flex flex-col divide-y divide-border-subtle">
+        {items.map((item, i) => (
+          <li key={item.href}>
+            <Link
+              href={item.href}
+              className="group flex items-start gap-3 py-3 first:pt-0 last:pb-0"
+            >
+              <span className="font-heading text-lg font-bold text-[#8B5CF6]/60 tabular-nums">
+                {i + 1}
+              </span>
+              <span className="flex-1">
+                <span className="font-medium leading-snug text-body transition-colors group-hover:text-[#8B5CF6] dark:group-hover:text-white">
+                  {item.title}
+                </span>
+                <span className="mt-0.5 block text-xs text-dim">
+                  {item.source}
+                  {(item.coverage ?? 1) >= 2 &&
+                    ` · осветили ${item.coverage} источников`}
+                </span>
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }
 
@@ -141,11 +185,13 @@ function TopicChips({
 export function NewsClient({
   b2bItems,
   platformItems,
+  digest,
   rates,
   today,
 }: {
   b2bItems: NewsItem[];
   platformItems: NewsItem[];
+  digest: NewsItem[];
   rates: Rates | null;
   today: { y: number; m: number; d: number };
 }) {
@@ -189,10 +235,13 @@ export function NewsClient({
         {/* Основная колонка */}
         <div>
           {tab === "b2b" ? (
-            <NewsList
-              items={b2bItems}
-              emptyText="Новости с внешних площадок временно недоступны. Загляните позже."
-            />
+            <>
+              <WeeklyDigest items={digest} />
+              <NewsList
+                items={b2bItems}
+                emptyText="Новости с внешних площадок временно недоступны. Загляните позже."
+              />
+            </>
           ) : (
             <>
               <TopicChips
