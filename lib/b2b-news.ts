@@ -12,12 +12,25 @@ export interface NewsItem {
   tags?: string[];
 }
 
-// Профильные ленты. Добавляйте/убирайте источники здесь.
+// Ленты-источники. Добавляйте/убирайте здесь.
+// Общеновостные (РБК, Ведомости, Коммерсантъ, Forbes) проходят тот же
+// keyword-фильтр, поэтому в ленту попадает только B2B-релевантное.
 const FEEDS: { source: string; url: string }[] = [
+  // Профильные (ритейл / e-com / B2B)
   { source: "New Retail", url: "https://new-retail.ru/rss/" },
   { source: "Retail.ru", url: "https://www.retail.ru/rss/news/" },
   { source: "Oborot.ru", url: "https://oborot.ru/rss" },
+  // Деловые и общеновостные
+  { source: "Ведомости", url: "https://www.vedomosti.ru/rss/news" },
+  { source: "РБК", url: "https://rssexport.rbc.ru/rbcnews/news/30/full.rss" },
+  { source: "Коммерсантъ", url: "https://www.kommersant.ru/RSS/news.xml" },
+  { source: "Forbes", url: "https://www.forbes.ru/newrss.xml" },
+  { source: "Rusbase", url: "https://rb.ru/feeds/all/" },
+  { source: "E-xecutive", url: "https://www.e-xecutive.ru/rss/community" },
+  // Технологии / телеком
+  { source: "CNews", url: "https://www.cnews.ru/inc/rss/news.xml" },
   { source: "TAdviser", url: "https://www.tadviser.ru/xml/tadviser.xml" },
+  { source: "ComNews", url: "https://www.comnews.ru/rss" },
 ];
 
 // Ключевые слова релевантности B2B-рынку РФ (в нижнем регистре).
@@ -45,7 +58,8 @@ const KEYWORDS = [
 ];
 
 const REVALIDATE_SECONDS = 3600; // обновлять ленту раз в час
-const MAX_ITEMS = 40;
+const MAX_ITEMS = 60;
+const PER_SOURCE_CAP = 12; // не больше N свежих новостей с одного источника
 
 interface RawItem {
   title: string;
@@ -101,13 +115,38 @@ function extractImage(block: string): string | undefined {
   return undefined;
 }
 
-function parseRss(xml: string, source: string): RawItem[] {
-  const blocks = xml.match(/<item[\s\S]*?<\/item>/gi) || [];
-  return blocks.map((block) => ({
+// Ссылка в Atom лежит в атрибуте href, а не в тексте тега <link>.
+function atomLink(block: string): string {
+  const alt = block.match(
+    /<link[^>]*rel=["']alternate["'][^>]*href=["']([^"']+)["']/i,
+  );
+  if (alt) return alt[1];
+  const any = block.match(
+    /<link(?![^>]*rel=["']self["'])[^>]*href=["']([^"']+)["']/i,
+  );
+  return any ? any[1] : "";
+}
+
+// Поддерживаем и RSS (<item>), и Atom (<entry>).
+function parseFeed(xml: string, source: string): RawItem[] {
+  const itemBlocks = xml.match(/<item[\s\S]*?<\/item>/gi);
+  if (itemBlocks && itemBlocks.length) {
+    return itemBlocks.map((block) => ({
+      title: stripTags(getTag(block, "title")),
+      link: stripTags(getTag(block, "link")),
+      description: stripTags(getTag(block, "description")),
+      pubDate: stripTags(getTag(block, "pubDate")),
+      image: extractImage(block),
+      source,
+    }));
+  }
+
+  const entryBlocks = xml.match(/<entry[\s\S]*?<\/entry>/gi) || [];
+  return entryBlocks.map((block) => ({
     title: stripTags(getTag(block, "title")),
-    link: stripTags(getTag(block, "link")),
-    description: stripTags(getTag(block, "description")),
-    pubDate: stripTags(getTag(block, "pubDate")),
+    link: atomLink(block),
+    description: stripTags(getTag(block, "summary") || getTag(block, "content")),
+    pubDate: stripTags(getTag(block, "published") || getTag(block, "updated")),
     image: extractImage(block),
     source,
   }));
@@ -136,7 +175,7 @@ export async function fetchB2BNews(): Promise<NewsItem[]> {
       });
       if (!res.ok) return [] as RawItem[];
       const xml = await res.text();
-      return parseRss(xml, feed.source);
+      return parseFeed(xml, feed.source);
     }),
   );
 
@@ -164,5 +203,16 @@ export async function fetchB2BNews(): Promise<NewsItem[]> {
   }
 
   items.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  return items.slice(0, MAX_ITEMS);
+
+  // Ограничиваем вклад каждого источника, чтобы высокочастотные
+  // общеновостные ленты не вытесняли профильные.
+  const perSourceCount = new Map<string, number>();
+  const balanced = items.filter((item) => {
+    const count = perSourceCount.get(item.source) ?? 0;
+    if (count >= PER_SOURCE_CAP) return false;
+    perSourceCount.set(item.source, count + 1);
+    return true;
+  });
+
+  return balanced.slice(0, MAX_ITEMS);
 }
