@@ -5,10 +5,6 @@ const MONTHS = [
   "января", "февраля", "марта", "апреля", "мая", "июня",
   "июля", "августа", "сентября", "октября", "ноября", "декабря",
 ];
-const MONTHS_NOM = [
-  "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
-  "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь",
-];
 const WEEKDAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
 interface Today {
@@ -60,9 +56,6 @@ function MonthCalendar({ today }: { today: Today }) {
 
   return (
     <div>
-      <div className="mb-3 font-heading text-base font-semibold text-heading">
-        {MONTHS_NOM[m]} {y}
-      </div>
       <div className="grid grid-cols-7 gap-1 text-center">
         {WEEKDAYS.map((w, i) => (
           <div
@@ -107,19 +100,17 @@ export function NewsSidebar({
 }) {
   return (
     <div className="space-y-5">
-      {/* Сегодня */}
+      {/* Сегодня + календарь */}
       <div className="rounded-2xl glass-card p-5">
         <div className="text-xs font-medium uppercase tracking-[0.18em] text-dim">
           Сегодня
         </div>
-        <div className="mt-1.5 font-heading text-2xl font-bold text-heading">
-          {today.d} {MONTHS[today.m]}
+        <div className="mb-4 mt-1.5 flex items-baseline justify-between">
+          <span className="font-heading text-2xl font-bold text-heading">
+            {today.d} {MONTHS[today.m]}
+          </span>
+          <span className="text-sm text-subtle">{today.y}</span>
         </div>
-        <div className="text-sm text-subtle">{today.y} год</div>
-      </div>
-
-      {/* Календарь */}
-      <div className="rounded-2xl glass-card p-5">
         <MonthCalendar today={today} />
       </div>
 
