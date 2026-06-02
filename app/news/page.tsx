@@ -32,6 +32,7 @@ export default async function NewsPage() {
     source: post.source?.text || "B2B Движение",
     href: `/news/${post.slug}`,
     external: false,
+    tags: post.tags,
   }));
 
   return (
@@ -40,19 +41,6 @@ export default async function NewsPage() {
 
       <section className="px-6 pb-28 pt-36">
         <div className="mx-auto max-w-6xl">
-          {/* Header */}
-          <div className="mb-12">
-            <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#8B5CF6]/[0.1] bg-[#8B5CF6]/[0.06] px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-[#C084FC]">
-              Новости
-            </span>
-            <h1 className="font-heading text-[clamp(32px,5vw,48px)] font-bold tracking-[-0.02em] text-heading">
-              Новости <span className="gradient-text">B2B-рынка</span>
-            </h1>
-            <p className="mt-4 max-w-xl text-lg text-subtle">
-              Всё важное о B2B-рынке РФ с разных площадок и обновления платформы — в одном месте.
-            </p>
-          </div>
-
           <NewsClient
             b2bItems={b2bItems}
             platformItems={platformItems}

@@ -9,6 +9,7 @@ export interface NewsItem {
   source: string;
   href: string;
   external: boolean;
+  tags?: string[];
 }
 
 // Профильные ленты. Добавляйте/убирайте источники здесь.
