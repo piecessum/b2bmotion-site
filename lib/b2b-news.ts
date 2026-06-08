@@ -99,7 +99,7 @@ interface RawItem {
   source: string;
 }
 
-function decodeEntities(input: string): string {
+export function decodeEntities(input: string): string {
   return input
     .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
     .replace(/&lt;/g, "<")
@@ -112,7 +112,7 @@ function decodeEntities(input: string): string {
     .replace(/&amp;/g, "&");
 }
 
-function stripTags(input: string): string {
+export function stripTags(input: string): string {
   return decodeEntities(input)
     .replace(/<[^>]+>/g, " ")
     .replace(/\s+/g, " ")

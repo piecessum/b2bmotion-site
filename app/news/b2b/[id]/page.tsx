@@ -1,4 +1,5 @@
 import { getB2BNewsItem } from "@/lib/b2b-news";
+import { getArticleSummary } from "@/lib/article-summary";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BackButton } from "@/components/back-button";
@@ -6,6 +7,23 @@ import { notFound } from "next/navigation";
 import { Calendar, ExternalLink } from "lucide-react";
 
 export const revalidate = 3600;
+
+function normalizeSummary(summary?: string): string | null {
+  const text = summary?.replace(/\s+/g, " ").trim();
+  if (!text || text.length < 20) return null;
+  return text;
+}
+
+function getFallbackSummary(item: {
+  title: string;
+  source: string;
+  summary?: string;
+}): string {
+  const rssSummary = normalizeSummary(item.summary);
+  if (rssSummary) return rssSummary;
+
+  return `Источник ${item.source} сообщает: «${item.title}». Подробности и контекст доступны в оригинальной публикации.`;
+}
 
 export async function generateMetadata({
   params,
@@ -40,6 +58,11 @@ export default async function B2BNewsPage({
   const item = await getB2BNewsItem(id);
 
   if (!item) notFound();
+
+  // Пытаемся собрать настоящий пересказ из оригинала статьи (бесплатно, на
+  // сервере). Не вышло — откатываемся на анонс из RSS-ленты.
+  const recap = item.sourceUrl ? await getArticleSummary(item.sourceUrl) : null;
+  const fallbackSummary = getFallbackSummary(item);
 
   return (
     <main className="relative min-h-screen bg-page noise-overlay">
@@ -93,12 +116,20 @@ export default async function B2BNewsPage({
             <h2 className="mb-3 font-heading text-sm font-semibold uppercase tracking-[0.18em] text-dim">
               Кратко
             </h2>
-            {item.summary ? (
-              <p className="text-lg leading-relaxed text-body">{item.summary}</p>
+            {recap ? (
+              <ul className="space-y-3">
+                {recap.map((point, i) => (
+                  <li
+                    key={i}
+                    className="relative pl-6 text-lg leading-relaxed text-body before:absolute before:left-0 before:top-[0.7em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-[#C084FC]"
+                  >
+                    {point}
+                  </li>
+                ))}
+              </ul>
             ) : (
-              <p className="text-lg leading-relaxed text-subtle">
-                Краткий пересказ для этой новости недоступен — полный текст
-                читайте на источнике.
+              <p className="text-lg leading-relaxed text-body">
+                {fallbackSummary}
               </p>
             )}
           </div>

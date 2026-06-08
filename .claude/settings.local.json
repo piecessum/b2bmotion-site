@@ -229,7 +229,19 @@
       "WebFetch(domain:b2bmotion-site.vercel.app)",
       "Bash(PORT=3047 npm run dev)",
       "Bash(curl -s -o /dev/null http://localhost:3047/news)",
-      "Bash(node -e \"require.resolve\\('playwright'\\); console.log\\('playwright-ok'\\)\")"
+      "Bash(node -e \"require.resolve\\('playwright'\\); console.log\\('playwright-ok'\\)\")",
+      "Bash(npm i *)",
+      "Bash(npx playwright *)",
+      "Bash(node news-test.mjs)",
+      "Bash(node /Users/Alex/Documents/b2bmotion-site-main/news-test.mjs)",
+      "Bash(git checkout *)",
+      "Bash(perl -i -pe 's/Все новости/Назад/g' \"app/news/[slug]/page.tsx\" \"app/news/b2b/[id]/page.tsx\")",
+      "Bash(lsof -nP -iTCP -sTCP:LISTEN)",
+      "Bash(awk '{print $9}')",
+      "Bash(BASE=\"http://localhost:3047\" node _repro.mjs)",
+      "Bash(echo \"EXIT=$?\")",
+      "Bash(pkill -f \"next start\")",
+      "Bash(echo \"BUILD_EXIT=$?\")"
     ]
   }
 }
