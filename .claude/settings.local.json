@@ -226,7 +226,10 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://localhost:3000/platform?view=tech\")",
       "Bash(curl -s http://localhost:3000/platform)",
       "Bash(pkill -f \"next-server\")",
-      "WebFetch(domain:b2bmotion-site.vercel.app)"
+      "WebFetch(domain:b2bmotion-site.vercel.app)",
+      "Bash(PORT=3047 npm run dev)",
+      "Bash(curl -s -o /dev/null http://localhost:3047/news)",
+      "Bash(node -e \"require.resolve\\('playwright'\\); console.log\\('playwright-ok'\\)\")"
     ]
   }
 }

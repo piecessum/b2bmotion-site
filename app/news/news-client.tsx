@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo, useCallback, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Newspaper, Flame } from "lucide-react";
 import type { NewsItem } from "@/lib/b2b-news";
@@ -182,22 +183,32 @@ function TopicChips({
   );
 }
 
-export function NewsClient({
-  b2bItems,
-  platformItems,
-  digest,
-  rates,
-  today,
-}: {
+type NewsData = {
   b2bItems: NewsItem[];
   platformItems: NewsItem[];
   digest: NewsItem[];
   rates: Rates | null;
   today: { y: number; m: number; d: number };
-}) {
-  const [tab, setTab] = useState<TabKey>("b2b");
-  const [activeTag, setActiveTag] = useState<string | null>(null);
+};
 
+// Презентационная разметка. Состояние (таб/фильтр) приходит сверху, чтобы её
+// можно было одинаково отрисовать и в Suspense-фолбэке, и в интерактивной версии.
+function NewsLayout({
+  tab,
+  activeTag,
+  onTabChange,
+  onTagChange,
+  b2bItems,
+  platformItems,
+  digest,
+  rates,
+  today,
+}: NewsData & {
+  tab: TabKey;
+  activeTag: string | null;
+  onTabChange: (tab: TabKey) => void;
+  onTagChange: (tag: string | null) => void;
+}) {
   const filteredPlatform = activeTag
     ? platformItems.filter((p) => p.tags?.includes(activeTag))
     : platformItems;
@@ -209,7 +220,7 @@ export function NewsClient({
         {TABS.map((t) => (
           <button
             key={t.key}
-            onClick={() => setTab(t.key)}
+            onClick={() => onTabChange(t.key)}
             className={`whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 sm:px-6 ${
               tab === t.key
                 ? "bg-overlay-8 text-heading"
@@ -247,7 +258,7 @@ export function NewsClient({
               <TopicChips
                 items={platformItems}
                 activeTag={activeTag}
-                onChange={setActiveTag}
+                onChange={onTagChange}
               />
               <NewsList
                 items={filteredPlatform}
@@ -263,5 +274,67 @@ export function NewsClient({
         </aside>
       </div>
     </div>
+  );
+}
+
+// Источник истины для таба и фильтра — query-параметры URL. Это даёт шарящиеся
+// ссылки на конкретный таб/фильтр и восстановление состояния (плюс позиции
+// скролла — её возвращает App Router) при возврате «назад» со страницы новости.
+function NewsClientInner(data: NewsData) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const tab: TabKey = searchParams.get("tab") === "platform" ? "platform" : "b2b";
+  const activeTag = tab === "platform" ? searchParams.get("tag") || null : null;
+
+  const setParams = useCallback(
+    (nextTab: TabKey, nextTag: string | null) => {
+      const params = new URLSearchParams(searchParams.toString());
+
+      if (nextTab === "platform") params.set("tab", nextTab);
+      else params.delete("tab");
+
+      // Фильтр по теме имеет смысл только на табе платформы.
+      if (nextTab === "platform" && nextTag) params.set("tag", nextTag);
+      else params.delete("tag");
+
+      const qs = params.toString();
+      // replace, а не push: переключение таба/фильтра не плодит лишние записи в
+      // истории — «назад» с новости возвращает к актуальному состоянию.
+      router.replace(qs ? `/news?${qs}` : "/news", { scroll: false });
+    },
+    [router, searchParams],
+  );
+
+  return (
+    <NewsLayout
+      {...data}
+      tab={tab}
+      activeTag={activeTag}
+      onTabChange={(nextTab) =>
+        setParams(nextTab, nextTab === "platform" ? activeTag : null)
+      }
+      onTagChange={(nextTag) => setParams("platform", nextTag)}
+    />
+  );
+}
+
+export function NewsClient(data: NewsData) {
+  // useSearchParams требует Suspense-границу; фолбэк отрисовывает таб по
+  // умолчанию, чтобы первый рендер не был пустым.
+  return (
+    <Suspense
+      fallback={
+        <NewsLayout
+          {...data}
+          tab="b2b"
+          activeTag={null}
+          onTabChange={() => {}}
+          onTagChange={() => {}}
+        />
+      }
+    >
+      <NewsClientInner {...data} />
+    </Suspense>
   );
 }
