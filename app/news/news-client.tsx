@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useCallback, Suspense } from "react";
+import { useMemo, useCallback, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Newspaper, Flame } from "lucide-react";
@@ -9,6 +9,22 @@ import type { Rates } from "@/lib/rates";
 import { NewsSidebar } from "./news-sidebar";
 
 type TabKey = "b2b" | "platform";
+
+// Ключ для сохранения позиции скролла ленты при уходе на конкретную новость.
+// Suspense + клиентский рендер через useSearchParams ломают штатное
+// восстановление скролла в App Router, поэтому возвращаем его сами.
+const SCROLL_KEY = "news-list-scroll";
+
+function rememberScroll() {
+  try {
+    sessionStorage.setItem(
+      SCROLL_KEY,
+      JSON.stringify({ y: window.scrollY, url: window.location.href }),
+    );
+  } catch {
+    /* sessionStorage недоступен — не критично */
+  }
+}
 
 const TABS: { key: TabKey; label: string }[] = [
   { key: "b2b", label: "Новости B2B" },
@@ -73,6 +89,7 @@ function NewsRow({ item }: { item: NewsItem }) {
   return (
     <Link
       href={item.href}
+      onClick={rememberScroll}
       className="group flex gap-4 rounded-2xl glass-card p-4 sm:gap-5 sm:p-5"
     >
       {inner}
@@ -95,6 +112,7 @@ function WeeklyDigest({ items }: { items: NewsItem[] }) {
           <li key={item.href}>
             <Link
               href={item.href}
+              onClick={rememberScroll}
               className="group flex items-start gap-3 py-3 first:pt-0 last:pb-0"
             >
               <span className="font-heading text-lg font-bold text-[#8B5CF6]/60 tabular-nums">
@@ -286,6 +304,52 @@ function NewsClientInner(data: NewsData) {
 
   const tab: TabKey = searchParams.get("tab") === "platform" ? "platform" : "b2b";
   const activeTag = tab === "platform" ? searchParams.get("tag") || null : null;
+
+  // Возврат «назад» с новости: восстанавливаем позицию скролла ленты, если URL
+  // совпадает с тем, откуда ушли. App Router (плюс Suspense-граница) сам
+  // прокручивает наверх, причём асинхронно, поэтому навязываем нужную позицию
+  // несколько кадров подряд, а ключ удаляем только после восстановления.
+  useEffect(() => {
+    let saved: { y: number; url: string } | null = null;
+    try {
+      const raw = sessionStorage.getItem(SCROLL_KEY);
+      if (raw) saved = JSON.parse(raw);
+    } catch {
+      return;
+    }
+    if (!saved || saved.url !== window.location.href) return;
+
+    const target = saved.y;
+    const start = performance.now();
+    let reachedAt = 0;
+    let frame = 0;
+    const tick = () => {
+      const now = performance.now();
+      const maxScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const goal = Math.min(target, Math.max(0, maxScroll));
+      window.scrollTo(0, goal);
+
+      // Цель достигнута, когда контент дорисовался до нужной высоты и позиция
+      // встала. После этого удерживаем ещё ~150мс (страховка от позднего
+      // скролла-наверх) и завершаем, чтобы не мешать прокрутке пользователя.
+      const reached = maxScroll >= target - 2 && Math.abs(window.scrollY - goal) < 2;
+      if (reached && !reachedAt) reachedAt = now;
+
+      const done = (reachedAt && now - reachedAt > 150) || now - start > 1500;
+      if (!done) {
+        frame = requestAnimationFrame(tick);
+      } else {
+        try {
+          sessionStorage.removeItem(SCROLL_KEY);
+        } catch {
+          /* не критично */
+        }
+      }
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   const setParams = useCallback(
     (nextTab: TabKey, nextTag: string | null) => {
