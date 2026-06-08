@@ -29,6 +29,28 @@ const STOPWORDS = new Set([
   "by", "at", "from", "that", "this", "an", "be", "or", "are", "was", "has",
 ]);
 
+const BOILERPLATE_PATTERNS = [
+  /\bскопировать ссылку\b/i,
+  /\bподелиться\b/i,
+  /\bчитайте нас в\b/i,
+  /\bподписывайтесь\b/i,
+  /\bитогов(ая|ую|ой|ую)? рассылк[ауеи]\b/i,
+  /\bрассылка самых важных новостей\b/i,
+  /\btelegram\b/i,
+  /\bтелеграм\b/i,
+  /\bдзен\b/i,
+  /\bкомментарии\b/i,
+  /\bавторизуйтесь\b/i,
+  /\bcookie\b/i,
+  /\bреклама\b/i,
+];
+
+const LEADING_NOISE_PATTERNS = [
+  /^(?:скопировать ссылку\s*)+/i,
+  /^(?:читайте нас в\s+[A-ZА-ЯЁ0-9_-]+\s*)+/i,
+  /^(?:поделиться\s*)+/i,
+];
+
 // Достаём читаемый текст статьи: режем шум, по возможности сужаемся до <article>,
 // собираем содержательные абзацы из <p>.
 function extractArticleText(html: string): string {
@@ -46,8 +68,28 @@ function extractArticleText(html: string): string {
   return paras
     .map((p) => stripTags(p))
     // Короткие <p> — это подписи к фото, меню, копирайт, кнопки. Отсекаем.
-    .filter((t) => t.length >= 60)
+    .filter((t) => t.length >= 60 && !isBoilerplate(t))
     .join("\n");
+}
+
+function cleanSentence(sentence: string): string {
+  let out = sentence.replace(/\s+/g, " ").trim();
+  for (const pattern of LEADING_NOISE_PATTERNS) {
+    out = out.replace(pattern, "").trim();
+  }
+  return out;
+}
+
+function isBoilerplate(text: string): boolean {
+  const normalized = text.toLowerCase();
+  return BOILERPLATE_PATTERNS.some((pattern) => pattern.test(normalized));
+}
+
+function hasDanglingReference(sentence: string): boolean {
+  return (
+    /^(?:они|их|это|этот|эта|эти|такой|такие|также|при этом)\b/i.test(sentence) ||
+    /\b(?:в их|для их|их|ими|ними|них|этого|этой|этих|таких)\b/i.test(sentence)
+  );
 }
 
 // Грубое разбиение на предложения. Делим по концу предложения только если
@@ -56,8 +98,8 @@ function splitSentences(text: string): string[] {
   return text
     .replace(/\s+/g, " ")
     .split(/(?<=[.!?…])\s+(?=[А-ЯЁA-Z«"„])/)
-    .map((s) => s.trim())
-    .filter(Boolean);
+    .map(cleanSentence)
+    .filter((s) => s && !isBoilerplate(s));
 }
 
 // Значимые слова предложения (без стоп-слов и коротышей) для скоринга.
@@ -74,9 +116,15 @@ export function summarizeText(
   maxSentences = 3,
   maxChars = 700,
 ): string[] | null {
-  const sentences = splitSentences(text).filter(
-    (s) => s.length >= 40 && s.length <= 400,
-  );
+  const sentences = splitSentences(text).filter((s) => {
+    if (s.length < 40 || s.length > 400) return false;
+    // Если предложение всё ещё начинается с UI-мусора, оно обычно слиплось с
+    // текстом статьи без пунктуации. Не берём его в сводку.
+    if (/^(?:скопировать|читать|читайте|подписывайтесь|поделиться)\b/i.test(s)) {
+      return false;
+    }
+    return true;
+  });
   if (sentences.length < 3) return null;
 
   // Частота значимых слов по всему документу.
@@ -104,7 +152,21 @@ export function summarizeText(
     .sort((a, b) => b.score - a.score)
     .slice(0, maxSentences)
     .sort((a, b) => a.i - b.i) // вернуть в исходном порядке чтения
-    .map((p) => p.s);
+    .map((p) => {
+      if (!hasDanglingReference(p.s)) return p.s;
+
+      const previous = sentences[p.i - 1];
+      if (
+        previous &&
+        previous.length >= 40 &&
+        !hasDanglingReference(previous) &&
+        previous.length + p.s.length <= 520
+      ) {
+        return `${previous} ${p.s}`;
+      }
+
+      return p.s;
+    });
 
   const out: string[] = [];
   let total = 0;
