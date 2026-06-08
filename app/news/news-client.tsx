@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useCallback, useEffect, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Newspaper, Flame } from "lucide-react";
 import type { NewsItem } from "@/lib/b2b-news";
@@ -301,7 +301,6 @@ function NewsLayout({
 // ссылки на конкретный таб/фильтр и восстановление состояния (плюс позиции
 // скролла — её возвращает App Router) при возврате «назад» со страницы новости.
 function NewsClientInner(data: NewsData) {
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   const tab: TabKey = searchParams.get("tab") === "platform" ? "platform" : "b2b";
@@ -365,11 +364,15 @@ function NewsClientInner(data: NewsData) {
       else params.delete("tag");
 
       const qs = params.toString();
-      // replace, а не push: переключение таба/фильтра не плодит лишние записи в
-      // истории — «назад» с новости возвращает к актуальному состоянию.
-      router.replace(qs ? `/news?${qs}` : "/news", { scroll: false });
+      // window.history.replaceState (Next 14.1+) синхронизируется с
+      // useSearchParams и обновляет URL без обращения к серверу. В отличие от
+      // router.replace, который на СТАТИЧЕСКОЙ /news не переключает таб
+      // (RSC-кеш страницы не зависит от query, переход считается no-op).
+      // replaceState, а не pushState: переключение таба/фильтра не плодит
+      // лишние записи в истории — «назад» с новости ведёт к актуальному состоянию.
+      window.history.replaceState(null, "", qs ? `/news?${qs}` : "/news");
     },
-    [router, searchParams],
+    [searchParams],
   );
 
   return (
