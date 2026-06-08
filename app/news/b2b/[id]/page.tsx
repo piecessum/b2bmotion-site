@@ -52,7 +52,7 @@ export default async function B2BNewsPage({
             fallback="/news"
             className="mb-10 inline-flex items-center gap-2 text-sm text-dim transition-colors hover:text-body"
           >
-            Все новости
+            Назад
           </BackButton>
 
           {/* Header */}
@@ -128,7 +128,7 @@ export default async function B2BNewsPage({
             fallback="/news"
             className="inline-flex items-center gap-2 text-sm font-medium text-[#C084FC] transition-all duration-300 hover:gap-3"
           >
-            Все новости
+            Назад
           </BackButton>
         </div>
       </article>

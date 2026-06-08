@@ -21,6 +21,8 @@ function rememberScroll() {
       SCROLL_KEY,
       JSON.stringify({ y: window.scrollY, url: window.location.href }),
     );
+    // URL ленты (с выбранным табом и фильтром) для кнопки «Назад» в статье.
+    sessionStorage.setItem("news_back_url", window.location.href);
   } catch {
     /* sessionStorage недоступен — не критично */
   }

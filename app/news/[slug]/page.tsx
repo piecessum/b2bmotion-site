@@ -46,7 +46,7 @@ export default async function NewsPostPage({
             fallback="/news"
             className="inline-flex items-center gap-2 text-sm text-dim hover:text-body transition-colors mb-10"
           >
-            Все новости
+            Назад
           </BackButton>
 
           {/* Header */}
@@ -134,7 +134,7 @@ export default async function NewsPostPage({
             fallback="/news"
             className="inline-flex items-center gap-2 text-sm font-medium text-[#C084FC] hover:gap-3 transition-all duration-300"
           >
-            Все новости
+            Назад
           </BackButton>
         </div>
       </article>
