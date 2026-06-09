@@ -191,7 +191,7 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
 
       {/* Pinned (show on "all" and "publications") */}
       {showPinned && (
-        <div className="flex flex-col gap-3 mb-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-5">
           {/* Pinned video */}
           <Link
             href="/video"
@@ -212,16 +212,14 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
                     Закреплено
                   </span>
                 </div>
-                <h2 className="font-heading font-semibold text-sm text-heading group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors truncate">
+                <h2 className="font-heading font-semibold text-sm text-heading group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors leading-snug">
                   В2В Движение — оптимальное решение для оптового бизнеса
                 </h2>
               </div>
-              <ArrowRight className="w-4 h-4 text-dim group-hover:text-[#60A5FA] shrink-0 transition-colors hidden sm:block" />
             </div>
           </Link>
 
-          {/* Pinned reports — 2 columns on desktop, stacked on mobile */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {/* Pinned reports */}
             <Link
               href="/blog/b2b-platforms-report"
               onClick={saveScroll}
@@ -273,12 +271,11 @@ export function BlogContent({ posts, initialFilter }: BlogContentProps) {
                 </div>
               </div>
             </Link>
-          </div>
         </div>
       )}
 
       {/* Posts grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filteredPosts.map((post) => (
           <Link
             key={post.slug}
