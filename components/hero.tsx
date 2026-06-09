@@ -174,10 +174,10 @@ export function Hero() {
         <div className="md:hidden flex justify-center -mx-6">
           <div className="w-full max-w-[220px] portrait:max-w-none">
             <Image
-              src="/mockups/phone.png"
+              src="/mockups/phone-for-main.png"
               alt="B2B платформа на смартфоне"
-              width={320}
-              height={640}
+              width={952}
+              height={1830}
               className="w-full h-auto"
               priority
             />
