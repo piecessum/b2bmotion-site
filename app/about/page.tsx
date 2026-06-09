@@ -188,7 +188,7 @@ export default function AboutPage() {
       {/* HERO */}
       <section className="relative pt-36 pb-20 px-6">
         <div className="relative z-10 max-w-6xl mx-auto">
-          <div className="text-center">
+          <div>
             <span className="inline-block text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA] mb-5">
               О компании
             </span>
@@ -198,7 +198,7 @@ export default function AboutPage() {
               <br className="hidden sm:block" />
               <span className="text-heading"> с 2014 года</span>
             </h1>
-            <p className="text-lg sm:text-xl text-subtle max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl text-subtle max-w-2xl leading-relaxed">
               <strong className="text-heading font-semibold">3DaVinci</strong>{" "}
               — продуктовая команда из Воронежа. Создаём{" "}
               <strong className="text-heading font-semibold">
@@ -232,7 +232,7 @@ export default function AboutPage() {
       {/* TIMELINE */}
       <section className="relative py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-14 text-center">
+          <div className="mb-14">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               История
             </span>
@@ -263,14 +263,14 @@ export default function AboutPage() {
       {/* WHAT WE DO — 3DaVinci ↔ B2B Motion */}
       <section className="relative py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-14 text-center">
+          <div className="mb-14">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Что мы делаем
             </span>
             <h2 className="font-heading font-bold text-[clamp(28px,4.5vw,42px)] tracking-[-0.02em] text-heading mt-3">
               3DaVinci разрабатывает B2B Движение
             </h2>
-            <p className="text-base text-subtle mt-4 max-w-2xl mx-auto">
+            <p className="text-base text-subtle mt-4 max-w-2xl">
               3DaVinci — материнская компания, B2B Движение — её флагманский
               продукт. Это разные сайты и бренды, но одна команда.
             </p>
@@ -326,14 +326,14 @@ export default function AboutPage() {
       {/* TEAM */}
       <section className="relative py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-14 text-center">
+          <div className="mb-14">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Команда
             </span>
             <h2 className="font-heading font-bold text-[clamp(28px,4.5vw,42px)] tracking-[-0.02em] text-heading mt-3">
               С кем вы будете работать
             </h2>
-            <p className="text-base text-subtle mt-4 max-w-2xl mx-auto">
+            <p className="text-base text-subtle mt-4 max-w-2xl">
               Ключевые роли — продажи, разработка, дизайн, управление
               внедрениями. Все эти люди реально работают с клиентами, а не
               только числятся в штате.
@@ -375,7 +375,7 @@ export default function AboutPage() {
 
           {/* Breakdown */}
           <div className="mt-16">
-            <h3 className="font-heading font-semibold text-lg text-heading mb-5 text-center">
+            <h3 className="font-heading font-semibold text-lg text-heading mb-5">
               Структура команды — 21 человек
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -408,14 +408,14 @@ export default function AboutPage() {
       {/* TECH STACK */}
       <section className="relative py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-12 text-center">
+          <div className="mb-12">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Технологии
             </span>
             <h2 className="font-heading font-bold text-[clamp(28px,4.5vw,42px)] tracking-[-0.02em] text-heading mt-3">
               На чём всё это работает
             </h2>
-            <p className="text-base text-subtle mt-4 max-w-2xl mx-auto">
+            <p className="text-base text-subtle mt-4 max-w-2xl">
               Стек, требования и инфраструктура подробно описаны в{" "}
               <Link
                 href="/wiki/tech"
@@ -469,14 +469,14 @@ export default function AboutPage() {
       {/* FEATURED CASES */}
       <section className="relative py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-12 text-center">
+          <div className="mb-12">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Кейсы
             </span>
             <h2 className="font-heading font-bold text-[clamp(28px,4.5vw,42px)] tracking-[-0.02em] text-heading mt-3">
               Из разных отраслей
             </h2>
-            <p className="text-base text-subtle mt-4 max-w-2xl mx-auto">
+            <p className="text-base text-subtle mt-4 max-w-2xl">
               Под капотом — одна и та же платформа, но в каждой отрасли своя
               специфика прайсов, доставки и интеграций. Полный список —{" "}
               <Link href="/blog" className="text-[#60A5FA] hover:underline">
@@ -511,7 +511,7 @@ export default function AboutPage() {
       {/* WHY US */}
       <section className="relative py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-12 text-center">
+          <div className="mb-12">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Почему выбирают нас
             </span>

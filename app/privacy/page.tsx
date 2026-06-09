@@ -26,7 +26,7 @@ export default function PrivacyPage() {
             Назад
           </button>
 
-          <div className="text-center mb-16">
+          <div className="mb-16">
             <h1 className="font-heading font-bold text-[clamp(28px,5vw,42px)] leading-[1.2] tracking-[-0.02em] mb-4 text-heading">
               Политика конфиденциальности и обработки персональных данных
             </h1>

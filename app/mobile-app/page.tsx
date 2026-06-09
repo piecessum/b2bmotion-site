@@ -107,7 +107,7 @@ export default function MobileAppPage() {
             }}
           />
         </div>
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
+        <div className="relative z-10 max-w-4xl mx-auto">
           <span className="reveal inline-block px-4 py-1.5 mb-6 text-xs font-medium uppercase tracking-[0.15em] text-violet-400 bg-violet-400/10 rounded-full">
             Мобильное приложение
           </span>
@@ -115,7 +115,7 @@ export default function MobileAppPage() {
             <span className="text-heading">Мобильное</span>{" "}
             <span className="gradient-text">приложение</span>
           </h1>
-          <p className="reveal text-xl text-body mb-10 max-w-2xl mx-auto">
+          <p className="reveal text-xl text-body mb-10 max-w-2xl">
             B2B-платформа всегда под рукой.
           </p>
           <a href="#cta" className="reveal inline-flex px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold rounded-full hover:shadow-[0_0_24px_rgba(59,130,246,0.2)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">
@@ -141,7 +141,7 @@ export default function MobileAppPage() {
       {/* Benefits */}
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="mb-16">
             <h2 className="reveal font-heading font-bold text-[clamp(28px,4vw,44px)] tracking-[-0.02em] text-heading mb-4">
               Главные преимущества мобильного приложения<br />
               <span className="gradient-text">B2B Движение</span>

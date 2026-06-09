@@ -557,7 +557,7 @@ export function TechStackSections({
       {/* ARCHITECTURE DASHBOARD */}
       <section id="architecture" className="relative py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-14 text-center">
+          <div className="mb-14">
             <span className="ts-reveal text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Архитектура
             </span>
@@ -616,7 +616,7 @@ export function TechStackSections({
       {/* ACCESS RIGHTS — split */}
       <section className="relative py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-12 text-center">
+          <div className="mb-12">
             <span className="ts-reveal text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Права доступа
             </span>
@@ -701,7 +701,7 @@ export function TechStackSections({
       {/* ADVANTAGES */}
       <section className="relative py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-14 text-center">
+          <div className="mb-14">
             <span className="ts-reveal text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Преимущества
             </span>
@@ -737,7 +737,7 @@ export function TechStackSections({
 
       {/* FRONTEND */}
       <section className="relative py-20">
-        <div className="text-center mb-8 px-6 max-w-4xl mx-auto">
+        <div className="mb-8 px-6 max-w-4xl mx-auto">
           <span className="ts-reveal text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
             Фронтенд
           </span>
@@ -751,7 +751,7 @@ export function TechStackSections({
 
       {/* BACKEND */}
       <section className="relative py-20">
-        <div className="text-center mb-8 px-6 max-w-4xl mx-auto">
+        <div className="mb-8 px-6 max-w-4xl mx-auto">
           <span className="ts-reveal text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
             Бэкенд
           </span>
@@ -829,7 +829,7 @@ export function TechStackSections({
       {/* PRICING */}
       <section id="pricing" className="relative py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-14 text-center">
+          <div className="mb-14">
             <span className="ts-reveal text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Размещение
             </span>
@@ -898,7 +898,7 @@ export function TechStackSections({
       {/* IT SUMMARY DASHBOARD */}
       <section className="relative py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-14 text-center">
+          <div className="mb-14">
             <span className="ts-reveal text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Сводка
             </span>

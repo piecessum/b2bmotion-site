@@ -224,7 +224,7 @@ export default function BuildingPage() {
       {/* Features — Строительный B2B-портал — это */}
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-16">
             Строительный <span className="gradient-text">B2B-портал</span> — это
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -249,7 +249,7 @@ export default function BuildingPage() {
       {/* Dashboard — Возможности */}
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-16">
             <span className="gradient-text">Возможности</span> B2B-платформы
             <br />
             строительных материалов
@@ -403,10 +403,10 @@ export default function BuildingPage() {
       {/* Buyers — B2B Движение Build */}
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-4">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-4">
             B2B Движение Build —
           </h2>
-          <p className="reveal text-center gradient-text font-heading font-bold text-[clamp(24px,3vw,36px)] tracking-[-0.02em] mb-16">
+          <p className="reveal gradient-text font-heading font-bold text-[clamp(24px,3vw,36px)] tracking-[-0.02em] mb-16">
             платформа для профессиональных покупателей
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">

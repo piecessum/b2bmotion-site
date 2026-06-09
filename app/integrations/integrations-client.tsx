@@ -234,14 +234,14 @@ export function IntegrationsSections({
       {/* CATEGORIES */}
       <section id="categories" className="relative py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-14 text-center">
+          <div className="mb-14">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               С чем интегрируемся
             </span>
             <h2 className="font-heading font-bold text-[clamp(28px,4.5vw,42px)] tracking-[-0.02em] text-heading mt-3">
               Шесть направлений интеграций
             </h2>
-            <p className="text-base text-subtle mt-4 max-w-2xl mx-auto">
+            <p className="text-base text-subtle mt-4 max-w-2xl">
               Часть из них — обязательная база (1С, платежи), часть подключается
               по запросу (РАЭК, API для клиентов, UniSender). Каждое направление
               ведёт в базу знаний с техническими деталями.
@@ -300,14 +300,14 @@ export function IntegrationsSections({
       {/* DATA EXCHANGE — what gets synced with 1C */}
       <section className="relative py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-12 text-center">
+          <div className="mb-12">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Обмен данными
             </span>
             <h2 className="font-heading font-bold text-[clamp(28px,4.5vw,42px)] tracking-[-0.02em] text-heading mt-3">
               Что синхронизируется с 1С
             </h2>
-            <p className="text-base text-subtle mt-4 max-w-2xl mx-auto">
+            <p className="text-base text-subtle mt-4 max-w-2xl">
               Полный обмен — двусторонний. 1С остаётся источником правды по
               ценам, остаткам и контрагентам, а B2B-система передаёт обратно
               заказы клиентов и статусы. Регламент обменов настраивается в
@@ -362,14 +362,14 @@ export function IntegrationsSections({
       {/* STAGES — implementation timeline */}
       <section className="relative py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-14 text-center">
+          <div className="mb-14">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Этапы внедрения
             </span>
             <h2 className="font-heading font-bold text-[clamp(28px,4.5vw,42px)] tracking-[-0.02em] text-heading mt-3">
               От нуля до запуска — 2–3 месяца
             </h2>
-            <p className="text-base text-subtle mt-4 max-w-2xl mx-auto">
+            <p className="text-base text-subtle mt-4 max-w-2xl">
               Полная техническая интеграция и настройка платформы версии
               Enterprise обычно занимает 2–3 месяца. Этапы можно вести
               параллельно, чтобы сократить срок.
@@ -408,7 +408,7 @@ export function IntegrationsSections({
       {/* TRUST / FAQ-LITE */}
       <section className="relative py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-12 text-center">
+          <div className="mb-12">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Что важно знать
             </span>

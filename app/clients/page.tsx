@@ -153,7 +153,7 @@ export default function ClientsPage() {
         <div className="absolute top-0 right-0 w-[600px] h-[600px] opacity-[0.06] pointer-events-none">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-violet-500 rounded-full blur-[120px]" />
         </div>
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
+        <div className="relative z-10 max-w-4xl mx-auto">
           <h1 className="reveal font-heading font-bold text-[clamp(36px,7vw,60px)] leading-[1.1] tracking-[-0.03em] mb-4">
             <span className="gradient-text">56+</span>{" "}
             <span className="text-heading">проектов</span>
@@ -214,7 +214,7 @@ export default function ClientsPage() {
 
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-16">
             Отзывы наших <span className="gradient-text">клиентов</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

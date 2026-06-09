@@ -137,7 +137,7 @@ export default function CabinetPage() {
       {/* Other pages nav */}
       <section className="py-20 px-6 bg-page">
         <div className="max-w-4xl mx-auto">
-          <h3 className="font-heading font-semibold text-lg text-heading mb-6 text-center">
+          <h3 className="font-heading font-semibold text-lg text-heading mb-6">
             Другие разделы функционала
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -185,7 +185,7 @@ export default function MdmPage() {
       {/* B2B Motion MDM — это */}
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-16">
             B2B Motion <span className="gradient-text">MDM</span> — это
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -210,7 +210,7 @@ export default function MdmPage() {
       {/* Для чего нужна MDM-система */}
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-16">
             Для чего нужна <span className="gradient-text">MDM-система</span>
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -234,7 +234,7 @@ export default function MdmPage() {
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="reveal bg-surface rounded-2xl border border-border-default p-8 md:p-12">
-            <div className="max-w-3xl mx-auto text-center mb-12">
+            <div className="max-w-3xl mb-12">
               <h2 className="font-heading font-bold text-[clamp(28px,4vw,40px)] tracking-[-0.02em] text-heading mb-4">
                 Электротехнические товары в стандарте <span className="gradient-text">ETIM</span>
               </h2>
@@ -259,7 +259,7 @@ export default function MdmPage() {
       {/* Схема работы MDM-системы и API */}
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-16">
             Схема работы MDM-системы и <span className="gradient-text">API</span>
           </h2>
 
@@ -413,7 +413,7 @@ export default function MdmPage() {
       {/* 2 варианта внедрения */}
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-16">
             2 варианта <span className="gradient-text">внедрения</span> MDM-системы
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -257,12 +257,12 @@ export default function FmcgPage() {
       {/* Categories */}
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-6">
+          <div className="mb-6">
             <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-4">
               Какие товары входят в <span className="gradient-text">FMCG-отрасль</span>
             </h2>
           </div>
-          <p className="reveal text-body max-w-3xl mx-auto text-center mb-16">
+          <p className="reveal text-body max-w-3xl mb-16">
             FMCG — это сектор товаров повседневного и массового спроса.
             Невысокая стоимость, регулярное приобретение, быстрая продажа и
             оборачиваемость запасов — основные характеристики этой отрасли.
@@ -315,7 +315,7 @@ export default function FmcgPage() {
       {/* Capabilities */}
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-6xl mx-auto">
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-16">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-16">
             <span className="gradient-text">Возможности</span> B2B Движение FMCG
           </h2>
 
@@ -421,10 +421,10 @@ export default function FmcgPage() {
       {/* Advantages */}
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading text-center mb-4">
+          <h2 className="reveal font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading mb-4">
             Важные преимущества B2B-платформы
           </h2>
-          <p className="reveal text-center gradient-text font-heading font-bold text-[clamp(24px,3vw,36px)] tracking-[-0.02em] mb-16">
+          <p className="reveal gradient-text font-heading font-bold text-[clamp(24px,3vw,36px)] tracking-[-0.02em] mb-16">
             для FMCG-рынка
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -462,7 +462,7 @@ export default function FmcgPage() {
       {/* Testimonial */}
       <section className="py-24 px-6 bg-page-alt">
         <div className="max-w-4xl mx-auto">
-          <h2 className="reveal font-heading font-bold text-[clamp(28px,4vw,40px)] tracking-[-0.02em] text-heading text-center mb-16">
+          <h2 className="reveal font-heading font-bold text-[clamp(28px,4vw,40px)] tracking-[-0.02em] text-heading mb-16">
             Отзыв о платформе FMCG-компании <span className="gradient-text">«Рэйд-21»</span>
           </h2>
           <div className="reveal relative p-8 md:p-12 bg-surface-hover rounded-3xl border border-border-default">
