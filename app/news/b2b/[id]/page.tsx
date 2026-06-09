@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import { BackButton } from "@/components/back-button";
 import { notFound } from "next/navigation";
 import { Calendar, ExternalLink } from "lucide-react";
+import { Suspense } from "react";
 
 export const revalidate = 3600;
 
@@ -49,6 +50,54 @@ export async function generateMetadata({
   };
 }
 
+// Пересказ грузится отдельным async-компонентом, чтобы не блокировать рендер
+// всей страницы походом за оригиналом статьи. Шапка отдаётся мгновенно, а этот
+// блок подтягивается потоком (Suspense) и заменяет скелетон по готовности.
+async function NewsRecap({
+  sourceUrl,
+  fallbackSummary,
+}: {
+  sourceUrl?: string;
+  fallbackSummary: string;
+}) {
+  // Пытаемся собрать настоящий пересказ из оригинала статьи (бесплатно, на
+  // сервере). Не вышло — откатываемся на анонс из RSS-ленты.
+  const recap = sourceUrl ? await getArticleSummary(sourceUrl) : null;
+
+  if (!recap) {
+    return (
+      <p className="text-lg leading-relaxed text-body">{fallbackSummary}</p>
+    );
+  }
+
+  return (
+    <ul className="space-y-3">
+      {recap.map((point, i) => (
+        <li
+          key={i}
+          className="relative pl-6 text-lg leading-relaxed text-body before:absolute before:left-0 before:top-[0.7em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-[#C084FC]"
+        >
+          {point}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function RecapSkeleton() {
+  return (
+    <div className="space-y-3" aria-hidden>
+      {[100, 92, 78].map((w, i) => (
+        <div
+          key={i}
+          className="h-5 animate-pulse rounded bg-border-subtle"
+          style={{ width: `${w}%` }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default async function B2BNewsPage({
   params,
 }: {
@@ -59,9 +108,6 @@ export default async function B2BNewsPage({
 
   if (!item) notFound();
 
-  // Пытаемся собрать настоящий пересказ из оригинала статьи (бесплатно, на
-  // сервере). Не вышло — откатываемся на анонс из RSS-ленты.
-  const recap = item.sourceUrl ? await getArticleSummary(item.sourceUrl) : null;
   const fallbackSummary = getFallbackSummary(item);
 
   return (
@@ -116,22 +162,12 @@ export default async function B2BNewsPage({
             <h2 className="mb-3 font-heading text-sm font-semibold uppercase tracking-[0.18em] text-dim">
               Кратко
             </h2>
-            {recap ? (
-              <ul className="space-y-3">
-                {recap.map((point, i) => (
-                  <li
-                    key={i}
-                    className="relative pl-6 text-lg leading-relaxed text-body before:absolute before:left-0 before:top-[0.7em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-[#C084FC]"
-                  >
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-lg leading-relaxed text-body">
-                {fallbackSummary}
-              </p>
-            )}
+            <Suspense fallback={<RecapSkeleton />}>
+              <NewsRecap
+                sourceUrl={item.sourceUrl}
+                fallbackSummary={fallbackSummary}
+              />
+            </Suspense>
           </div>
 
           {/* Ссылка на источник */}

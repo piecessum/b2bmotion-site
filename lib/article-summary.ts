@@ -182,10 +182,12 @@ export function summarizeText(
 // Безопасна к любым сбоям сети/парсинга — при проблемах возвращает null.
 export async function getArticleSummary(url: string): Promise<string[] | null> {
   try {
+    // Не даём медленному источнику подвешивать рендер страницы новости.
     const res = await fetch(url, {
       headers: {
         "User-Agent": "Mozilla/5.0 (compatible; b2bmotion-news-bot/1.0)",
       },
+      signal: AbortSignal.timeout(5000),
       // Пересказ статьи не меняется — держим в ISR-кеше сутки.
       next: { revalidate: 86400 },
     });
