@@ -154,7 +154,7 @@ export default function CareersPage() {
       </section>
 
       <section className="relative pb-32 px-6">
-        <div className="relative z-10 max-w-5xl mx-auto">
+        <div className="relative z-10 max-w-6xl mx-auto">
           <div className="rounded-3xl border border-glass-border bg-overlay-2 p-10 sm:p-14 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center">
             <div className="flex flex-col items-center text-center md:items-start md:text-left order-2 md:order-1">
               <h2 className="font-heading font-semibold text-2xl sm:text-3xl text-heading mb-3">

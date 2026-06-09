@@ -766,7 +766,7 @@ export function TechStackSections({
 
       {/* SELECTEL */}
       <section className="relative py-20 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="ts-reveal relative overflow-hidden p-8 sm:p-12 rounded-3xl bg-surface border border-border-default">
             <div className="absolute inset-0 bg-gradient-to-br from-[#e83a50]/[0.04] via-transparent to-[#3B82F6]/[0.05] pointer-events-none" />
             <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[#e83a50]/8 blur-[120px] pointer-events-none" />

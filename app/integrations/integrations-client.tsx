@@ -299,7 +299,7 @@ export function IntegrationsSections({
 
       {/* DATA EXCHANGE — what gets synced with 1C */}
       <section className="relative py-20 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="mb-12 text-center">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Обмен данными
@@ -361,7 +361,7 @@ export function IntegrationsSections({
 
       {/* STAGES — implementation timeline */}
       <section className="relative py-20 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="mb-14 text-center">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Этапы внедрения
@@ -407,7 +407,7 @@ export function IntegrationsSections({
 
       {/* TRUST / FAQ-LITE */}
       <section className="relative py-20 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="mb-12 text-center">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Что важно знать
@@ -460,7 +460,7 @@ export function IntegrationsSections({
 
       {/* DEEP-DIVE LINKS */}
       <section className="relative py-16 px-6">
-        <div className="max-w-5xl mx-auto p-8 rounded-2xl bg-overlay-2 border border-glass-border">
+        <div className="max-w-6xl mx-auto p-8 rounded-2xl bg-overlay-2 border border-glass-border">
           <div className="flex items-start gap-4 mb-6">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#3B82F6]/15 to-[#7C3AED]/15 flex items-center justify-center flex-shrink-0">
               <Cable className="w-6 h-6 text-[#60A5FA]" />

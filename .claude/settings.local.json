@@ -241,7 +241,10 @@
       "Bash(BASE=\"http://localhost:3047\" node _repro.mjs)",
       "Bash(echo \"EXIT=$?\")",
       "Bash(pkill -f \"next start\")",
-      "Bash(echo \"BUILD_EXIT=$?\")"
+      "Bash(echo \"BUILD_EXIT=$?\")",
+      "Bash(sed -i '' 's/max-w-5xl/max-w-6xl/g' app/about/page.tsx app/careers/page.tsx app/integrations/integrations-client.tsx)",
+      "Bash(sed -i '' 's/max-w-4xl/max-w-6xl/g' app/video/page.tsx)",
+      "Bash(sed -i '' 's/max-w-5xl/max-w-6xl/g' app/tech-stack/tech-stack-client.tsx)"
     ]
   }
 }

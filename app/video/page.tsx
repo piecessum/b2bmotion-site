@@ -16,7 +16,7 @@ export default function VideoPage() {
       <Navbar />
 
       <section className="pt-36 pb-16 px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Navigation */}
           <div className="flex items-center gap-4 mb-10">
             <BackButton
@@ -100,7 +100,7 @@ export default function VideoPage() {
 
       {/* CTA Banner */}
       <section className="px-6 pb-28">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="relative rounded-3xl overflow-hidden">
             {/* Background */}
             <div className="absolute inset-0 bg-gradient-to-br from-[#3B82F6]/10 via-[#8B5CF6]/8 to-[#06B6D4]/10" />

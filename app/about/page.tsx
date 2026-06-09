@@ -187,7 +187,7 @@ export default function AboutPage() {
 
       {/* HERO */}
       <section className="relative pt-36 pb-20 px-6">
-        <div className="relative z-10 max-w-5xl mx-auto">
+        <div className="relative z-10 max-w-6xl mx-auto">
           <div className="text-center">
             <span className="inline-block text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA] mb-5">
               О компании
@@ -231,7 +231,7 @@ export default function AboutPage() {
 
       {/* TIMELINE */}
       <section className="relative py-24 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="mb-14 text-center">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               История
@@ -262,7 +262,7 @@ export default function AboutPage() {
 
       {/* WHAT WE DO — 3DaVinci ↔ B2B Motion */}
       <section className="relative py-24 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="mb-14 text-center">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Что мы делаем
@@ -407,7 +407,7 @@ export default function AboutPage() {
 
       {/* TECH STACK */}
       <section className="relative py-24 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="mb-12 text-center">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Технологии
@@ -468,7 +468,7 @@ export default function AboutPage() {
 
       {/* FEATURED CASES */}
       <section className="relative py-24 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="mb-12 text-center">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Кейсы
@@ -510,7 +510,7 @@ export default function AboutPage() {
 
       {/* WHY US */}
       <section className="relative py-24 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="mb-12 text-center">
             <span className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
               Почему выбирают нас
