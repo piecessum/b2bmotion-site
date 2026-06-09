@@ -42,12 +42,12 @@ export default function ContactsPage() {
         </div>
 
         <div className="relative z-10 max-w-6xl mx-auto">
-          <div className="text-center mb-20">
+          <div className="mb-20">
             <h1 className="reveal font-heading font-bold text-[clamp(36px,7vw,56px)] leading-[1.1] tracking-[-0.03em] mb-4">
               <span className="text-heading">Свяжитесь </span>
               <span className="gradient-text">с нами</span>
             </h1>
-            <p className="reveal text-lg text-body max-w-xl mx-auto">
+            <p className="reveal text-lg text-body max-w-xl">
               Покажем платформу в работе, ответим на вопросы и обсудим ваш
               проект
             </p>

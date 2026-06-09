@@ -137,11 +137,11 @@ export default function CareersPage() {
       <Navbar />
 
       <section className="relative pt-36 pb-20 px-6">
-        <div className="relative z-10 max-w-3xl mx-auto">
-          <span className="inline-block text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA] mb-5 text-center w-full sm:text-left sm:w-auto">
+        <div className="relative z-10 max-w-6xl mx-auto">
+          <span className="inline-block text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA] mb-5 text-left">
             Карьера в 3DaVinci
           </span>
-          <h1 className="font-heading font-bold text-[clamp(36px,7vw,64px)] leading-[1.05] tracking-[-0.02em] mb-6 text-center sm:text-left">
+          <h1 className="font-heading font-bold text-[clamp(36px,7vw,64px)] leading-[1.05] tracking-[-0.02em] mb-6 text-left">
             <span className="text-heading">Здесь мы публикуем </span>
             <span className="gradient-text">вакансии</span>
           </h1>

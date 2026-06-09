@@ -29,7 +29,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       <Navbar />
 
       <section className="pt-36 pb-28 px-6">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="mb-16">
             <span className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-xs font-medium uppercase tracking-[0.2em] text-[#60A5FA] bg-[#3B82F6]/[0.06] border border-[#3B82F6]/[0.1] rounded-full">
