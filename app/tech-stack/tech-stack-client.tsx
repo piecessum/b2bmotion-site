@@ -393,7 +393,7 @@ function HorizontalScroll({ cards }: { cards: ScrollCard[] }) {
     <>
       <div
         ref={scrollRef}
-        className="flex gap-5 overflow-x-auto py-6 scrollbar-hide px-6 scroll-pl-6 md:px-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] md:scroll-pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))]"
+        className="flex gap-5 overflow-x-auto py-6 scrollbar-hide px-6 scroll-pl-6 md:px-[max(1.5rem,calc((100vw-72rem)/2))] md:scroll-pl-[max(1.5rem,calc((100vw-72rem)/2))]"
         style={{ scrollSnapType: "x mandatory" }}
       >
         {cards.map((card, i) => {
@@ -737,7 +737,7 @@ export function TechStackSections({
 
       {/* FRONTEND */}
       <section className="relative py-20">
-        <div className="mb-8 px-6 max-w-4xl mx-auto">
+        <div className="mb-8 px-[max(1.5rem,calc((100vw-72rem)/2))]">
           <span className="ts-reveal text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
             Фронтенд
           </span>
@@ -751,7 +751,7 @@ export function TechStackSections({
 
       {/* BACKEND */}
       <section className="relative py-20">
-        <div className="mb-8 px-6 max-w-4xl mx-auto">
+        <div className="mb-8 px-[max(1.5rem,calc((100vw-72rem)/2))]">
           <span className="ts-reveal text-[11px] font-medium uppercase tracking-[0.2em] text-[#60A5FA]">
             Бэкенд
           </span>

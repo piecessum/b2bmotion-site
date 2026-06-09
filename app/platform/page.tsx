@@ -23,7 +23,6 @@ import {
   Globe,
   BarChart3,
   Check,
-  Map,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -554,10 +553,7 @@ function FunctionalView({ switcher }: { switcher: React.ReactNode }) {
       {/* Roadmap — full width */}
       <section id="roadmap" className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-3 mb-16 justify-center">
-            <div className="w-10 h-10 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center">
-              <Map className="w-5 h-5 text-[#3B82F6]" />
-            </div>
+          <div className="mb-16">
             <h2 className="font-heading font-bold text-[clamp(32px,5vw,44px)] tracking-[-0.02em] text-heading">
               Дорожная карта <span className="gradient-text">развития</span>
             </h2>

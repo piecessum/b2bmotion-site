@@ -461,7 +461,7 @@ export default function FmcgPage() {
 
       {/* Testimonial */}
       <section className="py-24 px-6 bg-page-alt">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <h2 className="reveal font-heading font-bold text-[clamp(28px,4vw,40px)] tracking-[-0.02em] text-heading mb-16">
             Отзыв о платформе FMCG-компании <span className="gradient-text">«Рэйд-21»</span>
           </h2>

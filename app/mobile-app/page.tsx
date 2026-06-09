@@ -107,7 +107,7 @@ export default function MobileAppPage() {
             }}
           />
         </div>
-        <div className="relative z-10 max-w-4xl mx-auto">
+        <div className="relative z-10 max-w-6xl mx-auto">
           <span className="reveal inline-block px-4 py-1.5 mb-6 text-xs font-medium uppercase tracking-[0.15em] text-violet-400 bg-violet-400/10 rounded-full">
             Мобильное приложение
           </span>
@@ -126,7 +126,7 @@ export default function MobileAppPage() {
 
       {/* Stats */}
       <section className="py-16 px-6">
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 text-center">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="reveal">
             <p className="font-heading font-bold text-4xl md:text-5xl gradient-text mb-3">1,65 млрд</p>
             <p className="text-body">человек покупают товары с телефона</p>
