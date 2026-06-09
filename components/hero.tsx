@@ -170,9 +170,9 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Mobile layout — phone fully visible */}
-        <div className="md:hidden flex justify-center">
-          <div className="w-[220px]">
+        {/* Mobile layout — phone: full-width in portrait, contained in landscape */}
+        <div className="md:hidden flex justify-center -mx-6">
+          <div className="w-full max-w-[220px] portrait:max-w-none">
             <Image
               src="/mockups/phone.png"
               alt="B2B платформа на смартфоне"
