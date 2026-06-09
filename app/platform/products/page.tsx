@@ -19,6 +19,7 @@ export const metadata = {
   title: "Товары и заказы — Функционал B2B Движение",
   description:
     "Управление товарами, каталогом, ценами, заказами, оплатой и документооборотом в B2B-платформе.",
+  alternates: { canonical: "/platform/products" },
 };
 
 const sections = [

@@ -18,6 +18,7 @@ export const metadata = {
   title: "Маркетинг и аналитика — Функционал B2B Движение",
   description:
     "Увеличение среднего чека, акции, работа с брошенными корзинами, SEO-продвижение и подробная статистика.",
+  alternates: { canonical: "/platform/marketing" },
 };
 
 const sections = [

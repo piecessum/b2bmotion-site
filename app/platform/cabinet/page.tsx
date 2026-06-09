@@ -9,6 +9,7 @@ export const metadata = {
   title: "Личный кабинет покупателя — Функционал B2B Движение",
   description:
     "Персональные предложения, мультикомпании, финансовый контроль и удобные уведомления для покупателей.",
+  alternates: { canonical: "/platform/cabinet" },
 };
 
 const sections = [

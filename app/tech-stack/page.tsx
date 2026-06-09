@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { SITE_URL, ALLOW_INDEXING, absoluteUrl } from "@/lib/site";
 import TechStackClient from "./tech-stack-client";
 
-const PAGE_URL = "https://b2bmotion-site.vercel.app/tech-stack";
-const OG_IMAGE = "https://b2bmotion-site.vercel.app/for-bg/bg-techsteck-dark.png";
+const PAGE_URL = absoluteUrl("/tech-stack");
+const OG_IMAGE = absoluteUrl("/for-bg/bg-techsteck-dark.png");
+const HOME_URL = `${SITE_URL}/`;
 
 const DESCRIPTION =
   "Технологический стек B2B-платформы B2B Движение: PHP 8.2 (Yii2), React + Remix, MySQL, Redis, Elasticsearch, Nginx. Российский сервер Selectel, реестр ПО РФ, ФЗ-152.";
@@ -57,16 +59,19 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     images: [OG_IMAGE],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
+  // Подчиняется общей защите от индексации тестового домена (lib/site.ts)
+  robots: ALLOW_INDEXING
+    ? {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+        },
+      }
+    : { index: false, follow: false },
 };
 
 const breadcrumbsLd = {
@@ -77,7 +82,7 @@ const breadcrumbsLd = {
       "@type": "ListItem",
       position: 1,
       name: "Главная",
-      item: "https://b2bmotion-site.vercel.app/",
+      item: HOME_URL,
     },
     {
       "@type": "ListItem",
@@ -131,7 +136,7 @@ const softwareLd = {
   publisher: {
     "@type": "Organization",
     name: "ТриДаВинчи",
-    url: "https://b2bmotion-site.vercel.app/",
+    url: HOME_URL,
   },
 };
 
@@ -145,7 +150,7 @@ const webPageLd = {
   isPartOf: {
     "@type": "WebSite",
     name: "B2B Движение",
-    url: "https://b2bmotion-site.vercel.app/",
+    url: HOME_URL,
   },
   about: [
     { "@type": "Thing", name: "PHP" },
