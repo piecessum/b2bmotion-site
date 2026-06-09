@@ -334,20 +334,22 @@ function ViewSwitcher({
     { id: "integrations", label: "Интеграции" },
   ];
   return (
-    <div className="inline-flex p-1 rounded-full bg-overlay-4 border border-glass-border backdrop-blur-md shadow-sm gap-1">
-      {items.map((item) => (
-        <button
-          key={item.id}
-          onClick={() => onChange(item.id)}
-          className={`px-5 sm:px-6 py-2.5 text-sm font-medium whitespace-nowrap rounded-full transition-all duration-300 ${
-            view === item.id
-              ? "bg-overlay-8 text-heading"
-              : "text-dim hover:text-body"
-          }`}
-        >
-          {item.label}
-        </button>
-      ))}
+    <div className="-mx-6 px-6 overflow-x-auto scrollbar-hide">
+      <div className="inline-flex p-1 rounded-full bg-overlay-4 border border-glass-border backdrop-blur-md shadow-sm gap-1">
+        {items.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => onChange(item.id)}
+            className={`px-4 sm:px-6 py-2.5 text-sm font-medium whitespace-nowrap rounded-full transition-all duration-300 ${
+              view === item.id
+                ? "bg-overlay-8 text-heading"
+                : "text-dim hover:text-body"
+            }`}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
