@@ -23,6 +23,14 @@ export const SITE_URL = (
  */
 export const ALLOW_INDEXING = process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true";
 
+/**
+ * Пускать ли AI-краулеры (ChatGPT, Perplexity, Gemini, Claude и т.п.) — нужно
+ * для GEO: попадания сайта в ответы генеративных движков со ссылкой на нас.
+ * По умолчанию true (когда индексация включена). Поставьте
+ * NEXT_PUBLIC_ALLOW_AI_BOTS=false, чтобы закрыть контент от AI.
+ */
+export const ALLOW_AI_BOTS = process.env.NEXT_PUBLIC_ALLOW_AI_BOTS !== "false";
+
 export const SITE_NAME = "B2B Движение";
 
 export const DEFAULT_TITLE = "B2B Движение — Автоматизация оптовых продаж";
