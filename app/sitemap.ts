@@ -13,11 +13,9 @@ const STATIC_ROUTES: { path: string; priority: number; changeFrequency: Metadata
   { path: "/platform/products", priority: 0.8, changeFrequency: "monthly" },
   { path: "/platform/cabinet", priority: 0.8, changeFrequency: "monthly" },
   { path: "/platform/marketing", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/integrations", priority: 0.8, changeFrequency: "monthly" },
   { path: "/mobile-app", priority: 0.8, changeFrequency: "monthly" },
   { path: "/chatbots", priority: 0.8, changeFrequency: "monthly" },
   { path: "/mdm", priority: 0.7, changeFrequency: "monthly" },
-  { path: "/tech-stack", priority: 0.7, changeFrequency: "monthly" },
   // Отраслевые лендинги
   { path: "/fmcg", priority: 0.8, changeFrequency: "monthly" },
   { path: "/electro", priority: 0.8, changeFrequency: "monthly" },
