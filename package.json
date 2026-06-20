@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "build-wiki": "node scripts/build-wiki-data.js",
+    "predev": "npm run build-wiki",
+    "prebuild": "npm run build-wiki",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

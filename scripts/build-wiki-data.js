@@ -12,14 +12,14 @@
 const fs = require("fs");
 const path = require("path");
 const matter = require("gray-matter");
-const { marked } = require("marked");
+
+// marked v5+ — ESM-only, нельзя через require(); подключаем динамически в main().
+let marked;
 
 const ROOT = path.resolve(__dirname, "..");
 const CONTENT_ROOT = path.join(ROOT, "content", "wiki");
 const OUT_PATH = path.join(ROOT, "lib", "wiki-articles.generated.ts");
 const SECTIONS = ["function", "custom", "tech"];
-
-marked.use({ gfm: true, breaks: false });
 
 const CALLOUT_RE = /^\[!CALLOUT(?:\s+color=([^\]\s]+))?\]\s*\n?([\s\S]*)$/;
 const PREFACE_RE = /^\[!PREFACE\]\s*\n?([\s\S]*)$/;
@@ -159,7 +159,10 @@ function readSection(section) {
   });
 }
 
-function main() {
+async function main() {
+  ({ marked } = await import("marked"));
+  marked.use({ gfm: true, breaks: false });
+
   const data = {};
   let total = 0;
   for (const section of SECTIONS) {
@@ -181,4 +184,7 @@ function main() {
   console.log(`wiki-articles.generated.ts: ${total} articles across ${SECTIONS.length} sections`);
 }
 
-main();
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
