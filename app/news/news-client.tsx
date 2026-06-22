@@ -312,9 +312,9 @@ function NewsLayout({
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_320px]">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px] lg:gap-10">
         {/* Основная колонка */}
-        <div>
+        <div className="order-2 lg:order-1">
           {tab === "b2b" ? (
             <B2BFeed items={b2bItems} digest={digest} />
           ) : (
@@ -333,7 +333,7 @@ function NewsLayout({
         </div>
 
         {/* Сайдбар */}
-        <aside className="lg:sticky lg:top-28 lg:self-start">
+        <aside className="order-1 lg:order-2 lg:sticky lg:top-28 lg:self-start">
           <NewsSidebar today={today} rates={rates} />
         </aside>
       </div>
