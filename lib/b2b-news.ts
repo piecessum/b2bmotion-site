@@ -283,6 +283,46 @@ function idFromUrl(url: string): string {
   return hash.toString(36);
 }
 
+// ── Самодостаточная ссылка на новость ──
+// Внешние RSS-ленты хранят лишь N последних публикаций, поэтому старые новости
+// (в т.ч. архивные) со временем выпадают из выдачи, и поиск по id их не находит.
+// Чтобы клик по такой новости не давал 404, зашиваем минимум данных прямо в
+// ссылку (base64url-токен), а страница восстанавливает новость из него, если в
+// живой ленте её уже нет. Пересказ всё равно подтягивается по sourceUrl.
+
+export function encodeNewsItem(item: NewsItem): string {
+  const payload = {
+    t: item.title,
+    s: item.source,
+    u: item.sourceUrl,
+    d: item.date,
+    i: item.image,
+    m: item.summary?.slice(0, 400),
+    id: item.id,
+  };
+  return Buffer.from(JSON.stringify(payload), "utf8").toString("base64url");
+}
+
+export function decodeNewsItem(token: string): NewsItem | null {
+  try {
+    const p = JSON.parse(Buffer.from(token, "base64url").toString("utf8"));
+    if (!p?.t) return null;
+    return {
+      title: p.t,
+      source: p.s || "Источник",
+      date: p.d || new Date().toISOString(),
+      image: p.i,
+      summary: p.m,
+      sourceUrl: p.u,
+      id: p.id,
+      href: "",
+      external: true,
+    };
+  } catch {
+    return null;
+  }
+}
+
 // Все релевантные новости со всех лент: отфильтрованы, без URL-дублей,
 // отсортированы по дате. БЕЗ similarity-дедупа — каждая новость присутствует
 // под своим id. Используется для поиска по id (ссылки списка всегда находятся).
@@ -315,7 +355,7 @@ async function collectRelevant(): Promise<NewsItem[]> {
     if (seen.has(key)) continue;
     seen.add(key);
     const id = idFromUrl(key);
-    items.push({
+    const item: NewsItem = {
       title: cleanTitle(raw.title),
       date: toIso(raw.pubDate),
       image: raw.image,
@@ -325,7 +365,11 @@ async function collectRelevant(): Promise<NewsItem[]> {
       id,
       summary: raw.description,
       sourceUrl: raw.link,
-    });
+    };
+    // Токен с данными новости в ссылке — страховка от 404, когда новость
+    // выпала из живой RSS-ленты (см. encodeNewsItem).
+    item.href = `/news/b2b/${id}?d=${encodeNewsItem(item)}`;
+    items.push(item);
   }
 
   items.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
