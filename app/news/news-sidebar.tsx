@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { TrendingUp, TrendingDown, Minus } from "lucide-react";
 import type { Rates } from "@/lib/rates";
 
@@ -11,6 +14,36 @@ interface Today {
   y: number;
   m: number; // 0-based
   d: number;
+}
+
+// Текущая дата по Москве, вычисленная в браузере. Серверное значение
+// «запекается» в ISR-кеш страницы и может устареть на час+, поэтому актуальную
+// дату считаем на клиенте.
+function moscowToday(): Today {
+  const msk = new Date(
+    new Date().toLocaleString("en-US", { timeZone: "Europe/Moscow" }),
+  );
+  return { y: msk.getFullYear(), m: msk.getMonth(), d: msk.getDate() };
+}
+
+// Возвращает актуальную дату по Москве. Стартует с серверного значения (чтобы
+// первый клиентский рендер совпал с SSR и не было ошибки гидрации), затем
+// после монтирования заменяет его на реально текущее — и обновляет при
+// возврате на вкладку, чтобы за полночь дата не «зависла».
+function useCurrentMoscowDate(initial: Today): Today {
+  const [today, setToday] = useState(initial);
+
+  useEffect(() => {
+    const sync = () => setToday(moscowToday());
+    sync();
+    const onVisible = () => {
+      if (document.visibilityState === "visible") sync();
+    };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, []);
+
+  return today;
 }
 
 function formatMoney(value: number): string {
@@ -92,12 +125,14 @@ function MonthCalendar({ today }: { today: Today }) {
 }
 
 export function NewsSidebar({
-  today,
+  today: initialToday,
   rates,
 }: {
   today: Today;
   rates: Rates | null;
 }) {
+  const today = useCurrentMoscowDate(initialToday);
+
   return (
     <div className="space-y-5">
       {/* Сегодня + календарь */}
