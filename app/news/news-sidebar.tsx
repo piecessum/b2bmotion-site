@@ -79,9 +79,9 @@ function RateRow({
   const { delta, Icon, color } = trend(rate);
 
   return (
-    <div className="flex items-center justify-between py-2.5">
+    <div className="flex items-center justify-between py-1.5">
       <div className="flex items-center gap-2.5">
-        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#8B5CF6]/10 text-xs font-semibold text-[#8B5CF6]">
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#8B5CF6]/10 text-[11px] font-semibold text-[#8B5CF6]">
           {code}
         </span>
         <span className="text-sm text-subtle">{label}</span>
@@ -193,7 +193,7 @@ function MonthCalendar({ today }: { today: Today }) {
           return (
             <div
               key={day}
-              className={`flex h-8 items-center justify-center rounded-lg text-sm tabular-nums transition-colors ${
+              className={`flex h-7 items-center justify-center rounded-lg text-sm tabular-nums transition-colors ${
                 isToday
                   ? "bg-[#8B5CF6] font-semibold text-white shadow-[0_0_16px_rgba(139,92,246,0.4)]"
                   : isWeekend
@@ -258,14 +258,11 @@ export function NewsSidebar({
       </div>
 
       {/* Десктоп: полный календарь + курсы */}
-      <div className="hidden space-y-5 lg:block">
+      <div className="hidden space-y-4 lg:block">
         {/* Сегодня + календарь */}
-        <div className="rounded-2xl glass-card p-5">
-          <div className="text-xs font-medium uppercase tracking-[0.18em] text-dim">
-            Сегодня
-          </div>
-          <div className="mb-4 mt-1.5 flex items-baseline justify-between">
-            <span className="font-heading text-2xl font-bold text-heading">
+        <div className="rounded-2xl glass-card p-4">
+          <div className="mb-3 flex items-baseline justify-between">
+            <span className="font-heading text-xl font-bold text-heading">
               {today.d} {MONTHS[today.m]}
             </span>
             <span className="text-sm text-subtle">{today.y}</span>
@@ -274,7 +271,7 @@ export function NewsSidebar({
         </div>
 
         {/* Курсы валют */}
-        <div className="rounded-2xl glass-card p-5">
+        <div className="rounded-2xl glass-card p-4">
           <div className="mb-1 flex items-center justify-between">
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-dim">
               Курс ЦБ РФ
@@ -289,8 +286,8 @@ export function NewsSidebar({
                 <RateRow code="₸" label="Тенге" rate={rates.kzt} />
               </div>
               {(rates.gold || rates.silver) && (
-                <div className="mt-3 border-t border-border-subtle pt-3">
-                  <div className="mb-1 text-[11px] font-medium uppercase tracking-[0.18em] text-dim">
+                <div className="mt-2 border-t border-border-subtle pt-2">
+                  <div className="mb-0.5 text-[11px] font-medium uppercase tracking-[0.18em] text-dim">
                     Драгметаллы · ₽/г
                   </div>
                   <div className="divide-y divide-border-subtle">
