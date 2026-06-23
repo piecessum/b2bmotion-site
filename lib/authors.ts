@@ -44,6 +44,13 @@ function displayAuthor(post: Post): string | undefined {
   return post.authorCard?.name || post.author;
 }
 
+// Все авторы статьи (основной + соавтор), чтобы материал появлялся
+// в сетке каждого из них
+function authorNames(post: Post): string[] {
+  const names = [displayAuthor(post), post.coAuthorCard?.name];
+  return names.filter((n): n is string => Boolean(n));
+}
+
 // Запасные данные для авторов, у которых нет authorCard в статьях
 const authorFallbacks: Record<string, { role: string; bio: string; photo?: string }> = {
   "Команда B2B Движение": {
@@ -80,8 +87,9 @@ const extraEntries: Record<string, AuthorEntry[]> = {
 
 // Собирает данные об авторе из его статей (берёт authorCard, если он есть)
 function buildAuthor(name: string, posts: Post[]): Author {
-  const cardPost = posts.find((p) => p.authorCard?.name === name);
-  const card = cardPost?.authorCard;
+  const card =
+    posts.find((p) => p.authorCard?.name === name)?.authorCard ||
+    posts.find((p) => p.coAuthorCard?.name === name)?.coAuthorCard;
   const fallback = authorFallbacks[name];
   const extras = extraEntries[name]?.length || 0;
 
@@ -114,11 +122,11 @@ export function getAllAuthors(collection: "blog" | "news"): Author[] {
   const byName = new Map<string, Post[]>();
 
   for (const post of posts) {
-    const name = displayAuthor(post);
-    if (!name) continue;
-    const list = byName.get(name) || [];
-    list.push(post);
-    byName.set(name, list);
+    for (const name of authorNames(post)) {
+      const list = byName.get(name) || [];
+      list.push(post);
+      byName.set(name, list);
+    }
   }
 
   return Array.from(byName.entries())
@@ -132,14 +140,13 @@ export function getAuthorBySlug(
   collection: "blog" | "news",
   slug: string,
 ): { author: Author; entries: AuthorEntry[] } | null {
-  const posts = getAllPosts(collection).filter((p) => {
-    const name = displayAuthor(p);
-    return name && authorSlug(name) === slug;
-  });
+  const posts = getAllPosts(collection).filter((p) =>
+    authorNames(p).some((name) => authorSlug(name) === slug),
+  );
 
   if (posts.length === 0) return null;
 
-  const name = displayAuthor(posts[0])!;
+  const name = authorNames(posts[0]).find((n) => authorSlug(n) === slug)!;
   const entries = [
     ...posts.map(postToEntry),
     ...(extraEntries[name] || []),
