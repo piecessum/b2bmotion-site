@@ -16,6 +16,13 @@ interface Story {
 
 const stories: Story[] = [
   {
+    id: 6,
+    title: "Защита от кибератак",
+    preview: "/stories/Story 6.png",
+    image: "/stories/Story 6.png",
+    link: "/blog/kiberataki-zaschita-b2b",
+  },
+  {
     id: 0,
     title: "Россия vs Мировой рынок",
     preview: "/stories/Story 0.png",
