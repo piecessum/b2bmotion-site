@@ -231,59 +231,7 @@ export default async function BlogPostPage({
           <div className="prose-custom">{renderBlogContent(post.content)}</div>
 
           {/* Author Card(s) */}
-          {(post as any).authorCard &&
-            (() => {
-              const authors = [
-                (post as any).authorCard,
-                (post as any).coAuthorCard,
-              ].filter(Boolean);
-              const isMulti = authors.length > 1;
-              return (
-                <div
-                  className={`mt-14 mb-10 grid gap-4 ${
-                    isMulti ? "md:grid-cols-2" : "grid-cols-1"
-                  }`}
-                >
-                  {authors.map((author: any, ai: number) => (
-                    <Link
-                      key={ai}
-                      href={`/blog/author/${authorSlug(author.name)}`}
-                      className="group block rounded-2xl bg-gradient-to-br from-[#3B82F6]/5 via-transparent to-[#8B5CF6]/5 border border-gray-200 dark:border-white/[0.06] p-6 md:p-8 transition-colors hover:border-[#3B82F6]/30"
-                    >
-                      <div className="flex items-start gap-5">
-                        <img
-                          src={author.photo}
-                          alt={author.name}
-                          className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover object-top border-2 border-[#3B82F6]/20 shrink-0"
-                        />
-                        <div className="min-w-0">
-                          <div className="text-[10px] uppercase tracking-[0.15em] text-[#60A5FA] mb-1">
-                            {isMulti
-                              ? ai === 0
-                                ? "Автор статьи"
-                                : "Соавтор"
-                              : "Автор статьи"}
-                          </div>
-                          <h4 className="font-heading font-bold text-lg text-heading mb-0.5 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
-                            {author.name}
-                          </h4>
-                          <p className="text-sm font-medium text-subtle mb-2">
-                            {author.role}
-                          </p>
-                          <p className="text-sm text-dim leading-relaxed">
-                            {author.bio}
-                          </p>
-                          <span className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-[#60A5FA] group-hover:gap-3 transition-all duration-300">
-                            Все статьи автора
-                            <ArrowRight className="w-4 h-4" />
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              );
-            })()}
+          <AuthorCards post={post} />
 
           {/* Blog Banner */}
           <BlogBanner />
@@ -303,6 +251,52 @@ export default async function BlogPostPage({
 
       <Footer />
     </main>
+  );
+}
+
+// Карточки автора и соавтора материала (статьи или кейса)
+function AuthorCards({ post }: { post: any }) {
+  if (!post.authorCard) return null;
+  const authors = [post.authorCard, post.coAuthorCard].filter(Boolean);
+  const isMulti = authors.length > 1;
+  return (
+    <div
+      className={`mt-14 mb-10 grid gap-4 ${
+        isMulti ? "md:grid-cols-2" : "grid-cols-1"
+      }`}
+    >
+      {authors.map((author: any, ai: number) => (
+        <Link
+          key={ai}
+          href={`/blog/author/${authorSlug(author.name)}`}
+          className="group block rounded-2xl bg-gradient-to-br from-[#3B82F6]/5 via-transparent to-[#8B5CF6]/5 border border-gray-200 dark:border-white/[0.06] p-6 md:p-8 transition-colors hover:border-[#3B82F6]/30"
+        >
+          <div className="flex items-start gap-5">
+            <img
+              src={author.photo}
+              alt={author.name}
+              className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover object-top border-2 border-[#3B82F6]/20 shrink-0"
+            />
+            <div className="min-w-0">
+              <div className="text-[10px] uppercase tracking-[0.15em] text-[#60A5FA] mb-1">
+                {isMulti ? (ai === 0 ? "Автор" : "Соавтор") : "Автор"}
+              </div>
+              <h4 className="font-heading font-bold text-lg text-heading mb-0.5 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
+                {author.name}
+              </h4>
+              <p className="text-sm font-medium text-subtle mb-2">
+                {author.role}
+              </p>
+              <p className="text-sm text-dim leading-relaxed">{author.bio}</p>
+              <span className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-[#60A5FA] group-hover:gap-3 transition-all duration-300">
+                Все материалы автора
+                <ArrowRight className="w-4 h-4" />
+              </span>
+            </div>
+          </div>
+        </Link>
+      ))}
+    </div>
   );
 }
 
@@ -611,6 +605,9 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
           <div className="prose-custom">
             {renderCaseContentBlocks(post.content)}
           </div>
+
+          {/* Author Card(s) */}
+          <AuthorCards post={post} />
 
           {/* Bottom divider */}
           <div className="section-divider mt-10 mb-8" />

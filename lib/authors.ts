@@ -52,18 +52,12 @@ function authorNames(post: Post): string[] {
 }
 
 // Запасные данные для авторов, у которых нет authorCard в статьях
-const authorFallbacks: Record<string, { role: string; bio: string; photo?: string }> = {
-  "Команда B2B Движение": {
-    role: "Команда проекта",
-    bio: "Делимся опытом внедрения B2B-платформ и историями успеха наших клиентов",
-    photo: "/icons/B2BMotionSign.png",
-  },
-};
+const authorFallbacks: Record<string, { role: string; bio: string; photo?: string }> = {};
 
 // Материалы автора, которых нет среди md-статей (видео, отчёты на отдельных
 // страницах). Привязываются к автору вручную и показываются в его сетке.
 const extraEntries: Record<string, AuthorEntry[]> = {
-  "Команда B2B Движение": [
+  "Алексей Масюта": [
     {
       title: "B2B eCommerce Платформы: Россия vs Мировой рынок",
       description:
@@ -73,6 +67,8 @@ const extraEntries: Record<string, AuthorEntry[]> = {
       href: "/blog/b2b-platforms-report",
       kind: "Отчёт",
     },
+  ],
+  "Дмитрий Агеев": [
     {
       title: "В2В Движение — оптимальное решение для оптового бизнеса",
       description:
