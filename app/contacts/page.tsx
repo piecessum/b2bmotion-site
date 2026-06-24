@@ -2,7 +2,7 @@
 
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, ArrowRight } from "lucide-react";
 
 const contacts = [
   {
@@ -181,6 +181,18 @@ export default function ContactsPage() {
                   ОКВЭД 62.01
                 </p>
               </div>
+              <a
+                href="/about"
+                className="reveal group flex items-center justify-between gap-4 p-5 bg-surface-hover rounded-2xl border border-border-default transition-colors hover:border-[#3B82F6]/40"
+              >
+                <div>
+                  <p className="text-xs text-subtle mb-1">Узнать больше</p>
+                  <p className="text-sm font-medium text-heading group-hover:text-[#3B82F6] transition-colors">
+                    О нас и команде
+                  </p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-[#3B82F6] shrink-0 transition-transform group-hover:translate-x-1" />
+              </a>
             </div>
           </div>
         </div>
