@@ -146,9 +146,9 @@ export default function ContactsPage() {
 
             {/* Contact info */}
             <div className="lg:col-span-2 space-y-2.5">
-              <div className="reveal bg-surface-hover rounded-2xl border border-border-default divide-y divide-border-default">
+              <div className="reveal bg-surface-hover rounded-2xl border border-border-default p-1.5">
                 {contacts.map((c, i) => (
-                  <div key={i} className="flex items-center gap-3 px-4 py-3">
+                  <div key={i} className="flex items-center gap-3 px-3 py-2.5">
                     <div className="w-9 h-9 rounded-lg bg-[#3B82F6]/10 flex items-center justify-center flex-shrink-0">
                       <c.icon className="w-4 h-4 text-[#3B82F6]" />
                     </div>
