@@ -248,7 +248,9 @@
       "Bash(grep -rl 'components/__TRACKED_VAR__\"' app)",
       "Bash(curl -s \"https://www.cbr-xml-daily.ru/daily_json.js\")",
       "Bash(date -v-7d +%d/%m/%Y)",
-      "Bash(curl -s 'https://www.cbr.ru/scripts/xml_metall.asp?date_req1=__TRACKED_VAR__&date_req2=__CMDSUB_OUTPUT__')"
+      "Bash(curl -s 'https://www.cbr.ru/scripts/xml_metall.asp?date_req1=__TRACKED_VAR__&date_req2=__CMDSUB_OUTPUT__')",
+      "Bash(ls -la /Users/Alex/Downloads/project187403/)",
+      "Bash(echo \"exit: $?\")"
     ]
   }
 }

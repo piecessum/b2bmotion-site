@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { DbSchemaBlock } from "@/components/wiki/db-schema-block";
 import { DbFieldsTable } from "@/components/wiki/db-fields-table";
+import { GatewayTablesList } from "@/components/wiki/gateway-tables-list";
 import { getTable } from "@/lib/wiki-db-schema";
 
 /**
@@ -167,6 +168,14 @@ export function RichTextRenderer({ content }: RichTextRendererProps) {
 
           case "db-schema":
             return <DbSchemaBlock key={index} />;
+
+          case "gateway-tables":
+            return (
+              <GatewayTablesList
+                key={index}
+                variant={block.variant === "optional" ? "optional" : "required"}
+              />
+            );
 
           case "video": {
             if (!block.url) return null;
