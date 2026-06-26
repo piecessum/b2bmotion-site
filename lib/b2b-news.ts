@@ -405,19 +405,39 @@ export async function getB2BNewsItem(id: string): Promise<NewsItem | null> {
   return items.find((item) => item.id === id) ?? null;
 }
 
-// Недельный дайджест: самые освещаемые события за 7 дней (covered by 2+ лент).
-export async function getWeeklyDigest(limit = 5): Promise<NewsItem[]> {
+// Недельный дайджест: главные события за неделю (осветили 2+ ленты), новые
+// сверху. В начале недели свежих событий мало, поэтому добираем значимое из
+// прошлой недели — оно держится в списке, пока его не вытеснят события текущей.
+export async function getWeeklyDigest(target = 6): Promise<NewsItem[]> {
   const items = await fetchAllRelevant();
-  const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-  return items
-    .filter(
-      (i) =>
-        new Date(i.date).getTime() >= weekAgo && (i.coverage ?? 1) >= 2,
-    )
-    .sort(
-      (a, b) =>
-        (b.coverage ?? 1) - (a.coverage ?? 1) ||
-        new Date(b.date).getTime() - new Date(a.date).getTime(),
-    )
-    .slice(0, limit);
+  const now = Date.now();
+  const day = 24 * 60 * 60 * 1000;
+
+  const byRecency = (a: NewsItem, b: NewsItem) =>
+    new Date(b.date).getTime() - new Date(a.date).getTime() ||
+    (b.coverage ?? 1) - (a.coverage ?? 1);
+
+  // Значимые события — те, что осветили минимум 2 источника.
+  const important = items.filter((i) => (i.coverage ?? 1) >= 2).sort(byRecency);
+  const within = (days: number) =>
+    important.filter((i) => new Date(i.date).getTime() >= now - days * day);
+
+  // База — значимое за текущую неделю; если набралось мало (начало недели),
+  // расширяем окно до двух недель, добирая прошлонедельные события.
+  let digest = within(7);
+  if (digest.length < target) digest = within(14);
+
+  // Совсем тихая неделя: дополняем одиночными свежими новостями за 7 дней,
+  // чтобы список не схлопывался до пары пунктов.
+  if (digest.length < target) {
+    const seen = new Set(digest.map((i) => i.href));
+    const fillers = items
+      .filter(
+        (i) => !seen.has(i.href) && new Date(i.date).getTime() >= now - 7 * day,
+      )
+      .sort(byRecency);
+    digest = [...digest, ...fillers];
+  }
+
+  return digest.slice(0, target);
 }

@@ -43,7 +43,20 @@ function parseMetal(xml: string, code: string): CurrencyRate | undefined {
   return { value, previous };
 }
 
-async function fetchMetals(): Promise<{ gold?: CurrencyRate; silver?: CurrencyRate }> {
+// Кеш-политика fetch: обычно почасовой ISR, но при ручном обновлении (кнопка
+// в виджете) запрашиваем напрямую, минуя кеш.
+type CacheInit = Pick<RequestInit, "cache"> & {
+  next?: { revalidate: number };
+};
+function cacheInit(fresh?: boolean): CacheInit {
+  return fresh
+    ? { cache: "no-store" }
+    : { next: { revalidate: REVALIDATE_SECONDS } };
+}
+
+async function fetchMetals(
+  fresh?: boolean,
+): Promise<{ gold?: CurrencyRate; silver?: CurrencyRate }> {
   try {
     const now = new Date();
     const from = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
@@ -52,7 +65,7 @@ async function fetchMetals(): Promise<{ gold?: CurrencyRate; silver?: CurrencyRa
         d.getMonth() + 1,
       ).padStart(2, "0")}/${d.getFullYear()}`;
     const url = `${METALS_URL}?date_req1=${fmt(from)}&date_req2=${fmt(now)}`;
-    const res = await fetch(url, { next: { revalidate: REVALIDATE_SECONDS } });
+    const res = await fetch(url, cacheInit(fresh));
     if (!res.ok) return {};
     const xml = await res.text();
     return { gold: parseMetal(xml, "1"), silver: parseMetal(xml, "2") };
@@ -61,11 +74,12 @@ async function fetchMetals(): Promise<{ gold?: CurrencyRate; silver?: CurrencyRa
   }
 }
 
-export async function fetchRates(): Promise<Rates | null> {
+export async function fetchRates(opts?: { fresh?: boolean }): Promise<Rates | null> {
+  const fresh = opts?.fresh;
   try {
     const [res, metals] = await Promise.all([
-      fetch(RATES_URL, { next: { revalidate: REVALIDATE_SECONDS } }),
-      fetchMetals(),
+      fetch(RATES_URL, cacheInit(fresh)),
+      fetchMetals(fresh),
     ]);
     if (!res.ok) return null;
     const data = await res.json();

@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { TrendingUp, TrendingDown, Minus, RefreshCw } from "lucide-react";
 import type { Rates, CurrencyRate } from "@/lib/rates";
 
 const MONTHS = [
@@ -51,6 +51,68 @@ function formatMoney(value: number): string {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
+}
+
+// «Актуально на момент …» — дата и время последнего обновления по Москве.
+function formatUpdatedAt(d: Date): string {
+  return d.toLocaleString("ru-RU", {
+    timeZone: "Europe/Moscow",
+    day: "numeric",
+    month: "long",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+// Курсы с возможностью ручного обновления. Стартуют с серверного значения,
+// по запросу тянут свежие данные через /api/rates (мимо ISR-кеша). Метку
+// времени ставим после монтирования, чтобы SSR и первый клиентский рендер
+// совпали (иначе ошибка гидрации).
+function useRefreshableRates(initial: Rates | null) {
+  const [rates, setRates] = useState(initial);
+  const [refreshing, setRefreshing] = useState(false);
+  const [updatedAt, setUpdatedAt] = useState<Date | null>(null);
+
+  useEffect(() => {
+    setUpdatedAt(new Date());
+  }, []);
+
+  const refresh = useCallback(async () => {
+    setRefreshing(true);
+    try {
+      const res = await fetch("/api/rates", { cache: "no-store" });
+      if (res.ok) {
+        setRates((await res.json()) as Rates);
+        setUpdatedAt(new Date());
+      }
+    } catch {
+      /* сеть недоступна — оставляем прежние данные */
+    } finally {
+      setRefreshing(false);
+    }
+  }, []);
+
+  return { rates, refreshing, updatedAt, refresh };
+}
+
+function RefreshButton({
+  refreshing,
+  onClick,
+}: {
+  refreshing: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={refreshing}
+      aria-label="Обновить курс"
+      className="text-dim transition-colors hover:text-[#8B5CF6] disabled:opacity-50"
+    >
+      <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? "animate-spin" : ""}`} />
+    </button>
+  );
 }
 
 // Динамика курса: направление и цвет стрелки.
@@ -212,12 +274,14 @@ function MonthCalendar({ today }: { today: Today }) {
 
 export function NewsSidebar({
   today: initialToday,
-  rates,
+  rates: initialRates,
 }: {
   today: Today;
   rates: Rates | null;
 }) {
   const today = useCurrentMoscowDate(initialToday);
+  const { rates, refreshing, updatedAt, refresh } =
+    useRefreshableRates(initialRates);
 
   return (
     <div className="space-y-5">
@@ -253,6 +317,14 @@ export function NewsSidebar({
                 )}
               </div>
             )}
+            {updatedAt && (
+              <div className="flex items-center justify-between gap-2 pt-1">
+                <span className="text-[11px] text-dimmer">
+                  Актуально на момент {formatUpdatedAt(updatedAt)}
+                </span>
+                <RefreshButton refreshing={refreshing} onClick={refresh} />
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -276,6 +348,7 @@ export function NewsSidebar({
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-dim">
               Курс ЦБ РФ
             </span>
+            <RefreshButton refreshing={refreshing} onClick={refresh} />
           </div>
           {rates ? (
             <>
@@ -299,6 +372,11 @@ export function NewsSidebar({
                     )}
                   </div>
                 </div>
+              )}
+              {updatedAt && (
+                <p className="mt-3 border-t border-border-subtle pt-2 text-[11px] text-dimmer">
+                  Актуально на момент {formatUpdatedAt(updatedAt)}
+                </p>
               )}
             </>
           ) : (
