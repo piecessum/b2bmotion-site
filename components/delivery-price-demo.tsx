@@ -19,9 +19,9 @@ type Address = {
 };
 
 const ADDRESSES: Address[] = [
-  { id: "mosk", short: "Московский пр-т, 122", base: 250, pin: { x: 96, y: 92 } },
-  { id: "yan", short: "ул. 9 Января, 45", base: 330, pin: { x: 150, y: 172 } },
-  { id: "rev", short: "пр-т Революции, 75", base: 420, pin: { x: 214, y: 118 } },
+  { id: "mosk", short: "Московский пр-т, 122", base: 250, pin: { x: 118, y: 168 } },
+  { id: "yan", short: "ул. 9 Января, 45", base: 330, pin: { x: 78, y: 250 } },
+  { id: "rev", short: "пр-т Революции, 75", base: 420, pin: { x: 150, y: 138 } },
 ];
 
 // Загруженность маршрутов по дню недели (0 = Пн … 6 = Вс).
@@ -69,22 +69,17 @@ export function DeliveryPriceDemo() {
 
   return (
     <div
-      className="not-prose my-8 overflow-hidden rounded-2xl border shadow-lg"
+      className="not-prose my-8 overflow-hidden rounded-2xl border shadow-lg lg:-mx-20 xl:-mx-44"
       style={{ background: "#F4F5F8", borderColor: "#E6E8EE", color: "#1F2430" }}
     >
       {/* Шапка прототипа */}
       <div
-        className="flex items-center gap-2 border-b px-5 py-3"
+        className="flex items-center gap-3 border-b px-5 py-3"
         style={{ background: "#FFFFFF", borderColor: "#E6E8EE" }}
       >
-        <span
-          className="grid h-6 w-6 place-items-center rounded-full text-[11px] font-bold text-white"
-          style={{ background: "#5546E0" }}
-        >
-          Д
-        </span>
-        <span className="text-sm font-semibold tracking-tight">ДВИЖЕНИЕ</span>
-        <span className="ml-3 text-xs" style={{ color: "#8A90A2" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logos/LogoMobile.svg" alt="Движение" className="h-7 w-auto" />
+        <span className="text-xs" style={{ color: "#8A90A2" }}>
           ← Корзина / Оформление заказа
         </span>
       </div>
@@ -109,7 +104,7 @@ export function DeliveryPriceDemo() {
                 Для товаров бренда Savecome согласовали скидку 8%
               </span>
             </p>
-            <div className="mt-3 text-sm font-medium" style={{ color: "#5546E0" }}>
+            <div className="mt-3 text-sm font-medium" style={{ color: "#4E48A5" }}>
               8 позиций
             </div>
             <div className="text-xs" style={{ color: "#8A90A2" }}>
@@ -161,12 +156,12 @@ export function DeliveryPriceDemo() {
                       >
                         <span
                           className="grid h-4 w-4 shrink-0 place-items-center rounded-full border-2"
-                          style={{ borderColor: active ? "#5546E0" : "#C3C8D4" }}
+                          style={{ borderColor: active ? "#4E48A5" : "#C3C8D4" }}
                         >
                           {active && (
                             <span
                               className="h-2 w-2 rounded-full"
-                              style={{ background: "#5546E0" }}
+                              style={{ background: "#4E48A5" }}
                             />
                           )}
                         </span>
@@ -208,7 +203,7 @@ export function DeliveryPriceDemo() {
                           className="rounded-md py-1 transition-colors"
                           style={
                             active
-                              ? { background: "#5546E0", color: "#FFFFFF", fontWeight: 600 }
+                              ? { background: "#4E48A5", color: "#FFFFFF", fontWeight: 600 }
                               : { color: "#1F2430" }
                           }
                         >
@@ -228,26 +223,29 @@ export function DeliveryPriceDemo() {
                 </div>
               </div>
 
-              {/* Карта */}
+              {/* Карта — заполняет всю высоту очерченного блока */}
               <div
-                className="relative overflow-hidden rounded-lg border"
-                style={{ borderColor: "#E6E8EE", minHeight: 220 }}
+                className="relative h-full overflow-hidden rounded-lg border"
+                style={{ borderColor: "#E6E8EE", minHeight: 260 }}
               >
-                <svg viewBox="0 0 300 240" className="h-full w-full">
-                  <rect width="300" height="240" fill="#EDEFF2" />
-                  {/* парки */}
-                  <circle cx="55" cy="60" r="34" fill="#DCE7DA" />
-                  <circle cx="245" cy="180" r="40" fill="#DCE7DA" />
-                  {/* река */}
+                <svg
+                  viewBox="0 0 220 360"
+                  preserveAspectRatio="xMidYMid slice"
+                  className="absolute inset-0 h-full w-full"
+                >
+                  <rect width="220" height="360" fill="#EDEFF2" />
+                  {/* река — правая треть */}
                   <path
-                    d="M170 -10 C 150 60, 210 110, 180 170 C 165 205, 195 235, 185 250 L300 250 L300 -10 Z"
+                    d="M150 -10 C 138 60, 176 115, 158 175 C 144 225, 178 260, 168 370 L230 370 L230 -10 Z"
                     fill="#AFD4E8"
                   />
+                  {/* парк */}
+                  <circle cx="48" cy="150" r="34" fill="#DCE7DA" />
                   {/* дороги */}
-                  <path d="M0 120 L300 100" stroke="#F2C94C" strokeWidth="3" fill="none" />
-                  <path d="M40 0 L120 240" stroke="#D7DBE3" strokeWidth="4" fill="none" />
-                  <path d="M0 190 L300 205" stroke="#D7DBE3" strokeWidth="3" fill="none" />
-                  <text x="60" y="150" fontSize="13" fontWeight="700" fill="#6B7280">
+                  <path d="M0 205 L220 172" stroke="#F2C94C" strokeWidth="3" fill="none" />
+                  <path d="M72 -10 L124 370" stroke="#D7DBE3" strokeWidth="5" fill="none" />
+                  <path d="M0 280 L220 305" stroke="#D7DBE3" strokeWidth="3" fill="none" />
+                  <text x="44" y="242" fontSize="13" fontWeight="700" fill="#6B7280">
                     Воронеж
                   </text>
 
@@ -262,7 +260,7 @@ export function DeliveryPriceDemo() {
                       <ellipse cx="0" cy="2" rx="7" ry="3" fill="rgba(0,0,0,.18)" />
                       <path
                         d="M0 -22 C -9 -22, -12 -12, 0 0 C 12 -12, 9 -22, 0 -22 Z"
-                        fill="#5546E0"
+                        fill="#4E48A5"
                       />
                       <circle cx="0" cy="-15" r="3.5" fill="#FFFFFF" />
                     </g>
@@ -354,13 +352,13 @@ export function DeliveryPriceDemo() {
 
           <button
             className="rounded-lg py-2.5 text-sm font-semibold text-white transition-transform active:scale-[.99]"
-            style={{ background: "#5546E0" }}
+            style={{ background: "#4E48A5" }}
           >
             Оформить заказ
           </button>
           <p className="mt-3 text-[11px] leading-relaxed" style={{ color: "#8A90A2" }}>
             Нажимая кнопку «Оформить заказ», вы принимаете{" "}
-            <span style={{ color: "#5546E0" }}>условия оферты</span>
+            <span style={{ color: "#4E48A5" }}>условия оферты</span>
           </p>
         </div>
       </div>
