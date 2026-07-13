@@ -4,7 +4,7 @@ import { useMemo, useState, useCallback, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Newspaper, Flame, ChevronDown } from "lucide-react";
-import type { NewsItem } from "@/lib/b2b-news";
+import type { NewsItem, PulseEntry } from "@/lib/b2b-news";
 import type { Rates } from "@/lib/rates";
 import { NewsSidebar } from "./news-sidebar";
 
@@ -258,6 +258,7 @@ type NewsData = {
   platformItems: NewsItem[];
   digest: NewsItem[];
   rates: Rates | null;
+  pulse: PulseEntry[];
   today: { y: number; m: number; d: number };
 };
 
@@ -272,6 +273,7 @@ function NewsLayout({
   platformItems,
   digest,
   rates,
+  pulse,
   today,
 }: NewsData & {
   tab: TabKey;
@@ -334,7 +336,7 @@ function NewsLayout({
 
         {/* Сайдбар */}
         <aside className="order-1 lg:order-2 lg:sticky lg:top-28 lg:self-start">
-          <NewsSidebar today={today} rates={rates} />
+          <NewsSidebar today={today} rates={rates} pulse={pulse} />
         </aside>
       </div>
     </div>

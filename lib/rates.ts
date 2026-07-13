@@ -11,9 +11,7 @@ export interface Rates {
   usd: CurrencyRate;
   eur: CurrencyRate;
   cny: CurrencyRate;
-  kzt: CurrencyRate;
   gold?: CurrencyRate; // ₽ за грамм
-  silver?: CurrencyRate; // ₽ за грамм
   date: string; // ISO дата официального курса
 }
 
@@ -28,7 +26,7 @@ function perUnit(v: { Value: number; Previous: number; Nominal: number }): Curre
 }
 
 // Из XML драгметаллов берём последнюю котировку как текущую и предыдущую дату
-// как «вчерашнюю» — для стрелки динамики. Code: 1 — золото, 2 — серебро.
+// как «вчерашнюю» — для стрелки динамики. Code: 1 — золото.
 function parseMetal(xml: string, code: string): CurrencyRate | undefined {
   const re = new RegExp(`<Record[^>]*Code="${code}"><Buy>([\\d.,\\s]+)</Buy>`, "g");
   const values: number[] = [];
@@ -56,7 +54,7 @@ function cacheInit(fresh?: boolean): CacheInit {
 
 async function fetchMetals(
   fresh?: boolean,
-): Promise<{ gold?: CurrencyRate; silver?: CurrencyRate }> {
+): Promise<{ gold?: CurrencyRate }> {
   try {
     const now = new Date();
     const from = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000);
@@ -68,7 +66,7 @@ async function fetchMetals(
     const res = await fetch(url, cacheInit(fresh));
     if (!res.ok) return {};
     const xml = await res.text();
-    return { gold: parseMetal(xml, "1"), silver: parseMetal(xml, "2") };
+    return { gold: parseMetal(xml, "1") };
   } catch {
     return {};
   }
@@ -87,15 +85,12 @@ export async function fetchRates(opts?: { fresh?: boolean }): Promise<Rates | nu
     const usd = valute?.USD;
     const eur = valute?.EUR;
     const cny = valute?.CNY;
-    const kzt = valute?.KZT;
-    if (!usd || !eur || !cny || !kzt) return null;
+    if (!usd || !eur || !cny) return null;
     return {
       usd: perUnit(usd),
       eur: perUnit(eur),
       cny: perUnit(cny),
-      kzt: perUnit(kzt),
       gold: metals.gold,
-      silver: metals.silver,
       date: data.Date,
     };
   } catch {

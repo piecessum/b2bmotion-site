@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { TrendingUp, TrendingDown, Minus, RefreshCw } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, RefreshCw, Activity } from "lucide-react";
 import type { Rates, CurrencyRate } from "@/lib/rates";
+import type { PulseEntry } from "@/lib/b2b-news";
 
 const MONTHS = [
   "января", "февраля", "марта", "апреля", "мая", "июня",
@@ -186,6 +187,47 @@ function RateChip({
   );
 }
 
+// Пульс маркетплейсов: сколько новостей недели упоминают каждую площадку.
+// Одна метрика по категориям (magnitude) — горизонтальные бары в один
+// бренд-цвет с прямыми подписями значений.
+function MarketPulse({ entries }: { entries: PulseEntry[] }) {
+  const total = entries.reduce((sum, e) => sum + e.count, 0);
+  if (total === 0) return null;
+  const max = Math.max(...entries.map((e) => e.count));
+
+  return (
+    <div className="rounded-2xl glass-card p-4">
+      <div className="mb-3 flex items-center gap-1.5">
+        <Activity className="h-3.5 w-3.5 text-[#8B5CF6]" />
+        <span className="text-xs font-medium uppercase tracking-[0.18em] text-dim">
+          Пульс маркетплейсов
+        </span>
+      </div>
+      <div className="space-y-2">
+        {entries.map((e) => (
+          <div key={e.name} className="flex items-center gap-2">
+            <span className="w-24 shrink-0 truncate text-xs text-subtle">
+              {e.name}
+            </span>
+            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#8B5CF6]/10">
+              <div
+                className="h-full rounded-full bg-[#8B5CF6]"
+                style={{ width: `${Math.round((e.count / max) * 100)}%` }}
+              />
+            </div>
+            <span className="w-4 shrink-0 text-right text-xs font-semibold text-heading tabular-nums">
+              {e.count}
+            </span>
+          </div>
+        ))}
+      </div>
+      <p className="mt-3 border-t border-border-subtle pt-2 text-[11px] text-dimmer">
+        Упоминаний в новостях за неделю
+      </p>
+    </div>
+  );
+}
+
 // Полоска текущей недели (Пн–Вс) с подсветкой сегодняшнего дня — компактная
 // замена месячного календаря для мобильной версии.
 function WeekCalendar({ today }: { today: Today }) {
@@ -255,7 +297,7 @@ function MonthCalendar({ today }: { today: Today }) {
           return (
             <div
               key={day}
-              className={`flex h-7 items-center justify-center rounded-lg text-sm tabular-nums transition-colors ${
+              className={`flex h-6 items-center justify-center rounded-lg text-sm tabular-nums transition-colors ${
                 isToday
                   ? "bg-[#8B5CF6] font-semibold text-white shadow-[0_0_16px_rgba(139,92,246,0.4)]"
                   : isWeekend
@@ -275,17 +317,19 @@ function MonthCalendar({ today }: { today: Today }) {
 export function NewsSidebar({
   today: initialToday,
   rates: initialRates,
+  pulse,
 }: {
   today: Today;
   rates: Rates | null;
+  pulse: PulseEntry[];
 }) {
   const today = useCurrentMoscowDate(initialToday);
   const { rates, refreshing, updatedAt, refresh } =
     useRefreshableRates(initialRates);
 
   return (
-    <div className="space-y-5">
-      {/* Мобильный компактный виджет: дата + неделя + курсы и металлы внизу */}
+    <div className="space-y-4">
+      {/* Мобильный компактный виджет: дата + неделя + курсы (валюты и золото) */}
       <div className="rounded-2xl glass-card p-4 lg:hidden">
         <div className="mb-3">
           <div className="text-[11px] font-medium uppercase tracking-[0.18em] text-dim">
@@ -299,22 +343,16 @@ export function NewsSidebar({
 
         {rates && (
           <div className="mt-4 space-y-3 border-t border-border-subtle pt-3">
-            {/* Строка с курсами валют */}
-            <div className="grid grid-cols-4 gap-x-3">
+            {/* Курсы валют */}
+            <div className="grid grid-cols-3 gap-x-3">
               <RateChip label="$" rate={rates.usd} />
               <RateChip label="€" rate={rates.eur} />
               <RateChip label="¥" rate={rates.cny} />
-              <RateChip label="₸" rate={rates.kzt} />
             </div>
-            {/* Строка с золотом и серебром, ₽/г */}
-            {(rates.gold || rates.silver) && (
-              <div className="grid grid-cols-2 gap-x-3 border-t border-border-subtle pt-3">
-                {rates.gold && (
-                  <RateChip label="Золото" rate={rates.gold} unit="₽/г" />
-                )}
-                {rates.silver && (
-                  <RateChip label="Серебро" rate={rates.silver} unit="₽/г" />
-                )}
+            {/* Золото, ₽/г */}
+            {rates.gold && (
+              <div className="border-t border-border-subtle pt-3">
+                <RateChip label="Золото" rate={rates.gold} unit="₽/г" />
               </div>
             )}
             {updatedAt && (
@@ -327,6 +365,11 @@ export function NewsSidebar({
             )}
           </div>
         )}
+      </div>
+
+      {/* Пульс маркетплейсов — на мобильных под виджетом даты/курсов */}
+      <div className="lg:hidden">
+        <MarketPulse entries={pulse} />
       </div>
 
       {/* Десктоп: полный календарь + курсы */}
@@ -356,23 +399,10 @@ export function NewsSidebar({
                 <RateRow code="$" label="Доллар США" rate={rates.usd} />
                 <RateRow code="€" label="Евро" rate={rates.eur} />
                 <RateRow code="¥" label="Юань" rate={rates.cny} />
-                <RateRow code="₸" label="Тенге" rate={rates.kzt} />
+                {rates.gold && (
+                  <RateRow code="Au" label="Золото" rate={rates.gold} unit="₽/г" />
+                )}
               </div>
-              {(rates.gold || rates.silver) && (
-                <div className="mt-2 border-t border-border-subtle pt-2">
-                  <div className="mb-0.5 text-[11px] font-medium uppercase tracking-[0.18em] text-dim">
-                    Драгметаллы · ₽/г
-                  </div>
-                  <div className="divide-y divide-border-subtle">
-                    {rates.gold && (
-                      <RateRow code="Au" label="Золото" rate={rates.gold} unit="₽/г" />
-                    )}
-                    {rates.silver && (
-                      <RateRow code="Ag" label="Серебро" rate={rates.silver} unit="₽/г" />
-                    )}
-                  </div>
-                </div>
-              )}
               {updatedAt && (
                 <p className="mt-3 border-t border-border-subtle pt-2 text-[11px] text-dimmer">
                   Актуально на момент {formatUpdatedAt(updatedAt)}
@@ -383,6 +413,9 @@ export function NewsSidebar({
             <p className="py-3 text-sm text-dim">Курс временно недоступен.</p>
           )}
         </div>
+
+        {/* Пульс маркетплейсов */}
+        <MarketPulse entries={pulse} />
       </div>
     </div>
   );

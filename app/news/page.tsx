@@ -2,6 +2,7 @@ import { getAllPosts } from "@/lib/content";
 import {
   fetchB2BNews,
   getWeeklyDigest,
+  marketplacePulse,
   type NewsItem,
 } from "@/lib/b2b-news";
 import { fetchRates } from "@/lib/rates";
@@ -55,6 +56,7 @@ export default async function NewsPage() {
             platformItems={platformItems}
             digest={digest}
             rates={rates}
+            pulse={marketplacePulse(b2bItems)}
             today={moscowToday()}
           />
         </div>

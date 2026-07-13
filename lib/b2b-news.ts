@@ -405,6 +405,34 @@ export async function getB2BNewsItem(id: string): Promise<NewsItem | null> {
   return items.find((item) => item.id === id) ?? null;
 }
 
+// ── Пульс маркетплейсов ──
+// Сколько новостей из текущей ленты упоминают каждую площадку — «о ком сейчас
+// говорит рынок». Считаем по заголовку + анонсу, одно упоминание на новость.
+
+export interface PulseEntry {
+  name: string;
+  count: number;
+}
+
+const PLAYERS: { name: string; kw: string[] }[] = [
+  { name: "Wildberries", kw: ["wildberries", "вайлдберриз", "вайлдберис"] },
+  { name: "Ozon", kw: ["ozon", "озон"] },
+  { name: "Яндекс Маркет", kw: ["яндекс маркет", "яндекс.маркет", "яндекс-маркет"] },
+  { name: "Мегамаркет", kw: ["мегамаркет"] },
+  { name: "AliExpress", kw: ["aliexpress", "алиэкспресс"] },
+];
+
+export function marketplacePulse(items: NewsItem[]): PulseEntry[] {
+  return PLAYERS.map((player) => {
+    let count = 0;
+    for (const item of items) {
+      const haystack = `${item.title} ${item.summary ?? ""}`.toLowerCase();
+      if (player.kw.some((kw) => haystack.includes(kw))) count++;
+    }
+    return { name: player.name, count };
+  }).sort((a, b) => b.count - a.count);
+}
+
 // Недельный дайджест: главные события за неделю (осветили 2+ ленты), новые
 // сверху. В начале недели свежих событий мало, поэтому добираем значимое из
 // прошлой недели — оно держится в списке, пока его не вытеснят события текущей.
