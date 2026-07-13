@@ -2,6 +2,7 @@ import { getAllPosts, getPostBySlug } from "@/lib/content";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BackButton } from "@/components/back-button";
+import { DeliveryPriceDemo } from "@/components/delivery-price-demo";
 import { notFound } from "next/navigation";
 import { Calendar } from "lucide-react";
 
@@ -76,6 +77,8 @@ export default async function NewsPostPage({
             {post.content.split("\n").map((line, i) => {
               const trimmed = line.trim();
               if (!trimmed) return <br key={i} />;
+              if (trimmed === "[[demo:delivery-price]]")
+                return <DeliveryPriceDemo key={i} />;
               if (trimmed.startsWith("## "))
                 return (
                   <h2
@@ -145,13 +148,22 @@ export default async function NewsPostPage({
 }
 
 function renderInline(text: string) {
-  const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
+  const parts = text.split(
+    /(\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\([^)]+\))/g,
+  );
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
         <strong key={i} className="text-subheading font-semibold">
           {part.slice(2, -2)}
         </strong>
+      );
+    }
+    if (part.startsWith("*") && part.endsWith("*") && part.length > 2) {
+      return (
+        <em key={i} className="italic text-subtle">
+          {part.slice(1, -1)}
+        </em>
       );
     }
     const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
