@@ -245,7 +245,12 @@
       "Bash(sed -i '' 's/max-w-5xl/max-w-6xl/g' app/about/page.tsx app/careers/page.tsx app/integrations/integrations-client.tsx)",
       "Bash(sed -i '' 's/max-w-4xl/max-w-6xl/g' app/video/page.tsx)",
       "Bash(sed -i '' 's/max-w-5xl/max-w-6xl/g' app/tech-stack/tech-stack-client.tsx)",
-      "Bash(grep -rl 'components/__TRACKED_VAR__\"' app)"
+      "Bash(grep -rl 'components/__TRACKED_VAR__\"' app)",
+      "Bash(curl -s \"https://www.cbr-xml-daily.ru/daily_json.js\")",
+      "Bash(date -v-7d +%d/%m/%Y)",
+      "Bash(curl -s 'https://www.cbr.ru/scripts/xml_metall.asp?date_req1=__TRACKED_VAR__&date_req2=__CMDSUB_OUTPUT__')",
+      "Bash(ls -la /Users/Alex/Downloads/project187403/)",
+      "Bash(echo \"exit: $?\")"
     ]
   }
 }

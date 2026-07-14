@@ -316,13 +316,13 @@ export default function ChatbotsPage() {
 
       {/* Banner */}
       <section className="py-16 px-6">
-        <div className="max-w-4xl mx-auto reveal">
+        <div className="max-w-6xl mx-auto reveal">
           <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-violet-500/10 to-purple-500/10 border border-violet-500/20 p-10 md:p-14">
             <div className="absolute top-0 right-0 w-[400px] h-[400px] opacity-[0.08] pointer-events-none">
               <div className="absolute inset-0 bg-gradient-to-br from-violet-500 to-purple-500 rounded-full blur-[80px]" />
             </div>
-            <div className="relative z-10 flex flex-col md:flex-row md:items-center md:gap-8">
-              <div className="flex-1">
+            <div className="relative z-10 flex flex-col md:block">
+              <div className="md:max-w-[58%]">
                 <h3 className="font-heading font-bold text-[clamp(24px,4vw,36px)] tracking-[-0.02em] text-heading mb-4">
                   Уведомления о заказах через бота
                 </h3>
@@ -338,13 +338,13 @@ export default function ChatbotsPage() {
                   <ArrowRight className="w-5 h-5 shrink-0" />
                 </a>
               </div>
-              <div className="mt-8 md:mt-0 flex-shrink-0 flex justify-center">
+              <div className="mt-8 flex justify-center md:mt-0 md:absolute md:right-2 lg:right-8 md:top-1/2 md:-translate-y-1/2">
                 <Image
                   src="/ui-screenshots/kolocol.png"
                   alt="Уведомления"
-                  width={200}
-                  height={200}
-                  className="w-40 md:w-48 h-auto drop-shadow-[0_0_30px_rgba(139,92,246,0.3)]"
+                  width={400}
+                  height={400}
+                  className="w-52 md:w-72 lg:w-80 h-auto drop-shadow-[0_0_30px_rgba(139,92,246,0.3)]"
                   unoptimized
                 />
               </div>
@@ -379,7 +379,7 @@ export default function ChatbotsPage() {
       </section>
 
       {/* CTA custom */}
-      <section className="relative py-32 px-6 overflow-hidden">
+      <section id="cta" className="relative py-32 px-6 overflow-hidden scroll-mt-24">
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div
             className="aurora-orb w-[700px] h-[400px] bg-gradient-to-r from-violet-500/12 via-[#8B5CF6]/10 to-[#3B82F6]/12 blur-[140px] opacity-40 dark:opacity-100"

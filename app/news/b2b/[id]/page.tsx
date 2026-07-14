@@ -1,4 +1,4 @@
-import { getB2BNewsItem } from "@/lib/b2b-news";
+import { getB2BNewsItem, decodeNewsItem, type NewsItem } from "@/lib/b2b-news";
 import { getArticleSummary } from "@/lib/article-summary";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -8,6 +8,20 @@ import { Calendar, ExternalLink } from "lucide-react";
 import { Suspense } from "react";
 
 export const revalidate = 3600;
+
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+// Сначала ищем свежие данные новости по id в живой ленте; если её там уже нет
+// (выпала из RSS) — восстанавливаем из токена в ссылке (?d=…).
+async function resolveItem(
+  id: string,
+  searchParams: SearchParams,
+): Promise<NewsItem | null> {
+  const fresh = await getB2BNewsItem(id);
+  if (fresh) return fresh;
+  const { d } = await searchParams;
+  return typeof d === "string" ? decodeNewsItem(d) : null;
+}
 
 function normalizeSummary(summary?: string): string | null {
   const text = summary?.replace(/\s+/g, " ").trim();
@@ -28,11 +42,13 @@ function getFallbackSummary(item: {
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: SearchParams;
 }) {
   const { id } = await params;
-  const item = await getB2BNewsItem(id);
+  const item = await resolveItem(id, searchParams);
   if (!item) return {};
   const desc = (item.summary || item.title).slice(0, 160);
   return {
@@ -100,11 +116,13 @@ function RecapSkeleton() {
 
 export default async function B2BNewsPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: SearchParams;
 }) {
   const { id } = await params;
-  const item = await getB2BNewsItem(id);
+  const item = await resolveItem(id, searchParams);
 
   if (!item) notFound();
 

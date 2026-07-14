@@ -27,6 +27,12 @@ export interface Post {
     bio: string;
     photo: string;
   };
+  coAuthorCard?: {
+    name: string;
+    role: string;
+    bio: string;
+    photo: string;
+  };
   intervieweeCard?: {
     name: string;
     role: string;
@@ -74,6 +80,7 @@ export function getAllPosts(collection: "blog" | "news"): Post[] {
       quote: data.quote || undefined,
       integrations: data.integrations || undefined,
       authorCard: data.authorCard || undefined,
+      coAuthorCard: data.coAuthorCard || undefined,
       intervieweeCard: data.intervieweeCard || undefined,
       source: data.source || undefined,
       content,
@@ -115,6 +122,7 @@ export function getPostBySlug(
     quote: data.quote || undefined,
     integrations: data.integrations || undefined,
     authorCard: data.authorCard || undefined,
+    coAuthorCard: data.coAuthorCard || undefined,
     intervieweeCard: data.intervieweeCard || undefined,
     source: data.source || undefined,
     content,

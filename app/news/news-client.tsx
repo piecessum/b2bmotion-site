@@ -1,10 +1,10 @@
 "use client";
 
-import { useMemo, useCallback, useEffect, Suspense } from "react";
+import { useMemo, useState, useCallback, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Newspaper, Flame } from "lucide-react";
-import type { NewsItem } from "@/lib/b2b-news";
+import { Newspaper, Flame, ChevronDown } from "lucide-react";
+import type { NewsItem, PulseEntry } from "@/lib/b2b-news";
 import type { Rates } from "@/lib/rates";
 import { NewsSidebar } from "./news-sidebar";
 
@@ -151,6 +151,56 @@ function NewsList({ items, emptyText }: { items: NewsItem[]; emptyText: string }
   );
 }
 
+// Сколько свежих новостей B2B показываем в основной ленте; остальные —
+// более старые — прячем в сворачиваемый «Архив» в конце.
+const RECENT_LIMIT = 18;
+
+function B2BFeed({
+  items,
+  digest,
+}: {
+  items: NewsItem[];
+  digest: NewsItem[];
+}) {
+  const [showArchive, setShowArchive] = useState(false);
+  const recent = items.slice(0, RECENT_LIMIT);
+  const archive = items.slice(RECENT_LIMIT);
+
+  return (
+    <>
+      <WeeklyDigest items={digest} />
+      <NewsList
+        items={recent}
+        emptyText="Новости с внешних площадок временно недоступны. Загляните позже."
+      />
+
+      {archive.length > 0 && (
+        <div className="mt-8">
+          <button
+            onClick={() => setShowArchive((v) => !v)}
+            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-5 py-3.5 text-sm font-medium text-dim transition-colors hover:bg-white/10 hover:text-body"
+          >
+            {showArchive ? "Скрыть архив" : `Архив новостей · ещё ${archive.length}`}
+            <ChevronDown
+              className={`h-4 w-4 transition-transform duration-300 ${
+                showArchive ? "rotate-180" : ""
+              }`}
+            />
+          </button>
+
+          {showArchive && (
+            <div className="mt-4 flex flex-col gap-4">
+              {archive.map((item) => (
+                <NewsRow key={item.href} item={item} />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  );
+}
+
 function TopicChips({
   items,
   activeTag,
@@ -208,6 +258,7 @@ type NewsData = {
   platformItems: NewsItem[];
   digest: NewsItem[];
   rates: Rates | null;
+  pulse: PulseEntry[];
   today: { y: number; m: number; d: number };
 };
 
@@ -222,6 +273,7 @@ function NewsLayout({
   platformItems,
   digest,
   rates,
+  pulse,
   today,
 }: NewsData & {
   tab: TabKey;
@@ -262,17 +314,11 @@ function NewsLayout({
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_320px]">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px] lg:gap-10">
         {/* Основная колонка */}
-        <div>
+        <div className="order-2 lg:order-1">
           {tab === "b2b" ? (
-            <>
-              <WeeklyDigest items={digest} />
-              <NewsList
-                items={b2bItems}
-                emptyText="Новости с внешних площадок временно недоступны. Загляните позже."
-              />
-            </>
+            <B2BFeed items={b2bItems} digest={digest} />
           ) : (
             <>
               <TopicChips
@@ -289,8 +335,8 @@ function NewsLayout({
         </div>
 
         {/* Сайдбар */}
-        <aside className="lg:sticky lg:top-28 lg:self-start">
-          <NewsSidebar today={today} rates={rates} />
+        <aside className="order-1 lg:order-2 lg:sticky lg:top-28 lg:self-start">
+          <NewsSidebar today={today} rates={rates} pulse={pulse} />
         </aside>
       </div>
     </div>

@@ -25,6 +25,7 @@ const CALLOUT_RE = /^\[!CALLOUT(?:\s+color=([^\]\s]+))?\]\s*\n?([\s\S]*)$/;
 const PREFACE_RE = /^\[!PREFACE\]\s*\n?([\s\S]*)$/;
 const DB_SCHEMA_RE = /^:::db-schema:::$/;
 const VIDEO_RE = /^:::video\[([^\]]+)\]\{([^}]+)\}$/;
+const GATEWAY_TABLES_RE = /^:::gateway-tables\[(required|optional)\]:::$/;
 
 function inlineHtml(md) {
   return marked.parseInline(md, { async: false });
@@ -56,6 +57,11 @@ function parseBody(md) {
 
       if (DB_SCHEMA_RE.test(text)) {
         blocks.push({ ty: "db-schema" });
+        continue;
+      }
+      const gt = text.match(GATEWAY_TABLES_RE);
+      if (gt) {
+        blocks.push({ ty: "gateway-tables", variant: gt[1] });
         continue;
       }
       const v = text.match(VIDEO_RE);

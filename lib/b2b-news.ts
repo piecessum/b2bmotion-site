@@ -283,6 +283,46 @@ function idFromUrl(url: string): string {
   return hash.toString(36);
 }
 
+// ── Самодостаточная ссылка на новость ──
+// Внешние RSS-ленты хранят лишь N последних публикаций, поэтому старые новости
+// (в т.ч. архивные) со временем выпадают из выдачи, и поиск по id их не находит.
+// Чтобы клик по такой новости не давал 404, зашиваем минимум данных прямо в
+// ссылку (base64url-токен), а страница восстанавливает новость из него, если в
+// живой ленте её уже нет. Пересказ всё равно подтягивается по sourceUrl.
+
+export function encodeNewsItem(item: NewsItem): string {
+  const payload = {
+    t: item.title,
+    s: item.source,
+    u: item.sourceUrl,
+    d: item.date,
+    i: item.image,
+    m: item.summary?.slice(0, 400),
+    id: item.id,
+  };
+  return Buffer.from(JSON.stringify(payload), "utf8").toString("base64url");
+}
+
+export function decodeNewsItem(token: string): NewsItem | null {
+  try {
+    const p = JSON.parse(Buffer.from(token, "base64url").toString("utf8"));
+    if (!p?.t) return null;
+    return {
+      title: p.t,
+      source: p.s || "Источник",
+      date: p.d || new Date().toISOString(),
+      image: p.i,
+      summary: p.m,
+      sourceUrl: p.u,
+      id: p.id,
+      href: "",
+      external: true,
+    };
+  } catch {
+    return null;
+  }
+}
+
 // Все релевантные новости со всех лент: отфильтрованы, без URL-дублей,
 // отсортированы по дате. БЕЗ similarity-дедупа — каждая новость присутствует
 // под своим id. Используется для поиска по id (ссылки списка всегда находятся).
@@ -315,7 +355,7 @@ async function collectRelevant(): Promise<NewsItem[]> {
     if (seen.has(key)) continue;
     seen.add(key);
     const id = idFromUrl(key);
-    items.push({
+    const item: NewsItem = {
       title: cleanTitle(raw.title),
       date: toIso(raw.pubDate),
       image: raw.image,
@@ -325,7 +365,11 @@ async function collectRelevant(): Promise<NewsItem[]> {
       id,
       summary: raw.description,
       sourceUrl: raw.link,
-    });
+    };
+    // Токен с данными новости в ссылке — страховка от 404, когда новость
+    // выпала из живой RSS-ленты (см. encodeNewsItem).
+    item.href = `/news/b2b/${id}?d=${encodeNewsItem(item)}`;
+    items.push(item);
   }
 
   items.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -361,19 +405,67 @@ export async function getB2BNewsItem(id: string): Promise<NewsItem | null> {
   return items.find((item) => item.id === id) ?? null;
 }
 
-// Недельный дайджест: самые освещаемые события за 7 дней (covered by 2+ лент).
-export async function getWeeklyDigest(limit = 5): Promise<NewsItem[]> {
+// ── Пульс маркетплейсов ──
+// Сколько новостей из текущей ленты упоминают каждую площадку — «о ком сейчас
+// говорит рынок». Считаем по заголовку + анонсу, одно упоминание на новость.
+
+export interface PulseEntry {
+  name: string;
+  count: number;
+}
+
+const PLAYERS: { name: string; kw: string[] }[] = [
+  { name: "Wildberries", kw: ["wildberries", "вайлдберриз", "вайлдберис"] },
+  { name: "Ozon", kw: ["ozon", "озон"] },
+  { name: "Яндекс Маркет", kw: ["яндекс маркет", "яндекс.маркет", "яндекс-маркет"] },
+  { name: "Мегамаркет", kw: ["мегамаркет"] },
+  { name: "AliExpress", kw: ["aliexpress", "алиэкспресс"] },
+];
+
+export function marketplacePulse(items: NewsItem[]): PulseEntry[] {
+  return PLAYERS.map((player) => {
+    let count = 0;
+    for (const item of items) {
+      const haystack = `${item.title} ${item.summary ?? ""}`.toLowerCase();
+      if (player.kw.some((kw) => haystack.includes(kw))) count++;
+    }
+    return { name: player.name, count };
+  }).sort((a, b) => b.count - a.count);
+}
+
+// Недельный дайджест: главные события за неделю (осветили 2+ ленты), новые
+// сверху. В начале недели свежих событий мало, поэтому добираем значимое из
+// прошлой недели — оно держится в списке, пока его не вытеснят события текущей.
+export async function getWeeklyDigest(target = 6): Promise<NewsItem[]> {
   const items = await fetchAllRelevant();
-  const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-  return items
-    .filter(
-      (i) =>
-        new Date(i.date).getTime() >= weekAgo && (i.coverage ?? 1) >= 2,
-    )
-    .sort(
-      (a, b) =>
-        (b.coverage ?? 1) - (a.coverage ?? 1) ||
-        new Date(b.date).getTime() - new Date(a.date).getTime(),
-    )
-    .slice(0, limit);
+  const now = Date.now();
+  const day = 24 * 60 * 60 * 1000;
+
+  const byRecency = (a: NewsItem, b: NewsItem) =>
+    new Date(b.date).getTime() - new Date(a.date).getTime() ||
+    (b.coverage ?? 1) - (a.coverage ?? 1);
+
+  // Значимые события — те, что осветили минимум 2 источника.
+  const important = items.filter((i) => (i.coverage ?? 1) >= 2).sort(byRecency);
+  const within = (days: number) =>
+    important.filter((i) => new Date(i.date).getTime() >= now - days * day);
+
+  // База — значимое за текущую неделю; если набралось мало (начало недели),
+  // расширяем окно до двух недель, добирая прошлонедельные события.
+  let digest = within(7);
+  if (digest.length < target) digest = within(14);
+
+  // Совсем тихая неделя: дополняем одиночными свежими новостями за 7 дней,
+  // чтобы список не схлопывался до пары пунктов.
+  if (digest.length < target) {
+    const seen = new Set(digest.map((i) => i.href));
+    const fillers = items
+      .filter(
+        (i) => !seen.has(i.href) && new Date(i.date).getTime() >= now - 7 * day,
+      )
+      .sort(byRecency);
+    digest = [...digest, ...fillers];
+  }
+
+  return digest.slice(0, target);
 }

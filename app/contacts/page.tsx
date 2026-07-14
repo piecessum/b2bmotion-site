@@ -2,7 +2,7 @@
 
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, ArrowRight } from "lucide-react";
 
 const contacts = [
   {
@@ -145,42 +145,51 @@ export default function ContactsPage() {
             </div>
 
             {/* Contact info */}
-            <div className="lg:col-span-2 space-y-4">
-              {contacts.map((c, i) => (
-                <div
-                  key={i}
-                  className="reveal flex gap-4 p-5 bg-surface-hover rounded-2xl border border-border-default"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center flex-shrink-0">
-                    <c.icon className="w-5 h-5 text-[#3B82F6]" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-subtle mb-1">{c.label}</p>
-                    {c.href ? (
-                      <a
-                        href={c.href}
-                        className="text-sm font-medium text-heading hover:text-[#3B82F6] transition-colors"
-                      >
-                        {c.value}
-                      </a>
-                    ) : (
-                      <p className="text-sm font-medium text-heading">
-                        {c.value}
+            <div className="lg:col-span-2 space-y-2.5">
+              <div className="reveal bg-surface-hover rounded-2xl border border-border-default p-1.5">
+                {contacts.map((c, i) => (
+                  <div key={i} className="flex items-center gap-3 px-3 py-2.5">
+                    <div className="w-9 h-9 rounded-lg bg-[#3B82F6]/10 flex items-center justify-center flex-shrink-0">
+                      <c.icon className="w-4 h-4 text-[#3B82F6]" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[11px] text-subtle leading-tight">
+                        {c.label}
                       </p>
-                    )}
+                      {c.href ? (
+                        <a
+                          href={c.href}
+                          className="text-sm font-medium text-heading hover:text-[#3B82F6] transition-colors"
+                        >
+                          {c.value}
+                        </a>
+                      ) : (
+                        <p className="text-sm font-medium text-heading">
+                          {c.value}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
-              <div className="reveal p-5 bg-surface-hover rounded-2xl border border-border-default">
-                <p className="text-xs text-subtle mb-2">Юридическое лицо</p>
-                <p className="text-sm text-body leading-relaxed">
-                  ООО «ТриДаВинчи»
-                  <br />
-                  ИНН 3666150357
-                  <br />
-                  ОКВЭД 62.01
+                ))}
+              </div>
+              <div className="reveal px-4 py-3 bg-surface-hover rounded-2xl border border-border-default">
+                <p className="text-[11px] text-subtle mb-1">Юридическое лицо</p>
+                <p className="text-sm text-body leading-snug">
+                  ООО «ТриДаВинчи» · ИНН 3666150357 · ОКВЭД 62.01
                 </p>
               </div>
+              <a
+                href="/about"
+                className="reveal group flex items-center justify-between gap-4 px-4 py-3 bg-surface-hover rounded-2xl border border-border-default transition-colors hover:border-[#3B82F6]/40"
+              >
+                <div>
+                  <p className="text-[11px] text-subtle">Узнать больше</p>
+                  <p className="text-sm font-medium text-heading group-hover:text-[#3B82F6] transition-colors">
+                    О нас и команде
+                  </p>
+                </div>
+                <ArrowRight className="w-5 h-5 text-[#3B82F6] shrink-0 transition-transform group-hover:translate-x-1" />
+              </a>
             </div>
           </div>
         </div>

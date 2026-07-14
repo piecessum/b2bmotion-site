@@ -230,39 +230,8 @@ export default async function BlogPostPage({
           {/* Content */}
           <div className="prose-custom">{renderBlogContent(post.content)}</div>
 
-          {/* Author Card */}
-          {(post as any).authorCard && (
-            <Link
-              href={`/blog/author/${authorSlug((post as any).authorCard.name)}`}
-              className="group block mt-14 mb-10 rounded-2xl bg-gradient-to-br from-[#3B82F6]/5 via-transparent to-[#8B5CF6]/5 border border-gray-200 dark:border-white/[0.06] p-6 md:p-8 transition-colors hover:border-[#3B82F6]/30"
-            >
-              <div className="flex items-start gap-5">
-                <img
-                  src={(post as any).authorCard.photo}
-                  alt={(post as any).authorCard.name}
-                  className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover object-top border-2 border-[#3B82F6]/20 shrink-0"
-                />
-                <div className="min-w-0">
-                  <div className="text-[10px] uppercase tracking-[0.15em] text-[#60A5FA] mb-1">
-                    Автор статьи
-                  </div>
-                  <h4 className="font-heading font-bold text-lg text-heading mb-0.5 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
-                    {(post as any).authorCard.name}
-                  </h4>
-                  <p className="text-sm font-medium text-subtle mb-2">
-                    {(post as any).authorCard.role}
-                  </p>
-                  <p className="text-sm text-dim leading-relaxed">
-                    {(post as any).authorCard.bio}
-                  </p>
-                  <span className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-[#60A5FA] group-hover:gap-3 transition-all duration-300">
-                    Все статьи автора
-                    <ArrowRight className="w-4 h-4" />
-                  </span>
-                </div>
-              </div>
-            </Link>
-          )}
+          {/* Author Card(s) */}
+          <AuthorCards post={post} />
 
           {/* Blog Banner */}
           <BlogBanner />
@@ -282,6 +251,52 @@ export default async function BlogPostPage({
 
       <Footer />
     </main>
+  );
+}
+
+// Карточки автора и соавтора материала (статьи или кейса)
+function AuthorCards({ post }: { post: any }) {
+  if (!post.authorCard) return null;
+  const authors = [post.authorCard, post.coAuthorCard].filter(Boolean);
+  const isMulti = authors.length > 1;
+  return (
+    <div
+      className={`mt-14 mb-10 grid gap-4 ${
+        isMulti ? "md:grid-cols-2" : "grid-cols-1"
+      }`}
+    >
+      {authors.map((author: any, ai: number) => (
+        <Link
+          key={ai}
+          href={`/blog/author/${authorSlug(author.name)}`}
+          className="group block rounded-2xl bg-gradient-to-br from-[#3B82F6]/5 via-transparent to-[#8B5CF6]/5 border border-gray-200 dark:border-white/[0.06] p-6 md:p-8 transition-colors hover:border-[#3B82F6]/30"
+        >
+          <div className="flex items-start gap-5">
+            <img
+              src={author.photo}
+              alt={author.name}
+              className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover object-top border-2 border-[#3B82F6]/20 shrink-0"
+            />
+            <div className="min-w-0">
+              <div className="text-[10px] uppercase tracking-[0.15em] text-[#60A5FA] mb-1">
+                {isMulti ? (ai === 0 ? "Автор" : "Соавтор") : "Автор"}
+              </div>
+              <h4 className="font-heading font-bold text-lg text-heading mb-0.5 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
+                {author.name}
+              </h4>
+              <p className="text-sm font-medium text-subtle mb-2">
+                {author.role}
+              </p>
+              <p className="text-sm text-dim leading-relaxed">{author.bio}</p>
+              <span className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-[#60A5FA] group-hover:gap-3 transition-all duration-300">
+                Все материалы автора
+                <ArrowRight className="w-4 h-4" />
+              </span>
+            </div>
+          </div>
+        </Link>
+      ))}
+    </div>
   );
 }
 
@@ -590,6 +605,9 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
           <div className="prose-custom">
             {renderCaseContentBlocks(post.content)}
           </div>
+
+          {/* Author Card(s) */}
+          <AuthorCards post={post} />
 
           {/* Bottom divider */}
           <div className="section-divider mt-10 mb-8" />
@@ -1011,6 +1029,7 @@ function renderBlogContent(content: string) {
       let btn2Text = "";
       let btn2Url = "";
       let image = "";
+      let bgMode = false;
       i++;
       while (i < lines.length) {
         const bl = lines[i].trim();
@@ -1022,6 +1041,7 @@ function renderBlogContent(content: string) {
         const b1 = bl.match(/^\*\*button1:\*\*\s*(.+?)\s*\|\s*(.+)$/);
         const b2 = bl.match(/^\*\*button2:\*\*\s*(.+?)\s*\|\s*(.+)$/);
         const im = bl.match(/^\*\*image:\*\*\s*(.+)$/);
+        const bg = bl.match(/^\*\*bg:\*\*\s*(.+)$/);
         if (tm) title = tm[1].trim();
         else if (b1) {
           btn1Text = b1[1].trim();
@@ -1030,7 +1050,53 @@ function renderBlogContent(content: string) {
           btn2Text = b2[1].trim();
           btn2Url = b2[2].trim();
         } else if (im) image = im[1].trim();
+        else if (bg) bgMode = /cover|full|background/i.test(bg[1].trim());
         i++;
+      }
+
+      // Background mode — image fills the whole banner, text overlaid on top
+      if (bgMode && image) {
+        elements.push(
+          <div
+            key={`banner-${i}`}
+            className="my-12 relative rounded-2xl overflow-hidden border border-glass-border min-h-[280px] md:min-h-[320px] flex items-center p-8 md:p-12"
+          >
+            <img
+              src={image}
+              alt={title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0B1020]/90 via-[#0B1020]/70 to-[#0B1020]/30" />
+            <div className="relative max-w-2xl">
+              <h3
+                style={{ color: "#ffffff" }}
+                className="font-heading font-bold text-2xl md:text-[32px] leading-tight mb-7 max-w-xl"
+              >
+                {title}
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {btn1Text && (
+                  <Link
+                    href={btn1Url}
+                    className="group inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-[#3B82F6] to-[#2563EB] text-white font-medium text-sm rounded-xl hover:shadow-[0_0_24px_rgba(59,130,246,0.4)] hover:scale-[1.02] transition-all duration-300"
+                  >
+                    {btn1Text}
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                )}
+                {btn2Text && (
+                  <Link
+                    href={btn2Url}
+                    className="inline-flex items-center gap-2 px-5 py-3 bg-white/10 backdrop-blur-sm text-white font-medium text-sm rounded-xl border border-white/25 hover:bg-white/20 hover:border-white/40 transition-colors"
+                  >
+                    {btn2Text}
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>,
+        );
+        continue;
       }
 
       elements.push(
@@ -1122,6 +1188,74 @@ function renderBlogContent(content: string) {
             </p>
           </div>
         </div>,
+      );
+      continue;
+    }
+
+    // Chart block — horizontal bar chart
+    // <!-- chart: Заголовок --> then `* Подпись | 3500 | 3–4 млрд ₽`
+    const chartMatch = trimmed.match(/^<!--\s*chart:\s*(.+?)\s*-->$/);
+    if (chartMatch) {
+      const title = chartMatch[1];
+      const bars: { label: string; value: number; display: string }[] = [];
+      let caption = "";
+      i++;
+      while (i < lines.length) {
+        const cl = lines[i].trim();
+        if (cl === "<!-- /chart -->") {
+          i++;
+          break;
+        }
+        const capMatch = cl.match(/^>\s*(.+)$/);
+        const barMatch = cl.match(/^[*-]\s+(.+?)\s*\|\s*([\d.,]+)\s*\|\s*(.+)$/);
+        if (barMatch) {
+          bars.push({
+            label: barMatch[1].trim(),
+            value: parseFloat(barMatch[2].replace(",", ".")),
+            display: barMatch[3].trim(),
+          });
+        } else if (capMatch) {
+          caption = capMatch[1].trim();
+        }
+        i++;
+      }
+      const max = Math.max(...bars.map((b) => b.value), 1);
+
+      elements.push(
+        <figure
+          key={`chart-${i}`}
+          className="my-8 rounded-2xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/[0.06] p-6 md:p-7"
+        >
+          <figcaption className="flex items-center gap-2.5 mb-6">
+            <BarChart3 className="w-4 h-4 text-[#60A5FA] shrink-0" />
+            <span className="font-heading font-semibold text-sm md:text-base text-heading leading-snug">
+              {title}
+            </span>
+          </figcaption>
+          <div className="space-y-4">
+            {bars.map((b, bi) => (
+              <div key={bi}>
+                <div className="flex items-baseline justify-between gap-3 mb-1.5">
+                  <span className="text-sm text-body leading-snug">
+                    {b.label}
+                  </span>
+                  <span className="text-sm font-heading font-semibold gradient-text whitespace-nowrap shrink-0">
+                    {b.display}
+                  </span>
+                </div>
+                <div className="h-2.5 rounded-full bg-overlay-4 overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-[#3B82F6] to-[#8B5CF6]"
+                    style={{ width: `${Math.max((b.value / max) * 100, 4)}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+          {caption && (
+            <p className="text-xs text-dim mt-5 leading-relaxed">{caption}</p>
+          )}
+        </figure>,
       );
       continue;
     }
@@ -1218,6 +1352,115 @@ function renderBlogContent(content: string) {
       continue;
     }
 
+    // Bignum — large emphasized stat without any card frame
+    // <!-- bignum --> **9,3 млн** подпись... <!-- /bignum -->
+    if (trimmed === "<!-- bignum -->") {
+      const buf: string[] = [];
+      i++;
+      while (i < lines.length) {
+        const bl = lines[i].trim();
+        if (bl === "<!-- /bignum -->") {
+          i++;
+          break;
+        }
+        if (bl) buf.push(bl);
+        i++;
+      }
+      const text = buf.join(" ");
+      const numMatch = text.match(/^\*\*([^*]+)\*\*\s*(.*)/);
+      const bigNum = numMatch ? numMatch[1] : text;
+      const rest = numMatch ? numMatch[2] : "";
+
+      elements.push(
+        <div
+          key={`bignum-${i}`}
+          className="my-10 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-7"
+        >
+          <div className="font-heading font-bold text-5xl md:text-7xl gradient-text leading-none tracking-tight shrink-0">
+            {bigNum}
+          </div>
+          {rest && (
+            <p className="text-lg md:text-xl text-subheading leading-snug sm:border-l sm:border-border-subtle sm:pl-7">
+              {renderInline(rest)}
+            </p>
+          )}
+        </div>,
+      );
+      continue;
+    }
+
+    // Brand card — logo + name + short description, floated beside the text
+    // <!-- brand: /logo.png | Название | Краткое описание -->
+    const brandMatch = trimmed.match(
+      /^<!--\s*brand:\s*(.+?)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*-->$/,
+    );
+    if (brandMatch) {
+      elements.push(
+        <aside
+          key={i}
+          className="mb-4 w-full sm:float-left sm:mr-6 sm:mb-3 sm:w-60 rounded-2xl border border-gray-200 dark:border-white/[0.06] bg-gray-50 dark:bg-white/[0.03] p-5"
+        >
+          <span className="inline-flex items-center justify-center h-11 px-4 rounded-lg bg-white border border-gray-200 shadow-sm mb-3">
+            <img
+              src={brandMatch[1]}
+              alt={brandMatch[2]}
+              className="h-6 w-auto object-contain"
+            />
+          </span>
+          <div className="font-heading font-semibold text-sm text-heading mb-1">
+            {brandMatch[2]}
+          </div>
+          <p className="text-xs text-dim leading-relaxed">{brandMatch[3]}</p>
+        </aside>,
+      );
+      i++;
+      continue;
+    }
+
+    // Logo badge — company logo on a white pill, readable in any theme
+    // <!-- logo: /path.png | Название -->
+    const logoMatch = trimmed.match(/^<!--\s*logo:\s*(.+?)\s*\|\s*(.+?)\s*-->$/);
+    if (logoMatch) {
+      elements.push(
+        <div key={i} className="my-5">
+          <span className="inline-flex items-center justify-center h-14 px-6 rounded-xl bg-white border border-gray-200 dark:border-white/10 shadow-sm">
+            <img
+              src={logoMatch[1]}
+              alt={logoMatch[2]}
+              className="h-7 md:h-8 w-auto object-contain"
+            />
+          </span>
+        </div>,
+      );
+      i++;
+      continue;
+    }
+
+    // Image band — fixed-height cropped cover image (good for tall photos)
+    // <!-- band: /path.jpg | подпись -->
+    const bandMatch = trimmed.match(/^<!--\s*band:\s*(.+?)\s*\|\s*(.+?)\s*-->$/);
+    if (bandMatch) {
+      elements.push(
+        <figure key={i} className="my-8">
+          <div className="relative w-full h-52 md:h-64 rounded-xl overflow-hidden border border-border-subtle">
+            <img
+              src={bandMatch[1]}
+              alt={bandMatch[2]}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+          </div>
+          {bandMatch[2] && (
+            <figcaption className="text-xs text-dim mt-2 text-center">
+              {bandMatch[2]}
+            </figcaption>
+          )}
+        </figure>,
+      );
+      i++;
+      continue;
+    }
+
     // Raw image — full-width <img> without figure wrapper, border or rounded corners
     const rawImgMatch = trimmed.match(/^<!--\s*raw-image:\s*(.+?)\s*-->$/);
     if (rawImgMatch) {
@@ -1252,7 +1495,7 @@ function renderBlogContent(content: string) {
         <div
           key={i}
           id={slugify(text)}
-          className="mt-14 mb-6 first:mt-0 scroll-mt-24"
+          className="clear-both mt-14 mb-6 first:mt-0 scroll-mt-24"
         >
           <h2 className="font-heading font-bold text-2xl md:text-3xl text-heading tracking-[-0.02em]">
             {text}
@@ -1274,7 +1517,7 @@ function renderBlogContent(content: string) {
           <div
             key={i}
             id={headingId}
-            className="flex items-start gap-4 mt-10 mb-4 scroll-mt-24"
+            className="clear-both flex items-start gap-4 mt-10 mb-4 scroll-mt-24"
           >
             <span className="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center text-white font-heading font-bold text-sm shadow-lg shadow-[#3B82F6]/20">
               {numMatch[1]}
@@ -1289,7 +1532,7 @@ function renderBlogContent(content: string) {
           <h3
             key={i}
             id={slugify(raw)}
-            className="font-heading font-semibold text-lg text-subheading mt-8 mb-3 scroll-mt-24"
+            className="clear-both font-heading font-semibold text-lg text-subheading mt-8 mb-3 scroll-mt-24"
           >
             {raw}
           </h3>,

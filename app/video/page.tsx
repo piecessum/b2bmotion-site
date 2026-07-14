@@ -95,6 +95,39 @@ export default function VideoPage() {
               Посмотрите, как можно трансформировать текущую модель работы и вывести бизнес на новый уровень.
             </p>
           </div>
+
+          {/* Author */}
+          <Link
+            href="/blog/author/dmitriy-ageev"
+            className="group block rounded-2xl bg-gradient-to-br from-[#3B82F6]/5 via-transparent to-[#8B5CF6]/5 border border-gray-200 dark:border-white/[0.06] p-6 md:p-8 transition-colors hover:border-[#3B82F6]/30"
+          >
+            <div className="flex items-start gap-5">
+              <img
+                src="/team/dmitriy.png"
+                alt="Дмитрий Агеев"
+                className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover object-top border-2 border-[#3B82F6]/20 shrink-0"
+              />
+              <div className="min-w-0">
+                <div className="text-[10px] uppercase tracking-[0.15em] text-[#60A5FA] mb-1">
+                  Автор идеи
+                </div>
+                <h4 className="font-heading font-bold text-lg text-heading mb-0.5 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
+                  Дмитрий Агеев
+                </h4>
+                <p className="text-sm font-medium text-subtle mb-2">
+                  Руководитель отдела продаж
+                </p>
+                <p className="text-sm text-dim leading-relaxed">
+                  Автор идеи и куратор концепции видео: сформулировал задумку,
+                  структуру и ключевые смыслы материала
+                </p>
+                <span className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-[#60A5FA] group-hover:gap-3 transition-all duration-300">
+                  Все материалы автора
+                  <ArrowRight className="w-4 h-4" />
+                </span>
+              </div>
+            </div>
+          </Link>
         </div>
       </section>
 

@@ -3,6 +3,7 @@
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 import { BackButton } from "@/components/back-button"
 import { CtaButton } from "@/components/cta-button"
 
@@ -450,6 +451,39 @@ export default function B2BListsReport() {
               </div>
             </div>
           </section>
+
+          {/* Author */}
+          <Link
+            href="/blog/author/aleksey-masyuta"
+            className="group block mt-6 mb-10 rounded-2xl bg-gradient-to-br from-[#3B82F6]/5 via-transparent to-[#8B5CF6]/5 border border-gray-200 dark:border-white/[0.06] p-6 md:p-8 transition-colors hover:border-[#3B82F6]/30"
+          >
+            <div className="flex items-start gap-5">
+              <img
+                src="/team/Portret Alex.png"
+                alt="Алексей Масюта"
+                className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover object-top border-2 border-[#3B82F6]/20 shrink-0"
+              />
+              <div className="min-w-0">
+                <div className="text-[10px] uppercase tracking-[0.15em] text-[#60A5FA] mb-1">
+                  Автор
+                </div>
+                <h4 className="font-heading font-bold text-lg text-heading mb-0.5 group-hover:text-[#3B82F6] dark:group-hover:text-white transition-colors">
+                  Алексей Масюта
+                </h4>
+                <p className="text-sm font-medium text-subtle mb-2">
+                  Аналитик и UX дизайнер
+                </p>
+                <p className="text-sm text-dim leading-relaxed">
+                  Проектирует пользовательские сценарии и интерфейсы B2B-платформ,
+                  исследует бизнес-процессы клиентов и превращает их в удобные решения
+                </p>
+                <span className="inline-flex items-center gap-2 mt-3 text-sm font-medium text-[#60A5FA] group-hover:gap-3 transition-all duration-300">
+                  Все материалы автора
+                  <ArrowRight className="w-4 h-4" />
+                </span>
+              </div>
+            </div>
+          </Link>
 
           {/* Footer note */}
           <div className="text-center py-10 text-xs text-dim space-y-1">
