@@ -380,15 +380,21 @@ function FunctionalView({ switcher }: { switcher: React.ReactNode }) {
       {/* Hero */}
       <section className="relative flex flex-col pt-36 pb-20 px-6 overflow-hidden lg:min-h-[620px]">
         <div className="absolute inset-0">
-          <img
+          <Image
             src="/backgrounds/3d_white_bg.png"
             alt=""
-            className="w-full h-full object-cover dark:hidden"
+            fill
+            sizes="100vw"
+            loading="eager"
+            className="object-cover dark:hidden"
           />
-          <img
+          <Image
             src="/backgrounds/3d_bg.png"
             alt=""
-            className="w-full h-full object-cover hidden dark:block"
+            fill
+            sizes="100vw"
+            loading="eager"
+            className="object-cover hidden dark:block"
           />
           <div className="absolute inset-0 bg-white/30 dark:bg-black/50" />
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--page)] to-transparent" />

@@ -489,15 +489,21 @@ export function TechStackSections({
       <section className="relative flex flex-col pt-36 pb-20 px-6 overflow-hidden lg:min-h-[620px]">
         {/* Background image */}
         <div className="absolute inset-0">
-          <img
+          <Image
             src="/for-bg/bg-techsteck-white.png"
             alt=""
-            className="w-full h-full object-cover dark:hidden"
+            fill
+            sizes="100vw"
+            loading="eager"
+            className="object-cover dark:hidden"
           />
-          <img
+          <Image
             src="/for-bg/bg-techsteck-dark.png"
             alt=""
-            className="w-full h-full object-cover hidden dark:block"
+            fill
+            sizes="100vw"
+            loading="eager"
+            className="object-cover hidden dark:block"
           />
           <div className="absolute inset-0 bg-white/60 dark:bg-black/70" />
           <div

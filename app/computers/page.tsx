@@ -121,8 +121,8 @@ export default function ComputersPage() {
       <section className="relative pt-36 pb-20 px-6 overflow-hidden">
         {/* Background image */}
         <div className="absolute inset-0">
-          <img src="/for-bg/bg-computers-white.png" alt="" className="w-full h-full object-cover dark:hidden" />
-          <img src="/for-bg/bg-computers-dark.png" alt="" className="w-full h-full object-cover hidden dark:block" />
+          <Image src="/for-bg/bg-computers-white.png" alt="" fill sizes="100vw" loading="eager" className="object-cover dark:hidden" />
+          <Image src="/for-bg/bg-computers-dark.png" alt="" fill sizes="100vw" loading="eager" className="object-cover hidden dark:block" />
           <div className="absolute inset-0 bg-white/60 dark:bg-black/70" />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, var(--page-alt) 0%, color-mix(in srgb, var(--page-alt) 85%, transparent) 20%, color-mix(in srgb, var(--page-alt) 40%, transparent) 45%, transparent 75%)' }} />
         </div>

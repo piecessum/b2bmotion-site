@@ -13,7 +13,7 @@
 | **Язык** | TypeScript |
 | **Компоненты** | shadcn/ui + Radix UI |
 | **Контент** | Markdown (gray-matter) |
-| **Деплой** | Vercel |
+| **Деплой** | Coolify (self-hosted, Node-сервер `next start`) |
 
 ## Что здесь интересного
 

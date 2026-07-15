@@ -1,3 +1,15 @@
+## Деплой
+
+Проект деплоится на **Coolify** (self-hosted), а не на Vercel. Сборка идёт через
+Nixpacks: `npm run build` → запуск `next start` (обычный Node-сервер). Это не
+статический экспорт, поэтому встроенный оптимизатор изображений `next/image`
+работает (`sharp` в `dependencies`), а трансформации кэшируются в
+`.next/cache/images` — этот путь стоит держать на persistent volume, иначе кэш
+обнуляется при каждом деплое.
+
+> ⚠️ Блок ниже — авто-сгенерированные советы для Vercel. Vercel-специфичные пункты
+> (Functions, Blob, KV, AI Gateway, `vercel` CLI) к нашему деплою **не применимы**.
+
 <!-- VERCEL BEST PRACTICES START -->
 ## Best practices for developing on Vercel
 

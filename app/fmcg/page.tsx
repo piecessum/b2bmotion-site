@@ -154,15 +154,21 @@ export default function FmcgPage() {
       <section className="relative pt-36 pb-20 px-6 overflow-hidden">
         {/* Background image */}
         <div className="absolute inset-0">
-          <img
+          <Image
             src="/for-bg/bg-fmcg-white.png"
             alt=""
-            className="w-full h-full object-cover dark:hidden"
+            fill
+            sizes="100vw"
+            loading="eager"
+            className="object-cover dark:hidden"
           />
-          <img
+          <Image
             src="/for-bg/bg-fmcg-dark.png"
             alt=""
-            className="w-full h-full object-cover hidden dark:block"
+            fill
+            sizes="100vw"
+            loading="eager"
+            className="object-cover hidden dark:block"
           />
           <div className="absolute inset-0 bg-white/60 dark:bg-black/70" />
           <div
