@@ -226,8 +226,11 @@ export function DeliveryPriceDemo() {
                           }
                         >
                           <span className="text-sm">{d}</span>
+                          {/* При самовывозе надбавки за доставку не применяются —
+                              прячем подпись через invisible, чтобы высота ячейки
+                              не менялась и календарь не прыгал. */}
                           <span
-                            className="mt-0.5 text-[9px] font-medium"
+                            className={`mt-0.5 text-[9px] font-medium ${pickup ? "invisible" : ""}`}
                             style={{ color: deltaColor }}
                           >
                             {fmtDelta(s)}
