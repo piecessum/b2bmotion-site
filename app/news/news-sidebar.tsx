@@ -142,19 +142,21 @@ function RateRow({
   const { delta, Icon, color } = trend(rate);
 
   return (
-    <div className="flex items-center justify-between py-1.5">
-      <div className="flex items-center gap-2.5">
-        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#8B5CF6]/10 text-[11px] font-semibold text-[#8B5CF6]">
+    <div className="flex items-center justify-between gap-2 py-1">
+      <div className="flex min-w-0 items-center gap-2">
+        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#8B5CF6]/10 text-[10px] font-semibold text-[#8B5CF6]">
           {code}
         </span>
-        <span className="text-sm text-subtle">{label}</span>
+        <span className="truncate text-sm text-subtle">{label}</span>
       </div>
-      <div className="flex items-center gap-2">
+      {/* Значение и дельта не переносим и не сжимаем — иначе строка курса
+          распирает узкую колонку сайдбара. При нехватке места усечётся подпись. */}
+      <div className="flex shrink-0 items-center gap-1.5 whitespace-nowrap">
         <span className="font-heading text-sm font-semibold text-heading tabular-nums">
           {formatMoney(rate.value)} {unit}
         </span>
         <span className={`flex items-center gap-0.5 text-xs ${color}`}>
-          <Icon className="h-3 w-3" />
+          <Icon className="h-3 w-3 shrink-0" />
           {Math.abs(delta) >= 0.0001 ? formatMoney(Math.abs(delta)) : "0,00"}
         </span>
       </div>
@@ -373,9 +375,9 @@ export function NewsSidebar({
       </div>
 
       {/* Десктоп: полный календарь + курсы */}
-      <div className="hidden space-y-4 lg:block">
+      <div className="hidden space-y-3 lg:block">
         {/* Сегодня + календарь */}
-        <div className="rounded-2xl glass-card p-4">
+        <div className="rounded-2xl glass-card p-3.5">
           <div className="mb-3 flex items-baseline justify-between">
             <span className="font-heading text-xl font-bold text-heading">
               {today.d} {MONTHS[today.m]}
@@ -386,7 +388,7 @@ export function NewsSidebar({
         </div>
 
         {/* Курсы валют */}
-        <div className="rounded-2xl glass-card p-4">
+        <div className="rounded-2xl glass-card p-3.5">
           <div className="mb-1 flex items-center justify-between">
             <span className="text-xs font-medium uppercase tracking-[0.18em] text-dim">
               Курс ЦБ РФ

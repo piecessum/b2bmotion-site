@@ -44,6 +44,13 @@ function rub(n: number): string {
   );
 }
 
+// Надбавка/скидка за день в виде «+140 ₽» / «−60 ₽» / «0 ₽».
+function fmtDelta(n: number): string {
+  if (n > 0) return `+${n} ₽`;
+  if (n < 0) return `−${-n} ₽`;
+  return "0 ₽";
+}
+
 function loadFor(day: number): { surcharge: number; label: string } {
   const surcharge = LOAD_BY_WEEKDAY[day % 7];
   const label =
@@ -59,9 +66,12 @@ export function DeliveryPriceDemo() {
   const [addressId, setAddressId] = useState("yan");
   const [pickup, setPickup] = useState(false);
   const [day, setDay] = useState(18);
+  const [cash, setCash] = useState(false); // false = безналичные
+  const [bonuses, setBonuses] = useState(false);
 
   const address = ADDRESSES.find((a) => a.id === addressId) ?? ADDRESSES[1];
   const { surcharge, label } = loadFor(day);
+  const surchargeText = fmtDelta(surcharge);
 
   const delivery = Math.max(120, address.base + surcharge);
   const pickupDiscount = Math.round(GOODS * 0.02 * 100) / 100;
@@ -74,13 +84,13 @@ export function DeliveryPriceDemo() {
     >
       {/* Шапка прототипа */}
       <div
-        className="flex items-center gap-3 border-b px-5 py-3"
+        className="flex items-center gap-3 border-b px-5 py-2"
         style={{ background: "#FFFFFF", borderColor: "#E6E8EE" }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logos/LogoMobile.svg" alt="Движение" className="h-7 w-auto" />
+        <img src="/logos/LogoMobile.svg" alt="Движение" className="h-9 w-auto" />
         <span className="text-xs" style={{ color: "#8A90A2" }}>
-          ← Корзина / Оформление заказа
+          Демонстрационный прототип
         </span>
       </div>
 
@@ -196,18 +206,32 @@ export function DeliveryPriceDemo() {
                     ))}
                     {MONTH_DAYS.map((d) => {
                       const active = d === day;
+                      const s = LOAD_BY_WEEKDAY[d % 7];
+                      const deltaColor = active
+                        ? "rgba(255,255,255,.85)"
+                        : s > 0
+                          ? "#C2410C"
+                          : s < 0
+                            ? "#16A34A"
+                            : "#8A90A2";
                       return (
                         <button
                           key={d}
                           onClick={() => setDay(d)}
-                          className="rounded-md py-1 transition-colors"
+                          className="flex flex-col items-center rounded-md py-1 leading-none transition-colors"
                           style={
                             active
                               ? { background: "#4E48A5", color: "#FFFFFF", fontWeight: 600 }
                               : { color: "#1F2430" }
                           }
                         >
-                          {d}
+                          <span className="text-sm">{d}</span>
+                          <span
+                            className="mt-0.5 text-[9px] font-medium"
+                            style={{ color: deltaColor }}
+                          >
+                            {fmtDelta(s)}
+                          </span>
                         </button>
                       );
                     })}
@@ -218,7 +242,7 @@ export function DeliveryPriceDemo() {
                     ))}
                   </div>
                   <p className="mt-2 text-[11px]" style={{ color: "#8A90A2" }}>
-                    {pickup ? "самовывоз — дата на ваш выбор" : `${WEEKDAYS[day % 7]}, ${label}`}
+                    {pickup ? "самовывоз — дата на ваш выбор" : `${surchargeText} — ${label}`}
                   </p>
                 </div>
               </div>
@@ -283,24 +307,31 @@ export function DeliveryPriceDemo() {
           className="flex h-fit flex-col rounded-xl border p-4"
           style={{ background: "#FFFFFF", borderColor: "#E6E8EE" }}
         >
-          <div className="mb-4 flex items-center justify-between">
+          <div className="mb-4">
             <span className="text-base font-semibold">Оплата</span>
-            <span style={{ color: "#C3C8D4" }}>×</span>
           </div>
 
           <div
             className="mb-4 grid grid-cols-2 rounded-lg p-1 text-xs font-medium"
             style={{ background: "#EEF0F5" }}
           >
-            <span
-              className="rounded-md py-1.5 text-center"
-              style={{ background: "#FFFFFF", boxShadow: "0 1px 2px rgba(0,0,0,.08)" }}
-            >
-              Безналичные
-            </span>
-            <span className="py-1.5 text-center" style={{ color: "#8A90A2" }}>
-              Наличные
-            </span>
+            {[
+              { k: false, t: "Безналичные" },
+              { k: true, t: "Наличные" },
+            ].map(({ k, t }) => (
+              <button
+                key={t}
+                onClick={() => setCash(k)}
+                className="rounded-md py-1.5 text-center transition-colors"
+                style={
+                  cash === k
+                    ? { background: "#FFFFFF", color: "#1F2430", boxShadow: "0 1px 2px rgba(0,0,0,.08)" }
+                    : { background: "transparent", color: "#8A90A2" }
+                }
+              >
+                {t}
+              </button>
+            ))}
           </div>
 
           <Row label="Сумма заказа с НДС">
@@ -335,12 +366,20 @@ export function DeliveryPriceDemo() {
             <span className="text-sm" style={{ color: "#5A6072" }}>
               Использовать бонусы
             </span>
-            <span
-              className="grid h-5 w-9 items-center rounded-full px-0.5"
-              style={{ background: "#D7DBE3" }}
+            <button
+              type="button"
+              role="switch"
+              aria-checked={bonuses}
+              aria-label="Использовать бонусы"
+              onClick={() => setBonuses((b) => !b)}
+              className="grid h-5 w-9 items-center rounded-full px-0.5 transition-colors"
+              style={{ background: bonuses ? "#4E48A5" : "#D7DBE3" }}
             >
-              <span className="h-4 w-4 rounded-full bg-white shadow-sm" />
-            </span>
+              <span
+                className="h-4 w-4 rounded-full bg-white shadow-sm transition-transform"
+                style={{ transform: bonuses ? "translateX(16px)" : "translateX(0)" }}
+              />
+            </button>
           </div>
 
           <div
