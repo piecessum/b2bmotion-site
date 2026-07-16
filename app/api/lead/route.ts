@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { isValidRuPhone } from "@/lib/phone";
 
 export const runtime = "nodejs";
 
@@ -9,11 +10,10 @@ const LeadSchema = z.object({
   catalogSize: z.string().trim().min(1).max(100),
   catalogStorage: z.enum(["1c", "excel", "other"]),
   name: z.string().trim().min(1).max(200),
-  phone: z
-    .string()
-    .trim()
-    .regex(/^[\d+\s()\-]{7,}$/u, "phone"),
+  phone: z.string().trim().max(30).refine(isValidRuPhone, "phone"),
   email: z.string().trim().email().max(200),
+  // Ханипот: настоящие пользователи это поле не видят и не заполняют.
+  website: z.string().max(200).optional(),
   page: z.string().max(500).optional().default(""),
   submittedAt: z.string().optional(),
 });
@@ -36,7 +36,14 @@ export async function POST(req: Request) {
 
   const lead = parsed.data;
 
-  console.log("[lead]", JSON.stringify(lead));
+  // Ханипот сработал → это бот. Молча отвечаем «ок», ничего не обрабатывая,
+  // чтобы не подсказывать боту про фильтр.
+  if (lead.website && lead.website.trim() !== "") {
+    return NextResponse.json({ ok: true });
+  }
+
+  const { website: _hp, ...cleanLead } = lead;
+  console.log("[lead]", JSON.stringify(cleanLead));
 
   return NextResponse.json({ ok: true });
 }

@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, Loader2, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { DEMO_FORM_EVENT } from "@/lib/demo-form";
+import { isValidRuPhone } from "@/lib/phone";
 
 type Wholesale = "yes" | "no" | "";
 type Storage = "1c" | "excel" | "other" | "";
@@ -54,7 +55,8 @@ export function DemoFormDialog() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const firstInvalidRef = useRef<HTMLElement | null>(null);
+  const [honeypot, setHoneypot] = useState("");
+  const scrollRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const onOpen = () => {
@@ -63,6 +65,7 @@ export function DemoFormDialog() {
       setSubmitted(false);
       setSubmitError(null);
       setErrors({});
+      setHoneypot("");
     };
     window.addEventListener(DEMO_FORM_EVENT, onOpen);
     return () => window.removeEventListener(DEMO_FORM_EVENT, onOpen);
@@ -78,6 +81,7 @@ export function DemoFormDialog() {
         setStep(1);
         setSubmitted(false);
         setSubmitError(null);
+        setHoneypot("");
       }, 250);
     }
   };
@@ -97,8 +101,9 @@ export function DemoFormDialog() {
   const validateStep2 = () => {
     const next: Record<string, string> = {};
     if (!s2.name.trim()) next.name = "Укажите, пожалуйста, ваше имя";
-    if (!s2.phone.trim()) next.phone = "Укажите, пожалуйста, телефон";
-    else if (!/^[\d+\s()\-]{7,}$/.test(s2.phone.trim()))
+    const phone = s2.phone.trim();
+    if (!phone) next.phone = "Укажите, пожалуйста, телефон";
+    else if (!isValidRuPhone(phone))
       next.phone = "Похоже, телефон указан некорректно";
     if (!s2.email.trim()) next.email = "Укажите, пожалуйста, эл. почту";
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s2.email.trim()))
@@ -107,10 +112,29 @@ export function DemoFormDialog() {
     return Object.keys(next).length === 0;
   };
 
+  // Скролл к первому полю с ошибкой и фокус на него. errors обновляются
+  // асинхронно, поэтому ждём коммит рендера (setTimeout 0).
+  const focusFirstError = () => {
+    setTimeout(() => {
+      const el = scrollRef.current?.querySelector<HTMLElement>(
+        '[data-error="true"]',
+      );
+      if (!el) return;
+      el.scrollIntoView({ block: "center", behavior: "smooth" });
+      el
+        .querySelector<HTMLElement>(
+          "input:not([type=hidden]), textarea, [role=radio]",
+        )
+        ?.focus();
+    }, 0);
+  };
+
   const goNext = () => {
     if (validateStep1()) {
       setStep(2);
       setErrors({});
+    } else {
+      focusFirstError();
     }
   };
 
@@ -120,7 +144,10 @@ export function DemoFormDialog() {
   };
 
   const submit = async () => {
-    if (!validateStep2()) return;
+    if (!validateStep2()) {
+      focusFirstError();
+      return;
+    }
     setSubmitting(true);
     setSubmitError(null);
     try {
@@ -135,6 +162,7 @@ export function DemoFormDialog() {
           name: s2.name.trim(),
           phone: s2.phone.trim(),
           email: s2.email.trim(),
+          website: honeypot,
           page:
             typeof window !== "undefined" ? window.location.pathname : "",
           submittedAt: new Date().toISOString(),
@@ -170,25 +198,31 @@ export function DemoFormDialog() {
         <Dialog.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
         <Dialog.Content
           aria-describedby={undefined}
-          className="fixed top-1/2 left-1/2 z-50 w-[95vw] max-w-xl max-h-[92vh] overflow-y-auto -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-glass-border bg-page p-6 md:p-8 shadow-[0_24px_64px_rgba(0,0,0,0.45)] focus:outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
+          className="fixed top-1/2 left-1/2 z-50 flex max-h-[92vh] w-[95vw] max-w-xl -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl border border-glass-border bg-page shadow-[0_24px_64px_rgba(0,0,0,0.45)] focus:outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
         >
           <Dialog.Close
             aria-label="Закрыть"
-            className="absolute top-4 right-4 inline-flex items-center justify-center w-9 h-9 rounded-lg text-dim hover:text-body hover:bg-overlay-4 transition-colors"
+            className="absolute top-4 right-4 z-10 inline-flex items-center justify-center w-9 h-9 rounded-lg text-dim hover:text-body hover:bg-overlay-4 transition-colors"
           >
             <X className="w-4 h-4" />
           </Dialog.Close>
 
           {submitted ? (
-            <div className="relative py-6 text-center">
+            <div className="relative px-6 py-8 text-center md:px-8">
               <Confetti />
-              <div className="mb-5 flex justify-center">
+              <div className="relative mb-5 flex justify-center">
+                {/* Свечение как отдельный размытый элемент (не CSS-фильтр —
+                    его не «срезает» после завершения анимации конфетти). */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute top-1/2 left-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#7C3AED]/30 blur-2xl"
+                />
                 <Image
                   src="/ok.svg"
                   alt="Заявка отправлена"
                   width={140}
                   height={118}
-                  className="w-32 h-auto drop-shadow-[0_10px_28px_rgba(124,58,237,0.35)]"
+                  className="relative w-32 h-auto"
                   priority
                 />
               </div>
@@ -207,23 +241,54 @@ export function DemoFormDialog() {
               </button>
             </div>
           ) : (
-            <>
-              <Dialog.Title className="font-heading font-bold text-[clamp(20px,3vw,26px)] tracking-[-0.01em] text-heading pr-10">
-                Ответьте на несколько вопросов — подготовим демо под вас
-              </Dialog.Title>
-
-              <div className="mt-5 mb-6">
-                <div className="flex items-center justify-between text-xs text-dim mb-2">
-                  <span>Шаг {step} из 2</span>
-                  <span>Заполнено {filled} из {TOTAL_FIELDS}</span>
-                </div>
-                <div className="h-1.5 w-full rounded-full bg-overlay-6 overflow-hidden">
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] transition-all duration-500 ease-out"
-                    style={{ width: `${progress}%` }}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (step === 1) goNext();
+                else submit();
+              }}
+              className="flex min-h-0 flex-1 flex-col"
+            >
+              {/* Ханипот против ботов — настоящие пользователи поле не видят */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -left-[9999px] top-0 h-0 w-0 overflow-hidden"
+              >
+                <label>
+                  Не заполняйте это поле
+                  <input
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
                   />
-                </div>
+                </label>
               </div>
+
+              {/* Заголовок, прогресс и поля скроллятся вместе — фиксирован
+                  только подвал (кнопки + согласие). */}
+              <div
+                ref={scrollRef}
+                className="modal-scroll min-h-0 flex-1 overflow-y-auto px-6 pt-6 pb-5 md:px-8 md:pt-8"
+              >
+                <Dialog.Title className="font-heading font-bold text-[clamp(20px,3vw,26px)] tracking-[-0.01em] text-heading pr-10">
+                  Ответьте на несколько вопросов — подготовим демо под вас
+                </Dialog.Title>
+
+                <div className="mb-6 mt-5">
+                  <div className="flex items-center justify-between text-xs text-dim mb-2">
+                    <span>Шаг {step} из 2</span>
+                    <span>Заполнено {filled} из {TOTAL_FIELDS}</span>
+                  </div>
+                  <div className="h-1.5 w-full rounded-full bg-overlay-6 overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] transition-all duration-500 ease-out"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                </div>
 
               {step === 1 ? (
                 <div className="space-y-5">
@@ -334,62 +399,63 @@ export function DemoFormDialog() {
               {submitError && (
                 <p className="mt-5 text-sm text-[#EF4444]">{submitError}</p>
               )}
-
-              <div className="mt-7 flex flex-col-reverse sm:flex-row sm:justify-between gap-3">
-                {step === 2 ? (
-                  <button
-                    type="button"
-                    onClick={goBack}
-                    disabled={submitting}
-                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-border-default text-body font-medium hover:bg-overlay-4 transition-colors disabled:opacity-50"
-                  >
-                    <ArrowLeft className="w-4 h-4" />
-                    Назад
-                  </button>
-                ) : (
-                  <span />
-                )}
-
-                {step === 1 ? (
-                  <button
-                    type="button"
-                    onClick={goNext}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold hover:brightness-110 transition-all"
-                  >
-                    Далее
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={submit}
-                    disabled={submitting}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white font-semibold hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
-                  >
-                    {submitting ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Отправляем…
-                      </>
-                    ) : (
-                      <>Отправить</>
-                    )}
-                  </button>
-                )}
               </div>
 
-              <p className="mt-5 text-xs text-dim leading-relaxed">
-                Нажимая кнопку «Отправить», вы соглашаетесь с{" "}
-                <Link
-                  href="/privacy"
-                  className="text-[#60A5FA] hover:underline"
-                  target="_blank"
-                >
-                  политикой конфиденциальности
-                </Link>
-                .
-              </p>
-            </>
+              {/* Подвал — зафиксирован. Один ряд: слева согласие, справа кнопки */}
+              <div className="shrink-0 border-t border-glass-border px-6 py-4 md:px-8">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="order-2 text-[11px] leading-snug text-dim sm:order-1 sm:max-w-[52%]">
+                    Нажимая «Отправить», вы соглашаетесь с{" "}
+                    <Link
+                      href="/privacy"
+                      className="text-[#60A5FA] hover:underline"
+                      target="_blank"
+                    >
+                      политикой конфиденциальности
+                    </Link>
+                    .
+                  </p>
+
+                  <div className="order-1 flex justify-end gap-3 sm:order-2">
+                    {step === 2 && (
+                      <button
+                        type="button"
+                        onClick={goBack}
+                        disabled={submitting}
+                        className="inline-flex items-center justify-center gap-2 rounded-xl border border-border-default px-5 py-2.5 text-body font-medium hover:bg-overlay-4 transition-colors disabled:opacity-50"
+                      >
+                        <ArrowLeft className="w-4 h-4" />
+                        Назад
+                      </button>
+                    )}
+                    {step === 1 ? (
+                      <button
+                        type="submit"
+                        className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] px-6 py-2.5 text-white font-semibold hover:brightness-110 transition-all"
+                      >
+                        Далее
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        disabled={submitting}
+                        className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] px-6 py-2.5 text-white font-semibold hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                      >
+                        {submitting ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            Отправляем…
+                          </>
+                        ) : (
+                          <>Отправить</>
+                        )}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </form>
           )}
         </Dialog.Content>
       </Dialog.Portal>
@@ -406,8 +472,10 @@ function Field({
   error?: string;
   children: React.ReactNode;
 }) {
+  // Обёртка поля — <div>, а не <label>: у радио-групп <label> перекидывал клик
+  // на первый радио-инпут внутри, из-за чего выбор «перескакивал».
   return (
-    <label className="block">
+    <div data-error={error ? "true" : undefined}>
       <span className="block text-sm font-medium text-subheading mb-2">
         {label}
       </span>
@@ -415,7 +483,7 @@ function Field({
       {error && (
         <span className="block mt-1.5 text-xs text-[#EF4444]">{error}</span>
       )}
-    </label>
+    </div>
   );
 }
 
@@ -443,10 +511,10 @@ function RadioRow<T extends string>({
             role="radio"
             aria-checked={active}
             onClick={() => onChange(o.value)}
-            className={`px-5 py-2.5 rounded-xl border text-sm font-medium transition-all ${
+            className={`px-5 py-2.5 rounded-xl border text-sm font-medium transition-colors duration-150 ${
               active
                 ? "bg-gradient-to-r from-[#3B82F6] to-[#7C3AED] text-white border-transparent shadow-[0_0_18px_rgba(59,130,246,0.25)]"
-                : `bg-surface text-body hover:bg-overlay-4 ${
+                : `bg-surface text-body hover:border-[#3B82F6]/50 hover:bg-[#3B82F6]/[0.05] ${
                     hasError ? "border-[#EF4444]/60" : "border-border-default"
                   }`
             }`}
@@ -491,12 +559,12 @@ function RadioColumn<T extends string>({
             role="radio"
             aria-checked={active}
             onClick={() => onChange(o.value)}
-            className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-sm text-left transition-all ${
+            className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-sm text-left transition-colors duration-150 ${
               active
                 ? "border-[#3B82F6] bg-[#3B82F6]/8"
                 : hasError
-                  ? "border-[#EF4444]/60 bg-surface hover:bg-overlay-4"
-                  : "border-border-default bg-surface hover:bg-overlay-4"
+                  ? "border-[#EF4444]/60 bg-surface hover:border-[#3B82F6]/50 hover:bg-[#3B82F6]/[0.05]"
+                  : "border-border-default bg-surface hover:border-[#3B82F6]/50 hover:bg-[#3B82F6]/[0.05]"
             }`}
           >
             <span
