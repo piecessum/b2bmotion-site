@@ -1,9 +1,10 @@
-import { getAllPosts, getPostBySlug } from "@/lib/content";
+import { getAllPosts, getPostBySlug, getPublicationCards } from "@/lib/content";
 import { authorSlug } from "@/lib/authors";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { BlogBanner } from "@/components/blog-banner";
 import { RelatedCases } from "@/components/related-cases";
+import { RelatedPosts } from "@/components/related-posts";
 import { CtaButton } from "@/components/cta-button";
 import { notFound } from "next/navigation";
 import {
@@ -62,6 +63,9 @@ export default async function BlogPostPage({
   if (isCase) {
     return <CaseStudyView post={post} slug={slug} />;
   }
+
+  // Другие публикации блога (без кейсов) для блока «Читать ещё»
+  const publications = getPublicationCards();
 
   return (
     <main className="relative min-h-screen bg-page noise-overlay">
@@ -236,6 +240,13 @@ export default async function BlogPostPage({
 
           {/* Blog Banner */}
           <BlogBanner />
+
+          {/* Читать ещё — другие статьи блога, в самом низу после баннеров */}
+          <RelatedPosts
+            posts={publications}
+            currentSlug={slug}
+            currentTags={post.tags}
+          />
 
           {/* Bottom divider */}
           <div className="section-divider mt-16 mb-10" />
@@ -1510,16 +1521,19 @@ function renderBlogContent(content: string) {
       elements.push(
         <div
           key={`stages-${i}`}
-          className="my-8 border-y border-gray-100 dark:border-white/[0.06] divide-y divide-gray-100 dark:divide-white/[0.06]"
+          className="my-8 space-y-1.5"
         >
           {stages.map((s, si) => {
             const c = stageColor(s.color);
             return (
-              <div key={si} className="flex items-baseline gap-3.5 py-3">
-                <span
-                  className="shrink-0 w-2.5 h-2.5 rounded-full translate-y-1"
-                  style={{ background: c.hex }}
-                />
+              <div key={si} className="flex items-start gap-3.5 py-3">
+                {/* обёртка высотой в одну строку — точка центрируется по первой строке текста */}
+                <span className="shrink-0 flex items-center h-[1.625em]">
+                  <span
+                    className="w-2.5 h-2.5 rounded-full"
+                    style={{ background: c.hex }}
+                  />
+                </span>
                 <p className="text-body leading-relaxed">
                   <span className="font-heading font-semibold text-subheading">
                     {s.name}
@@ -1747,9 +1761,14 @@ function renderBlogContent(content: string) {
       continue;
     }
 
-    // ## Main heading — bold with gradient underline
+    // ## Main heading — bold with gradient underline.
+    // Если сразу под заголовком идёт indicator-полоса — подчёркивание не рисуем (не дублируем).
     if (trimmed.startsWith("## ")) {
       const text = trimmed.replace("## ", "");
+      let j = i + 1;
+      while (j < lines.length && !lines[j].trim()) j++;
+      const hasIndicator =
+        j < lines.length && /^<!--\s*indicator:\s*\d\s*-->$/.test(lines[j].trim());
       elements.push(
         <div
           key={i}
@@ -1759,7 +1778,9 @@ function renderBlogContent(content: string) {
           <h2 className="font-heading font-bold text-2xl md:text-3xl text-heading tracking-[-0.02em]">
             {text}
           </h2>
-          <div className="mt-3 h-0.5 w-16 bg-gradient-to-r from-[#3B82F6] to-[#8B5CF6] rounded-full" />
+          {!hasIndicator && (
+            <div className="mt-3 h-0.5 w-16 bg-gradient-to-r from-[#3B82F6] to-[#8B5CF6] rounded-full" />
+          )}
         </div>,
       );
       i++;

@@ -92,6 +92,29 @@ export function getAllPosts(collection: "blog" | "news"): Post[] {
   );
 }
 
+// Лёгкие карточки публикаций (без тяжёлого поля content) для блоков «Читать ещё».
+export interface PostCard {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  image?: string;
+  tags?: string[];
+}
+
+export function getPublicationCards(): PostCard[] {
+  return getAllPosts("blog")
+    .filter((p) => !(p.tags?.includes("кейс") || p.slug.startsWith("keis-")))
+    .map((p) => ({
+      slug: p.slug,
+      title: p.title,
+      description: p.description,
+      date: p.date,
+      image: p.image,
+      tags: p.tags,
+    }));
+}
+
 export function getPostBySlug(
   collection: "blog" | "news",
   slug: string,
