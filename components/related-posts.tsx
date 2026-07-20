@@ -27,12 +27,23 @@ export function RelatedPosts({
   currentTags = [],
   title = "Читать ещё",
 }: RelatedPostsProps) {
-  const related = posts
-    .filter((p) => p.slug !== currentSlug)
+  const others = posts.filter((p) => p.slug !== currentSlug);
+
+  // Сначала 3 самых свежих
+  const byDate = [...others].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
+  const latest = byDate.slice(0, 3);
+  const taken = new Set(latest.map((p) => p.slug));
+
+  // Затем 3 по смыслу (по числу общих тегов), исключая уже взятые
+  const byTopic = others
+    .filter((p) => !taken.has(p.slug))
     .map((p) => ({
       post: p,
       shared: (p.tags || []).filter((t) => currentTags.includes(t)).length,
     }))
+    .filter((x) => x.shared > 0)
     .sort(
       (a, b) =>
         b.shared - a.shared ||
@@ -40,6 +51,19 @@ export function RelatedPosts({
     )
     .slice(0, 3)
     .map((x) => x.post);
+
+  const related = [...latest, ...byTopic];
+  byTopic.forEach((p) => taken.add(p.slug));
+
+  // Если связанных не хватило — добираем до 6 следующими по свежести
+  if (related.length < 6) {
+    for (const p of byDate) {
+      if (taken.has(p.slug)) continue;
+      related.push(p);
+      taken.add(p.slug);
+      if (related.length >= 6) break;
+    }
+  }
 
   if (related.length === 0) return null;
 
