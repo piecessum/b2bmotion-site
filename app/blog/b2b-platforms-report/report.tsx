@@ -590,8 +590,7 @@ export function B2BPlatformsReport({
           {related}
 
           {/* Bottom nav */}
-          <div className="section-divider mb-10" />
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mt-12">
             <BackButton
               storageKey="blog_back_url"
               fallback="/blog"

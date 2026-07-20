@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import { BlogBanner } from "@/components/blog-banner";
 import { RelatedCases } from "@/components/related-cases";
 import { RelatedPosts } from "@/components/related-posts";
+import { TechPattern } from "@/components/tech-pattern";
 import { CtaButton } from "@/components/cta-button";
 import { notFound } from "next/navigation";
 import {
@@ -1133,6 +1134,7 @@ function renderBlogContent(content: string) {
         >
           <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#3B82F6]/30 rounded-full blur-3xl animate-pulse" />
           <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#8B5CF6]/20 rounded-full blur-3xl animate-pulse delay-700" />
+          <TechPattern />
           <div className="relative grid md:grid-cols-[1fr_auto] gap-8 items-center">
             <div>
               <h3 className="font-heading font-bold text-2xl md:text-[28px] text-heading leading-tight mb-6 max-w-xl">

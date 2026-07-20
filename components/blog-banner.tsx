@@ -1,6 +1,7 @@
 "use client";
 
 import { CtaButton } from "@/components/cta-button";
+import { TechPattern } from "@/components/tech-pattern";
 
 export function BlogBanner() {
   return (
@@ -10,6 +11,7 @@ export function BlogBanner() {
         <div className="absolute -top-24 -right-24 w-64 h-64 bg-[#3B82F6]/30 rounded-full blur-3xl animate-pulse" />
         <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-[#8B5CF6]/20 rounded-full blur-3xl animate-pulse delay-700" />
       </div>
+      <TechPattern />
 
       {/* Content */}
       <div className="relative z-10">
