@@ -25,6 +25,7 @@ const services = [
   { label: "MDM система", href: "/mdm" },
   { label: "Чат-боты", href: "/chatbots" },
   { label: "Мобильное приложение", href: "/mobile-app" },
+  { label: "Техническая поддержка", href: "/support" },
 ];
 
 const platformPaths = ["/platform", ...platformPages.map((i) => i.href)];

@@ -26,6 +26,7 @@ export function Footer() {
                 { label: "Возможности", href: "/#platform" },
                 { label: "Цены", href: "/#pricing" },
                 { label: "Архитектура", href: "/platform?view=functional" },
+                { label: "Техническая поддержка", href: "/support" },
                 { label: "База знаний", href: "/wiki" },
               ].map((link) => (
                 <li key={link.label}>
