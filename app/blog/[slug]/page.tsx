@@ -22,6 +22,7 @@ import {
   Eye,
   BarChart3,
   ArrowRight,
+  AlertTriangle,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -646,6 +647,21 @@ function CaseStudyView({ post, slug }: { post: any; slug: string }) {
       <Footer />
     </main>
   );
+}
+
+// Пятицветная шкала этапов вовлечения (воронка B2B Движение):
+// красный → янтарный → оранжевый → зелёный → бирюзовый.
+// Цвета задаются инлайн-стилями, чтобы не зависеть от JIT-очистки Tailwind.
+const STAGE_COLORS = [
+  { key: "red", hex: "#EF4444", name: "Красный" },
+  { key: "amber", hex: "#F59E0B", name: "Янтарный" },
+  { key: "orange", hex: "#F97316", name: "Оранжевый" },
+  { key: "green", hex: "#22C55E", name: "Зелёный" },
+  { key: "teal", hex: "#14B8A6", name: "Бирюзовый" },
+] as const;
+
+function stageColor(key: string) {
+  return STAGE_COLORS.find((s) => s.key === key) || STAGE_COLORS[0];
 }
 
 function slugify(text: string): string {
@@ -1473,6 +1489,249 @@ function renderBlogContent(content: string) {
         />,
       );
       i++;
+      continue;
+    }
+
+    // Stages block — сдержанный текстовый список этапов (цветом подсвечено только название)
+    // <!-- stages --> then `* red | Регистрация | Короткое описание` <!-- /stages -->
+    if (trimmed === "<!-- stages -->") {
+      const stages: { color: string; name: string; desc: string }[] = [];
+      i++;
+      while (i < lines.length) {
+        const sl = lines[i].trim();
+        if (sl === "<!-- /stages -->") {
+          i++;
+          break;
+        }
+        const m = sl.match(/^[*-]\s+(\w+)\s*\|\s*(.+?)\s*\|\s*(.+)$/);
+        if (m) stages.push({ color: m[1], name: m[2], desc: m[3] });
+        i++;
+      }
+      elements.push(
+        <div
+          key={`stages-${i}`}
+          className="my-8 border-y border-gray-100 dark:border-white/[0.06] divide-y divide-gray-100 dark:divide-white/[0.06]"
+        >
+          {stages.map((s, si) => {
+            const c = stageColor(s.color);
+            return (
+              <div key={si} className="flex items-baseline gap-3.5 py-3">
+                <span
+                  className="shrink-0 w-2.5 h-2.5 rounded-full translate-y-1"
+                  style={{ background: c.hex }}
+                />
+                <p className="text-body leading-relaxed">
+                  <span className="font-heading font-semibold text-subheading">
+                    {s.name}
+                  </span>
+                  <span className="text-dim"> — {s.desc}</span>
+                </p>
+              </div>
+            );
+          })}
+        </div>,
+      );
+      continue;
+    }
+
+    // Roadmap block — горизонтальная дорожная карта из 5 цветных точек
+    // <!-- roadmap --> then `* red | Регистрация | 1. Красный: Регистрация` <!-- /roadmap -->
+    // Третье поле (необязательное) — текст заголовка раздела, к которому скроллит клик по точке.
+    if (trimmed === "<!-- roadmap -->") {
+      const stops: { color: string; label: string; anchor?: string }[] = [];
+      i++;
+      while (i < lines.length) {
+        const rl = lines[i].trim();
+        if (rl === "<!-- /roadmap -->") {
+          i++;
+          break;
+        }
+        const m = rl.match(/^[*-]\s+(\w+)\s*\|\s*(.+?)(?:\s*\|\s*(.+))?$/);
+        if (m)
+          stops.push({
+            color: m[1],
+            label: m[2],
+            anchor: m[3] ? slugify(m[3]) : undefined,
+          });
+        i++;
+      }
+      const gradient = `linear-gradient(90deg, ${stops
+        .map((s) => stageColor(s.color).hex)
+        .join(", ")})`;
+      elements.push(
+        <div
+          key={`roadmap-${i}`}
+          className="my-12 relative flex justify-between items-start"
+        >
+          {/* Соединительная линия за точками — во всю ширину текстовой колонки */}
+          <div
+            className="absolute top-3 md:top-4 left-[10%] right-[10%] h-1 rounded-full opacity-80"
+            style={{ background: gradient }}
+          />
+          {stops.map((s, si) => {
+            const c = stageColor(s.color);
+            const dot = (
+              <>
+                <span
+                  className="w-6 h-6 md:w-8 md:h-8 rounded-full border-4 border-white dark:border-[#0B1020] flex items-center justify-center text-white font-heading font-bold text-[10px] md:text-xs transition-transform duration-300 group-hover:scale-125"
+                  style={{
+                    background: c.hex,
+                    boxShadow: `0 0 0 4px ${c.hex}33, 0 6px 16px ${c.hex}55`,
+                  }}
+                >
+                  {si + 1}
+                </span>
+                <span
+                  className="text-[11px] md:text-sm font-semibold text-center leading-tight transition-opacity group-hover:opacity-80"
+                  style={{ color: c.hex }}
+                >
+                  {s.label}
+                </span>
+              </>
+            );
+            const cls =
+              "relative z-10 flex flex-col items-center gap-3 flex-1 group";
+            return s.anchor ? (
+              <a key={si} href={`#${s.anchor}`} className={`${cls} cursor-pointer`}>
+                {dot}
+              </a>
+            ) : (
+              <div key={si} className={`${cls} cursor-default`}>
+                {dot}
+              </div>
+            );
+          })}
+        </div>,
+      );
+      continue;
+    }
+
+    // Indicator block — мини-прогресс из 5 сегментов, подсвечивает активный этап
+    // <!-- indicator: 3 -->
+    const indicatorMatch = trimmed.match(/^<!--\s*indicator:\s*(\d)\s*-->$/);
+    if (indicatorMatch) {
+      const active = parseInt(indicatorMatch[1], 10);
+      const cur = STAGE_COLORS[Math.min(Math.max(active, 1), 5) - 1];
+      elements.push(
+        <div
+          key={`indicator-${i}`}
+          className="my-6 flex items-center gap-4 flex-wrap"
+        >
+          <div className="flex-1 min-w-[180px] grid grid-cols-5 gap-1.5">
+            {STAGE_COLORS.map((s, si) => {
+              const done = si <= active - 1;
+              return (
+                <span
+                  key={si}
+                  className="h-2 rounded-full transition-all duration-500"
+                  style={{
+                    background: s.hex,
+                    opacity: done ? 1 : 0.16,
+                  }}
+                />
+              );
+            })}
+          </div>
+          <span
+            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] px-3 py-1.5 rounded-full"
+            style={{ background: `${cur.hex}1A`, color: cur.hex }}
+          >
+            <span
+              className="w-2 h-2 rounded-full"
+              style={{ background: cur.hex }}
+            />
+            Этап {active} из 5 · {cur.name}
+          </span>
+        </div>,
+      );
+      i++;
+      continue;
+    }
+
+    // Checklist block — сдержанный текстовый чек-лист (акцент этапа — только точка у заголовка)
+    // <!-- checklist: red | Чек-лист первого этапа --> then `1. Пункт` <!-- /checklist -->
+    const checklistMatch = trimmed.match(
+      /^<!--\s*checklist:\s*(\w+)\s*\|\s*(.+?)\s*-->$/,
+    );
+    if (checklistMatch) {
+      const c = stageColor(checklistMatch[1]);
+      const title = checklistMatch[2];
+      const items: string[] = [];
+      i++;
+      while (i < lines.length) {
+        const cl = lines[i].trim();
+        if (cl === "<!-- /checklist -->") {
+          i++;
+          break;
+        }
+        const m = cl.match(/^\d+\.\s+(.*)/);
+        if (m) items.push(m[1]);
+        i++;
+      }
+      elements.push(
+        <div key={`checklist-${i}`} className="my-8">
+          <div className="flex items-center gap-2.5 mb-3">
+            <span
+              className="w-2 h-2 rounded-full shrink-0"
+              style={{ background: c.hex }}
+            />
+            <h4 className="font-heading font-semibold text-base text-subheading">
+              {title}
+            </h4>
+          </div>
+          <ol className="space-y-2 ml-0.5">
+            {items.map((item, ii) => (
+              <li key={ii} className="flex gap-3 text-body leading-relaxed">
+                <span className="shrink-0 w-5 text-right tabular-nums text-dim">
+                  {ii + 1}.
+                </span>
+                <span>{renderInline(item)}</span>
+              </li>
+            ))}
+          </ol>
+        </div>,
+      );
+      continue;
+    }
+
+    // Challenge block — сноска «Основная сложность» цветной карточкой этапа
+    // <!-- challenge: red --> **Основная сложность:** ... <!-- /challenge -->
+    const challengeMatch = trimmed.match(/^<!--\s*challenge:\s*(\w+)\s*-->$/);
+    if (challengeMatch) {
+      const c = stageColor(challengeMatch[1]);
+      const buf: string[] = [];
+      i++;
+      while (i < lines.length) {
+        const cl = lines[i].trim();
+        if (cl === "<!-- /challenge -->") {
+          i++;
+          break;
+        }
+        if (cl) buf.push(cl);
+        i++;
+      }
+      const text = buf.join(" ").replace(/^«\s*/, "").replace(/\s*»$/, "");
+      elements.push(
+        <div
+          key={`challenge-${i}`}
+          className="my-8 flex items-start gap-4 rounded-2xl p-5 md:p-6"
+          style={{
+            background: `${c.hex}0F`,
+            border: `1px solid ${c.hex}33`,
+            borderLeft: `4px solid ${c.hex}`,
+          }}
+        >
+          <span
+            className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+            style={{ background: `${c.hex}1F` }}
+          >
+            <AlertTriangle className="w-[18px] h-[18px]" style={{ color: c.hex }} />
+          </span>
+          <p className="text-[15px] md:text-base text-body leading-relaxed">
+            {renderInline(text)}
+          </p>
+        </div>,
+      );
       continue;
     }
 
