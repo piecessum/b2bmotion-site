@@ -3,6 +3,7 @@ import { Outfit, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import { DemoFormDialog } from '@/components/demo-form-dialog'
+import { NavTracker } from '@/components/nav-tracker'
 import {
   SITE_URL,
   SITE_NAME,
@@ -104,6 +105,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <NavTracker />
           {children}
           <DemoFormDialog />
         </ThemeProvider>
