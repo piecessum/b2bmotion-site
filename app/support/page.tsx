@@ -21,11 +21,10 @@ import {
   GraduationCap,
   UserCheck,
   Quote,
+  ArrowLeft,
   ArrowRight,
   MapPin,
   Flag,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react"
 
 const teamCards = [
@@ -260,46 +259,77 @@ function ChatFlipCard() {
 }
 
 function StagesRoad() {
+  // Логика скролла повторяет виджет Feed@desktop платформы:
+  // прокрутка на ширину видимой области, пороги краёв `>0` и `<scrollWidth-1`.
   const scrollRef = useRef<HTMLDivElement>(null)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [canScrollRight, setCanScrollRight] = useState(true)
+  const [canScrollPrev, setCanScrollPrev] = useState(false)
+  const [canScrollNext, setCanScrollNext] = useState(false)
 
-  const updateScrollState = useCallback(() => {
+  const checkScrollPosition = useCallback(() => {
     const el = scrollRef.current
     if (!el) return
-    setCanScrollLeft(el.scrollLeft > 10)
-    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10)
+    const { scrollLeft, scrollWidth, clientWidth } = el
+    setCanScrollPrev(scrollLeft > 0)
+    setCanScrollNext(scrollLeft + clientWidth < scrollWidth - 1) // -1 — учёт округления
   }, [])
 
   useEffect(() => {
     const el = scrollRef.current
     if (!el) return
-    el.addEventListener("scroll", updateScrollState, { passive: true })
-    window.addEventListener("resize", updateScrollState)
-    updateScrollState()
+    checkScrollPosition()
+    el.addEventListener("scroll", checkScrollPosition, { passive: true })
+    window.addEventListener("resize", checkScrollPosition)
     return () => {
-      el.removeEventListener("scroll", updateScrollState)
-      window.removeEventListener("resize", updateScrollState)
+      el.removeEventListener("scroll", checkScrollPosition)
+      window.removeEventListener("resize", checkScrollPosition)
     }
-  }, [updateScrollState])
+  }, [checkScrollPosition])
 
-  const scroll = (direction: "left" | "right") => {
+  const handlePrev = useCallback(() => {
     const el = scrollRef.current
     if (!el) return
-    const cardWidth = 340
-    el.scrollBy({
-      left: direction === "left" ? -cardWidth * 2 : cardWidth * 2,
-      behavior: "smooth",
-    })
-  }
+    el.scrollBy({ left: -el.clientWidth, behavior: "smooth" })
+  }, [])
+
+  const handleNext = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    el.scrollBy({ left: el.clientWidth, behavior: "smooth" })
+  }, [])
+
+  const navBtn = (enabled: boolean) =>
+    `w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${
+      enabled
+        ? "border-border-default bg-surface hover:border-[#3B82F6]/40 text-heading cursor-pointer"
+        : "border-border-default bg-surface/50 text-subtle/40 cursor-default"
+    }`
 
   return (
     <section className="py-20">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-12">
           <h2 className="font-heading font-bold text-[clamp(28px,4.5vw,44px)] tracking-[-0.02em] text-heading">
             Поддерживаем B2B-систему на всех этапах
           </h2>
+          {/* Стрелки в шапке — как в виджете Feed */}
+          <div className="hidden md:flex gap-2">
+            <button
+              onClick={handlePrev}
+              disabled={!canScrollPrev}
+              className={navBtn(canScrollPrev)}
+              aria-label="Предыдущие этапы"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={handleNext}
+              disabled={!canScrollNext}
+              className={navBtn(canScrollNext)}
+              aria-label="Следующие этапы"
+            >
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
           <span className="md:hidden inline-flex items-center gap-2 text-sm text-subtle">
             Листайте, чтобы пройти весь путь
             <ArrowRight className="w-4 h-4" />
@@ -310,7 +340,7 @@ function StagesRoad() {
       {/* Горизонтальный скролл-трек */}
       <div
         ref={scrollRef}
-        className="overflow-x-auto pb-2 snap-x snap-proximity scroll-pl-6 md:scroll-pl-[var(--edge)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden md:[--edge:max(1.5rem,calc((100vw-72rem)/2))]"
+        className="overflow-x-auto pb-2 snap-x snap-mandatory scroll-pl-6 md:scroll-pl-[var(--edge)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden md:[--edge:max(1.5rem,calc((100vw-72rem)/2))]"
       >
         <div className="relative flex items-start gap-5 w-max pl-6 pr-6 md:pl-[var(--edge)] md:pr-[var(--edge)]">
           {/* Полупрозрачная дорога в серо-фиолетовых тонах */}
@@ -361,33 +391,6 @@ function StagesRoad() {
         </div>
       </div>
 
-      {/* Кнопки навигации — как в кейсах на главной */}
-      <div className="hidden md:flex items-center justify-center gap-3 mt-8 px-6">
-        <button
-          onClick={() => scroll("left")}
-          disabled={!canScrollLeft}
-          className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all duration-300 ${
-            canScrollLeft
-              ? "border-border-default bg-surface hover:border-[#3B82F6]/40 text-heading cursor-pointer"
-              : "border-border-default bg-surface/50 text-subtle/40 cursor-default"
-          }`}
-          aria-label="Прокрутить влево"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button
-          onClick={() => scroll("right")}
-          disabled={!canScrollRight}
-          className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all duration-300 ${
-            canScrollRight
-              ? "border-border-default bg-surface hover:border-[#3B82F6]/40 text-heading cursor-pointer"
-              : "border-border-default bg-surface/50 text-subtle/40 cursor-default"
-          }`}
-          aria-label="Прокрутить вправо"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-      </div>
     </section>
   )
 }
