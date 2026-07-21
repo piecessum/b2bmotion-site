@@ -209,7 +209,7 @@ function ChatFlipCard() {
           }}
         >
           {/* Лицевая сторона — скрин чата */}
-          <div className="relative [backface-visibility:hidden] rounded-2xl border border-border-default overflow-hidden shadow-[0_30px_80px_-30px_rgba(59,130,246,0.5)] h-[380px] sm:h-auto">
+          <div className="relative [backface-visibility:hidden] rounded-2xl border border-border-default overflow-hidden shadow-[0_30px_80px_-30px_rgba(59,130,246,0.5)]">
             <Image
               src="/tech-support/chats.png"
               alt="Общение команды поддержки с клиентами"
@@ -217,22 +217,28 @@ function ChatFlipCard() {
               height={1368}
               sizes="(max-width: 1152px) 100vw, 1152px"
               draggable={false}
-              className="w-full h-full sm:h-auto object-cover object-left-top pointer-events-none"
+              className="w-full h-auto pointer-events-none"
             />
           </div>
 
           {/* Обратная сторона — текст */}
-          <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl border border-glass-border overflow-hidden flex items-center justify-center p-5 sm:p-8 md:p-16 bg-gradient-to-br from-[#3B82F6] via-[#6366F1] to-[#8B5CF6]">
+          <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl border border-glass-border overflow-hidden flex items-center justify-center p-4 sm:p-8 md:p-16 bg-gradient-to-br from-[#3B82F6] via-[#6366F1] to-[#8B5CF6]">
             <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
             <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
             <div className="relative max-w-2xl text-center">
               <div className="hidden sm:flex w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/15 items-center justify-center mx-auto mb-4 md:mb-6">
                 <MessageSquare className="w-6 h-6 md:w-7 md:h-7 text-white" />
               </div>
-              <h3 className="font-heading font-bold text-[clamp(16px,4vw,40px)] tracking-[-0.02em] text-white leading-tight mb-2 sm:mb-4 md:mb-5">
+              <h3 className="font-heading font-bold text-[clamp(15px,4vw,40px)] tracking-[-0.02em] text-white leading-tight mb-2 sm:mb-4 md:mb-5">
                 Рассмотрим вашу задачу под любым углом
               </h3>
-              <p className="text-[clamp(11px,2.7vw,18px)] text-white/90 leading-snug sm:leading-relaxed">
+              {/* Короткий текст для мобилки */}
+              <p className="sm:hidden text-[13px] text-white/90 leading-snug">
+                Крутим и вертим задачу, пока не подберём лучший ракурс и решение. Всегда
+                на связи с живыми специалистами — без ботов и бюрократии.
+              </p>
+              {/* Полный текст для планшета и десктопа */}
+              <p className="hidden sm:block text-base md:text-lg text-white/90 leading-relaxed">
                 Как эту карточку — крутим и вертим задачу, пока не подберём лучший ракурс
                 и решение. Мы всегда на связи: вы общаетесь напрямую с реальными людьми —
                 разработчиками, 1С-специалистами и менеджерами проекта, без ботов, тикетов
