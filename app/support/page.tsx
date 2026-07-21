@@ -222,17 +222,17 @@ function ChatFlipCard() {
           </div>
 
           {/* Обратная сторона — текст */}
-          <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl border border-glass-border overflow-hidden flex items-center justify-center p-8 md:p-16 bg-gradient-to-br from-[#3B82F6] via-[#6366F1] to-[#8B5CF6]">
+          <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl border border-glass-border overflow-y-auto flex items-center justify-center p-4 sm:p-8 md:p-16 bg-gradient-to-br from-[#3B82F6] via-[#6366F1] to-[#8B5CF6]">
             <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
             <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
             <div className="relative max-w-2xl text-center">
-              <div className="w-14 h-14 rounded-2xl bg-white/15 flex items-center justify-center mx-auto mb-6">
-                <MessageSquare className="w-7 h-7 text-white" />
+              <div className="hidden sm:flex w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/15 items-center justify-center mx-auto mb-4 md:mb-6">
+                <MessageSquare className="w-6 h-6 md:w-7 md:h-7 text-white" />
               </div>
-              <h3 className="font-heading font-bold text-[clamp(24px,3.5vw,40px)] tracking-[-0.02em] text-white leading-tight mb-5">
+              <h3 className="font-heading font-bold text-[clamp(16px,4vw,40px)] tracking-[-0.02em] text-white leading-tight mb-2 sm:mb-4 md:mb-5">
                 Рассмотрим вашу задачу под любым углом
               </h3>
-              <p className="text-base md:text-lg text-white/90 leading-relaxed">
+              <p className="text-[clamp(11px,2.7vw,18px)] text-white/90 leading-snug sm:leading-relaxed">
                 Как эту карточку — крутим и вертим задачу, пока не подберём лучший ракурс
                 и решение. Мы всегда на связи: вы общаетесь напрямую с реальными людьми —
                 разработчиками, 1С-специалистами и менеджерами проекта, без ботов, тикетов
@@ -289,11 +289,11 @@ export default function SupportPage() {
             Техническая поддержка
           </span>
           <h1 className="font-heading font-bold text-[clamp(30px,5vw,52px)] tracking-[-0.02em] text-heading leading-tight mb-6 max-w-3xl">
-            Выделяем команду под каждого клиента
+            Выделяем команду под&nbsp;каждого клиента
           </h1>
           <p className="text-lg md:text-xl text-body leading-relaxed max-w-2xl mb-8">
-            Выбирая B2B-систему, вы выбираете команду, с которой будете работать
-            бок о бок долгие годы
+            Выбирая B2B-систему, вы&nbsp;выбираете команду, с&nbsp;которой будете
+            работать бок&nbsp;о&nbsp;бок долгие годы
           </p>
           <CtaButton className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[#3B82F6] to-[#8B5CF6] text-white font-medium hover:opacity-90 transition-opacity shadow-[0_0_30px_rgba(59,130,246,0.3)]">
             Оставить заявку
