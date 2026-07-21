@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
@@ -24,6 +24,8 @@ import {
   ArrowRight,
   MapPin,
   Flag,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react"
 
 const teamCards = [
@@ -257,6 +259,139 @@ function ChatFlipCard() {
   )
 }
 
+function StagesRoad() {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollRef.current
+    if (!el) return
+    setCanScrollLeft(el.scrollLeft > 10)
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10)
+  }, [])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    el.addEventListener("scroll", updateScrollState, { passive: true })
+    window.addEventListener("resize", updateScrollState)
+    updateScrollState()
+    return () => {
+      el.removeEventListener("scroll", updateScrollState)
+      window.removeEventListener("resize", updateScrollState)
+    }
+  }, [updateScrollState])
+
+  const scroll = (direction: "left" | "right") => {
+    const el = scrollRef.current
+    if (!el) return
+    const cardWidth = 340
+    el.scrollBy({
+      left: direction === "left" ? -cardWidth * 2 : cardWidth * 2,
+      behavior: "smooth",
+    })
+  }
+
+  return (
+    <section className="py-20">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
+          <h2 className="font-heading font-bold text-[clamp(28px,4.5vw,44px)] tracking-[-0.02em] text-heading">
+            Поддерживаем B2B-систему на всех этапах
+          </h2>
+          <span className="md:hidden inline-flex items-center gap-2 text-sm text-subtle">
+            Листайте, чтобы пройти весь путь
+            <ArrowRight className="w-4 h-4" />
+          </span>
+        </div>
+      </div>
+
+      {/* Горизонтальный скролл-трек */}
+      <div
+        ref={scrollRef}
+        className="overflow-x-auto pb-2 snap-x snap-proximity scroll-pl-6 md:scroll-pl-[var(--edge)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden md:[--edge:max(1.5rem,calc((100vw-72rem)/2))]"
+      >
+        <div className="relative flex items-start gap-5 w-max pl-6 pr-6 md:pl-[var(--edge)] md:pr-[var(--edge)]">
+          {/* Полупрозрачная дорога в серо-фиолетовых тонах */}
+          <div className="pointer-events-none absolute top-7 left-6 right-6 md:left-[var(--edge)] md:right-[var(--edge)] h-3.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-[#8B5CF6]/12 via-slate-400/20 to-[#8B5CF6]/12 backdrop-blur-sm border border-[#8B5CF6]/15">
+            <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 border-t-2 border-dashed border-[#8B5CF6]/35" />
+          </div>
+
+          {/* Старт */}
+          <div className="shrink-0 snap-start flex flex-col items-center">
+            <div className="h-14 flex items-center">
+              <div className="w-10 h-10 rounded-full bg-emerald-500/90 flex items-center justify-center ring-4 ring-page z-10 shadow-lg">
+                <MapPin className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <span className="text-xs font-medium text-subtle mt-1">Старт</span>
+          </div>
+
+          {supportStages.map((s, i) => (
+            <div
+              key={i}
+              className="w-[300px] md:w-[340px] shrink-0 snap-start flex flex-col items-center"
+            >
+              {/* Веха на дороге — иконка этапа */}
+              <div className="h-14 flex items-center">
+                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center ring-4 ring-page z-10 shadow-[0_6px_20px_-4px_rgba(59,130,246,0.6)]">
+                  <s.icon className="w-5 h-5 text-white" />
+                </div>
+              </div>
+              {/* Карточка этапа */}
+              <div className="w-full p-6 md:p-7 bg-surface rounded-2xl border border-border-default hover:border-[#3B82F6]/40 transition-all duration-500 glow-card">
+                <h3 className="font-heading font-semibold text-lg text-heading mb-2 leading-snug">
+                  {s.title}
+                </h3>
+                <p className="text-sm text-body leading-relaxed">{s.desc}</p>
+              </div>
+            </div>
+          ))}
+
+          {/* Финиш */}
+          <div className="shrink-0 flex flex-col items-center">
+            <div className="h-14 flex items-center">
+              <div className="w-10 h-10 rounded-full bg-[#8B5CF6] flex items-center justify-center ring-4 ring-page z-10 shadow-lg">
+                <Flag className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <span className="text-xs font-medium text-subtle mt-1">Готово</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Кнопки навигации — как в кейсах на главной */}
+      <div className="hidden md:flex items-center justify-center gap-3 mt-8 px-6">
+        <button
+          onClick={() => scroll("left")}
+          disabled={!canScrollLeft}
+          className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all duration-300 ${
+            canScrollLeft
+              ? "border-border-default bg-surface hover:border-[#3B82F6]/40 text-heading cursor-pointer"
+              : "border-border-default bg-surface/50 text-subtle/40 cursor-default"
+          }`}
+          aria-label="Прокрутить влево"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={() => scroll("right")}
+          disabled={!canScrollRight}
+          className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all duration-300 ${
+            canScrollRight
+              ? "border-border-default bg-surface hover:border-[#3B82F6]/40 text-heading cursor-pointer"
+              : "border-border-default bg-surface/50 text-subtle/40 cursor-default"
+          }`}
+          aria-label="Прокрутить вправо"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+      </div>
+    </section>
+  )
+}
+
 export default function SupportPage() {
   return (
     <main className="relative min-h-screen bg-page noise-overlay">
@@ -412,70 +547,7 @@ export default function SupportPage() {
       </section>
 
       {/* Поддерживаем B2B-систему на всех этапах — маршрут-дорога */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
-            <h2 className="font-heading font-bold text-[clamp(28px,4.5vw,44px)] tracking-[-0.02em] text-heading">
-              Поддерживаем B2B-систему на всех этапах
-            </h2>
-            <span className="inline-flex items-center gap-2 text-sm text-subtle">
-              Листайте, чтобы пройти весь путь
-              <ArrowRight className="w-4 h-4" />
-            </span>
-          </div>
-        </div>
-
-        {/* Горизонтальный скролл-трек */}
-        <div className="overflow-x-auto pb-2 snap-x snap-proximity scroll-pl-6 md:scroll-pl-[var(--edge)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden md:[--edge:max(1.5rem,calc((100vw-72rem)/2))]">
-          <div className="relative flex items-start gap-5 w-max pl-6 pr-6 md:pl-[var(--edge)] md:pr-[var(--edge)]">
-            {/* Полупрозрачная дорога в серо-фиолетовых тонах */}
-            <div className="pointer-events-none absolute top-7 left-6 right-6 md:left-[var(--edge)] md:right-[var(--edge)] h-3.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-[#8B5CF6]/12 via-slate-400/20 to-[#8B5CF6]/12 backdrop-blur-sm border border-[#8B5CF6]/15">
-              <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 border-t-2 border-dashed border-[#8B5CF6]/35" />
-            </div>
-
-            {/* Старт */}
-            <div className="shrink-0 snap-start flex flex-col items-center">
-              <div className="h-14 flex items-center">
-                <div className="w-10 h-10 rounded-full bg-emerald-500/90 flex items-center justify-center ring-4 ring-page z-10 shadow-lg">
-                  <MapPin className="w-4 h-4 text-white" />
-                </div>
-              </div>
-              <span className="text-xs font-medium text-subtle mt-1">Старт</span>
-            </div>
-
-            {supportStages.map((s, i) => (
-              <div
-                key={i}
-                className="w-[300px] md:w-[340px] shrink-0 snap-start flex flex-col items-center"
-              >
-                {/* Веха на дороге — иконка этапа */}
-                <div className="h-14 flex items-center">
-                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center ring-4 ring-page z-10 shadow-[0_6px_20px_-4px_rgba(59,130,246,0.6)]">
-                    <s.icon className="w-5 h-5 text-white" />
-                  </div>
-                </div>
-                {/* Карточка этапа */}
-                <div className="w-full p-6 md:p-7 bg-surface rounded-2xl border border-border-default hover:border-[#3B82F6]/40 transition-all duration-500 glow-card">
-                  <h3 className="font-heading font-semibold text-lg text-heading mb-2 leading-snug">
-                    {s.title}
-                  </h3>
-                  <p className="text-sm text-body leading-relaxed">{s.desc}</p>
-                </div>
-              </div>
-            ))}
-
-            {/* Финиш */}
-            <div className="shrink-0 flex flex-col items-center">
-              <div className="h-14 flex items-center">
-                <div className="w-10 h-10 rounded-full bg-[#8B5CF6] flex items-center justify-center ring-4 ring-page z-10 shadow-lg">
-                  <Flag className="w-4 h-4 text-white" />
-                </div>
-              </div>
-              <span className="text-xs font-medium text-subtle mt-1">Готово</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      <StagesRoad />
 
       {/* Наших сотрудников клиенты знают по именам — отзывы */}
       <section className="py-20 px-6">
