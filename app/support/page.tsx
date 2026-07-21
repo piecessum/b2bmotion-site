@@ -209,7 +209,7 @@ function ChatFlipCard() {
           }}
         >
           {/* Лицевая сторона — скрин чата */}
-          <div className="relative [backface-visibility:hidden] rounded-2xl border border-border-default overflow-hidden shadow-[0_30px_80px_-30px_rgba(59,130,246,0.5)]">
+          <div className="relative [backface-visibility:hidden] rounded-2xl border border-border-default overflow-hidden shadow-[0_30px_80px_-30px_rgba(59,130,246,0.5)] h-[380px] sm:h-auto">
             <Image
               src="/tech-support/chats.png"
               alt="Общение команды поддержки с клиентами"
@@ -217,12 +217,12 @@ function ChatFlipCard() {
               height={1368}
               sizes="(max-width: 1152px) 100vw, 1152px"
               draggable={false}
-              className="w-full h-auto pointer-events-none"
+              className="w-full h-full sm:h-auto object-cover object-left-top pointer-events-none"
             />
           </div>
 
           {/* Обратная сторона — текст */}
-          <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl border border-glass-border overflow-y-auto flex items-center justify-center p-4 sm:p-8 md:p-16 bg-gradient-to-br from-[#3B82F6] via-[#6366F1] to-[#8B5CF6]">
+          <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl border border-glass-border overflow-hidden flex items-center justify-center p-5 sm:p-8 md:p-16 bg-gradient-to-br from-[#3B82F6] via-[#6366F1] to-[#8B5CF6]">
             <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
             <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
             <div className="relative max-w-2xl text-center">
@@ -420,7 +420,7 @@ export default function SupportPage() {
         </div>
 
         {/* Горизонтальный скролл-трек */}
-        <div className="overflow-x-auto pb-6 snap-x snap-proximity scroll-pl-6 md:scroll-pl-[var(--edge)] [scrollbar-width:thin] md:[--edge:max(1.5rem,calc((100vw-72rem)/2))]">
+        <div className="overflow-x-auto pb-2 snap-x snap-proximity scroll-pl-6 md:scroll-pl-[var(--edge)] [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden md:[--edge:max(1.5rem,calc((100vw-72rem)/2))]">
           <div className="relative flex items-start gap-5 w-max pl-6 pr-6 md:pl-[var(--edge)] md:pr-[var(--edge)]">
             {/* Полупрозрачная дорога в серо-фиолетовых тонах */}
             <div className="pointer-events-none absolute top-7 left-6 right-6 md:left-[var(--edge)] md:right-[var(--edge)] h-3.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-[#8B5CF6]/12 via-slate-400/20 to-[#8B5CF6]/12 backdrop-blur-sm border border-[#8B5CF6]/15">
@@ -442,17 +442,14 @@ export default function SupportPage() {
                 key={i}
                 className="w-[300px] md:w-[340px] shrink-0 snap-start flex flex-col items-center"
               >
-                {/* Веха на дороге */}
+                {/* Веха на дороге — иконка этапа */}
                 <div className="h-14 flex items-center">
-                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] text-white font-heading font-bold flex items-center justify-center ring-4 ring-page z-10 shadow-[0_6px_20px_-4px_rgba(59,130,246,0.6)]">
-                    {i + 1}
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#8B5CF6] flex items-center justify-center ring-4 ring-page z-10 shadow-[0_6px_20px_-4px_rgba(59,130,246,0.6)]">
+                    <s.icon className="w-5 h-5 text-white" />
                   </div>
                 </div>
                 {/* Карточка этапа */}
                 <div className="w-full p-6 md:p-7 bg-surface rounded-2xl border border-border-default hover:border-[#3B82F6]/40 transition-all duration-500 glow-card">
-                  <div className="w-11 h-11 rounded-xl bg-[#06B6D4]/10 flex items-center justify-center mb-4">
-                    <s.icon className="w-5 h-5 text-[#06B6D4]" />
-                  </div>
                   <h3 className="font-heading font-semibold text-lg text-heading mb-2 leading-snug">
                     {s.title}
                   </h3>
