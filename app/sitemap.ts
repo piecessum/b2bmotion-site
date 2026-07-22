@@ -33,6 +33,7 @@ const STATIC_ROUTES: { path: string; priority: number; changeFrequency: Metadata
   { path: "/contacts", priority: 0.6, changeFrequency: "monthly" },
   { path: "/privacy", priority: 0.2, changeFrequency: "yearly" },
   { path: "/agreement", priority: 0.2, changeFrequency: "yearly" },
+  { path: "/dictionary", priority: 0.3, changeFrequency: "yearly" },
 ];
 
 function parseDate(value?: string): Date | undefined {

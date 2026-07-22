@@ -155,6 +155,12 @@ export function Footer() {
             >
               Пользовательское соглашение
             </a>
+            <a
+              href="/dictionary"
+              className="text-sm text-dimmest hover:text-dim transition-colors duration-300"
+            >
+              Словарь иностранных терминов
+            </a>
           </div>
         </div>
       </div>
